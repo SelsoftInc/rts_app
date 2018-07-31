@@ -44,6 +44,7 @@ import { CandidateService } from './Services/candidate.service';
 import { AddCandidateComponent } from './add-candidate/add-candidate.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
 import { RequirementDetailComponent } from './requirement-detail/requirement-detail.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import { RequirementDetailComponent } from './requirement-detail/requirement-det
     AddCandidateComponent,
     GenerateReportComponent,
     RequirementDetailComponent,
+    EditUserComponent,
      ],
   imports: [
     BrowserModule,

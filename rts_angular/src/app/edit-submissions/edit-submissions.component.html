@@ -127,14 +127,22 @@
         <div class="form-group row" *ngIf="selectedSubmission">
           <label for="level1Date" class="col-sm-4 col-form-label">Level1 Date:</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" name="level1Date" formControlName="level1Date" ngModel="{{selectedSubmission.dateOfLevel1}}">
+            <mat-form-field>
+              <input matInput [matDatepicker]="dateOfLevel1" formControlName="level1Date" ngModel="{{selectedSubmission.dateOfLevel1}}">
+              <mat-datepicker-toggle matSuffix [for]="dateOfLevel1"></mat-datepicker-toggle>
+              <mat-datepicker #dateOfLevel1></mat-datepicker>
+            </mat-form-field>
           </div>
         </div>
 
         <div class="form-group row" *ngIf="selectedSubmission">
           <label for="level2Date" class="col-sm-4 col-form-label">Level2 Date:</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" name="level2Date" formControlName="level2Date" ngModel="{{selectedSubmission.dateOfLevel2}}">
+            <mat-form-field>
+              <input matInput [matDatepicker]="dateOfLevel2" formControlName="level2Date" ngModel="{{selectedSubmission.dateOfLevel2}}">
+              <mat-datepicker-toggle matSuffix [for]="dateOfLevel2"></mat-datepicker-toggle>
+              <mat-datepicker #dateOfLevel2></mat-datepicker>
+            </mat-form-field>
           </div>
         </div>
 
@@ -320,7 +328,7 @@
     <div class="form-btn-container">
       <button class="btn btn-default btn-space" type="submit">Update Submission</button>
       <button type="button" *ngIf="sendToClient && isSubmitToClient" class="btn btn-default btn-space" (click)="submissionToClient();">Send To Client</button>
-      <a [routerLink]="[ '/submissions']" class="btn btn-default">Cancel</a>
+      <button [routerLink]="[ '/submissions']" class="btn btn-default">Cancel</button>
     </div>
 
   </form>

@@ -33,6 +33,7 @@ export class AddNewRequirementComponent implements OnInit {
   private isOtherAccountName: boolean;
   private isOtherPositionName: boolean;
   private technologies: any;
+  private isOtherTechnology: boolean;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -78,6 +79,7 @@ export class AddNewRequirementComponent implements OnInit {
       jobDescription: [''],
       team: [''],
       comments: [''],
+      otherTechnology: ['']
     });
     this.getAllUsers();
     this.getCommonDetails();
@@ -153,7 +155,32 @@ export class AddNewRequirementComponent implements OnInit {
     }
   }
 
+  addTechnology(event) {
+    if (event === 'other') {
+      this.isOtherTechnology = true;
+      this.myForm.controls.otherTechnology.setValue('');
+    } else {
+      this.isOtherTechnology = false;
+    }
+  }
+
   addNewRequirement(form: FormGroup) {
+
+    if (form.value.clientRate === '' || form.value.clientRate === null) {
+      this.toastr.error('Client Rate should not be empty', '', {
+        positionClass: 'toast-top-center',
+        timeOut: 3000,
+      });
+      return false;
+    }
+
+    if (form.value.sellingRate === '' || form.value.sellingRate === null) {
+      this.toastr.error('Selling Rate should not be empty', '', {
+        positionClass: 'toast-top-center',
+        timeOut: 3000,
+      });
+      return false;
+    }
 
     const requirement: any = {
       priority: form.value.priority,
@@ -168,9 +195,7 @@ export class AddNewRequirementComponent implements OnInit {
       clientRate: form.value.clientRate,
       sellingRate: form.value.sellingRate,
       jobDescription: form.value.jobDescription,
-      technology: [{
-        technologyId: form.value.technologies
-      }],
+      teamId: form.value.team,
     };
 
     if (form.value.positionName === 'other') {
@@ -187,6 +212,16 @@ export class AddNewRequirementComponent implements OnInit {
       };
     } else {
       requirement.accountId = form.value.accountName;
+    }
+
+    if (form.value.technologies === 'other') {
+      requirement.technology = [{
+        technologyName: form.value.otherTechnology
+      }];
+    } else {
+      requirement.technology = [{
+        technologyId: form.value.technologies
+      }];
     }
 
     this.newRequirement = requirement;

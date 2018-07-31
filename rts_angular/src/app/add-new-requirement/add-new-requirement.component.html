@@ -124,10 +124,15 @@
     <div class="form-group row">
       <label for="technologies" class="col-sm-2 col-form-label">Technologies:</label>
       <div class="col-sm-4">
-        <select name="technologies" class="form-control" formControlName="technologies" required>
+        <select name="technologies" class="form-control" formControlName="technologies" (change)="addTechnology($event.target.value);"
+          required>
           <option value="">Select</option>
           <option *ngFor="let tech of technologies" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
+          <option value="other">Other</option>
         </select>
+      </div>
+      <div class="col-sm-4" *ngIf="isOtherTechnology">
+        <input type="text" class="form-control" name="otherTechnology" formControlName="otherTechnology" placeholder=" Enter the Technology">
       </div>
     </div>
 

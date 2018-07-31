@@ -135,18 +135,22 @@
     <div class="form-group row" *ngIf="selectedRequirement.technology">
       <label for="technologies" class="col-sm-2 col-form-label">Technologies:</label>
       <div class="col-sm-4">
-        <select name="technologies" class="form-control" formControlName="technologies" ngModel="{{selectedRequirement.technology[0].technologyId}}"
-          required>
+        <select name="technologies" class="form-control" formControlName="technologies" (change)="addTechnology($event.target.value);"
+          ngModel="{{selectedRequirement.technology[0].technologyId}}" required>
           <option value="">Select</option>
           <option *ngFor="let tech of technologies" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
+          <option value="other">Other</option>
         </select>
+      </div>
+      <div class="col-sm-4" *ngIf="isOtherTechnology">
+        <input type="text" class="form-control" name="otherTechnology" formControlName="otherTechnology" placeholder=" Enter the Technology">
       </div>
     </div>
 
-    <div class="form-group row" *ngIf="selectedRequirement.allocationUser">
+    <div class="form-group row" *ngIf="selectedRequirement">
       <label for="allocation" class="col-sm-2 col-form-label">Allocation:</label>
       <div class="col-sm-4 ">
-        <select name="role" class="form-control" formControlName="allocation" ngModel="{{selectedRequirement.allocationUser.userId}}"
+        <select name="role" class="form-control" formControlName="allocation" ngModel="{{selectedRequirement.allocationUserId}}"
           required>
           <option value="">Select</option>
           <option *ngFor="let user of userDetails" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>

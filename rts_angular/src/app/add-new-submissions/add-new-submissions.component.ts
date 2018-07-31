@@ -31,6 +31,7 @@ export class AddNewSubmissionsComponent implements OnInit {
   private isNewCandidate: boolean;
   private technology: any;
   private requirementId: any;
+  private isOtherTechnology: boolean;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -88,7 +89,8 @@ export class AddNewSubmissionsComponent implements OnInit {
       editAvailability: [''],
       editTechnology: [''],
       editSkype: [''],
-      editLinkedIn: ['']
+      editLinkedIn: [''],
+      otherTechnology: ['']
     });
     this.getAllRequirements();
     this.getAllCommonData();
@@ -164,6 +166,15 @@ export class AddNewSubmissionsComponent implements OnInit {
             });
           }
         });
+  }
+
+  addTechnology(event) {
+    if (event === 'other') {
+      this.isOtherTechnology = true;
+      this.myForm.controls.otherTechnology.setValue('');
+    } else {
+      this.isOtherTechnology = false;
+    }
   }
 
 
@@ -252,7 +263,7 @@ export class AddNewSubmissionsComponent implements OnInit {
 
   createNewCandidate(form: FormGroup) {
 
-    const candidate = {
+    const candidate: any = {
       companyId: this.rtsCompanyId,
       name: form.value.editCandidateName,
       email: form.value.candidateEmail,
@@ -260,12 +271,19 @@ export class AddNewSubmissionsComponent implements OnInit {
       availability: form.value.editAvailability,
       phoneNumber: form.value.editCandidatePhone,
       immigirationStatus: form.value.editCandidateImmigirationStatus,
-      technology: [{
-        technologyId: form.value.editTechnology
-      }],
       skype: form.value.editSkype,
       linkedIn: form.value.editLinkedIn
     };
+
+    if (form.value.technologies === 'other') {
+      candidate.technology = [{
+        technologyName: form.value.otherTechnology
+      }];
+    } else {
+      candidate.technology = [{
+        technologyId: form.value.technologies
+      }];
+    }
 
     this.candidateService.addCandidate(candidate)
       .subscribe(data => {

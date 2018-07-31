@@ -1,0 +1,39 @@
+<div class="utility-container">
+  <form [formGroup]="myForm" (ngSubmit)="updateUser(myForm)">
+    <legend class="header">Add New User</legend>
+
+    <div class="form-group row">
+      <label for="firstName" class="col-sm-2 col-form-label">First Name:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="firstName" formControlName="firstName" required ngModel="{{firstName}}">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="lastName" class="col-sm-2 col-form-label">Last Name:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="lastName" formControlName="lastName" required ngModel="{{lastName}}">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="email" class="col-sm-2 col-form-label">Email:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="email" formControlName="email" required ngModel="{{email}}">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="role" class="col-sm-2 col-form-label">Role:</label>
+      <div class="col-sm-4">
+        <select name="role" class="form-control" formControlName="role" required ngModel="{{role}}">
+          <option value="">Select</option>
+          <option *ngFor="let role of userType" value="{{role.value}}">{{role.name}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-btn-container">
+      <button class="btn btn-default btn-space" type="submit">Update User</button>
+      <button [routerLink]="[ '/manage-users']" class="btn btn-default">Cancel</button>
+    </div>
+  </form>
+</div>

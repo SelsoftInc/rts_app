@@ -22,6 +22,7 @@ import { ManageCandidateComponent } from './manage-candidate/manage-candidate.co
 import { AddCandidateComponent } from './add-candidate/add-candidate.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
 import { RequirementDetailComponent } from './requirement-detail/requirement-detail.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 
 
@@ -48,7 +49,8 @@ const appRoutes: Routes = [
   { path: 'manage-candidate', component: ManageCandidateComponent },
   { path: 'add-candidate', component: AddCandidateComponent },
   { path: 'generate-report', component: GenerateReportComponent },
-  { path: 'requirement-detail/:id', component: RequirementDetailComponent }
+  { path: 'requirement-detail/:id', component: RequirementDetailComponent },
+  { path: 'edit-user/:id', component: EditUserComponent }
 ];
 
 

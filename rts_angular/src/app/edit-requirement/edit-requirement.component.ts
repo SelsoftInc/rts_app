@@ -17,29 +17,30 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class EditRequirementComponent implements OnInit {
 
-  rtsUser: any;
-  rtsUserId: any;
-  requirementId: any;
-  requirements: any;
-  selectedRequirement: any;
-  requirementCreatedDate: any;
-  userDetails: any;
-  rtsCompanyId: any;
-  clients: any;
+  private rtsUser: any;
+  private rtsUserId: any;
+  private requirementId: any;
+  private requirements: any;
+  private selectedRequirement: any;
+  private requirementCreatedDate: any;
+  private userDetails: any;
+  private rtsCompanyId: any;
+  private clients: any;
 
   public myForm: FormGroup;
-  requirementType: any;
-  immigration: any;
-  requirementByUser: any;
-  immigrationByUser: any;
-  isOtherPositionName: boolean;
-  isOtherAccountName: boolean;
-  technologies: any;
-  accounts: any;
-  positions: any;
-  teams: any;
-  requirementStatus: any;
-  editRequirement: any;
+  private requirementType: any;
+  private immigration: any;
+  private requirementByUser: any;
+  private immigrationByUser: any;
+  private isOtherPositionName: boolean;
+  private isOtherAccountName: boolean;
+  private technologies: any;
+  private accounts: any;
+  private positions: any;
+  private teams: any;
+  private requirementStatus: any;
+  private editRequirement: any;
+  private isOtherTechnology: boolean;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -96,7 +97,8 @@ export class EditRequirementComponent implements OnInit {
       FTE: [''],
       GC: [''],
       CITIZEN: [''],
-      H1B: ['']
+      H1B: [''],
+      otherTechnology: ['']
     });
     this.getAllRequirements();
     this.getAllUsers();
@@ -166,7 +168,6 @@ export class EditRequirementComponent implements OnInit {
       enteredBy: this.rtsUserId
     };
 
-    console.log(userId);
     this.userService.allUsers(userId)
       .subscribe(
         data => {
@@ -227,6 +228,15 @@ export class EditRequirementComponent implements OnInit {
     }
   }
 
+  addTechnology(event) {
+    if (event === 'other') {
+      this.isOtherTechnology = true;
+      this.myForm.controls.otherTechnology.setValue('');
+    } else {
+      this.isOtherTechnology = false;
+    }
+  }
+
   updateRequirement(form: FormGroup) {
 
     const requirement: any = {
@@ -242,9 +252,6 @@ export class EditRequirementComponent implements OnInit {
       clientRate: form.value.clientRate,
       sellingRate: form.value.sellingRate,
       jobDescription: form.value.jobDescription,
-      technology: [{
-        technologyId: form.value.technologies
-      }],
       requirementId: this.requirementId
     };
 
@@ -262,6 +269,16 @@ export class EditRequirementComponent implements OnInit {
       };
     } else {
       requirement.accountId = form.value.accountName;
+    }
+
+    if (form.value.technologies === 'other') {
+      requirement.technology = [{
+        technologyName: form.value.otherTechnology
+      }];
+    } else {
+      requirement.technology = [{
+        technologyId: form.value.technologies
+      }];
     }
 
     this.editRequirement = requirement;

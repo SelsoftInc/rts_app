@@ -14,15 +14,16 @@ import { CandidateService } from '../Services/candidate.service';
 })
 export class AddCandidateComponent implements OnInit {
 
-  userType: any;
-  rtsUser: any;
-  rtsUserId: any;
-  rtsCompanyId: any;
+  private userType: any;
+  private rtsUser: any;
+  private rtsUserId: any;
+  private rtsCompanyId: any;
 
   public myForm: FormGroup;
   private technologies: any;
   private files: any;
   private getFiles: any;
+  private isOtherTechnology: boolean;
   constructor(
     private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -47,7 +48,8 @@ export class AddCandidateComponent implements OnInit {
       immigirationStatus: ['', Validators.required],
       technologies: [''],
       skype: [''],
-      linkedIn: ['']
+      linkedIn: [''],
+      otherTechnology: ['']
     });
     this.getCommonDetails();
   }
@@ -78,21 +80,39 @@ export class AddCandidateComponent implements OnInit {
     this.getFiles.splice(clear, 1);
   }
 
+
+  addTechnology(event) {
+    if (event === 'other') {
+      this.isOtherTechnology = true;
+      this.myForm.controls.otherTechnology.setValue('');
+    } else {
+      this.isOtherTechnology = false;
+    }
+  }
+
   addNewCandidate(form: FormGroup) {
-    const newCandidate = {
+
+    const newCandidate: any = {
       name: form.value.name,
       email: form.value.email,
       phoneNumber: form.value.phoneNumber,
       location: form.value.location,
       availability: form.value.availability,
       immigirationStatus: form.value.immigirationStatus,
-      technology: [{
-        technologyId: form.value.technologies
-      }],
       companyId: this.rtsCompanyId,
       skype: form.value.skype,
       linkedIn: form.value.linkedIn
     };
+
+    if (form.value.technologies === 'other') {
+      newCandidate.technology = [{
+        technologyName: form.value.otherTechnology
+      }];
+    } else {
+      newCandidate.technology = [{
+        technologyId: form.value.technologies
+      }];
+    }
     console.log(newCandidate);
 
     this.candidateService.addCandidate(newCandidate)

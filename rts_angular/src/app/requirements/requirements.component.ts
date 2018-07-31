@@ -61,10 +61,17 @@ export class RequirementsComponent implements OnInit {
               const diff = Math.floor(this.currentDate.getTime() - require.createdOn);
               const day = 1000 * 60 * 60 * 24;
               const days = Math.floor(diff / day);
+              const weeks = Math.floor(days / 7);
               const months = Math.floor(days / 31);
               const years = Math.floor(months / 12);
-              if (days > 7) {
+              if (days < 7) {
                 require.age = days + ' days ago';
+              } else if (weeks < 4) {
+                require.age = weeks + ' weeks ago';
+              } else if (months < 12) {
+                require.age = months + ' months ago';
+              } else {
+                require.age = years + ' years ago';
               }
             }
           }

@@ -13,7 +13,7 @@
       </tr>
     </thead>
     <tbody *ngIf="userLength > 0 ; else noUser">
-      <tr *ngFor="let user of userDetails | filter:searchString">
+      <tr *ngFor="let user of userDetails | filter:searchString" [routerLink]="['/edit-user',user.userId]">
         <td>{{user.firstName}}</td>
         <td>{{user.lastName}}</td>
         <td>{{user.email}}</td>
