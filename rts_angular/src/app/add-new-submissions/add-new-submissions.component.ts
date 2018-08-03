@@ -32,6 +32,10 @@ export class AddNewSubmissionsComponent implements OnInit {
   private technology: any;
   private requirementId: any;
   private isOtherTechnology: boolean;
+  private candidateFiles: any;
+  private candidateGetFiles: any;
+  private isEmployerDetails: boolean;
+  private userRole: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -46,9 +50,10 @@ export class AddNewSubmissionsComponent implements OnInit {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
     this.rtsCompanyId = this.rtsUser.companyId;
+    this.userRole = this.rtsUser.role;
     this.getFiles = [];
+    this.candidateGetFiles = [];
     this.selectedCandidate = {};
-    // this.selectRequiement = {};
     this.status = [
       { 'name': 'Open', 'value': 'OPEN' },
       { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
@@ -64,7 +69,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       });
 
     this.myForm = this.formBuilder.group({
-      requirements: ['', Validators.required],
+      requirements: [''],
       candidateEmail: [''],
       candidatePhone: [''],
       clientContactname: [''],
@@ -90,7 +95,11 @@ export class AddNewSubmissionsComponent implements OnInit {
       editTechnology: [''],
       editSkype: [''],
       editLinkedIn: [''],
-      otherTechnology: ['']
+      otherTechnology: [''],
+      employerName: [''],
+      employerContactName: [''],
+      employerPhone: [''],
+      employerEmail: ['']
     });
     this.getAllRequirements();
     this.getAllCommonData();
@@ -142,17 +151,27 @@ export class AddNewSubmissionsComponent implements OnInit {
     this.getFiles.splice(clear, 1);
   }
 
+  candidateFileEvent(event: any) {
+    this.candidateFiles = event.target.files;
+    for (const file of this.candidateFiles) {
+      this.candidateGetFiles.push(file);
+    }
+  }
+
+  candidateRemoveFile(file) {
+    const clear = this.candidateGetFiles.indexOf(file);
+    this.candidateGetFiles.splice(clear, 1);
+  }
+
   getCandidateDetails() {
     const candidate = {
       email: this.myForm.controls.candidateEmail.value,
       companyId: this.rtsCompanyId
     };
-    console.log(candidate);
 
     this.candidateService.getCandidate(candidate)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.selectedCandidate = data.candidate;
             this.isCandidate = true;
@@ -173,7 +192,16 @@ export class AddNewSubmissionsComponent implements OnInit {
       this.isOtherTechnology = true;
       this.myForm.controls.otherTechnology.setValue('');
     } else {
+      this.myForm.controls.otherTechnology.setValue(event);
       this.isOtherTechnology = false;
+    }
+  }
+
+  getC2c(event) {
+    if (event.value === 'Yes') {
+      this.isEmployerDetails = true;
+    } else {
+      this.isEmployerDetails = false;
     }
   }
 
@@ -218,8 +246,6 @@ export class AddNewSubmissionsComponent implements OnInit {
       candidateId: candidateId
     };
 
-    console.log(submission);
-
     this.submissionService.addSubmission(submission)
       .subscribe(
         data => {
@@ -250,7 +276,12 @@ export class AddNewSubmissionsComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
-            this.router.navigate(['submissions']);
+
+            if (this.userRole === 'ADMIN') {
+              this.router.navigate(['submissions']);
+            } else if (this.userRole === 'RECRUITER') {
+              this.router.navigate(['recruiter-submissions']);
+            }
 
           } else {
             this.toastr.error(data.message, '', {
@@ -275,19 +306,54 @@ export class AddNewSubmissionsComponent implements OnInit {
       linkedIn: form.value.editLinkedIn
     };
 
+    if (this.isEmployerDetails) {
+      candidate.c2C = true;
+      candidate.employeeName = form.value.employerName;
+      candidate.employeeContactName = form.value.employerContactName;
+      candidate.employeeContactPhone = form.value.employerPhone;
+      candidate.employeeContactEmail = form.value.employerEmail;
+    }
+
     if (form.value.technologies === 'other') {
       candidate.technology = [{
         technologyName: form.value.otherTechnology
       }];
     } else {
       candidate.technology = [{
-        technologyId: form.value.technologies
+        technologyId: form.value.editTechnology
       }];
     }
 
     this.candidateService.addCandidate(candidate)
       .subscribe(data => {
         if (data.success) {
+
+          if (this.candidateGetFiles.length > 0) {
+            const upload = {
+              file: this.candidateGetFiles,
+              candidateId: data.candidate.candidateId,
+              enteredBy: this.rtsUserId
+            };
+            this.candidateService.uploadFile(upload).subscribe(
+              file => {
+                if (file.success) {
+                  this.toastr.success(file.message, '', {
+                    positionClass: 'toast-top-center',
+                    timeOut: 3000,
+                  });
+                } else {
+                  this.toastr.error(file.message, '', {
+                    positionClass: 'toast-top-center',
+                    timeOut: 3000,
+                  });
+                }
+              });
+          }
+          this.toastr.success('New Candidate Successfully added', '', {
+            positionClass: 'toast-top-center',
+            timeOut: 3000,
+          });
+
           this.SubmissionWithCandidate(form, data.candidate.candidateId);
         } else {
           this.toastr.error(data.message, '', {

@@ -19,6 +19,7 @@ import { RequirementsService } from './Services/requirements.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule, MatSnackBarModule, MatNativeDateModule, matSnackBarAnimations, MatCheckboxModule } from '@angular/material';
 import { MatFormFieldModule, MatSlideToggleModule, MatIconModule } from '@angular/material';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material';
 import { NativeDateModule } from '@angular/material';
 import { AddNewRequirementComponent } from './add-new-requirement/add-new-requirement.component';
@@ -45,6 +46,12 @@ import { AddCandidateComponent } from './add-candidate/add-candidate.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
 import { RequirementDetailComponent } from './requirement-detail/requirement-detail.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { EditClientComponent } from './edit-client/edit-client.component';
+import { EditCandidateComponent } from './edit-candidate/edit-candidate.component';
+import { ManageTeamComponent } from './manage-team/manage-team.component';
+import { AddTeamComponent } from './add-team/add-team.component';
+import { TeamService } from './Services/team.service';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 @NgModule({
@@ -72,7 +79,11 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     GenerateReportComponent,
     RequirementDetailComponent,
     EditUserComponent,
-     ],
+    EditClientComponent,
+    EditCandidateComponent,
+    ManageTeamComponent,
+    AddTeamComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -90,7 +101,9 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     MatFormFieldModule,
     Ng2SearchPipeModule,
     ToastrModule.forRoot(),
-    MatIconModule
+    NgMultiSelectDropDownModule.forRoot(),
+    MatIconModule,
+    MatRadioModule
   ],
   providers: [
     RegisterService,
@@ -102,6 +115,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     ClientService,
     CandidateService,
     SubmissionService,
+    TeamService,
     ToastrService,
     DatePipe],
 

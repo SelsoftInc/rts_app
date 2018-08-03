@@ -36,9 +36,7 @@ export class EditUserComponent implements OnInit {
     private router: Router
   ) {
     this.userType = [
-      // { 'name': 'Manager', 'value': 'MGR' },
       { 'name': 'Team Leader', 'value': 'TL' },
-      { 'name': 'User', 'value': 'USER' },
       { 'name': 'Recruiter', 'value': 'RECRUITER' },
     ];
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
@@ -53,10 +51,10 @@ export class EditUserComponent implements OnInit {
       });
 
     this.myForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', Validators.required],
-      role: ['', Validators.required],
+      firstName: [''],
+      lastName: [''],
+      email: [''],
+      role: [''],
     });
     this.getAllUser();
   }
@@ -74,7 +72,6 @@ export class EditUserComponent implements OnInit {
             for (const user of this.userDetails) {
               this.selectedUser = _.findWhere(this.userDetails, { userId: this.userId });
             }
-            console.log(this.selectedUser);
             this.firstName = this.selectedUser.firstName;
             this.lastName = this.selectedUser.lastName;
             this.email = this.selectedUser.email;
@@ -85,7 +82,34 @@ export class EditUserComponent implements OnInit {
   }
 
   updateUser(form: FormGroup) {
-    console.log(form.value);
-  }
 
+    const editUser = {
+      firstName: form.value.firstName,
+      lastName: form.value.lastName,
+      email: form.value.email,
+      role: form.value.role,
+      enteredBy: this.rtsUserId,
+      userId: this.userId
+    };
+
+    this.userService.editUser(editUser)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.toastr.success('Updated successfully', '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
+            this.router.navigate(['manage-users']);
+
+          } else {
+            this.toastr.error(data.message, '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
+          }
+        });
+
+  }
 }
+

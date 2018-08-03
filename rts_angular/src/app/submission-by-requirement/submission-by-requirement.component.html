@@ -4,35 +4,70 @@
     <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString " [(ngModel)]="searchString">
   </div> -->
 
-  <div *ngIf="submissionsLength > 0 ; else noSummissions">
-    <p class="title">{{selectedRequirement.position.positionName}} ({{selectedRequirement.client.name}})
-      <i class="allocation-name" *ngIf="selectedRequirement.allocationUser"> Allocated to:{{selectedRequirement.allocationUser.firstName}} {{selectedRequirement.allocationUser.lastName}}</i>
-    </p>
-    <table class="table table-hover">
-      <thead class="table-header">
-        <tr>
-          <th>Created Date:</th>
-          <th>Candidate Name</th>
-          <th>Technology</th>
-          <th>Availability</th>
-          <th>Work Location</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let submission of selectedRequirement.submissions" [routerLink]="['/edit-submissions', submission.submissionId]">
-          <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
-          <td>{{submission.candidate.name}}</td>
-          <td>{{submission.candidate.technology[0].technologyName}}</td>
-          <td>{{submission.candidate.availability}}</td>
-          <td>{{submission.candidate.location}}</td>
-          <td>{{submission.status}}</td>
-        </tr>
-      </tbody>
-    </table>
+  <div *ngIf="userRole ==='ADMIN'">
+    <div *ngIf="submissionsLength > 0 ; else noSummissions">
+      <p class="title">{{selectedRequirement.position.positionName}} ({{selectedRequirement.client.name}})
+        <i class="allocation-name" *ngIf="selectedRequirement.allocationUser"> Allocated to:{{selectedRequirement.allocationUser.firstName}} {{selectedRequirement.allocationUser.lastName}}</i>
+      </p>
+      <table class="table table-hover">
+        <thead class="table-header">
+          <tr>
+            <th>Created Date:</th>
+            <th>Candidate Name</th>
+            <th>Technology</th>
+            <th>Availability</th>
+            <th>Work Location</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let submission of selectedRequirement.submissions" [routerLink]="['/edit-submissions', submission.submissionId]">
+            <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
+            <td>{{submission.candidate.name}}</td>
+            <td>{{submission.candidate.technology[0].technologyName}}</td>
+            <td>{{submission.candidate.availability}}</td>
+            <td>{{submission.candidate.location}}</td>
+            <td>{{submission.status}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ng-template #noSummissions>
+      <p class="message">No Submissions yet, Please click Add Submission to add a new submission.</p>
+    </ng-template>
   </div>
-  <ng-template #noSummissions>
-    <p class="message">No Submissions yet, Please click Add Submission to add a new submission.</p>
-  </ng-template>
+
+  <div *ngIf="userRole ==='RECRUITER'">
+    <div *ngIf="submissionsLength > 0 ; else noSummissions">
+      <p class="title">{{selectedRequirement.position.positionName}} ({{selectedRequirement.client.name}})
+        <i class="allocation-name" *ngIf="selectedRequirement.allocationUser"> Allocated to:{{selectedRequirement.allocationUser.firstName}} {{selectedRequirement.allocationUser.lastName}}</i>
+      </p>
+      <table class="table table-hover">
+        <thead class="table-header">
+          <tr>
+            <th>Created Date:</th>
+            <th>Candidate Name</th>
+            <th>Technology</th>
+            <th>Availability</th>
+            <th>Work Location</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let submission of selectedRequirement.submissions" [routerLink]="['/recruiter-edit-submissions', submission.submissionId]">
+            <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
+            <td>{{submission.candidate.name}}</td>
+            <td>{{submission.candidate.technology[0].technologyName}}</td>
+            <td>{{submission.candidate.availability}}</td>
+            <td>{{submission.candidate.location}}</td>
+            <td>{{submission.status}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ng-template #noSummissions>
+      <p class="message">No Submissions yet, Please click Add Submission to add a new submission.</p>
+    </ng-template>
+  </div>
 
 </div>

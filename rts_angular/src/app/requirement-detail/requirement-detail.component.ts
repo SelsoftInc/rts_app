@@ -130,14 +130,12 @@ export class RequirementDetailComponent implements OnInit {
     this.requirementService.requirementsDetails(userId)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.requirements = data.requirements;
             this.selectedRequirement = _.findWhere(this.requirements, { requirementId: this.requirementId });
             this.requirementCreatedDate = moment(this.selectedRequirement.createdOn).format('MMM D, Y');
             this.requirementByUser = this.selectedRequirement.requirementType;
             this.immigrationByUser = this.selectedRequirement.immigrationRequirement;
-            console.log(this.selectedRequirement);
             for (const value of this.requirementByUser) {
               if (value === 'C2C') {
                 this.myForm.controls.C2C.setValue('C2C');
@@ -196,7 +194,6 @@ export class RequirementDetailComponent implements OnInit {
     } else {
       this.requirementByUser.splice(this.requirementByUser.indexOf(type), 1);
     }
-    console.log(this.requirementByUser);
   }
 
   getCheckedImmigrationValue(data) {
@@ -205,7 +202,6 @@ export class RequirementDetailComponent implements OnInit {
     } else {
       this.immigrationByUser.splice(this.immigrationByUser.indexOf(data), 1);
     }
-    console.log(this.immigrationByUser);
   }
 
   changePositionName(event) {
@@ -264,7 +260,6 @@ export class RequirementDetailComponent implements OnInit {
     }
 
     this.editRequirement = requirement;
-    console.log(this.editRequirement);
 
     this.requirementService.updateRequirement(this.editRequirement)
       .subscribe(

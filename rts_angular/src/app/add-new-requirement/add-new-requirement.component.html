@@ -13,7 +13,7 @@
         </select>
       </div>
       <div class="col-sm-4" *ngIf="isOtherPositionName">
-        <input type="text" class="form-control" name="otherPositionName" formControlName="otherPositionName" placeholder=" Enter the Position Name">
+        <input type="text" class="form-control" name="otherPositionName" formControlName="otherPositionName" placeholder=" Enter the Position Name" required>
       </div>
     </div>
 
@@ -38,7 +38,7 @@
         </select>
       </div>
       <div class="col-sm-4" *ngIf="isOtherAccountName">
-        <input type="text" class="form-control" name="otherAccountName" formControlName="otherAccountName" placeholder=" Enter the Account Name">
+        <input type="text" class="form-control" name="otherAccountName" formControlName="otherAccountName" placeholder=" Enter the Account Name" required>
       </div>
     </div>
 
@@ -58,7 +58,7 @@
     <div class="form-group row">
       <label for="location" class="col-sm-2 col-form-label">Location:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" name="location" formControlName="location" required>
+        <input type="text" class="form-control" maxlength="80" name="location" formControlName="location" required>
       </div>
     </div>
 
@@ -75,7 +75,7 @@
     <div class="form-group row">
       <label for="positionsCount" class="col-sm-2 col-form-label ">No.of Positions:</label>
       <div class="col-sm-4">
-        <input type="number " class="form-control" name="positionsCount" maxlength="3" formControlName="positionsCount" required>
+        <input type="number" class="form-control" name="positionsCount" formControlName="positionsCount" required>
       </div>
     </div>
 
@@ -102,22 +102,21 @@
     <div class="form-group row">
       <label for="clientRate" class="col-sm-2 col-form-label">Client Rate:</label>
       <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="clientRate" formControlName="clientRate">
+        <input type="text" class="form-control" name="clientRate" maxlength="25" formControlName="clientRate" required>
       </div>
     </div>
 
     <div class="form-group row">
       <label for="sellingRate" class="col-sm-2 col-form-label">Selling Rate:</label>
       <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate">
+        <input type="text" class="form-control" name="sellingRate" maxlength="25" formControlName="sellingRate" required>
       </div>
     </div>
 
     <div class="form-group row">
       <label for="jobDescription" class="col-sm-2 col-form-label">Job Description:</label>
       <div class="col-sm-4 ">
-        <textarea name="jobDescription" class="form-control" formControlName="jobDescription" placeholder="Description.." ngModel
-          required></textarea>
+        <textarea name="jobDescription" class="form-control" formControlName="jobDescription" placeholder="Description.." ngModel></textarea>
       </div>
     </div>
 
@@ -132,14 +131,14 @@
         </select>
       </div>
       <div class="col-sm-4" *ngIf="isOtherTechnology">
-        <input type="text" class="form-control" name="otherTechnology" formControlName="otherTechnology" placeholder=" Enter the Technology">
+        <input type="text" class="form-control" name="otherTechnology" formControlName="otherTechnology" placeholder=" Enter the Technology" required>
       </div>
     </div>
 
     <div class="form-group row">
       <label for="allocation" class="col-sm-2 col-form-label">Allocation:</label>
       <div class="col-sm-4 ">
-        <select name="role" class="form-control" formControlName="allocation" required>
+        <select name="role" class="form-control" formControlName="allocation">
           <option value="">Select</option>
           <option *ngFor="let user of userDetails" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
         </select>
@@ -149,7 +148,7 @@
     <div class="form-group row">
       <label for="team" class="col-sm-2 col-form-label">Team:</label>
       <div class="col-sm-4 ">
-        <select name="team" class="form-control" formControlName="team" required>
+        <select name="team" class="form-control" formControlName="team">
           <option value="">Select</option>
           <option *ngFor="let team of teams" value="{{team.teamId}}">{{team.name}}</option>
         </select>
@@ -159,12 +158,13 @@
     <div class="form-group row">
       <label for="comments" class="col-sm-2 col-form-label">Comments:</label>
       <div class="col-sm-4">
-        <textarea name="comments" class="form-control" formControlName="comments" placeholder="Type Your Comments.." ngModel required></textarea>
+        <textarea name="comments" class="form-control" formControlName="comments" maxlength="80" placeholder="Type Your Comments.."
+          ngModel></textarea>
       </div>
     </div>
 
     <div class="form-btn-container">
-      <button class="btn btn-default btn-space" type="submit">Add Requirement</button>
+      <button class="btn btn-default btn-space" type="submit" [disabled]="!myForm.valid">Add Requirement</button>
       <button [routerLink]="[ '/requirements']" class="btn btn-default">Cancel</button>
     </div>
 

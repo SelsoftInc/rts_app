@@ -34,11 +34,9 @@ export class ManageUsersComponent implements OnInit {
       enteredBy: this.rtsUserId
     };
 
-    console.log(userId);
     this.userService.allUsers(userId)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.userDetails = data.users;
             this.userLength = this.userDetails.length;

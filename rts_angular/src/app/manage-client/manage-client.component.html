@@ -13,7 +13,7 @@
       </tr>
     </thead>
     <tbody *ngIf="clientsLength > 0 ; else noClients">
-      <tr *ngFor="let client of clients | filter:searchString">
+      <tr *ngFor="let client of clients | filter:searchString" [routerLink]="['/edit-client', client.clientId]">
         <td>{{client.name}}</td>
         <td>{{client.contactPersonName}}</td>
         <td>{{client.contactPersonEmail}}</td>

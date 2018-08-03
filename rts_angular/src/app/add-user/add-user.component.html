@@ -46,7 +46,7 @@
     </div>
 
     <div class="form-btn-container">
-      <button class="btn btn-default btn-space" type="submit">Add User</button>
+      <button class="btn btn-default btn-space" type="submit" [disabled]="!myForm.valid">Add User</button>
       <button [routerLink]="[ '/manage-users']" class="btn btn-default">Cancel</button>
     </div>
   </form>

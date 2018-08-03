@@ -8,8 +8,9 @@
 }
 
 .table-header {
-  background-color: whitesmoke;
-  color: rgb(51, 48, 48);
+  background-color: #e1e1e1;
+  color: rgb(32, 28, 28);
+  text-transform: uppercase;
 }
 
 .title {

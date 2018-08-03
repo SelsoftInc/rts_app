@@ -13,10 +13,10 @@ import { ClientService } from '../Services/client.service';
 })
 export class AddClientComponent implements OnInit {
 
-  userType: any;
-  rtsUser: any;
-  rtsUserId: any;
-  rtsCompanyId: any;
+  private userType: any;
+  private rtsUser: any;
+  private rtsUserId: any;
+  private rtsCompanyId: any;
 
   public myForm: FormGroup;
   constructor(
@@ -33,12 +33,12 @@ export class AddClientComponent implements OnInit {
 
   ngOnInit() {
     this.myForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      email: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
-      clientContactName: ['', Validators.required],
-      clientContactEmail: ['', Validators.required],
-      clientContactNumber: ['', Validators.required]
+      name: [''],
+      email: ['', Validators.email],
+      phoneNumber: [''],
+      clientContactName: [''],
+      clientContactEmail: [''],
+      clientContactNumber: ['']
     });
   }
 
@@ -54,11 +54,9 @@ export class AddClientComponent implements OnInit {
       enteredBy: this.rtsUserId
     };
 
-    console.log(client);
     this.clientService.addClient(client)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.toastr.success('New Client successfully added', '', {
               positionClass: 'toast-top-center',

@@ -8,6 +8,7 @@ export class ApiUrl {
     static AddCompanyUser = 'rtsUser/user/addCompanyUser';
     static UserLogin = 'rtsUser/user/userLogin';
     static GetAllRequirementsByCompany = 'rtsRequirement/requirement/getAllRequirementByCompany';
+    static GetAllRequirementsByTeam = 'rtsRequirement/requirement/getAllRequirementByTeam';
     static AddNewRequirement = 'rtsRequirement/requirement/insertRequirement';
     static GetAllUsersForAdmin = 'rtsUser/user/getAllUserForAdmin';
     static AddUser = 'rtsUser/user/addUser';
@@ -25,4 +26,9 @@ export class ApiUrl {
     static SubmissionToClient = 'rtsSubmission/submission/submissionToClient';
     static GenerateReport = 'rtsSubmission/submission/excelReport';
     static UpdateRequirement = 'rtsRequirement/requirement/updateRequirement';
+    static ReportDownload = 'rtsSubmission/submission/excelDownload';
+    static UpdateCandidate = 'rtsCandidate/candidate/updateCandidate';
+    static UpdateClient = 'rtsClient/client/updateClient';
+    static UpdateUser = 'rtsUser/user/updateUser';
+    static AddTeam = 'rtsCommon/common/createTeam';
 }

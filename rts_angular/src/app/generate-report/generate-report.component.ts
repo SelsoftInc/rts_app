@@ -20,6 +20,7 @@ export class GenerateReportComponent implements OnInit {
   private approvedsubmissions: any;
   private rtsCompanyId: any;
   private currentDate: Date;
+  private approvedsubmissionsLength: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -48,7 +49,8 @@ export class GenerateReportComponent implements OnInit {
         data => {
           if (data.success) {
             this.approvedsubmissions = data.submissionReport;
-            console.log(this.approvedsubmissions);
+            this.approvedsubmissionsLength = this.approvedsubmissions.length;
+            console.log(this.approvedsubmissionsLength);
             for (const submission of this.approvedsubmissions) {
               const diff = Math.floor(this.currentDate.getTime() - submission.clientSubmissionOn);
               const day = 1000 * 60 * 60 * 24;
@@ -72,7 +74,18 @@ export class GenerateReportComponent implements OnInit {
 
   generateReport() {
 
-  }
+    const userId = {
+      userId: this.rtsUserId,
+    };
 
+    this.submissonService.getReport(userId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            window.location.href = 'http://rameshrasaiyan.com:8080/' + data.downloadUrl;
+          }
+        });
+
+  }
 }
 

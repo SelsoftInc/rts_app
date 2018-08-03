@@ -26,9 +26,7 @@ export class AddUserComponent implements OnInit {
     private router: Router
   ) {
     this.userType = [
-      // { 'name': 'Manager', 'value': 'MGR' },
       { 'name': 'Team Leader', 'value': 'TL' },
-      { 'name': 'User', 'value': 'USER' },
       { 'name': 'Recruiter', 'value': 'RECRUITER' },
     ];
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
@@ -37,12 +35,12 @@ export class AddUserComponent implements OnInit {
 
   ngOnInit() {
     this.myForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', Validators.required],
-      role: ['', Validators.required],
-      userPassword: ['', Validators.required],
-      confirmPassword: ['', Validators.required]
+      firstName: [''],
+      lastName: [''],
+      email: ['', Validators.email],
+      role: [''],
+      userPassword: [''],
+      confirmPassword: ['']
     });
   }
 
@@ -64,11 +62,10 @@ export class AddUserComponent implements OnInit {
       password: form.value.userPassword,
       enteredBy: this.rtsUserId
     };
-    console.log(user);
+
     this.userService.addUser(user)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.toastr.success('New User successfully added', '', {
               positionClass: 'toast-top-center',

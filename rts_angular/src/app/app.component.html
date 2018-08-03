@@ -1,5 +1,12 @@
 <div class="header-wrapper">
   <h1 class="heading">Selsoft RTS</h1>
+  <!-- <div class="profile-wrapper">
+    <mat-icon>account_circle</mat-icon>
+    <div class="profile-name">
+      <p>{{userRole}}</p>
+      <p>{{rtsUser.firstName}} {{rtsUser.lastName}}</p>
+    </div>
+  </div> -->
 </div>
 <div *ngIf="displayComponent">
   <div *ngIf="userRole ==='ADMIN'">
@@ -10,9 +17,6 @@
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/submissions']">Submissions</a>
       </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link">Interviews</a>
-      </li> -->
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/manage-users']">Manage Users</a>
       </li>
@@ -22,6 +26,9 @@
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/manage-candidate']">Manage Candidate</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/manage-team']">Manage Team</a>
+      </li>
       <li class="nav-item-logout">
         <a class="nav-link" href="" (click)="onLogout();">Logout</a>
       </li>
@@ -30,18 +37,21 @@
 
   <div *ngIf="userRole ==='TL'">
     <ul class="nav nav-taps">
-      <!-- <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/requirements']">Requirements</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/submissions']">Submissions</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link">Interviews</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/manage-users']">Manage Users</a>
-        </li> -->
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/requirements']">Requirements</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/submissions']">Submissions</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/manage-users']">Manage Users</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/manage-client']">Manage Client</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/manage-candidate']">Manage Candidate</a>
+      </li>
       <li class="nav-item-logout">
         <a class="nav-link" href="" (click)="onLogout();">Logout</a>
       </li>

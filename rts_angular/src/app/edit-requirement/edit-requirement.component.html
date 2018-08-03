@@ -21,7 +21,8 @@
         </select>
       </div>
       <div class="col-sm-4" *ngIf="isOtherPositionName">
-        <input type="text" class="form-control" name="otherPositionName" formControlName="otherPositionName" placeholder=" Enter the Position Name">
+        <input type="text" class="form-control" name="otherPositionName" formControlName="otherPositionName" placeholder=" Enter the Position Name"
+          required>
       </div>
     </div>
 
@@ -46,7 +47,8 @@
         </select>
       </div>
       <div class="col-sm-4" *ngIf="isOtherAccountName">
-        <input type="text" class="form-control" name="otherAccountName" formControlName="otherAccountName" placeholder=" Enter the Bank Name">
+        <input type="text" class="form-control" name="otherAccountName" formControlName="otherAccountName" placeholder=" Enter the Bank Name"
+          readonly>
       </div>
     </div>
 
@@ -113,22 +115,23 @@
     <div class="form-group row" *ngIf="selectedRequirement">
       <label for="clientRate" class="col-sm-2 col-form-label">Client Rate:</label>
       <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="clientRate" formControlName="clientRate" ngModel="{{selectedRequirement.clientRate}}">
+        <input type="text" class="form-control" name="clientRate" formControlName="clientRate" ngModel="{{selectedRequirement.clientRate}}"
+          required>
       </div>
     </div>
 
     <div class="form-group row" *ngIf="selectedRequirement">
       <label for="sellingRate" class="col-sm-2 col-form-label">Selling Rate:</label>
       <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" ngModel="{{selectedRequirement.sellingRate}}">
+        <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" ngModel="{{selectedRequirement.sellingRate}}"
+          required>
       </div>
     </div>
 
     <div class="form-group row" *ngIf="selectedRequirement">
       <label for="jobDescription" class="col-sm-2 col-form-label">Job Description:</label>
       <div class="col-sm-4 ">
-        <textarea name="jobDescription" class="form-control" formControlName="jobDescription" placeholder="Description.." ngModel="{{selectedRequirement.jobDescription}}"
-          required></textarea>
+        <textarea name="jobDescription" class="form-control" formControlName="jobDescription" placeholder="Description.." ngModel="{{selectedRequirement.jobDescription}}"></textarea>
       </div>
     </div>
 
@@ -143,7 +146,8 @@
         </select>
       </div>
       <div class="col-sm-4" *ngIf="isOtherTechnology">
-        <input type="text" class="form-control" name="otherTechnology" formControlName="otherTechnology" placeholder=" Enter the Technology">
+        <input type="text" class="form-control" name="otherTechnology" formControlName="otherTechnology" placeholder=" Enter the Technology"
+          required>
       </div>
     </div>
 
@@ -158,10 +162,10 @@
       </div>
     </div>
 
-    <div class="form-group row" *ngIf="selectedRequirement.allocationUser">
+    <div class="form-group row" *ngIf="selectedRequirement">
       <label for="team" class="col-sm-2 col-form-label">Team:</label>
       <div class="col-sm-4 ">
-        <select name="team" class="form-control" formControlName="team" ngModel="{{selectedRequirement.allocationUser.teamId}}" required>
+        <select name="team" class="form-control" formControlName="team" ngModel="{{selectedRequirement.teamId}}" required>
           <option value="">Select</option>
           <option *ngFor="let team of teams" value="{{team.teamId}}">{{team.name}}</option>
         </select>
@@ -171,13 +175,12 @@
     <div class="form-group row" *ngIf="selectedRequirement.comments">
       <label for="comments" class="col-sm-2 col-form-label">Comments:</label>
       <div class="col-sm-4">
-        <textarea name="comments" class="form-control" formControlName="comments" placeholder="Type Your Comments.." ngModel="{{selectedRequirement.comments}}"
-          required></textarea>
+        <textarea name="comments" class="form-control" formControlName="comments" placeholder="Type Your Comments.." ngModel="{{selectedRequirement.comments}}"></textarea>
       </div>
     </div>
 
     <div class="form-btn-container">
-      <button class="btn btn-default btn-space" type="submit">Update Requirement</button>
+      <button class="btn btn-default btn-space" type="submit" [disabled]="!myForm.valid">Update Requirement</button>
       <button [routerLink]="['/submission-by-requirement', requirementId]" class="btn btn-default btn-space" type="submit">Submissions</button>
       <!-- <button [routerLink]="[ '/requirements']" class="btn btn-default">Cancel</button> -->
     </div>

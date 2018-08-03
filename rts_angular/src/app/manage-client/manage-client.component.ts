@@ -12,12 +12,12 @@ import { ClientService } from '../Services/client.service';
   providers: [LoggedUserService]
 })
 export class ManageClientComponent implements OnInit {
-  userType: any;
-  rtsUser: any;
-  rtsUserId: any;
-  rtsCompanyId: any;
-  clients: any;
-  clientsLength: any;
+  private userType: any;
+  private rtsUser: any;
+  private rtsUserId: any;
+  private rtsCompanyId: any;
+  private clients: any;
+  private clientsLength: any;
 
   public myForm: FormGroup;
   constructor(

@@ -38,6 +38,45 @@
     </table>
   </div>
 
+  <div *ngIf="userRole ==='TL'">
+    <button class="btn btn-default" [routerLink]="['/add-new-requirement']">Add New Requirement</button>
+    <div class="search-container">
+      <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString " [(ngModel)]="searchString">
+    </div>
+    <table class="table table-hover">
+      <thead class="table-header">
+        <tr>
+          <th>Position Name</th>
+          <th>Status</th>
+          <th>Positions</th>
+          <th>Alloction</th>
+          <th>Client</th>
+          <th>Age</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="requirementsLengthForTeam > 0 ; else noRequirements">
+        <tr *ngFor="let require of requirementsForTeam | filter:searchString" [routerLink]="['/edit-requirement',require.requirementId]">
+          <td>{{require.position.positionName}}</td>
+          <td>{{require.status}}</td>
+          <td>{{require.positionCount}}</td>
+          <td *ngIf="require.allocationUser ; else noAlloction">{{require.allocationUser.firstName}} {{require.allocationUser.lastName}}</td>
+          <ng-template #noAlloction>
+            <td>Nil</td>
+          </ng-template>
+          <td>{{require.client.name}}</td>
+          <td>{{require.age}}</td>
+        </tr>
+      </tbody>
+      <ng-template #noRequirements>
+        <tbody>
+          <tr>
+            <td>No requirements yet, Please click Add Requirement to add a new requirement.</td>
+          </tr>
+        </tbody>
+      </ng-template>
+    </table>
+  </div>
+
   <div *ngIf="userRole ==='RECRUITER'">
     <div class="search-container">
       <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString " [(ngModel)]="searchString">

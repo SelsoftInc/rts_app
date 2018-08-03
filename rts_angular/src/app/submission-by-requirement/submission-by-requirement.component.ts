@@ -12,12 +12,13 @@ import * as _ from 'underscore';
 })
 export class SubmissionByRequirementComponent implements OnInit {
 
-  rtsUser: any;
-  rtsCompanyId: any;
-  requirementId: any;
-  requirements: any;
-  selectedRequirement: any;
-  submissionsLength: any;
+  private rtsUser: any;
+  private rtsCompanyId: any;
+  private requirementId: any;
+  private requirements: any;
+  private selectedRequirement: any;
+  private submissionsLength: any;
+  private userRole: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -25,7 +26,7 @@ export class SubmissionByRequirementComponent implements OnInit {
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsCompanyId = this.rtsUser.companyId;
-    // this.rtsUserId = this.rtsUser.userId;
+    this.userRole = this.rtsUser.role;
   }
 
   ngOnInit() {
@@ -48,7 +49,6 @@ export class SubmissionByRequirementComponent implements OnInit {
           if (data.success) {
             this.requirements = data.requirements;
             this.selectedRequirement = _.findWhere(this.requirements, { requirementId: this.requirementId });
-            console.log(this.selectedRequirement);
             this.submissionsLength = this.selectedRequirement.submissions.length;
           }
         });

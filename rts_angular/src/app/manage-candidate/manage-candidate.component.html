@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody *ngIf="candidateLength > 0 ; else noCandidate">
-      <tr *ngFor="let candidate of candidates | filter:searchString">
+      <tr *ngFor="let candidate of candidates | filter:searchString" [routerLink]="['/edit-candidate',candidate.candidateId]">
         <td>{{candidate.name}}</td>
         <td>{{candidate.email}}</td>
         <td>{{candidate.phoneNumber}}</td>

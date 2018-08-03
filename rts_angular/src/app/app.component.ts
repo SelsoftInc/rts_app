@@ -28,10 +28,10 @@ export class AppComponent implements DoCheck {
 
   ngDoCheck() {
     this.displayComponent = this.hideComponent.displayComponent;
+    this.rtsUser = JSON.parse(localStorage.getItem('rts_user'));
     if (this.rtsUser) {
       this.userRole = this.rtsUser.role;
     }
-
 
   }
 

@@ -53,7 +53,6 @@ export class SubmissionsComponent implements OnInit {
                 this.submissionDetails.push(require);
               }
             }
-            console.log(this.submissionDetails);
             this.submissionsLength = this.submissionDetails.length;
           }
         });

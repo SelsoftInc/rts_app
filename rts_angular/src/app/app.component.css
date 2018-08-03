@@ -18,3 +18,21 @@
   text-align: right;
 }
 
+.mat-icon {
+  font-size: 36px;
+}
+
+.profile-name {
+  display: inline-block;
+  margin-left: 1em;
+}
+
+.profile-wrapper {
+  margin-top: 2em;
+  padding-right: 8em;
+}
+
+.nav-link:focus {
+  border-radius: 10px;
+  border: 1px solid whitesmoke;
+}

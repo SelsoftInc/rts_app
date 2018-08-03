@@ -60,9 +60,9 @@ export class EditRequirementComponent implements OnInit {
     this.requirementType = ['C2C', 'FTE', 'TBD'];
     this.immigration = ['GC', 'CITIZEN', 'H1B'];
     this.requirementStatus = [
-      { 'name': 'Open', 'value': 'open' },
-      { 'name': 'In-Progress', 'value': 'inprogress' },
-      { 'name': 'Closed', 'value': 'closed' }
+      { 'name': 'Open', 'value': 'Open' },
+      { 'name': 'In-Progress', 'value': 'In-Progress' },
+      { 'name': 'Closed', 'value': 'Closed' }
     ];
   }
 
@@ -74,14 +74,14 @@ export class EditRequirementComponent implements OnInit {
       });
 
     this.myForm = this.formBuilder.group({
-      createdDate: ['', [Validators.required, Validators.minLength(3)]],
-      positionName: ['', Validators.required],
+      createdDate: [''],
+      positionName: [''],
       otherPositionName: [''],
       otherAccountName: [''],
       clientName: [''],
       accountName: [''],
       status: [''],
-      bankName: ['', Validators.required],
+      bankName: [''],
       priority: [''],
       location: [''],
       positionsCount: [''],
@@ -139,7 +139,6 @@ export class EditRequirementComponent implements OnInit {
             this.requirementCreatedDate = moment(this.selectedRequirement.createdOn).format('MMM D, Y');
             this.requirementByUser = this.selectedRequirement.requirementType;
             this.immigrationByUser = this.selectedRequirement.immigrationRequirement;
-            console.log(this.selectedRequirement);
             for (const value of this.requirementByUser) {
               if (value === 'C2C') {
                 this.myForm.controls.C2C.setValue('C2C');
@@ -158,7 +157,7 @@ export class EditRequirementComponent implements OnInit {
                 this.myForm.controls.H1B.setValue('H1B');
               }
             }
-
+            console.log(this.selectedRequirement);
           }
         });
   }
@@ -198,7 +197,6 @@ export class EditRequirementComponent implements OnInit {
     } else {
       this.requirementByUser.splice(this.requirementByUser.indexOf(type), 1);
     }
-    console.log(this.requirementByUser);
   }
 
   getCheckedImmigrationValue(data) {
@@ -207,14 +205,14 @@ export class EditRequirementComponent implements OnInit {
     } else {
       this.immigrationByUser.splice(this.immigrationByUser.indexOf(data), 1);
     }
-    console.log(this.immigrationByUser);
   }
 
   changePositionName(event) {
     if (event === 'other') {
       this.isOtherPositionName = true;
-    } else {
       this.myForm.controls.otherPositionName.setValue('');
+    } else {
+      this.myForm.controls.otherPositionName.setValue(event);
       this.isOtherPositionName = false;
     }
   }
@@ -224,6 +222,7 @@ export class EditRequirementComponent implements OnInit {
       this.isOtherAccountName = true;
       this.myForm.controls.otherAccountName.setValue('');
     } else {
+      this.myForm.controls.otherAccountName.setValue(event);
       this.isOtherAccountName = false;
     }
   }
@@ -233,6 +232,7 @@ export class EditRequirementComponent implements OnInit {
       this.isOtherTechnology = true;
       this.myForm.controls.otherTechnology.setValue('');
     } else {
+      this.myForm.controls.otherTechnology.setValue(event);
       this.isOtherTechnology = false;
     }
   }
@@ -282,7 +282,6 @@ export class EditRequirementComponent implements OnInit {
     }
 
     this.editRequirement = requirement;
-    console.log(this.editRequirement);
 
     this.requirementService.updateRequirement(this.editRequirement)
       .subscribe(

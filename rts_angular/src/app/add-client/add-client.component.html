@@ -26,26 +26,26 @@
     <div class="form-group row">
       <label for="clientContactName" class="col-sm-2 col-form-label">Contact Person Name:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" name="clientContactName" formControlName="clientContactName">
+        <input type="text" class="form-control" name="clientContactName" formControlName="clientContactName" required>
       </div>
     </div>
 
     <div class="form-group row">
       <label for="clientContactEmail" class="col-sm-2 col-form-label">Contact Person Email:</label>
       <div class="col-sm-4">
-        <input type="email" class="form-control" name="clientContactEmail" formControlName="clientContactEmail">
+        <input type="email" class="form-control" name="clientContactEmail" formControlName="clientContactEmail" required>
       </div>
     </div>
 
     <div class="form-group row">
       <label for="clientContactNumber" class="col-sm-2 col-form-label">Contact Person Number:</label>
       <div class="col-sm-4">
-        <input type="email" class="form-control" name="clientContactNumber" formControlName="clientContactNumber">
+        <input type="email" class="form-control" name="clientContactNumber" formControlName="clientContactNumber" required>
       </div>
     </div>
 
     <div class="form-btn-container">
-      <button class="btn btn-default btn-space" type="submit">Add Client</button>
+      <button class="btn btn-default btn-space" type="submit" [disabled]="!myForm.valid">Add Client</button>
       <a [routerLink]="[ '/manage-client']" class="btn btn-default">Cancel</a>
     </div>
   </form>

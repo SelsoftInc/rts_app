@@ -134,8 +134,6 @@ export class RecruiterAddNewSubmissionsComponent implements OnInit {
       candidateId: this.selectedCandidate.candidateId
     };
 
-    console.log(submission);
-
     this.submissionService.addSubmission(submission)
       .subscribe(
         data => {
