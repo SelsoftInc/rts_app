@@ -40,7 +40,7 @@ export class RequirementsComponent implements OnInit {
     this.hideComponent.displayComponent = true;
     if (this.userRole === 'ADMIN') {
       this.getAllRequirements();
-    } else if (this.userRole === 'TL') {
+    } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
       this.getAllRequirementsForTeam();
     } else if (this.userRole === 'RECRUITER') {
       this.getAllRequirementsForUser();
@@ -92,6 +92,7 @@ export class RequirementsComponent implements OnInit {
         data => {
           if (data.success) {
             this.requirementsForUser = data.requirements;
+            console.log(this.requirementsForUser);
             this.requirementsLengthForUser = this.requirementsForUser.length;
             for (const require of this.requirementsForUser) {
               const diff = Math.floor(this.currentDate.getTime() - require.createdOn);
@@ -126,7 +127,7 @@ export class RequirementsComponent implements OnInit {
           console.log(data);
           if (data.success) {
             this.requirementsForTeam = data.requirements;
-            this.requirementsLengthForTeam = this.requirements.length;
+            this.requirementsLengthForTeam = this.requirementsForTeam.length;
             for (const require of this.requirementsForTeam) {
               const diff = Math.floor(this.currentDate.getTime() - require.createdOn);
               const day = 1000 * 60 * 60 * 24;

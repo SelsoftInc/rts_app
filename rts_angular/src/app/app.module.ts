@@ -52,6 +52,10 @@ import { ManageTeamComponent } from './manage-team/manage-team.component';
 import { AddTeamComponent } from './add-team/add-team.component';
 import { TeamService } from './Services/team.service';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { EditRequirementForLeadUserComponent } from './edit-requirement-for-lead-user/edit-requirement-for-lead-user.component';
+import { EditRequirementForAccMgrComponent } from './edit-requirement-for-acc-mgr/edit-requirement-for-acc-mgr.component';
+import { AccMgrEditSubmissionsComponent } from './acc-mgr-edit-submissions/acc-mgr-edit-submissions.component';
+import { LeadUserEditSubmissionsComponent } from './lead-user-edit-submissions/lead-user-edit-submissions.component';
 
 
 @NgModule({
@@ -83,6 +87,10 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     EditCandidateComponent,
     ManageTeamComponent,
     AddTeamComponent,
+    EditRequirementForLeadUserComponent,
+    EditRequirementForAccMgrComponent,
+    AccMgrEditSubmissionsComponent,
+    LeadUserEditSubmissionsComponent,
   ],
   imports: [
     BrowserModule,

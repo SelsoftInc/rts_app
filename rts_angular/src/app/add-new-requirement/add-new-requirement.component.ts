@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../Services/user.service';
 import { ClientService } from '../Services/client.service';
+import * as _ from 'underscore';
 
 @Component({
   selector: 'app-add-new-requirement',
@@ -34,6 +35,9 @@ export class AddNewRequirementComponent implements OnInit {
   private isOtherPositionName: boolean;
   private technologies: any;
   private isOtherTechnology: boolean;
+  private selectedTeamUsers: any;
+  private selectedTeam: any;
+  private userRole: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -46,14 +50,16 @@ export class AddNewRequirementComponent implements OnInit {
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
+    this.userRole = this.rtsUser.role;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.requirementByUser = [];
     this.immigrationByUser = [];
+    this.selectedTeamUsers = [];
     this.requirementType = ['C2C', 'FTE', 'TBD'];
     this.immigration = ['GC', 'CITIZEN', 'H1B'];
     this.requirementStatus = [
       { 'name': 'Open', 'value': 'Open' },
-      { 'name': 'In-Progress', 'value': 'Inprogress' },
+      { 'name': 'In-Progress', 'value': 'In-Progress' },
       { 'name': 'Closed', 'value': 'Closed' }
     ];
   }
@@ -70,7 +76,7 @@ export class AddNewRequirementComponent implements OnInit {
       priority: [''],
       location: [''],
       requirementType: [''],
-      positionsCount: [''],
+      positionsCount: ['', Validators.pattern('^[0-9]*$')],
       immigrationRequirement: [''],
       technologies: [''],
       allocation: [''],
@@ -86,11 +92,11 @@ export class AddNewRequirementComponent implements OnInit {
   }
 
   getCommonDetails() {
-    const companyId = {
-      companyId: this.rtsCompanyId
+    const userId = {
+      userId: this.rtsUserId
     };
 
-    this.requirementService.commonDetails(companyId)
+    this.requirementService.commonDetails(userId)
       .subscribe(
         data => {
           if (data.success) {
@@ -165,6 +171,16 @@ export class AddNewRequirementComponent implements OnInit {
     }
   }
 
+  selectTeam(event) {
+    if (event !== '') {
+      this.selectedTeam = _.findWhere(this.teams, { teamId: event });
+      this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+      for (const user of this.selectedTeam.otherUsers) {
+        this.selectedTeamUsers.push(user);
+      }
+    }
+  }
+
   addNewRequirement(form: FormGroup) {
 
     if (form.value.clientRate === '' || form.value.clientRate === null) {
@@ -188,7 +204,7 @@ export class AddNewRequirementComponent implements OnInit {
       location: form.value.location,
       requirementType: this.requirementByUser,
       immigrationRequirement: this.immigrationByUser,
-      positionCount: form.value.positionsCount,
+      positionCount: parseInt(form.value.positionsCount, 0),
       status: form.value.status,
       enteredBy: this.rtsUserId,
       clientId: form.value.clientName,
@@ -226,6 +242,7 @@ export class AddNewRequirementComponent implements OnInit {
     }
 
     this.newRequirement = requirement;
+    console.log(this.newRequirement);
 
     this.requirementService.addRequirements(this.newRequirement)
       .subscribe(

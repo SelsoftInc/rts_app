@@ -2,7 +2,6 @@
   <form [formGroup]="myForm" (ngSubmit)="updateSubmission(myForm)">
     <legend class="header">Edit Submission</legend>
 
-
     <div class="row pt-3">
       <div class="col-6">
         <div class="form-group row" *ngIf="selectedSubmission">
@@ -72,6 +71,7 @@
               required>
               <option value="">Select</option>
               <option *ngFor="let status of status" value="{{status.value}}">{{status.name}}</option>
+              <option *ngIf="selectedSubmission.status === 'SUBMITTED'" value="SUBMITTED" >SUBMITTED</option>
             </select>
           </div>
         </div>
@@ -84,7 +84,6 @@
             <input *ngIf="selectedSubmission.status !== 'REJECTED'" type="text" class="form-control" name="reasonForRejection" formControlName="reasonForRejection">
           </div>
         </div>
-
 
         <!-- <div class="form-group">
           <div>
@@ -104,6 +103,7 @@
             </a>
           </div>
         </div> -->
+
         <div class="form-group" *ngIf="selectedSubmission">
           <div class="pb-2" *ngFor="let media of selectedSubmission.mediaFiles">
             <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
@@ -380,6 +380,26 @@
               </mat-radio-group>
             </div>
           </div>
+
+          <div class="form-group">
+            <div>
+              <label class="fileContainer">
+                <button class="btn btn-secondary">
+                  Attach For Candidate</button>
+                <input type="file" (change)="candidateFileEvent($event)" multiple/>
+              </label>
+            </div>
+            <div class="pb-2" *ngFor="let file of candidateGetFiles">
+              <a class="panel">{{file.name}}
+              </a>
+              <a class="btn" (click)="candidateRemoveFile(file)">
+                <i class="material-icons">
+                  clear
+                </i>
+              </a>
+            </div>
+          </div>
+
         </div>
 
         <div class="col-6" *ngIf="isEmployerDetails">

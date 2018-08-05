@@ -131,7 +131,8 @@
     <div class="form-group row" *ngIf="selectedRequirement">
       <label for="jobDescription" class="col-sm-2 col-form-label">Job Description:</label>
       <div class="col-sm-4 ">
-        <textarea name="jobDescription" class="form-control" formControlName="jobDescription" placeholder="Description.." ngModel="{{selectedRequirement.jobDescription}}"></textarea>
+        <textarea rows="8" name="jobDescription" class="form-control" formControlName="jobDescription" placeholder="Description.."
+          ngModel="{{selectedRequirement.jobDescription}}"></textarea>
       </div>
     </div>
 
@@ -152,20 +153,10 @@
     </div>
 
     <div class="form-group row" *ngIf="selectedRequirement">
-      <label for="allocation" class="col-sm-2 col-form-label">Allocation:</label>
-      <div class="col-sm-4 ">
-        <select name="role" class="form-control" formControlName="allocation" ngModel="{{selectedRequirement.allocationUserId}}"
-          required>
-          <option value="">Select</option>
-          <option *ngFor="let user of userDetails" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="form-group row" *ngIf="selectedRequirement">
       <label for="team" class="col-sm-2 col-form-label">Team:</label>
       <div class="col-sm-4 ">
-        <select name="team" class="form-control" formControlName="team" ngModel="{{selectedRequirement.teamId}}" required>
+        <select name="team" class="form-control" formControlName="team" ngModel="{{selectedRequirement.teamId}}" (change)="selectTeam($event.target.value)"
+          required>
           <option value="">Select</option>
           <option *ngFor="let team of teams" value="{{team.teamId}}">{{team.name}}</option>
         </select>

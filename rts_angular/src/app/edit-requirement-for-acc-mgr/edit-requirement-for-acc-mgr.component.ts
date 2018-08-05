@@ -10,13 +10,12 @@ import { ClientService } from '../Services/client.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-edit-requirement',
-  templateUrl: './edit-requirement.component.html',
-  styleUrls: ['./edit-requirement.component.css'],
+  selector: 'app-edit-requirement-for-acc-mgr',
+  templateUrl: './edit-requirement-for-acc-mgr.component.html',
+  styleUrls: ['./edit-requirement-for-acc-mgr.component.css'],
   providers: [LoggedUserService]
 })
-export class EditRequirementComponent implements OnInit {
-
+export class EditRequirementForAccMgrComponent implements OnInit {
   private rtsUser: any;
   private rtsUserId: any;
   private requirementId: any;
@@ -44,7 +43,6 @@ export class EditRequirementComponent implements OnInit {
   private selectedTeam: any;
   private selectedTeamUsers: any;
   private userRole: any;
-  editTeam: boolean;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -57,7 +55,6 @@ export class EditRequirementComponent implements OnInit {
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
-    console.log(this.rtsUser);
     this.userRole = this.rtsUser.role;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.requirementByUser = [];
@@ -107,7 +104,6 @@ export class EditRequirementComponent implements OnInit {
       H1B: [''],
       otherTechnology: ['']
     });
-    this.getAllUsers();
     // this.getAllClients();
     this.getCommonDetails();
   }
@@ -131,27 +127,27 @@ export class EditRequirementComponent implements OnInit {
         });
   }
 
-  getAllUsers() {
-    const userId = {
-      enteredBy: this.rtsUserId
-    };
+  // getAllClients() {
+  //   const companyId = {
+  //     companyId: this.rtsCompanyId
+  //   };
 
-    this.userService.allUsers(userId)
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.userDetails = data.users;
-          }
-        });
-  }
+  //   this.clientService.allClients(companyId)
+  //     .subscribe(
+  //       data => {
+  //         if (data.success) {
+  //           this.clients = data.clients;
+  //         }
+  //       });
+  // }
 
   getAllRequirements() {
 
     const userId = {
-      companyId: this.rtsCompanyId
+      userId: this.rtsUserId
     };
 
-    this.requirementService.requirementsDetails(userId)
+    this.requirementService.requirementsDetailsByTeam(userId)
       .subscribe(
         data => {
           if (data.success) {
@@ -188,19 +184,6 @@ export class EditRequirementComponent implements OnInit {
         });
   }
 
-  // getAllClients() {
-  //   const companyId = {
-  //     companyId: this.rtsCompanyId
-  //   };
-
-  //   this.clientService.allClients(companyId)
-  //     .subscribe(
-  //       data => {
-  //         if (data.success) {
-  //           this.clients = data.clients;
-  //         }
-  //       });
-  // }
 
   getCheckedRequirementType(type) {
     if (this.requirementByUser.indexOf(type) === -1) {

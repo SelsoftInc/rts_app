@@ -17,7 +17,10 @@
         <td>{{user.firstName}}</td>
         <td>{{user.lastName}}</td>
         <td>{{user.email}}</td>
-        <td>{{user.role}}</td>
+        <td *ngIf="user.role === 'ACC_MGR' ; else Others">ACCOUNT MANAGER</td>
+        <ng-template #Others>
+          <td>{{user.role}}</td>
+        </ng-template>
       </tr>
     </tbody>
     <ng-template #noUser>

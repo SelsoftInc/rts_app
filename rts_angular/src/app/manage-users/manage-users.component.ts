@@ -11,10 +11,10 @@ import { UserService } from '../Services/user.service';
 })
 export class ManageUsersComponent implements OnInit {
 
-  rtsUser: any;
-  rtsUserId: any;
-  userDetails: any;
-  userLength: any;
+  private rtsUser: any;
+  private rtsUserId: any;
+  private userDetails: any;
+  private userLength: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -39,6 +39,7 @@ export class ManageUsersComponent implements OnInit {
         data => {
           if (data.success) {
             this.userDetails = data.users;
+            console.log(this.userDetails);
             this.userLength = this.userDetails.length;
           }
         });

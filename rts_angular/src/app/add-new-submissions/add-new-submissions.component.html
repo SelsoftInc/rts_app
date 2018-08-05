@@ -173,24 +173,61 @@
           <div class="form-group row">
             <label for="c2c" class="col-sm-4 col-form-label">C2C:</label>
             <div class="col-sm-7">
-              <mat-radio-group disabled>
+              <mat-radio-group formControlName="c2c" disabled>
                 <mat-radio-button value="Yes">Yes</mat-radio-button>
                 <mat-radio-button value="No">No</mat-radio-button>
               </mat-radio-group>
             </div>
           </div>
 
-          <div class="form-group row" *ngIf="selectedCandidate.mediaFiles.length > 0">
-            <label class="col-sm-4 col-form-label">Attachements:</label>
+          <div class="form-group" *ngIf="selectedCandidate.mediaFiles.length > 0">
+            <label>Attachements:</label>
+            <div class="pt-3" *ngFor="let media of selectedCandidate.mediaFiles">
+              <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-6" *ngIf="isC2c">
+
+          <legend class="sub-heading">Employer Details:</legend>
+
+          <div class="form-group row">
+            <label for="employerName" class="col-sm-4 col-form-label">Employer Name:</label>
             <div class="col-sm-7">
-              <div class="pt-3" *ngFor="let media of selectedCandidate.mediaFiles">
-                <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
-                </a>
-              </div>
+              <input type="text" class="form-control" name="employerName" formControlName="employerName" ngModel="{{selectedCandidate.employeeName}}"
+                readonly>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employerContactName" class="col-sm-4 col-form-label">Employer Contact Name:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="employerContactName" formControlName="employerContactName" ngModel="{{selectedCandidate.employeeContactName}}"
+                readonly>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employerPhone" class="col-sm-4 col-form-label">Employer Phone:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="employerPhone" formControlName="employerPhone" ngModel="{{selectedCandidate.employeeContactPhone}}"
+                readonly>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employerEmail" class="col-sm-4 col-form-label">Employer Email:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="employerEmail" formControlName="employerEmail" ngModel="{{selectedCandidate.employeeContactEmail}}"
+                readonly>
             </div>
           </div>
 
         </div>
+
       </div>
     </div>
 

@@ -2,7 +2,6 @@
   <form [formGroup]="myForm" (ngSubmit)="updateSubmission(myForm)">
     <legend class="header">Edit Submission</legend>
 
-
     <div class="row pt-3">
       <div class="col-6">
         <div class="form-group row" *ngIf="selectedSubmission">
@@ -19,14 +18,16 @@
         <div class="form-group row" *ngIf="selectedSubmission">
           <label for="clientRate" class="col-sm-4 col-form-label">Client Rate:</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" name="clientRate" formControlName="clientRate" ngModel="{{selectedSubmission.clientRate}}">
+            <input type="text" class="form-control" name="clientRate" formControlName="clientRate" ngModel="{{selectedSubmission.clientRate}}"
+              required>
           </div>
         </div>
 
         <div class="form-group row" *ngIf="selectedSubmission">
           <label for="sellingRate" class="col-sm-4 col-form-label">Selling Rate:</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" ngModel="{{selectedSubmission.sellingRate}}">
+            <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" ngModel="{{selectedSubmission.sellingRate}}"
+              required>
           </div>
         </div>
 
@@ -66,36 +67,43 @@
         <div class="form-group row" *ngIf="selectedSubmission">
           <label for="status" class="col-sm-4 col-form-label">Status:</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" name="status" formControlName="status" value="{{selectedSubmission.status}}" readonly>
+            <select name="status" class="form-control" formControlName="status" (change)="changeStatus($event.target.value);" ngModel="{{selectedSubmission.status}}"
+              required>
+              <option value="">Select</option>
+              <option *ngFor="let status of status" value="{{status.value}}">{{status.name}}</option>
+              <option *ngIf="selectedSubmission.status === 'SUBMITTED'" value="SUBMITTED" >Submitted</option>
+            </select>
           </div>
         </div>
 
-        <div class="form-group row" *ngIf="selectedSubmission && selectedSubmission.status === 'REJECTED'">
+        <div class="form-group row" *ngIf="isRejected">
           <label for="reasonForRejection" class="col-sm-4 col-form-label">Reson For Rejection:</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" name="reasonForRejection" formControlName="reasonForRejection" value="{{selectedSubmission.reasonForRejection}}"
-              readonly>
+            <input *ngIf="selectedSubmission.status === 'REJECTED'" type="text" class="form-control" name="reasonForRejection" formControlName="reasonForRejection"
+              value="{{selectedSubmission.reasonForRejection}}">
+            <input *ngIf="selectedSubmission.status !== 'REJECTED'" type="text" class="form-control" name="reasonForRejection" formControlName="reasonForRejection">
           </div>
         </div>
 
         <!-- <div class="form-group">
-          <div>
-            <label class="fileContainer">
-              <button class="btn btn-secondary">
-                Attach Files</button>
-              <input type="file" (change)="fileChangeEvent($event)" multiple/>
-            </label>
-          </div>
-          <div class="pb-2" *ngFor="let file of getFiles">
-            <a class="panel">{{file.name}}
-            </a>
-            <a class="btn" (click)="removeFile(file)">
-              <i class="material-icons">
-                clear
-              </i>
-            </a>
-          </div>
-        </div> -->
+            <div>
+              <label class="fileContainer">
+                <button class="btn btn-secondary" disabled>
+                  Attach For Submisson</button>
+                <input type="file" (change)="fileChangeEvent($event)" multiple disabled/>
+              </label>
+            </div>
+            <div class="pb-2" *ngFor="let file of getFiles">
+              <a class="panel">{{file.name}}
+              </a>
+              <a class="btn" (click)="removeFile(file)">
+                <i class="material-icons">
+                  clear
+                </i>
+              </a>
+            </div>
+          </div> -->
+
         <div class="form-group" *ngIf="selectedSubmission">
           <div class="pb-2" *ngFor="let media of selectedSubmission.mediaFiles">
             <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
@@ -121,14 +129,22 @@
         <div class="form-group row" *ngIf="selectedSubmission">
           <label for="level1Date" class="col-sm-4 col-form-label">Level1 Date:</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" name="level1Date" formControlName="level1Date" ngModel="{{selectedSubmission.dateOfLevel1}}">
+            <mat-form-field>
+              <input matInput [matDatepicker]="dateOfLevel1" formControlName="level1Date" ngModel="{{selectedSubmission.dateOfLevel1}}">
+              <mat-datepicker-toggle matSuffix [for]="dateOfLevel1"></mat-datepicker-toggle>
+              <mat-datepicker #dateOfLevel1></mat-datepicker>
+            </mat-form-field>
           </div>
         </div>
 
         <div class="form-group row" *ngIf="selectedSubmission">
           <label for="level2Date" class="col-sm-4 col-form-label">Level2 Date:</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" name="level2Date" formControlName="level2Date" ngModel="{{selectedSubmission.dateOfLevel2}}">
+            <mat-form-field>
+              <input matInput [matDatepicker]="dateOfLevel2" formControlName="level2Date" ngModel="{{selectedSubmission.dateOfLevel2}}">
+              <mat-datepicker-toggle matSuffix [for]="dateOfLevel2"></mat-datepicker-toggle>
+              <mat-datepicker #dateOfLevel2></mat-datepicker>
+            </mat-form-field>
           </div>
         </div>
 
@@ -138,7 +154,6 @@
             <input type="text" class="form-control" name="currentStatus" formControlName="currentStatus" ngModel="{{selectedSubmission.currentStatus}}">
           </div>
         </div>
-
       </div>
     </div>
 
@@ -235,15 +250,14 @@
             </div>
           </div>
 
-          <div class="form-group row" *ngIf="selectedSubmission">
-            <label class="col-sm-2 col-form-label">Attachements:</label>
-            <div class="col-sm-4">
-              <div class="pt-3" *ngFor="let media of selectedSubmission.candidate.mediaFiles">
-                <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
-                </a>
-              </div>
+          <div class="form-group" *ngIf="selectedSubmission">
+            <label>Attachements:</label>
+            <div class="pt-3" *ngFor="let media of selectedSubmission.candidate.mediaFiles">
+              <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
+              </a>
             </div>
           </div>
+
         </div>
         <div class="col-6" *ngIf="isC2c">
 
@@ -366,26 +380,6 @@
               </mat-radio-group>
             </div>
           </div>
-
-          <div class="form-group">
-            <div>
-              <label class="fileContainer">
-                <button class="btn btn-secondary">
-                  Attach For Candidate</button>
-                <input type="file" (change)="candidateFileEvent($event)" multiple/>
-              </label>
-            </div>
-            <div class="pb-2" *ngFor="let file of candidateGetFiles">
-              <a class="panel">{{file.name}}
-              </a>
-              <a class="btn" (click)="candidateRemoveFile(file)">
-                <i class="material-icons">
-                  clear
-                </i>
-              </a>
-            </div>
-          </div>
-
         </div>
 
         <div class="col-6" *ngIf="isEmployerDetails">
@@ -425,7 +419,7 @@
 
     <div class="form-btn-container">
       <button class="btn btn-default btn-space" type="submit">Update Submission</button>
-      <button *ngIf="sendToClient" class="btn btn-default btn-space">Send To Client</button>
+      <button type="button" *ngIf="sendToClient && !isSubmitted " class="btn btn-default btn-space" (click)="submissionToClient();">Send To Client</button>
       <button [routerLink]="[ '/submissions']" class="btn btn-default">Cancel</button>
     </div>
 

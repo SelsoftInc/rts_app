@@ -10,12 +10,12 @@ import { ClientService } from '../Services/client.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-edit-requirement',
-  templateUrl: './edit-requirement.component.html',
-  styleUrls: ['./edit-requirement.component.css'],
+  selector: 'app-edit-requirement-for-lead-user',
+  templateUrl: './edit-requirement-for-lead-user.component.html',
+  styleUrls: ['./edit-requirement-for-lead-user.component.css'],
   providers: [LoggedUserService]
 })
-export class EditRequirementComponent implements OnInit {
+export class EditRequirementForLeadUserComponent implements OnInit {
 
   private rtsUser: any;
   private rtsUserId: any;
@@ -107,8 +107,7 @@ export class EditRequirementComponent implements OnInit {
       H1B: [''],
       otherTechnology: ['']
     });
-    this.getAllUsers();
-    // this.getAllClients();
+    this.getAllClients();
     this.getCommonDetails();
   }
 
@@ -131,16 +130,16 @@ export class EditRequirementComponent implements OnInit {
         });
   }
 
-  getAllUsers() {
-    const userId = {
-      enteredBy: this.rtsUserId
+  getAllClients() {
+    const companyId = {
+      companyId: this.rtsCompanyId
     };
 
-    this.userService.allUsers(userId)
+    this.clientService.allClients(companyId)
       .subscribe(
         data => {
           if (data.success) {
-            this.userDetails = data.users;
+            this.clients = data.clients;
           }
         });
   }
@@ -148,10 +147,10 @@ export class EditRequirementComponent implements OnInit {
   getAllRequirements() {
 
     const userId = {
-      companyId: this.rtsCompanyId
+      userId: this.rtsUserId
     };
 
-    this.requirementService.requirementsDetails(userId)
+    this.requirementService.requirementsDetailsByTeam(userId)
       .subscribe(
         data => {
           if (data.success) {
@@ -165,6 +164,12 @@ export class EditRequirementComponent implements OnInit {
             for (const user of this.selectedTeam.otherUsers) {
               this.selectedTeamUsers.push(user);
             }
+            if (this.selectedRequirement.enteredBy === this.rtsUserId) {
+              this.editTeam = true;
+            } else {
+              this.editTeam = false;
+            }
+            console.log(this.editTeam);
             for (const value of this.requirementByUser) {
               if (value === 'C2C') {
                 this.myForm.controls.C2C.setValue('C2C');
@@ -188,19 +193,6 @@ export class EditRequirementComponent implements OnInit {
         });
   }
 
-  // getAllClients() {
-  //   const companyId = {
-  //     companyId: this.rtsCompanyId
-  //   };
-
-  //   this.clientService.allClients(companyId)
-  //     .subscribe(
-  //       data => {
-  //         if (data.success) {
-  //           this.clients = data.clients;
-  //         }
-  //       });
-  // }
 
   getCheckedRequirementType(type) {
     if (this.requirementByUser.indexOf(type) === -1) {

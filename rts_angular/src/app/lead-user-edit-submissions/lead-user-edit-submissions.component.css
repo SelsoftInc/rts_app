@@ -33,10 +33,6 @@
   color: red;
 }
 
-.mat-radio-button {
-  padding-right: 16px;
-}
-
 .ng-valid[required],
 .ng-valid.required {
   border-left: 5px solid #42A948;
@@ -44,4 +40,8 @@
 
 .ng-invalid:not(form) {
   border-left: 5px solid #c84e02;
+}
+
+.mat-radio-button {
+  padding-right: 16px;
 }

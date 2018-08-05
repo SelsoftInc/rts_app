@@ -69,7 +69,7 @@
       </div>
     </div>
 
-    <div class="form-group">
+    <!-- <div class="form-group">
       <div>
         <label class="fileContainer">
           <button class="btn btn-secondary">
@@ -86,7 +86,7 @@
           </i>
         </a>
       </div>
-    </div>
+    </div> -->
 
     <legend class="sub-heading">Candidate Deatils:</legend>
 
@@ -100,89 +100,268 @@
 
     <div *ngIf="isCandidate">
 
-      <div class="form-group row">
-        <label for="candidateImmigirationStatus" class="col-sm-2 col-form-label">Candidate Immigiration Status:</label>
-        <div class="col-sm-4">
-          <input type="text" class="form-control" name="candidateImmigirationStatus" formControlName="candidateImmigirationStatus"
-            value="{{selectedCandidate.immigirationStatus}}" readonly>
+      <div class="row pt-3">
+        <div class="col-6">
+
+          <div class="form-group row">
+            <label for="candidateImmigirationStatus" class="col-sm-4 col-form-label">Candidate Immigiration Status:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="candidateImmigirationStatus" formControlName="candidateImmigirationStatus"
+                value="{{selectedCandidate.immigirationStatus}}" readonly>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="candidateName" class="col-sm-4 col-form-label">Candidate Name:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="candidateName" formControlName="candidateName" value="{{selectedCandidate.name}}"
+                readonly>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="candidatePhone" class="col-sm-4 col-form-label">Candidate Phone:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="candidatePhone" formControlName="candidatePhone" value="{{selectedCandidate.phoneNumber}}"
+                readonly>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="candidateLocation" class="col-sm-4 col-form-label">Candidate Location:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="candidateLocation" formControlName="candidateLocation" value="{{selectedCandidate.location}}"
+                readonly>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="availability" class="col-sm-4 col-form-label">Availability:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="availability" formControlName="availability" value="{{selectedCandidate.availability}}"
+                readonly>
+            </div>
+          </div>
+
+
+          <div class="form-group row">
+            <label for="technology" class="col-sm-4 col-form-label">Technology:</label>
+            <div class="col-sm-7">
+              <select name="technology" class="form-control" formControlName="technology" ngModel="{{selectedCandidate.technology[0].technologyId}}"
+                disabled>
+                <option *ngFor="let tech of selectedCandidate.technology" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="skype" class="col-sm-4 col-form-label">Skype:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="skype" formControlName="skype" value="{{selectedCandidate.skype}}" readonly>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="linkedIn" class="col-sm-4 col-form-label">LinkedIn:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="linkedIn" formControlName="linkedIn" value="{{selectedCandidate.linkedIn}}"
+                readonly>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="c2c" class="col-sm-4 col-form-label">C2C:</label>
+            <div class="col-sm-7">
+              <mat-radio-group formControlName="c2c" disabled>
+                <mat-radio-button value="Yes">Yes</mat-radio-button>
+                <mat-radio-button value="No">No</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="form-group" *ngIf="selectedCandidate.mediaFiles.length > 0">
+            <label>Attachements:</label>
+            <div class="pt-3" *ngFor="let media of selectedCandidate.mediaFiles">
+              <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-6" *ngIf="isC2c">
+
+          <legend class="sub-heading">Employer Details:</legend>
+
+          <div class="form-group row">
+            <label for="employerName" class="col-sm-4 col-form-label">Employer Name:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="employerName" formControlName="employerName" ngModel="{{selectedCandidate.employeeName}}"
+                readonly>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employerContactName" class="col-sm-4 col-form-label">Employer Contact Name:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="employerContactName" formControlName="employerContactName" ngModel="{{selectedCandidate.employeeContactName}}"
+                readonly>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employerPhone" class="col-sm-4 col-form-label">Employer Phone:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="employerPhone" formControlName="employerPhone" ngModel="{{selectedCandidate.employeeContactPhone}}"
+                readonly>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employerEmail" class="col-sm-4 col-form-label">Employer Email:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="employerEmail" formControlName="employerEmail" ngModel="{{selectedCandidate.employeeContactEmail}}"
+                readonly>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="form-group row">
-        <label for="candidateName" class="col-sm-2 col-form-label">Candidate Name:</label>
-        <div class="col-sm-4">
-          <input type="text" class="form-control" name="candidateName" formControlName="candidateName" value="{{selectedCandidate.name}}"
-            readonly>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label for="candidatePhone" class="col-sm-2 col-form-label">Candidate Phone:</label>
-        <div class="col-sm-4">
-          <input type="text" class="form-control" name="candidatePhone" formControlName="candidatePhone" value="{{selectedCandidate.phoneNumber}}"
-            readonly>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label for="candidateLocation" class="col-sm-2 col-form-label">Candidate Location:</label>
-        <div class="col-sm-4">
-          <input type="text" class="form-control" name="candidateLocation" formControlName="candidateLocation" value="{{selectedCandidate.location}}"
-            readonly>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label for="availability" class="col-sm-2 col-form-label">Availability:</label>
-        <div class="col-sm-4">
-          <input type="text" class="form-control" name="availability" formControlName="availability" value="{{selectedCandidate.availability}}"
-            readonly>
-        </div>
-      </div>
-
-
-      <div class="form-group row">
-        <label for="technology" class="col-sm-2 col-form-label">Technology:</label>
-        <div class="col-sm-4">
-          <select name="technology" class="form-control" formControlName="technology" ngModel="{{selectedCandidate.technology[0].technologyId}}"
-            disabled>
-            <option *ngFor="let tech of selectedCandidate.technology" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label for="skype" class="col-sm-2 col-form-label">Skype:</label>
-        <div class="col-sm-4">
-          <input type="text" class="form-control" name="skype" formControlName="skype" readonly>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label for="linkedIn" class="col-sm-2 col-form-label">LinkedIn:</label>
-        <div class="col-sm-4">
-          <input type="text" class="form-control" name="linkedIn" formControlName="linkedIn" readonly>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label for="c2c" class="col-sm-2 col-form-label">C2C:</label>
-        <div class="col-sm-4 ">
-          <input type="radio" value="Yes">Yes
-          <input type="radio" value="No">No
-        </div>
-      </div>
-
-      <div class="form-group">
-        <div class="pt-3" *ngFor="let media of selectedCandidate.mediaFiles">
-          <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
-          </a>
-        </div>
-      </div>
     </div>
 
     <div *ngIf="!isCandidate">
-      <button [routerLink]="[ '/add-candidate']" class="btn btn-default">Add Candidate</button>
+      <div class="row pt-3">
+        <div class="col-6">
+
+          <div class="form-group row">
+            <label for="editCandidateImmigirationStatus" class="col-sm-4 col-form-label">Candidate Immigiration Status:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="editCandidateImmigirationStatus" formControlName="editCandidateImmigirationStatus">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="editCandidateName" class="col-sm-4 col-form-label">Candidate Name:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="editCandidateName" formControlName="editCandidateName">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="editCandidatePhone" class="col-sm-4 col-form-label">Candidate Phone:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="editCandidatePhone" formControlName="editCandidatePhone">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="editCandidateLocation" class="col-sm-4 col-form-label">Candidate Location:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="editCandidateLocation" formControlName="editCandidateLocation">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="editAvailability" class="col-sm-4 col-form-label">Availability:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="editAvailability" formControlName="editAvailability">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="editTechnology" class="col-sm-4 col-form-label">Technology:</label>
+            <div class="col-sm-7">
+              <select name="editTechnology" class="form-control" formControlName="editTechnology" (change)="addTechnology($event.target.value);">
+                <option value="">Select</option>
+                <option *ngFor="let tech of technology" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row" *ngIf="isOtherTechnology">
+            <label for="otherTechnology" class="col-sm-4 col-form-label"></label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="otherTechnology" formControlName="otherTechnology" placeholder=" Enter the Technology">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="editSkype" class="col-sm-4 col-form-label">Skype:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="editSkype" formControlName="editSkype">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="editLinkedIn" class="col-sm-4 col-form-label">LinkedIn:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="editLinkedIn" formControlName="editLinkedIn">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="c2c" class="col-sm-4 col-form-label">C2C:</label>
+            <div class="col-sm-7">
+              <mat-radio-group (change)="getC2c($event)">
+                <mat-radio-button value="Yes">Yes</mat-radio-button>
+                <mat-radio-button value="No" checked>No</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div>
+              <label class="fileContainer">
+                <button class="btn btn-secondary">
+                  Attach For Candidate</button>
+                <input type="file" (change)="candidateFileEvent($event)" multiple/>
+              </label>
+            </div>
+            <div class="pb-2" *ngFor="let file of candidateGetFiles">
+              <a class="panel">{{file.name}}
+              </a>
+              <a class="btn" (click)="candidateRemoveFile(file)">
+                <i class="material-icons">
+                  clear
+                </i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6" *ngIf="isEmployerDetails">
+
+          <legend class="sub-heading">Employer Details:</legend>
+
+          <div class="form-group row">
+            <label for="employerName" class="col-sm-4 col-form-label">Employer Name:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="employerName" ngModel formControlName="employerName">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employerContactName" class="col-sm-4 col-form-label">Employer Contact Name:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="employerContactName" ngModel formControlName="employerContactName">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employerPhone" class="col-sm-4 col-form-label">Employer Phone:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="employerPhone" ngModel formControlName="employerPhone">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="employerEmail" class="col-sm-4 col-form-label">Employer Email:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="employerEmail" ngModel formControlName="employerEmail">
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
 
     <div class="form-btn-container">

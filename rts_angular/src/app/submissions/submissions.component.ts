@@ -20,6 +20,7 @@ export class SubmissionsComponent implements OnInit {
   private requirements: any;
   private submissionDetails: any;
   private rtsCompanyId: any;
+  private userRole: any;
 
 
   constructor(private loggedUser: LoggedUserService,
@@ -29,12 +30,17 @@ export class SubmissionsComponent implements OnInit {
     this.hideComponent.displayComponent = true;
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsCompanyId = this.rtsUser.companyId;
+    this.userRole = this.rtsUser.role;
     this.rtsUserId = this.rtsUser.userId;
     this.submissionDetails = [];
   }
 
   ngOnInit() {
-    this.getAllSubmissions();
+    if (this.userRole === 'ADMIN') {
+      this.getAllSubmissions();
+    } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
+      this.getAllSubmissionsForTeam();
+    }
   }
 
   getAllSubmissions() {
@@ -46,6 +52,28 @@ export class SubmissionsComponent implements OnInit {
     this.requirementService.requirementsDetails(userId)
       .subscribe(
         data => {
+          if (data.success) {
+            this.requirements = data.requirements;
+            for (const require of this.requirements) {
+              if (require.submissions.length > 0) {
+                this.submissionDetails.push(require);
+              }
+            }
+            this.submissionsLength = this.submissionDetails.length;
+          }
+        });
+  }
+
+  getAllSubmissionsForTeam() {
+
+    const teamId = {
+      userId: this.rtsUserId
+    };
+
+    this.requirementService.requirementsDetailsByTeam(teamId)
+      .subscribe(
+        data => {
+          console.log(data);
           if (data.success) {
             this.requirements = data.requirements;
             for (const require of this.requirements) {

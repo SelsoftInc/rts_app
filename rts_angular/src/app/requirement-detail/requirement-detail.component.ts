@@ -40,6 +40,8 @@ export class RequirementDetailComponent implements OnInit {
   private teams: any;
   private requirementStatus: any;
   private editRequirement: any;
+  selectedTeam: any;
+  selectedTeamUsers: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -54,13 +56,14 @@ export class RequirementDetailComponent implements OnInit {
     this.rtsCompanyId = this.rtsUser.companyId;
     this.requirementByUser = [];
     this.immigrationByUser = [];
+    this.selectedTeamUsers = [];
     this.selectedRequirement = {};
     this.requirementType = ['C2C', 'FTE', 'TBD'];
     this.immigration = ['GC', 'CITIZEN', 'H1B'];
     this.requirementStatus = [
-      { 'name': 'Open', 'value': 'open' },
-      { 'name': 'In-Progress', 'value': 'inprogress' },
-      { 'name': 'Closed', 'value': 'closed' }
+      { 'name': 'Open', 'value': 'Open' },
+      { 'name': 'In-Progress', 'value': 'IN-Progress' },
+      { 'name': 'Closed', 'value': 'Closed' }
     ];
   }
 
@@ -96,7 +99,6 @@ export class RequirementDetailComponent implements OnInit {
       CITIZEN: [''],
       H1B: ['']
     });
-    this.getAllRequirements();
     this.getAllUsers();
     this.getAllClients();
     this.getCommonDetails();
@@ -105,7 +107,7 @@ export class RequirementDetailComponent implements OnInit {
 
   getCommonDetails() {
     const companyId = {
-      companyId: this.rtsCompanyId
+      userId: this.rtsUserId
     };
 
     this.requirementService.commonDetails(companyId)
@@ -117,6 +119,7 @@ export class RequirementDetailComponent implements OnInit {
             this.accounts = data.accounts;
             this.positions = data.positions;
             this.teams = data.teams;
+            this.getAllRequirements();
           }
         });
   }
@@ -124,18 +127,24 @@ export class RequirementDetailComponent implements OnInit {
   getAllRequirements() {
 
     const userId = {
-      companyId: this.rtsCompanyId
+      userId: this.rtsUserId
     };
 
-    this.requirementService.requirementsDetails(userId)
+    this.requirementService.requirementsDetailsForUser(userId)
       .subscribe(
         data => {
           if (data.success) {
             this.requirements = data.requirements;
             this.selectedRequirement = _.findWhere(this.requirements, { requirementId: this.requirementId });
             this.requirementCreatedDate = moment(this.selectedRequirement.createdOn).format('MMM D, Y');
+            console.log(this.selectedRequirement);
             this.requirementByUser = this.selectedRequirement.requirementType;
             this.immigrationByUser = this.selectedRequirement.immigrationRequirement;
+            this.selectedTeam = _.findWhere(this.teams, { teamId: this.selectedRequirement.teamId });
+            this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+            for (const user of this.selectedTeam.otherUsers) {
+              this.selectedTeamUsers.push(user);
+            }
             for (const value of this.requirementByUser) {
               if (value === 'C2C') {
                 this.myForm.controls.C2C.setValue('C2C');

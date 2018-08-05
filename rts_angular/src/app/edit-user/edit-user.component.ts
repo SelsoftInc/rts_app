@@ -36,6 +36,7 @@ export class EditUserComponent implements OnInit {
     private router: Router
   ) {
     this.userType = [
+      { 'name': 'Account Manager', 'value': 'ACC_MGR' },
       { 'name': 'Team Leader', 'value': 'TL' },
       { 'name': 'Recruiter', 'value': 'RECRUITER' },
     ];

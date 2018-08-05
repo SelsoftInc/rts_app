@@ -13,7 +13,8 @@
         </select>
       </div>
       <div class="col-sm-4" *ngIf="isOtherPositionName">
-        <input type="text" class="form-control" name="otherPositionName" formControlName="otherPositionName" placeholder=" Enter the Position Name" required>
+        <input type="text" class="form-control" name="otherPositionName" formControlName="otherPositionName" placeholder=" Enter the Position Name"
+          required>
       </div>
     </div>
 
@@ -38,7 +39,8 @@
         </select>
       </div>
       <div class="col-sm-4" *ngIf="isOtherAccountName">
-        <input type="text" class="form-control" name="otherAccountName" formControlName="otherAccountName" placeholder=" Enter the Account Name" required>
+        <input type="text" class="form-control" name="otherAccountName" formControlName="otherAccountName" placeholder=" Enter the Account Name"
+          required>
       </div>
     </div>
 
@@ -75,7 +77,7 @@
     <div class="form-group row">
       <label for="positionsCount" class="col-sm-2 col-form-label ">No.of Positions:</label>
       <div class="col-sm-4">
-        <input type="number" class="form-control" name="positionsCount" formControlName="positionsCount" required>
+        <input type="text" maxlength="2" class="form-control" name="positionsCount" formControlName="positionsCount" required>
       </div>
     </div>
 
@@ -116,7 +118,8 @@
     <div class="form-group row">
       <label for="jobDescription" class="col-sm-2 col-form-label">Job Description:</label>
       <div class="col-sm-4 ">
-        <textarea name="jobDescription" class="form-control" formControlName="jobDescription" placeholder="Description.." ngModel></textarea>
+        <textarea rows="8" name="jobDescription" class="form-control" formControlName="jobDescription" placeholder="Description.."
+          ngModel></textarea>
       </div>
     </div>
 
@@ -131,26 +134,27 @@
         </select>
       </div>
       <div class="col-sm-4" *ngIf="isOtherTechnology">
-        <input type="text" class="form-control" name="otherTechnology" formControlName="otherTechnology" placeholder=" Enter the Technology" required>
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <label for="allocation" class="col-sm-2 col-form-label">Allocation:</label>
-      <div class="col-sm-4 ">
-        <select name="role" class="form-control" formControlName="allocation">
-          <option value="">Select</option>
-          <option *ngFor="let user of userDetails" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
-        </select>
+        <input type="text" class="form-control" name="otherTechnology" formControlName="otherTechnology" placeholder=" Enter the Technology"
+          required>
       </div>
     </div>
 
     <div class="form-group row">
       <label for="team" class="col-sm-2 col-form-label">Team:</label>
       <div class="col-sm-4 ">
-        <select name="team" class="form-control" formControlName="team">
+        <select name="team" class="form-control" formControlName="team" (change)="selectTeam($event.target.value)" required>
           <option value="">Select</option>
           <option *ngFor="let team of teams" value="{{team.teamId}}">{{team.name}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="userRole === 'TL'">
+      <label for="allocation" class="col-sm-2 col-form-label">Allocation:</label>
+      <div class="col-sm-4 ">
+        <select name="role" class="form-control" formControlName="allocation">
+          <option value="">Select</option>
+          <option *ngFor="let user of selectedTeamUsers" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
         </select>
       </div>
     </div>
