@@ -73,7 +73,6 @@ export class SubmissionsComponent implements OnInit {
     this.requirementService.requirementsDetailsByTeam(teamId)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.requirements = data.requirements;
             for (const require of this.requirements) {
@@ -81,6 +80,7 @@ export class SubmissionsComponent implements OnInit {
                 this.submissionDetails.push(require);
               }
             }
+            console.log(this.submissionDetails);
             this.submissionsLength = this.submissionDetails.length;
           }
         });

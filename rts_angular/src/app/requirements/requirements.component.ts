@@ -117,11 +117,11 @@ export class RequirementsComponent implements OnInit {
 
   getAllRequirementsForTeam() {
 
-    const teamId = {
+    const userId = {
       userId: this.rtsUserId
     };
 
-    this.requirementService.requirementsDetailsByTeam(teamId)
+    this.requirementService.requirementsDetailsByTeam(userId)
       .subscribe(
         data => {
           console.log(data);

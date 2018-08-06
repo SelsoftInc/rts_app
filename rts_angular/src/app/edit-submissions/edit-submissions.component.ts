@@ -42,6 +42,7 @@ export class EditSubmissionsComponent implements OnInit {
   private isOtherTechnology: boolean;
   candidateGetFiles: any;
   candidateFiles: any;
+  immigirationStatus: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -83,6 +84,7 @@ export class EditSubmissionsComponent implements OnInit {
       location: [''],
       clientRate: [''],
       sellingRate: [''],
+      buyingRate: [''],
       status: [''],
       reasonForRejection: [''],
       availability: [''],
@@ -98,6 +100,8 @@ export class EditSubmissionsComponent implements OnInit {
       currentStatus: [''],
       level1Date: [''],
       level2Date: [''],
+      statusForLevel1: [''],
+      statusForLevel2: [''],
       editCandidateImmigirationStatus: [''],
       editCandidateName: [''],
       editCandidatePhone: [''],
@@ -120,7 +124,7 @@ export class EditSubmissionsComponent implements OnInit {
 
   getAllCommonData() {
     const company = {
-      companyId: this.rtsCompanyId
+      userId: this.rtsUserId
     };
 
     this.requirementService.commonDetails(company)
@@ -170,6 +174,22 @@ export class EditSubmissionsComponent implements OnInit {
               this.myForm.controls.c2c.setValue('No');
             }
             console.log(this.selectedSubmission);
+            const immigiration = this.selectedSubmission.candidate.immigirationStatus;
+            if (immigiration === 'GC') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('GC');
+            } else if (immigiration === 'CITIZEN') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('CITIZEN');
+            } else if (immigiration === 'H1B') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('H1B');
+            } else if (immigiration === 'W2/1099') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('W2/1099');
+            } else if (immigiration === 'OPT/CPT') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('OPT/CPT');
+            } else if (immigiration === 'EAD') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('EAD');
+            } else if (immigiration === 'H4AD') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('H4AD');
+            }
           }
         });
   }
@@ -267,6 +287,12 @@ export class EditSubmissionsComponent implements OnInit {
     }
   }
 
+  getImmigiration(event) {
+    if (event !== undefined) {
+      this.immigirationStatus = event.value;
+    }
+  }
+
 
   submissionToClient() {
 
@@ -321,6 +347,7 @@ export class EditSubmissionsComponent implements OnInit {
       accountName: form.value.accountName,
       clientRate: form.value.clientRate,
       sellingRate: form.value.sellingRate,
+      buyingRate: form.value.buyingRate,
       clientContactname: form.value.clientContactname,
       clientContactEmail: form.value.clientContactEmail,
       workLocation: form.value.workLocation,
@@ -330,6 +357,8 @@ export class EditSubmissionsComponent implements OnInit {
       currentStatus: form.value.currentStatus,
       dateOfLevel1: this.level1Date,
       dateOfLevel2: this.level2Date,
+      statusForLevel1: form.value.statusForLevel1,
+      statusForLevel2: form.value.statusForLevel2,
       enteredBy: this.rtsUserId,
       submissionId: this.submissionId,
       candidateId: candidateId,
@@ -390,7 +419,7 @@ export class EditSubmissionsComponent implements OnInit {
       location: form.value.editCandidateLocation,
       availability: form.value.editAvailability,
       phoneNumber: form.value.editCandidatePhone,
-      immigirationStatus: form.value.editCandidateImmigirationStatus,
+      immigirationStatus: this.immigirationStatus,
       skype: form.value.editSkype,
       linkedIn: form.value.editLinkedIn
     };

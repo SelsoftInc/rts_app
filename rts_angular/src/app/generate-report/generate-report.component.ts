@@ -47,6 +47,7 @@ export class GenerateReportComponent implements OnInit {
     this.submissonService.approvedSubmissionDetails(userId)
       .subscribe(
         data => {
+          console.log(data);
           if (data.success) {
             this.approvedsubmissions = data.submissionReport;
             this.approvedsubmissionsLength = this.approvedsubmissions.length;

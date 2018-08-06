@@ -26,6 +26,7 @@ export class EditUserComponent implements OnInit {
   private lastName: any;
   private email: any;
   private role: any;
+  userRole: string;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -35,13 +36,9 @@ export class EditUserComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router
   ) {
-    this.userType = [
-      { 'name': 'Account Manager', 'value': 'ACC_MGR' },
-      { 'name': 'Team Leader', 'value': 'TL' },
-      { 'name': 'Recruiter', 'value': 'RECRUITER' },
-    ];
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
+    this.userRole = this.rtsUser.role;
   }
 
   ngOnInit() {
@@ -57,6 +54,19 @@ export class EditUserComponent implements OnInit {
       email: [''],
       role: [''],
     });
+
+    if (this.userRole === 'ACC_MGR') {
+      this.userType = [
+        { 'name': 'Team Leader', 'value': 'TL' },
+        { 'name': 'Recruiter', 'value': 'RECRUITER' },
+      ];
+    } else if (this.userRole === 'ADMIN') {
+      this.userType = [
+        { 'name': 'Account Manager', 'value': 'ACC_MGR' },
+        { 'name': 'Team Leader', 'value': 'TL' },
+        { 'name': 'Recruiter', 'value': 'RECRUITER' },
+      ];
+    }
     this.getAllUser();
   }
 

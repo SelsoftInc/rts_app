@@ -25,6 +25,7 @@ export class AddCandidateComponent implements OnInit {
   private getFiles: any;
   private isOtherTechnology: boolean;
   private isEmployerDetails: boolean;
+  immigirationStatus: any;
   constructor(
     private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -57,11 +58,13 @@ export class AddCandidateComponent implements OnInit {
       employerEmail: ['']
     });
     this.getCommonDetails();
+    this.myForm.controls.immigirationStatus.setValue('GC');
+    this.immigirationStatus = 'GC';
   }
 
   getCommonDetails() {
     const companyId = {
-      companyId: this.rtsCompanyId
+      userId: this.rtsUserId
     };
 
     this.requirementService.commonDetails(companyId)
@@ -104,6 +107,12 @@ export class AddCandidateComponent implements OnInit {
     }
   }
 
+  getImmigiration(event) {
+    if (event !== undefined) {
+      this.immigirationStatus = event.value;
+    }
+  }
+
   addNewCandidate(form: FormGroup) {
 
     const newCandidate: any = {
@@ -112,7 +121,7 @@ export class AddCandidateComponent implements OnInit {
       phoneNumber: form.value.phoneNumber,
       location: form.value.location,
       availability: form.value.availability,
-      immigirationStatus: form.value.immigirationStatus,
+      immigirationStatus: this.immigirationStatus,
       companyId: this.rtsCompanyId,
       skype: form.value.skype,
       linkedIn: form.value.linkedIn

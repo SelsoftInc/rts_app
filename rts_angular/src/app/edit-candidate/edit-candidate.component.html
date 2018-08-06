@@ -42,7 +42,15 @@
         <div class="form-group row" *ngIf="selectedCandidate">
           <label for="immigirationStatus" class="col-sm-4 col-form-label">Immigiration Status:</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" name="immigirationStatus" formControlName="immigirationStatus" required ngModel="{{selectedCandidate.immigirationStatus}}">
+            <mat-radio-group (change)="getImmigiration($event)" formControlName="immigirationStatus">
+              <mat-radio-button value="GC">GC</mat-radio-button>
+              <mat-radio-button value="CITIZEN">CITIZEN</mat-radio-button>
+              <mat-radio-button value="H1B">H1B</mat-radio-button>
+              <mat-radio-button value="W1/1099">W2/1099</mat-radio-button>
+              <mat-radio-button value="OPT/CPT">OPT/CPT</mat-radio-button>
+              <mat-radio-button value="EAD">EAD</mat-radio-button>
+              <mat-radio-button value="H4AD">H4AD</mat-radio-button>
+            </mat-radio-group>
           </div>
         </div>
 
@@ -83,7 +91,7 @@
         <div class="form-group row">
           <label for="c2c" class="col-sm-4 col-form-label">C2C:</label>
           <div class="col-sm-7">
-            <mat-radio-group (change)="getC2c($event)" formControlName="c2c" >
+            <mat-radio-group (change)="getC2c($event)" formControlName="c2c">
               <mat-radio-button value="Yes">Yes</mat-radio-button>
               <mat-radio-button value="No" checked>No</mat-radio-button>
             </mat-radio-group>

@@ -30,6 +30,7 @@ export class EditCandidateComponent implements OnInit {
   private candidates: any;
   private selectedCandidate: any;
   private deletedMediaFiles: any[];
+  private immigirationStatus: any;
   constructor(
     private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -76,7 +77,7 @@ export class EditCandidateComponent implements OnInit {
 
   getCommonDetails() {
     const companyId = {
-      companyId: this.rtsCompanyId
+      userId: this.rtsUserId
     };
 
     this.requirementService.commonDetails(companyId)
@@ -103,6 +104,22 @@ export class EditCandidateComponent implements OnInit {
               if (this.selectedCandidate.c2C) {
                 this.myForm.controls.c2c.setValue('Yes');
                 this.isEmployerDetails = true;
+              }
+              const immigiration = this.selectedCandidate.immigirationStatus;
+              if (immigiration === 'GC') {
+                this.myForm.controls.immigirationStatus.setValue('GC');
+              } else if (immigiration === 'CITIZEN') {
+                this.myForm.controls.immigirationStatus.setValue('CITIZEN');
+              } else if (immigiration === 'H1B') {
+                this.myForm.controls.immigirationStatus.setValue('H1B');
+              } else if (immigiration === 'W2/1099') {
+                this.myForm.controls.immigirationStatus.setValue('W2/1099');
+              } else if (immigiration === 'OPT/CPT') {
+                this.myForm.controls.immigirationStatus.setValue('OPT/CPT');
+              } else if (immigiration === 'EAD') {
+                this.myForm.controls.immigirationStatus.setValue('EAD');
+              } else if (immigiration === 'H4AD') {
+                this.myForm.controls.immigirationStatus.setValue('H4AD');
               }
             }
           }
@@ -146,6 +163,12 @@ export class EditCandidateComponent implements OnInit {
     }
   }
 
+  getImmigiration(event) {
+    if (event !== undefined) {
+      this.immigirationStatus = event.value;
+    }
+  }
+
   updateCandidate(form: FormGroup) {
 
     const candidate: any = {
@@ -154,7 +177,7 @@ export class EditCandidateComponent implements OnInit {
       phoneNumber: form.value.phoneNumber,
       location: form.value.location,
       availability: form.value.availability,
-      immigirationStatus: form.value.immigirationStatus,
+      immigirationStatus: this.immigirationStatus,
       companyId: this.rtsCompanyId,
       skype: form.value.skype,
       linkedIn: form.value.linkedIn,

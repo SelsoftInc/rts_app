@@ -63,7 +63,7 @@ export class RecruiterAddNewSubmissionsComponent implements OnInit {
       clientContactEmail: [''],
       candidateName: [''],
       accountName: [''],
-      clientRate: [''],
+      buyingRate: [''],
       sellingRate: [''],
       status: [''],
       availability: [''],
@@ -234,7 +234,7 @@ export class RecruiterAddNewSubmissionsComponent implements OnInit {
     const submission = {
       requirementId: form.value.requirements,
       accountName: form.value.accountName,
-      clientRate: form.value.clientRate,
+      buyingRate: form.value.buyingRate,
       sellingRate: form.value.sellingRate,
       clientContactname: form.value.clientContactname,
       clientContactEmail: form.value.clientContactEmail,

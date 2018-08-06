@@ -56,7 +56,7 @@ export class AddNewRequirementComponent implements OnInit {
     this.immigrationByUser = [];
     this.selectedTeamUsers = [];
     this.requirementType = ['C2C', 'FTE', 'TBD'];
-    this.immigration = ['GC', 'CITIZEN', 'H1B'];
+    this.immigration = ['GC', 'CITIZEN', 'H1B', 'W2/1099', 'OPT/CPT', 'EAD', 'H4AD'];
     this.requirementStatus = [
       { 'name': 'Open', 'value': 'Open' },
       { 'name': 'In-Progress', 'value': 'In-Progress' },

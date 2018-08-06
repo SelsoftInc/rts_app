@@ -95,8 +95,8 @@
       <label for="immigrationRequirement" class="col-sm-2 col-form-label">Immigration Requirement:</label>
       <div *ngFor="let data of immigration" ng-checked="immigrationByUser.indexOf(data) != 1" (change)="getCheckedImmigrationValue(data)">
         <div class="col-sm-4 ">
-          <input type="checkbox" formControlName="{{data}}" [value]="data">
-          <span class="label">{{data}}</span>
+          <input type="checkbox" formControlName="{{data.id}}" [value]="data.value">
+          <span class="label">{{data.value}}</span>
         </div>
       </div>
     </div>

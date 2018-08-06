@@ -1,12 +1,12 @@
 <div class="header-wrapper">
   <h1 class="heading">Selsoft RTS</h1>
-  <!-- <div class="profile-wrapper">
+  <div class="profile-wrapper">
     <div class="profile-name" *ngIf="rtsUser">
       <p>{{userRole}}
         <i>({{rtsUser.firstName}} {{rtsUser.lastName}})</i>
       </p>
     </div>
-  </div> -->
+  </div>
 </div>
 <div *ngIf="displayComponent">
   <div *ngIf="userRole ==='ADMIN'">
@@ -42,6 +42,12 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/submissions']">Submissions</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/manage-users']">Manage Users</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/manage-client']">Manage Client</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/manage-team']">Manage Team</a>

@@ -19,7 +19,7 @@
           <label for="clientRate" class="col-sm-4 col-form-label">Client Rate:</label>
           <div class="col-sm-7">
             <input type="text" class="form-control" name="clientRate" formControlName="clientRate" ngModel="{{selectedSubmission.clientRate}}"
-              required>
+              readonly>
           </div>
         </div>
 
@@ -27,10 +27,16 @@
           <label for="sellingRate" class="col-sm-4 col-form-label">Selling Rate:</label>
           <div class="col-sm-7">
             <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" ngModel="{{selectedSubmission.sellingRate}}"
-              required>
+              readonly>
           </div>
         </div>
 
+        <div class="form-group row" *ngIf="selectedRequirement">
+          <label for="buyingRate" class="col-sm-4 col-form-label">Buying Rate:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="buyingRate" formControlName="buyingRate" required ngModel="{{selectedSubmission.buyingRate}}">
+          </div>
+        </div>
 
         <div class="form-group row" *ngIf="selectedSubmission">
           <label for="clientContactname" class="col-sm-4 col-form-label">Client Contact name:</label>
@@ -71,7 +77,7 @@
               required>
               <option value="">Select</option>
               <option *ngFor="let status of status" value="{{status.value}}">{{status.name}}</option>
-              <option *ngIf="selectedSubmission.status === 'SUBMITTED'" value="SUBMITTED" >SUBMITTED</option>
+              <option *ngIf="selectedSubmission.status === 'SUBMITTED'" value="SUBMITTED">SUBMITTED</option>
             </select>
           </div>
         </div>
@@ -138,6 +144,13 @@
         </div>
 
         <div class="form-group row" *ngIf="selectedSubmission">
+          <label for="statusForLevel1" class="col-sm-4 col-form-label">Level1 Status:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="statusForLevel1" formControlName="statusForLevel1" ngModel="{{selectedSubmission.statusForLevel1}}">
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="selectedSubmission">
           <label for="level2Date" class="col-sm-4 col-form-label">Level2 Date:</label>
           <div class="col-sm-7">
             <mat-form-field>
@@ -145,6 +158,13 @@
               <mat-datepicker-toggle matSuffix [for]="dateOfLevel2"></mat-datepicker-toggle>
               <mat-datepicker #dateOfLevel2></mat-datepicker>
             </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="selectedSubmission">
+          <label for="statusForLevel2" class="col-sm-4 col-form-label">Level2 Status:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="statusForLevel2" formControlName="statusForLevel2" ngModel="{{selectedSubmission.statusForLevel2}}">
           </div>
         </div>
 
@@ -177,8 +197,15 @@
           <div class="form-group row" *ngIf="selectedSubmission">
             <label for="candidateImmigirationStatus" class="col-sm-4 col-form-label">Candidate Immigiration Status:</label>
             <div class="col-sm-7">
-              <input type="text" class="form-control" name="candidateImmigirationStatus" formControlName="candidateImmigirationStatus"
-                value="{{selectedSubmission.candidate.immigirationStatus}}" readonly>
+              <mat-radio-group formControlName="candidateImmigirationStatus" disabled>
+                <mat-radio-button value="GC">GC</mat-radio-button>
+                <mat-radio-button value="CITIZEN">CITIZEN</mat-radio-button>
+                <mat-radio-button value="H1B">H1B</mat-radio-button>
+                <mat-radio-button value="W1/1099">W2/1099</mat-radio-button>
+                <mat-radio-button value="OPT/CPT">OPT/CPT</mat-radio-button>
+                <mat-radio-button value="EAD">EAD</mat-radio-button>
+                <mat-radio-button value="H4AD">H4AD</mat-radio-button>
+              </mat-radio-group>
             </div>
           </div>
 
@@ -308,7 +335,15 @@
           <div class="form-group row">
             <label for="editCandidateImmigirationStatus" class="col-sm-4 col-form-label">Candidate Immigiration Status:</label>
             <div class="col-sm-7">
-              <input type="text" class="form-control" name="editCandidateImmigirationStatus" formControlName="editCandidateImmigirationStatus">
+              <mat-radio-group (change)="getImmigiration($event)" formControlName="editCandidateImmigirationStatus">
+                <mat-radio-button value="GC">GC</mat-radio-button>
+                <mat-radio-button value="CITIZEN">CITIZEN</mat-radio-button>
+                <mat-radio-button value="H1B">H1B</mat-radio-button>
+                <mat-radio-button value="W1/1099">W2/1099</mat-radio-button>
+                <mat-radio-button value="OPT/CPT">OPT/CPT</mat-radio-button>
+                <mat-radio-button value="EAD">EAD</mat-radio-button>
+                <mat-radio-button value="H4AD">H4AD</mat-radio-button>
+              </mat-radio-group>
             </div>
           </div>
 

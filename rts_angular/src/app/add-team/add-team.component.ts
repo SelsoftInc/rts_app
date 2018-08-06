@@ -26,6 +26,7 @@ export class AddTeamComponent implements OnInit {
   private leadUsers: any;
   private recruiters: any;
   private accountManager: any;
+  private rtsCompanyId: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -37,6 +38,7 @@ export class AddTeamComponent implements OnInit {
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
+    this.rtsCompanyId = this.rtsUser.companyId;
     this.teamMembers = [];
     this.leadUsers = [];
     this.recruiters = [];
@@ -66,12 +68,13 @@ export class AddTeamComponent implements OnInit {
 
   getAllUser() {
     const userId = {
-      enteredBy: this.rtsUserId
+      companyId: this.rtsCompanyId
     };
 
     this.userService.allUsers(userId)
       .subscribe(
         data => {
+          console.log(data);
           if (data.success) {
             this.users = data.users;
             console.log(this.users);
@@ -83,6 +86,8 @@ export class AddTeamComponent implements OnInit {
                 this.accountManager.push(user);
               }
             }
+            console.log(this.accountManager);
+            console.log(this.leadUsers);
           }
         });
   }

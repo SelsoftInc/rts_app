@@ -95,8 +95,8 @@
       <label for="immigrationRequirement" class="col-sm-2 col-form-label">Immigration Requirement:</label>
       <div *ngFor="let data of immigration" ng-checked="immigrationByUser.indexOf(data) != 1" (change)="getCheckedImmigrationValue(data)">
         <div class="col-sm-4 ">
-          <input type="checkbox" formControlName="{{data}}" [value]="data" disabled>
-          <span class="label">{{data}}</span>
+          <input type="checkbox" formControlName="{{data.id}}" [value]="data.value" disabled>
+          <span class="label">{{data.value}}</span>
         </div>
       </div>
     </div>
@@ -112,13 +112,13 @@
       </div>
     </div>
 
-    <div class="form-group row" *ngIf="selectedRequirement">
+    <!-- <div class="form-group row" *ngIf="selectedRequirement">
       <label for="clientRate" class="col-sm-2 col-form-label">Client Rate:</label>
       <div class="col-sm-4 ">
         <input type="text" class="form-control" name="clientRate" formControlName="clientRate" ngModel="{{selectedRequirement.clientRate}}"
           disabled>
       </div>
-    </div>
+    </div> -->
 
     <div class="form-group row" *ngIf="selectedRequirement">
       <label for="sellingRate" class="col-sm-2 col-form-label">Selling Rate:</label>
@@ -131,7 +131,7 @@
     <div class="form-group row" *ngIf="selectedRequirement">
       <label for="jobDescription" class="col-sm-2 col-form-label">Job Description:</label>
       <div class="col-sm-4 ">
-        <textarea name="jobDescription" class="form-control" formControlName="jobDescription" placeholder="Description.." ngModel="{{selectedRequirement.jobDescription}}"
+        <textarea rows="8" name="jobDescription" class="form-control" formControlName="jobDescription" placeholder="Description.." ngModel="{{selectedRequirement.jobDescription}}"
           disabled></textarea>
       </div>
     </div>

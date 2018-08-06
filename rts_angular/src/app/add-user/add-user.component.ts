@@ -18,6 +18,8 @@ export class AddUserComponent implements OnInit {
   private rtsUserId: any;
 
   public myForm: FormGroup;
+  private rtsCompanyId: any;
+  private userRole: any;
   constructor(
     private loggedUser: LoggedUserService,
     private formBuilder: FormBuilder,
@@ -25,13 +27,10 @@ export class AddUserComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router
   ) {
-    this.userType = [
-      { 'name': 'Account Manager', 'value': 'ACC_MGR' },
-      { 'name': 'Team Leader', 'value': 'TL' },
-      { 'name': 'Recruiter', 'value': 'RECRUITER' },
-    ];
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
+    this.rtsCompanyId = this.rtsUser.companyId;
     this.rtsUserId = this.rtsUser.userId;
+    this.userRole = this.rtsUser.role;
   }
 
   ngOnInit() {
@@ -43,6 +42,19 @@ export class AddUserComponent implements OnInit {
       userPassword: [''],
       confirmPassword: ['']
     });
+
+    if (this.userRole === 'ACC_MGR') {
+      this.userType = [
+        { 'name': 'Team Leader', 'value': 'TL' },
+        { 'name': 'Recruiter', 'value': 'RECRUITER' },
+      ];
+    } else if (this.userRole === 'ADMIN') {
+      this.userType = [
+        { 'name': 'Account Manager', 'value': 'ACC_MGR' },
+        { 'name': 'Team Leader', 'value': 'TL' },
+        { 'name': 'Recruiter', 'value': 'RECRUITER' },
+      ];
+    }
   }
 
   addNewUser(form: FormGroup) {

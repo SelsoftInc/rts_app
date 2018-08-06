@@ -41,6 +41,7 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
   private isEmployerDetails: boolean;
   private isC2c: boolean;
   private isOtherTechnology: boolean;
+  immigirationStatus: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -59,9 +60,7 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
     this.status = [
       { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
       { 'name': 'TL Approved', 'value': 'TL_APPROVED' },
-      { 'name': 'Approved', 'value': 'APPROVED' },
       { 'name': 'TL Rejeced', 'value': 'TL_REJECTED' },
-      { 'name': 'Rejected', 'value': 'REJECTED' },
       { 'name': 'Closed', 'value': 'CLOSED' },
     ];
   }
@@ -81,6 +80,7 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
       location: [''],
       clientRate: [''],
       sellingRate: [''],
+      buyingRate: [''],
       status: [''],
       reasonForRejection: [''],
       availability: [''],
@@ -96,6 +96,8 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
       currentStatus: [''],
       level1Date: [''],
       level2Date: [''],
+      statusForLevel1: [''],
+      statusForLevel2: [''],
       editCandidateImmigirationStatus: [''],
       editCandidateName: [''],
       editCandidatePhone: [''],
@@ -148,6 +150,7 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
               }
             }
             this.selectedRequirement = _.findWhere(this.requirementsDetails, { requirementId: this.selectedSubmission.requirementId });
+            console.log(this.selectedRequirement);
             if (this.selectedSubmission.status === 'REJECTED') {
               this.isRejected = true;
             }
@@ -167,12 +170,30 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
             } else {
               this.myForm.controls.c2c.setValue('No');
             }
+            const immigiration = this.selectedSubmission.candidate.immigirationStatus;
+            if (immigiration === 'GC') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('GC');
+            } else if (immigiration === 'CITIZEN') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('CITIZEN');
+            } else if (immigiration === 'H1B') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('H1B');
+            } else if (immigiration === 'W2/1099') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('W2/1099');
+            } else if (immigiration === 'OPT/CPT') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('OPT/CPT');
+            } else if (immigiration === 'EAD') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('EAD');
+            } else if (immigiration === 'H4AD') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('H4AD');
+            }
+
           }
         });
   }
 
   getRequirement(event) {
     this.selectedRequirement = _.findWhere(this.requirementsDetails, { requirementId: event });
+    console.log(this.selectedRequirement);
   }
 
   getCandidateDetails() {
@@ -252,6 +273,12 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
     }
   }
 
+  getImmigiration(event) {
+    if (event !== undefined) {
+      this.immigirationStatus = event.value;
+    }
+  }
+
 
   submissionToClient() {
 
@@ -306,6 +333,7 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
       accountName: form.value.accountName,
       clientRate: form.value.clientRate,
       sellingRate: form.value.sellingRate,
+      buyingRate: form.value.buyingRate,
       clientContactname: form.value.clientContactname,
       clientContactEmail: form.value.clientContactEmail,
       workLocation: form.value.workLocation,
@@ -315,6 +343,8 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
       currentStatus: form.value.currentStatus,
       dateOfLevel1: this.level1Date,
       dateOfLevel2: this.level2Date,
+      statusForLevel1: form.value.statusForLevel1,
+      statusForLevel2: form.value.statusForLevel2,
       enteredBy: this.rtsUserId,
       submissionId: this.submissionId,
       candidateId: candidateId,
@@ -324,6 +354,7 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
       submission: submission,
       deletedMediaFiles: this.deletedMediaFiles
     };
+    console.log(editSubmission);
 
     this.submissionService.editSubmission(editSubmission)
       .subscribe(
@@ -375,7 +406,7 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
       location: form.value.editCandidateLocation,
       availability: form.value.editAvailability,
       phoneNumber: form.value.editCandidatePhone,
-      immigirationStatus: form.value.editCandidateImmigirationStatus,
+      immigirationStatus: this.immigirationStatus,
       skype: form.value.editSkype,
       linkedIn: form.value.editLinkedIn
     };

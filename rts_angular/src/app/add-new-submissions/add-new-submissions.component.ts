@@ -38,6 +38,7 @@ export class AddNewSubmissionsComponent implements OnInit {
   private isEmployerDetails: boolean;
   private userRole: any;
   private isC2c: boolean;
+  immigirationStatus: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -79,6 +80,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       candidateName: [''],
       accountName: [''],
       clientRate: [''],
+      buyingRate: [''],
       sellingRate: [''],
       status: [''],
       availability: [''],
@@ -224,6 +226,23 @@ export class AddNewSubmissionsComponent implements OnInit {
             }
             this.isCandidate = true;
             this.isNewCandidate = false;
+            console.log(this.selectedCandidate);
+            const immigiration = this.selectedCandidate.immigirationStatus;
+            if (immigiration === 'GC') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('GC');
+            } else if (immigiration === 'CITIZEN') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('CITIZEN');
+            } else if (immigiration === 'H1B') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('H1B');
+            } else if (immigiration === 'W2/1099') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('W2/1099');
+            } else if (immigiration === 'OPT/CPT') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('OPT/CPT');
+            } else if (immigiration === 'EAD') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('EAD');
+            } else if (immigiration === 'H4AD') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('H4AD');
+            }
           } else {
             this.isCandidate = false;
             this.isNewCandidate = true;
@@ -253,19 +272,17 @@ export class AddNewSubmissionsComponent implements OnInit {
     }
   }
 
+  getImmigiration(event) {
+    if (event !== undefined) {
+      this.immigirationStatus = event.value;
+    }
+  }
+
 
   addNewSubmission(form: FormGroup) {
 
-    if (form.value.clientRate === '' || form.value.clientRate === null) {
-      this.toastr.error('Client Rate should not be empty', '', {
-        positionClass: 'toast-top-center',
-        timeOut: 3000,
-      });
-      return false;
-    }
-
-    if (form.value.sellingRate === '' || form.value.sellingRate === null) {
-      this.toastr.error('Selling Rate should not be empty', '', {
+    if (form.value.buyingRate === '' || form.value.buyingRate === null) {
+      this.toastr.error('Buying Rate should not be empty', '', {
         positionClass: 'toast-top-center',
         timeOut: 3000,
       });
@@ -286,6 +303,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       requirementId: form.value.requirements,
       accountName: form.value.accountName,
       clientRate: form.value.clientRate,
+      buyingRate: form.value.buyingRate,
       sellingRate: form.value.sellingRate,
       clientContactname: form.value.clientContactname,
       clientContactEmail: form.value.clientContactEmail,
@@ -351,7 +369,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       location: form.value.editCandidateLocation,
       availability: form.value.editAvailability,
       phoneNumber: form.value.editCandidatePhone,
-      immigirationStatus: form.value.editCandidateImmigirationStatus,
+      immigirationStatus: this.immigirationStatus,
       skype: form.value.editSkype,
       linkedIn: form.value.editLinkedIn
     };

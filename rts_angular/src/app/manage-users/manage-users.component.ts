@@ -15,6 +15,7 @@ export class ManageUsersComponent implements OnInit {
   private rtsUserId: any;
   private userDetails: any;
   private userLength: any;
+  private rtsCompanyId: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -23,6 +24,7 @@ export class ManageUsersComponent implements OnInit {
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
+    this.rtsCompanyId = this.rtsUser.companyId;
   }
 
   ngOnInit() {
@@ -31,7 +33,7 @@ export class ManageUsersComponent implements OnInit {
 
   getAllUser() {
     const userId = {
-      enteredBy: this.rtsUserId
+      companyId: this.rtsCompanyId
     };
 
     this.userService.allUsers(userId)
