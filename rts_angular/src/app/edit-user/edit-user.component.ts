@@ -26,7 +26,8 @@ export class EditUserComponent implements OnInit {
   private lastName: any;
   private email: any;
   private role: any;
-  userRole: string;
+  private userRole: string;
+  private rtsCompanyId: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -39,6 +40,12 @@ export class EditUserComponent implements OnInit {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
     this.userRole = this.rtsUser.role;
+    this.rtsCompanyId = this.rtsUser.companyId;
+    this.userType = [
+      { 'name': 'Account Manager', 'value': 'ACC_MGR' },
+      { 'name': 'Team Leader', 'value': 'TL' },
+      { 'name': 'Recruiter', 'value': 'RECRUITER' },
+    ];
   }
 
   ngOnInit() {
@@ -55,29 +62,18 @@ export class EditUserComponent implements OnInit {
       role: [''],
     });
 
-    if (this.userRole === 'ACC_MGR') {
-      this.userType = [
-        { 'name': 'Team Leader', 'value': 'TL' },
-        { 'name': 'Recruiter', 'value': 'RECRUITER' },
-      ];
-    } else if (this.userRole === 'ADMIN') {
-      this.userType = [
-        { 'name': 'Account Manager', 'value': 'ACC_MGR' },
-        { 'name': 'Team Leader', 'value': 'TL' },
-        { 'name': 'Recruiter', 'value': 'RECRUITER' },
-      ];
-    }
     this.getAllUser();
   }
 
   getAllUser() {
     const userId = {
-      enteredBy: this.rtsUserId
+      companyId: this.rtsCompanyId
     };
 
     this.userService.allUsers(userId)
       .subscribe(
         data => {
+          console.log(data);
           if (data.success) {
             this.userDetails = data.users;
             for (const user of this.userDetails) {
@@ -93,6 +89,14 @@ export class EditUserComponent implements OnInit {
   }
 
   updateUser(form: FormGroup) {
+
+    if (this.role === 'ADMIN') {
+      this.toastr.error('Admin user cannot be modified by Account Manager', '', {
+        positionClass: 'toast-top-center',
+        timeOut: 3000,
+      });
+      return false;
+    }
 
     const editUser = {
       firstName: form.value.firstName,

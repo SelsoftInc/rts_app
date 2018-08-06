@@ -27,6 +27,7 @@
         <select name="role" class="form-control" formControlName="role" required ngModel="{{role}}">
           <option value="">Select</option>
           <option *ngFor="let role of userType" value="{{role.value}}">{{role.name}}</option>
+          <option *ngIf="role === 'ADMIN'" value="ADMIN">Admin</option>
         </select>
       </div>
     </div>
