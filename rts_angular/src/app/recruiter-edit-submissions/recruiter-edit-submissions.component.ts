@@ -39,6 +39,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   candidateGetFiles: any;
   candidateFiles: any;
   immigirationStatus: any;
+  isUpdate: boolean;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -142,6 +143,11 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             }
             this.selectedRequirement = _.findWhere(this.requirementsDetails, { requirementId: this.selectedSubmission.requirementId });
             console.log(this.selectedSubmission);
+            if (this.selectedSubmission.enteredBy === this.rtsUserId) {
+              this.isUpdate = true;
+            } else {
+              this.isUpdate = false;
+            }
             if (this.selectedSubmission.candidate.c2C) {
               this.myForm.controls.c2c.setValue('Yes');
               this.isC2c = true;
@@ -250,6 +256,14 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   }
 
   updateSubmission(form: FormGroup) {
+
+    if (!this.isUpdate) {
+      this.toastr.error('You have no permission to update other recruiter submissions', '', {
+        positionClass: 'toast-top-center',
+        timeOut: 3000,
+      });
+      return false;
+    }
 
     if (this.isNewCandidate) {
       this.createNewCandidate(form);
