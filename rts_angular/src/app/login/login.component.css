@@ -1,8 +1,6 @@
 .login-container {
-  margin-top: 8em;
   margin-left: 22em;
   margin-right: 22em;
-  margin-bottom: 8em;
   background: white;
   -webkit-box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
   -moz-box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
@@ -23,4 +21,12 @@
 
 ::ng-deep .snackbar .mat-simple-snackbar {
   color: white;
+}
+
+.btn-primary {
+  background: #50b2eb;
+  border-color: #50b2eb;
+  border-radius: 35px;
+  -moz-border-radius: 35px;
+  -webkit-border-radius: 35px;
 }

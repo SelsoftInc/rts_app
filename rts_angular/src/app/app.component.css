@@ -39,3 +39,26 @@
   border: 1px solid whitesmoke;
 }
 
+.logo-container {
+  width: 150px;
+  float: left;
+  margin-top: 12px;
+  padding-right: 10px;
+  margin-right: 10px;
+  padding-left: 10px;
+  border-right: 1px solid #FFFFFF;
+}
+
+.app-name-container {
+  float: left;
+  padding-top: 26px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+.logo-container img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 12px;
+}

@@ -15,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent implements OnInit, OnDestroy {
 
   public myForm: FormGroup;
+  hide = true;
 
   constructor(
     private router: Router,

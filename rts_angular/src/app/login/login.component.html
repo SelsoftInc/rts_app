@@ -1,23 +1,47 @@
-<div class="login-container">
-  <h1 class="title">Login</h1>
-  <form [formGroup]="myForm" (ngSubmit)="login(myForm)">
-    <div class="form-group">
-      <label for="userEmail">Email address</label>
-      <input type="email" class="form-control" formControlName="userEmail" placeholder="Enter email">
+<div class="container">
+  <div class="row justify-content-center pt-5">
+    <h1 class="col col-4 title text-center pt-2 pb-2">User Login</h1>
+    <div class="col col-4 pt-5 pb-5 login-container">
+      <div class="col col-12 ">
+        <form [formGroup]="myForm" (ngSubmit)="login(myForm)">
+          <div class="form-group">
+            <!--<label for="userEmail">Email address</label>-->
+            <!--<input type="email" class="form-control" formControlName="userEmail" placeholder="Enter email">-->
+
+            <mat-form-field class="mat-full-length">
+              <input matInput placeholder="Email Address" formControlName="userEmail">
+              <mat-error *ngIf="myForm.hasError('email') && !myForm.hasError('required')">
+                Please enter a valid email address
+              </mat-error>
+              <mat-error *ngIf="myForm.hasError('required')">
+                Email is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+          <div class="form-group">
+            <!--<label for="userPassword">Password</label>-->
+            <!--<input type="password" class="form-control" formControlName="userPassword" placeholder="Password">-->
+
+            <mat-form-field class="mat-full-length">
+              <input matInput placeholder="Password" formControlName="userPassword" [type]="hide ? 'password' : 'text'">
+              <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+              <mat-error *ngIf="myForm.hasError('email') && !myForm.hasError('required')">
+                Please enter a valid email address
+              </mat-error>
+              <mat-error *ngIf="myForm.hasError('required')">
+                Email is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-btn-container pb-5">
+            <button class="btn btn-primary pl-5 pr-5" type="submit" [disabled]="!myForm.valid">Log In</button>
+          </div>
+        </form>
+      </div>
+      <div class="col col-12 forgot-password-container text-center pt-3 pb-3">
+        <a [routerLink]="['/']">Forgot Password?</a> . <a [routerLink]="['/register']">Register</a>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="userPassword">Password</label>
-      <input type="password" class="form-control" formControlName="userPassword" placeholder="Password">
-    </div>
-    <div class="form-btn-container">
-      <a class="btn">Cancel</a>
-      <button class="btn btn-primary" type="submit" [disabled]="!myForm.valid">Login</button>
-    </div>
-  </form>
-  <div class="row">
-    <p class="register">
-      <a [routerLink]="['/register']" class="btn">Register</a>|
-      <a class="btn">Forgot Password?</a>
-    </p>
   </div>
 </div>
