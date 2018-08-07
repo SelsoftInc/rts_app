@@ -10,8 +10,9 @@
           <th>Position Name</th>
           <th>Status</th>
           <th>Positions</th>
-          <th>Alloction By Team</th>
-          <th>Alloction By User</th>
+          <th>Submitted Count</th>
+          <th>Allocation By Team</th>
+          <th>Allocation By User</th>
           <th>Client</th>
           <th>Age</th>
         </tr>
@@ -21,6 +22,7 @@
           <td>{{require.position.positionName}}</td>
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>
+          <td>{{require.clientSubmissionCount}}</td>
           <td>{{require.team.name}}</td>
           <td *ngIf="require.allocationUser ; else noAlloction">{{require.allocationUser.firstName}} {{require.allocationUser.lastName}}</td>
           <ng-template #noAlloction>
@@ -51,8 +53,9 @@
           <th>Position Name</th>
           <th>Status</th>
           <th>Positions</th>
-          <th>Alloction By Team</th>
-          <th>Alloction By User</th>
+          <th>Submitted Count</th>
+          <th>Allocation By Team</th>
+          <th>Allocation By User</th>
           <th>Client</th>
           <th>Age</th>
         </tr>
@@ -62,6 +65,7 @@
           <td>{{require.position.positionName}}</td>
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>
+          <td>{{require.clientSubmissionCount}}</td>
           <td>{{require.team.name}}</td>
           <td *ngIf="require.allocationUser ; else noAlloction">{{require.allocationUser.firstName}} {{require.allocationUser.lastName}}</td>
           <ng-template #noAlloction>
@@ -92,8 +96,9 @@
           <th>Position Name</th>
           <th>Status</th>
           <th>Positions</th>
-          <th>Alloction By Team</th>
-          <th>Alloction By User</th>
+          <th>Submitted Count</th>
+          <th>Allocation By Team</th>
+          <th>Allocation By User</th>
           <th>Client</th>
           <th>Age</th>
         </tr>
@@ -103,6 +108,7 @@
           <td>{{require.position.positionName}}</td>
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>
+          <td>{{require.clientSubmissionCount}}</td>
           <td>{{require.team.name}}</td>
           <td *ngIf="require.allocationUser ; else noAlloction">{{require.allocationUser.firstName}} {{require.allocationUser.lastName}}</td>
           <ng-template #noAlloction>
@@ -133,8 +139,9 @@
           <th>Position Name</th>
           <th>Status</th>
           <th>Positions</th>
-          <th>Alloction By Team</th>
-          <th>Alloction By User</th>
+          <th>Submitted Count</th>
+          <th>Allocation By Team</th>
+          <th>Allocation By User</th>
           <th>Client</th>
           <th>Age</th>
         </tr>
@@ -144,6 +151,7 @@
           <td>{{require.position.positionName}}</td>
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>
+          <td>{{require.clientSubmissionCount}}</td>
           <td>{{require.team.name}}</td>
           <td *ngIf="require.allocationUser ; else noAlloction">{{require.allocationUser.firstName}} {{require.allocationUser.lastName}}</td>
           <ng-template #noAlloction>

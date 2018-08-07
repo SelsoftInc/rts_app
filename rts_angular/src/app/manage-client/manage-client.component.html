@@ -7,7 +7,6 @@
     <thead class="table-header">
       <tr>
         <th>Client Name</th>
-        <th>Contact Person Name</th>
         <th>Contact Person Email</th>
         <th>Contact Person Number</th>
       </tr>
@@ -15,9 +14,8 @@
     <tbody *ngIf="clientsLength > 0 ; else noClients">
       <tr *ngFor="let client of clients | filter:searchString" [routerLink]="['/edit-client', client.clientId]">
         <td>{{client.name}}</td>
-        <td>{{client.contactPersonName}}</td>
-        <td>{{client.contactPersonEmail}}</td>
-        <td>{{client.contactPersonNumber}}</td>
+        <td>{{client.email}}</td>
+        <td>{{client.phoneNumber}}</td>
       </tr>
     </tbody>
     <ng-template #noClients>

@@ -38,6 +38,11 @@ export class AddNewRequirementComponent implements OnInit {
   private selectedTeamUsers: any;
   private selectedTeam: any;
   private userRole: any;
+  private isRecruiters: boolean;
+  private dropdownSettings: any;
+  private recruitersArray: any;
+  private selectedRecruites: any;
+  selectedClient: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -52,9 +57,13 @@ export class AddNewRequirementComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.userRole = this.rtsUser.role;
     this.rtsCompanyId = this.rtsUser.companyId;
+    this.isRecruiters = false;
     this.requirementByUser = [];
     this.immigrationByUser = [];
     this.selectedTeamUsers = [];
+    this.selectedRecruites = [];
+    this.recruitersArray = [];
+    this.dropdownSettings = {};
     this.requirementType = ['C2C', 'FTE', 'TBD'];
     this.immigration = ['GC', 'CITIZEN', 'H1B', 'W2/1099', 'OPT/CPT', 'EAD', 'H4AD'];
     this.requirementStatus = [
@@ -85,8 +94,19 @@ export class AddNewRequirementComponent implements OnInit {
       jobDescription: [''],
       team: [''],
       comments: [''],
-      otherTechnology: ['']
+      otherTechnology: [''],
+      recruitersName: ['']
     });
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'user',
+      textField: 'firstName',
+      enableCheckAll: false,
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
     this.getAllUsers();
     this.getCommonDetails();
   }
@@ -123,6 +143,98 @@ export class AddNewRequirementComponent implements OnInit {
           }
         });
 
+  }
+
+  saveFormData(form: FormGroup) {
+
+    if (form.value.positionName === '' || form.value.positionName === null) {
+      this.toastr.error('Position Name should not be empty', '', {
+        positionClass: 'toast-top-center',
+        timeOut: 3000,
+      });
+      return false;
+    }
+
+    if (form.value.clientName === '' || form.value.clientName === null) {
+      this.toastr.error('Client Name should not be empty', '', {
+        positionClass: 'toast-top-center',
+        timeOut: 3000,
+      });
+      return false;
+    }
+
+    if (form.value.team === '' || form.value.team === null) {
+      this.toastr.error('Team should not be empty', '', {
+        positionClass: 'toast-top-center',
+        timeOut: 3000,
+      });
+      return false;
+    }
+    if (form.value.technologies === '' || form.value.technologies === null) {
+      this.toastr.error('Technologies should not be empty', '', {
+        positionClass: 'toast-top-center',
+        timeOut: 3000,
+      });
+      return false;
+    }
+
+
+    const saveRequirement: any = {
+      priority: form.value.priority,
+      location: form.value.location,
+      requirementType: this.requirementByUser,
+      immigrationRequirement: this.immigrationByUser,
+      positionCount: form.value.positionsCount,
+      status: form.value.status,
+      enteredBy: this.rtsUserId,
+      clientId: form.value.clientName,
+      allocationUserId: form.value.allocation,
+      clientRate: form.value.clientRate,
+      sellingRate: form.value.sellingRate,
+      jobDescription: form.value.jobDescription,
+      teamId: form.value.team,
+      client: {
+        clientId: form.value.clientName,
+        clientRecuriters: this.selectedRecruites
+      }
+    };
+
+    if (form.value.positionName === 'other') {
+      saveRequirement.position = {
+        positionName: form.value.otherPositionName
+      };
+    } else {
+      saveRequirement.positionId = form.value.positionName;
+    }
+
+    if (form.value.accountName === 'other') {
+      saveRequirement.account = {
+        accountName: form.value.otherAccountName
+      };
+    } else {
+      saveRequirement.accountId = form.value.accountName;
+    }
+
+    if (form.value.technologies === 'other') {
+      saveRequirement.technology = [{
+        technologyName: form.value.otherTechnology
+      }];
+    } else {
+      saveRequirement.technology = [{
+        technologyId: form.value.technologies
+      }];
+    }
+    console.log(saveRequirement);
+
+    this.requirementService.saveRequirement(saveRequirement)
+      .subscribe(
+        data => {
+          console.log(data);
+          if (data.success) {
+            this.router.navigate(['requirements']);
+          }
+        });
+    return false;
   }
 
   getCheckedRequirementType(type) {
@@ -181,6 +293,35 @@ export class AddNewRequirementComponent implements OnInit {
     }
   }
 
+  getClientRecruiters(event) {
+    this.recruitersArray = [];
+    this.selectedRecruites = [];
+    if (event !== undefined) {
+      this.isRecruiters = true;
+      this.selectedClient = _.findWhere(this.clients, { clientId: event });
+      for (const recruiter of this.selectedClient.clientRecuriters) {
+        this.recruitersArray.push({ user: recruiter, firstName: recruiter.name });
+      }
+    }
+    this.deSelectAll();
+  }
+
+  onItemSelect(item: any) {
+    if (item !== undefined && item !== '') {
+      console.log(item);
+      this.selectedRecruites.push({ email: item.user.email });
+    }
+  }
+
+  onItemDeSelect(items: any) {
+    const clear = this.selectedRecruites.indexOf(items);
+    this.selectedRecruites.splice(clear, 1);
+  }
+
+  deSelectAll() {
+    this.myForm.controls.recruitersName.setValue('');
+  }
+
   addNewRequirement(form: FormGroup) {
 
     if (form.value.clientRate === '' || form.value.clientRate === null) {
@@ -213,6 +354,10 @@ export class AddNewRequirementComponent implements OnInit {
       sellingRate: form.value.sellingRate,
       jobDescription: form.value.jobDescription,
       teamId: form.value.team,
+      client: {
+        clientId: form.value.clientName,
+        clientRecuriters: this.selectedRecruites
+      }
     };
 
     if (form.value.positionName === 'other') {

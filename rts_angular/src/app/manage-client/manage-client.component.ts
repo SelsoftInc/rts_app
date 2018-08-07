@@ -43,6 +43,7 @@ export class ManageClientComponent implements OnInit {
         data => {
           if (data.success) {
             this.clients = data.clients;
+            console.log(this.clients);
             this.clientsLength = this.clients.length;
           }
         });

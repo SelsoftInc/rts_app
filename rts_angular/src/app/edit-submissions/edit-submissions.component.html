@@ -26,8 +26,7 @@
         <div class="form-group row" *ngIf="selectedSubmission">
           <label for="sellingRate" class="col-sm-4 col-form-label">Selling Rate:</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" ngModel="{{selectedSubmission.sellingRate}}"
-              readonly>
+            <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" ngModel="{{selectedSubmission.sellingRate}}">
           </div>
         </div>
 
@@ -41,7 +40,7 @@
         <div class="form-group row" *ngIf="selectedSubmission">
           <label for="clientContactname" class="col-sm-4 col-form-label">Client Contact name:</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" name="clientContactname" formControlName="clientContactname" ngModel="{{selectedRequirement.client.contactPersonName}}"
+            <input type="text" class="form-control" name="clientContactname" formControlName="clientContactname" ngModel="{{clientRecruiterName}}"
               readonly>
           </div>
         </div>
@@ -49,7 +48,7 @@
         <div class="form-group row" *ngIf="selectedSubmission">
           <label for="clientContactEmail" class="col-sm-4 col-form-label">Client Contact Email:</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" name="clientContactEmail" formControlName="clientContactEmail" ngModel="{{selectedRequirement.client.contactPersonEmail}}"
+            <input type="text" class="form-control" name="clientContactEmail" formControlName="clientContactEmail" ngModel="{{clientRecruiterEmail}}"
               readonly>
           </div>
         </div>

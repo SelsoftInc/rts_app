@@ -43,6 +43,10 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
   private isOtherTechnology: boolean;
   private isSubmitted: boolean;
   immigirationStatus: any;
+  recruiterName: any;
+  recruiterEmail: any;
+  clientRecruiterName: any;
+  clientRecruiterEmail: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -56,6 +60,8 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
     this.rtsCompanyId = this.rtsUser.companyId;
+    this.recruiterName = [];
+    this.recruiterEmail = [];
     this.getFiles = [];
     this.deletedMediaFiles = [];
     this.status = [
@@ -151,6 +157,12 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
               }
             }
             this.selectedRequirement = _.findWhere(this.requirementsDetails, { requirementId: this.selectedSubmission.requirementId });
+            for (const recruiter of this.selectedRequirement.clientRecuriters) {
+              this.recruiterName.push(recruiter.name + ' ');
+              this.recruiterEmail.push(recruiter.email + ' ');
+            }
+            this.clientRecruiterName = this.recruiterName.join();
+            this.clientRecruiterEmail = this.recruiterEmail.join();
             if (this.selectedSubmission.status === 'REJECTED') {
               this.isRejected = true;
             }
@@ -197,7 +209,15 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
   }
 
   getRequirement(event) {
+    this.recruiterName = [];
+    this.recruiterEmail = [];
     this.selectedRequirement = _.findWhere(this.requirementsDetails, { requirementId: event });
+    for (const recruiter of this.selectedRequirement.clientRecuriters) {
+      this.recruiterName.push(recruiter.name + ' ');
+      this.recruiterEmail.push(recruiter.email + ' ');
+    }
+    this.clientRecruiterName = this.recruiterName.join();
+    this.clientRecruiterEmail = this.recruiterEmail.join();
   }
 
   getCandidateDetails() {

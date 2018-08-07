@@ -43,6 +43,10 @@ export class EditSubmissionsComponent implements OnInit {
   candidateGetFiles: any;
   candidateFiles: any;
   immigirationStatus: any;
+  recruiterName: any;
+  recruiterEmail: any;
+  clientRecruiterName: any;
+  clientRecruiterEmail: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -56,6 +60,8 @@ export class EditSubmissionsComponent implements OnInit {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
     this.rtsCompanyId = this.rtsUser.companyId;
+    this.recruiterName = [];
+    this.recruiterEmail = [];
     this.getFiles = [];
     this.candidateGetFiles = [];
     this.deletedMediaFiles = [];
@@ -173,6 +179,13 @@ export class EditSubmissionsComponent implements OnInit {
             } else {
               this.myForm.controls.c2c.setValue('No');
             }
+            for (const recruiter of this.selectedRequirement.clientRecuriters) {
+              this.recruiterName.push(recruiter.name + ' ');
+              this.recruiterEmail.push(recruiter.email + ' ');
+            }
+            this.clientRecruiterName = this.recruiterName.join();
+            this.clientRecruiterEmail = this.recruiterEmail.join();
+
             console.log(this.selectedSubmission);
             const immigiration = this.selectedSubmission.candidate.immigirationStatus;
             if (immigiration === 'GC') {
@@ -195,7 +208,16 @@ export class EditSubmissionsComponent implements OnInit {
   }
 
   getRequirement(event) {
+    this.recruiterName = [];
+    this.recruiterEmail = [];
     this.selectedRequirement = _.findWhere(this.requirementsDetails, { requirementId: event });
+    for (const recruiter of this.selectedRequirement.clientRecuriters) {
+      this.recruiterName.push(recruiter.name + ' ');
+      this.recruiterEmail.push(recruiter.email + ' ');
+    }
+    this.clientRecruiterName = this.recruiterName.join();
+    this.clientRecruiterEmail = this.recruiterEmail.join();
+
   }
 
   getCandidateDetails() {

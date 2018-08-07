@@ -10,10 +10,12 @@ export class ApiUrl {
     static GetAllRequirementsByCompany = 'rtsRequirement/requirement/getAllRequirementByCompany';
     static GetAllRequirementsByTeam = 'rtsRequirement/requirement/getAllRequirementByTeam';
     static AddNewRequirement = 'rtsRequirement/requirement/insertRequirement';
+    static SaveRequirement = 'rtsRequirement/requirement/saveRequirement';
     static GetAllUsersForAdmin = 'rtsUser/user/getAllUserForCompany';
     static AddUser = 'rtsUser/user/addUser';
     static GetAllRequiementsForUser = 'rtsRequirement/requirement/getAllAllocationRequirementForUser';
     static AddNewSubmission = 'rtsSubmission/submission/newSubmission';
+    static SaveSubmission = 'rtsSubmission/submission/saveSubmission';
     static UpdateSubmission = 'rtsSubmission/submission/updateSubmission';
     static SubmissionFileUpload = 'rtsSubmission/submission/fileUpload';
     static GetAllClientsForCompany = 'rtsClient/client/getAllClientForCompany';

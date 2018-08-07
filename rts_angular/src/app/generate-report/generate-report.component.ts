@@ -47,12 +47,11 @@ export class GenerateReportComponent implements OnInit {
     this.submissonService.approvedSubmissionDetails(userId)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.approvedsubmissions = data.submissionReport;
             this.approvedsubmissionsLength = this.approvedsubmissions.length;
             for (const submission of this.approvedsubmissions) {
-              const diff = Math.floor(this.currentDate.getTime() - submission.clientSubmissionOn);
+              const diff = Math.floor(this.currentDate.getTime() - submission.submissionDate);
               const day = 1000 * 60 * 60 * 24;
               const days = Math.floor(diff / day);
               const weeks = Math.floor(days / 7);

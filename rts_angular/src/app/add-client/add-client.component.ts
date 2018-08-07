@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoggedUserService } from '../Services/logged-user.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { ClientService } from '../Services/client.service';
@@ -36,10 +36,28 @@ export class AddClientComponent implements OnInit {
       name: [''],
       email: ['', Validators.email],
       phoneNumber: [''],
-      clientContactName: [''],
-      clientContactEmail: [''],
-      clientContactNumber: ['']
+      units: this.formBuilder.array([
+        this.initUnits()
+      ])
     });
+  }
+
+  initUnits() {
+    return this.formBuilder.group({
+      name: [''],
+      email: ['', Validators.email],
+      phoneNumber: [''],
+    });
+  }
+
+  addUnits() {
+    const control = <FormArray>this.myForm.controls['units'];
+    control.push(this.initUnits());
+  }
+
+  removeUnits(i: number) {
+    const control = <FormArray>this.myForm.controls['units'];
+    control.removeAt(i);
   }
 
   addNewClient(form: FormGroup) {
@@ -48,11 +66,10 @@ export class AddClientComponent implements OnInit {
       name: form.value.name,
       email: form.value.email,
       phoneNumber: form.value.phoneNumber,
-      contactPersonName: form.value.clientContactName,
-      contactPersonEmail: form.value.clientContactEmail,
-      contactPersonNumber: form.value.clientContactNumber,
-      enteredBy: this.rtsUserId
+      enteredBy: this.rtsUserId,
+      clientRecuriters: form.value.units
     };
+    console.log(client);
 
     this.clientService.addClient(client)
       .subscribe(

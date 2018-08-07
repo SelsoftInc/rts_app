@@ -38,7 +38,11 @@ export class AddNewSubmissionsComponent implements OnInit {
   private isEmployerDetails: boolean;
   private userRole: any;
   private isC2c: boolean;
-  immigirationStatus: any;
+  private immigirationStatus: any;
+  private clientRecruiterName: any;
+  private clientRecruiterEmail: any;
+  private recruiterName: any;
+  private recruiterEmail: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -54,6 +58,8 @@ export class AddNewSubmissionsComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.userRole = this.rtsUser.role;
+    this.recruiterName = [];
+    this.recruiterEmail = [];
     this.getFiles = [];
     this.candidateGetFiles = [];
     this.selectedCandidate = {};
@@ -178,8 +184,15 @@ export class AddNewSubmissionsComponent implements OnInit {
   }
 
   getRequirement(event) {
+    this.recruiterName = [];
+    this.recruiterEmail = [];
     this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: event });
-    console.log(this.selectRequiement);
+    for (const recruiter of this.selectRequiement.clientRecuriters) {
+      this.recruiterName.push(recruiter.name + ' ');
+      this.recruiterEmail.push(recruiter.email + ' ');
+    }
+    this.clientRecruiterName = this.recruiterName.join();
+    this.clientRecruiterEmail = this.recruiterEmail.join();
   }
 
   fileChangeEvent(event: any) {
@@ -253,6 +266,18 @@ export class AddNewSubmissionsComponent implements OnInit {
           }
         });
   }
+
+  // saveFormData(form: FormGroup) {
+
+
+  //   this.submissionService.saveSubmission(saveSubmission)
+  //     .subscribe(
+  //       data => {
+  //         console.log(data);
+  //         if (data.success) {
+  //         }
+  //       });
+  // }
 
   addTechnology(event) {
     if (event === 'other') {

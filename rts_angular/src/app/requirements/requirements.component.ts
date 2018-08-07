@@ -3,6 +3,7 @@ import { LoggedUserService } from '../Services/logged-user.service';
 import { RequirementsService } from '../Services/requirements.service';
 import * as moment from 'moment';
 import { HideComponentService } from '../Services/hide-component.service';
+import * as _ from 'underscore';
 
 @Component({
   selector: 'app-requirements',
@@ -23,6 +24,7 @@ export class RequirementsComponent implements OnInit {
   private currentDate: Date;
   private requirementsForTeam: any;
   private requirementsLengthForTeam: any;
+  submittedRequirements: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -34,6 +36,7 @@ export class RequirementsComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.userRole = this.rtsUser.role;
     this.currentDate = new Date();
+    this.submittedRequirements = [];
   }
 
   ngOnInit() {
@@ -45,7 +48,6 @@ export class RequirementsComponent implements OnInit {
     } else if (this.userRole === 'RECRUITER') {
       this.getAllRequirementsForUser();
     }
-    console.log(this.rtsUser);
   }
 
   getAllRequirements() {
@@ -58,8 +60,8 @@ export class RequirementsComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            console.log(data);
             this.requirements = data.requirements;
-            console.log(this.requirements);
             this.requirementsLength = this.requirements.length;
             for (const require of this.requirements) {
               const diff = Math.floor(this.currentDate.getTime() - require.createdOn);
@@ -93,7 +95,6 @@ export class RequirementsComponent implements OnInit {
         data => {
           if (data.success) {
             this.requirementsForUser = data.requirements;
-            console.log(this.requirementsForUser);
             this.requirementsLengthForUser = this.requirementsForUser.length;
             for (const require of this.requirementsForUser) {
               const diff = Math.floor(this.currentDate.getTime() - require.createdOn);

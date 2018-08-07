@@ -45,6 +45,12 @@ export class EditRequirementComponent implements OnInit {
   private selectedTeamUsers: any;
   private userRole: any;
   editTeam: boolean;
+  recruitersArray: any[];
+  selectedRecruites: any[];
+  isRecruiters: boolean;
+  selectedClient: any;
+  dropdownSettings: any;
+  selectedrecruitersArray: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -62,7 +68,11 @@ export class EditRequirementComponent implements OnInit {
     this.requirementByUser = [];
     this.immigrationByUser = [];
     this.selectedTeamUsers = [];
+    this.selectedRecruites = [];
+    this.selectedrecruitersArray = [];
+    this.recruitersArray = [];
     this.selectedRequirement = {};
+    this.dropdownSettings = {};
     this.requirementType = ['C2C', 'FTE', 'TBD'];
     this.immigration = [
       { 'id': 'GC', 'value': 'GC' },
@@ -116,8 +126,19 @@ export class EditRequirementComponent implements OnInit {
       OPT_CPT: [''],
       EAD: [''],
       H4AD: [''],
-      otherTechnology: ['']
+      otherTechnology: [''],
+      recruitersName: ['']
     });
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'user',
+      textField: 'firstName',
+      enableCheckAll: false,
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
     this.getAllUsers();
     this.getCommonDetails();
   }
@@ -172,6 +193,15 @@ export class EditRequirementComponent implements OnInit {
             this.immigrationByUser = this.selectedRequirement.immigrationRequirement;
             this.selectedTeam = _.findWhere(this.teams, { teamId: this.selectedRequirement.teamId });
             this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+            this.isRecruiters = true;
+            for (const recruiter of this.selectedRequirement.client.clientRecuriters) {
+              this.recruitersArray.push({ user: recruiter, firstName: recruiter.name });
+            }
+            for (const value of this.selectedRequirement.clientRecuriters) {
+              this.selectedRecruites.push({ email: value.email });
+              this.selectedrecruitersArray.push({ user: value, firstName: value.name });
+            }
+
             for (const user of this.selectedTeam.otherUsers) {
               this.selectedTeamUsers.push(user);
             }
@@ -265,6 +295,35 @@ export class EditRequirementComponent implements OnInit {
     }
   }
 
+  getClientRecruiters(event) {
+    this.recruitersArray = [];
+    this.selectedRecruites = [];
+    if (event !== undefined) {
+      this.isRecruiters = true;
+      this.selectedClient = _.findWhere(this.clients, { clientId: event });
+      for (const recruiter of this.selectedClient.clientRecuriters) {
+        this.recruitersArray.push({ user: recruiter, firstName: recruiter.name });
+      }
+    }
+    this.deSelectAll();
+  }
+
+  onItemSelect(item: any) {
+    if (item !== undefined && item !== '') {
+      console.log(item);
+      this.selectedRecruites.push({ email: item.user.email });
+    }
+  }
+
+  onItemDeSelect(items: any) {
+    const clear = this.selectedRecruites.indexOf(items);
+    this.selectedRecruites.splice(clear, 1);
+  }
+
+  deSelectAll() {
+    this.myForm.controls.recruitersName.setValue('');
+  }
+
   updateRequirement(form: FormGroup) {
 
     const requirement: any = {
@@ -282,6 +341,10 @@ export class EditRequirementComponent implements OnInit {
       jobDescription: form.value.jobDescription,
       requirementId: this.requirementId,
       teamId: form.value.team,
+      client: {
+        clientId: form.value.clientName,
+        clientRecuriters: this.selectedRecruites
+      }
     };
 
     if (form.value.positionName === 'other') {
@@ -311,6 +374,7 @@ export class EditRequirementComponent implements OnInit {
     }
 
     this.editRequirement = requirement;
+    console.log(this.editRequirement);
 
     this.requirementService.updateRequirement(this.editRequirement)
       .subscribe(

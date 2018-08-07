@@ -27,7 +27,7 @@
       <thead class="table-header">
         <tr>
           <th>Candidate Name</th>
-          <th>Technology</th>
+          <th>Position Name</th>
           <th>Client Name</th>
           <th>Submission Date</th>
           <th>Interview Status</th>
@@ -39,11 +39,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let submission of approvedsubmissions">
-          <td>{{submission.candidate.name}}</td>
-          <td>{{submission.candidate.technology[0].technologyName}}</td>
+        <tr *ngFor="let submission of approvedsubmissions ">
+          <td>{{submission.candidateName}}</td>
+          <td>{{submission.positionName}}</td>
           <td>{{submission.clientName}}</td>
-          <td>{{submission.clientSubmissionOn | date: 'MMM d, y'}}</td>
+          <td>{{submission.submissionDate | date: 'MMM d, y'}}</td>
           <td>{{submission.interviewStatus}}</td>
           <td>{{submission.dateOfL1 | date: 'MMM d, y'}}</td>
           <td>{{submission.dateOfL2 | date: 'MMM d, y'}}</td>

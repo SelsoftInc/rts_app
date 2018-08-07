@@ -35,6 +35,26 @@ export class SubmissionService {
             });
     }
 
+    saveSubmission(saveSubmission) {
+        const token = localStorage.getItem('id_token');
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', token);
+
+        return this.http.post(ApiUrl.BaseUrl + ApiUrl.SaveSubmission, saveSubmission,
+            { headers: headers })
+            .map(res => {
+                const responseToken = res.headers.get('refresh-token');
+                localStorage.setItem('id_token', responseToken);
+                return res.json();
+            }).catch(err => {
+                if (err.status === 401) {
+                    this.loginService.logout();
+                }
+                return '{}';
+            });
+    }
+
     editSubmission(editSubmission) {
         const token = localStorage.getItem('id_token');
         const headers = new Headers();

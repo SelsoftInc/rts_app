@@ -1,3 +1,7 @@
+.btn-space {
+  margin-right: 1em;
+}
+
 .ng-valid[required],
 .ng-valid.required {
   border-left: 5px solid #42A948;
@@ -7,6 +11,39 @@
   border-left: 5px solid #c84e02;
 }
 
-.btn-space {
-  margin-right: 1em;
+.unit-container {
+  padding-left: .2em;
+}
+
+.units {
+  position: relative;
+}
+
+.units .add-btn {
+  display: none;
+}
+
+.units:last-child .add-btn {
+  display: inline-block;
+}
+
+.units:first-child .delete-btn {
+  display: none;
+}
+
+.delete-btn {
+  color: #dc3545 !important;
+}
+
+.unit-btn-container {
+  padding-top: 1.1em;
+}
+
+.mat-icon {
+  line-height: 34px;
+}
+
+.unit-container.ng-invalid,
+.units>.form-row.ng-invalid {
+  border-left: 0 !important;
 }

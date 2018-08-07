@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { LoggedUserService } from '../Services/logged-user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -54,11 +54,28 @@ export class EditClientComponent implements OnInit {
       name: [''],
       email: ['', Validators.email],
       phoneNumber: [''],
-      clientContactName: [''],
-      clientContactEmail: [''],
-      clientContactNumber: ['']
+      units: this.formBuilder.array([
+      ])
     });
     this.getAllClients();
+  }
+
+  initUnits() {
+    return this.formBuilder.group({
+      name: [''],
+      email: ['', Validators.email],
+      phoneNumber: [''],
+    });
+  }
+
+  addUnits() {
+    const control = <FormArray>this.myForm.controls['units'];
+    control.push(this.initUnits());
+  }
+
+  removeUnits(i: number) {
+    const control = <FormArray>this.myForm.controls['units'];
+    control.removeAt(i);
   }
 
   getAllClients() {
@@ -74,12 +91,14 @@ export class EditClientComponent implements OnInit {
             for (const user of this.clients) {
               this.selectedClient = _.findWhere(this.clients, { clientId: this.clientId });
             }
+            console.log(this.selectedClient);
+            const control = <FormArray>this.myForm.controls['units'];
+            for (const recruiter of this.selectedClient.clientRecuriters) {
+              control.push(this.formBuilder.group(recruiter));
+            }
             this.name = this.selectedClient.name;
             this.email = this.selectedClient.email;
             this.phoneNumber = this.selectedClient.phoneNumber;
-            this.contactPersonName = this.selectedClient.contactPersonName;
-            this.contactPersonEmail = this.selectedClient.contactPersonEmail;
-            this.contactPersonNumber = this.selectedClient.contactPersonNumber;
           }
         });
 
@@ -91,11 +110,9 @@ export class EditClientComponent implements OnInit {
       name: form.value.name,
       email: form.value.email,
       phoneNumber: form.value.phoneNumber,
-      contactPersonName: form.value.clientContactName,
-      contactPersonEmail: form.value.clientContactEmail,
-      contactPersonNumber: form.value.clientContactNumber,
       enteredBy: this.rtsUserId,
-      clientId: this.clientId
+      clientId: this.clientId,
+      clientRecuriters: form.value.units
     };
 
     this.clientService.editClient(editClient)

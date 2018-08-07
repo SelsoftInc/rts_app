@@ -94,10 +94,16 @@
     <div class="form-group row">
       <label for="clientName" class="col-sm-2 col-form-label">Client:</label>
       <div class="col-sm-4">
-        <select name="clientName" class="form-control" formControlName="clientName" required>
+        <select name="clientName" class="form-control" formControlName="clientName" (change)="getClientRecruiters($event.target.value)"
+          required>
           <option value="">Select</option>
           <option *ngFor="let client of clients" value="{{client.clientId}}">{{client.name}}</option>
         </select>
+      </div>
+      <div class="col-sm-4" *ngIf="isRecruiters">
+        <ng-multiselect-dropdown [placeholder]="'Select Recruiters'" [data]="recruitersArray" formControlName="recruitersName" [settings]="dropdownSettings"
+          (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)">
+        </ng-multiselect-dropdown>
       </div>
     </div>
 
@@ -169,7 +175,8 @@
 
     <div class="form-btn-container">
       <button class="btn btn-default btn-space" type="submit" [disabled]="!myForm.valid">Add Requirement</button>
-      <button [routerLink]="[ '/requirements']" class="btn btn-default">Cancel</button>
+      <button [routerLink]="[ '/requirements']" class="btn btn-default btn-space">Cancel</button>
+      <button type="button" class="btn btn-default" (click)="saveFormData(myForm)">Save</button>
     </div>
 
   </form>
