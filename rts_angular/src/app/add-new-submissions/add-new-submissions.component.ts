@@ -148,7 +148,6 @@ export class AddNewSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.requirementsDetails = data.requirements;
-            console.log(this.requirementsDetails);
             for (const require of this.requirementsDetails) {
               if (require.status !== 'In-Complete') {
                 this.allRequirements.push(require);

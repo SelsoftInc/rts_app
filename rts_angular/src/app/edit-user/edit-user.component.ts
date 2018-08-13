@@ -90,7 +90,7 @@ export class EditUserComponent implements OnInit {
 
   updateUser(form: FormGroup) {
 
-    if (this.role === 'ADMIN') {
+    if (this.role === 'ADMIN' && this.userRole === 'ACC_MGR') {
       this.toastr.error('Admin user cannot be modified by Account Manager', '', {
         positionClass: 'toast-top-center',
         timeOut: 3000,

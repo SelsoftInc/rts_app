@@ -36,19 +36,18 @@
       </div>
     </div>
 
-    <div class="form-group row" *ngIf="selectedRequirement.account">
+    <div class="form-group row" *ngIf="selectedRequirement">
       <label for="accountName" class="col-sm-2 col-form-label">Account Name:</label>
       <div class="col-sm-4">
         <select name="accountName" class="form-control" formControlName="accountName" (change)="changeAccountName($event.target.value);"
-          ngModel="{{selectedRequirement.account.accountId}}" required>
+          ngModel="{{accountName}}" required>
           <option value="">Select</option>
           <option *ngFor="let name of accounts" value="{{name.accountId}}">{{name.accountName}}</option>
           <option value="other">Other</option>
         </select>
       </div>
       <div class="col-sm-4" *ngIf="isOtherAccountName">
-        <input type="text" class="form-control" name="otherAccountName" formControlName="otherAccountName" placeholder=" Enter the Bank Name"
-          readonly>
+        <input type="text" class="form-control" name="otherAccountName" formControlName="otherAccountName" placeholder=" Enter the Bank Name">
       </div>
     </div>
 
@@ -111,8 +110,8 @@
         </select>
       </div>
       <div class="col-sm-4" *ngIf="isRecruiters">
-        <ng-multiselect-dropdown [placeholder]="'Select Recruiters'" [data]="recruitersArray" formControlName="recruitersName" [ngModel]="selectedrecruitersArray" [settings]="dropdownSettings"
-          (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)">
+        <ng-multiselect-dropdown [placeholder]="'Select Recruiters'" [data]="recruitersArray" formControlName="recruitersName" [ngModel]="selectedrecruitersArray"
+          [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)">
         </ng-multiselect-dropdown>
       </div>
     </div>

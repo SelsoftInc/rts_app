@@ -50,6 +50,7 @@ export class AddUserComponent implements OnInit {
       ];
     } else if (this.userRole === 'ADMIN') {
       this.userType = [
+        { 'name': 'Admin', 'value': 'ADMIN' },
         { 'name': 'Account Manager', 'value': 'ACC_MGR' },
         { 'name': 'Team Leader', 'value': 'TL' },
         { 'name': 'Recruiter', 'value': 'RECRUITER' },

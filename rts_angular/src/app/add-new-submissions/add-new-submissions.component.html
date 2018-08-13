@@ -21,7 +21,14 @@
       </div>
     </div>
 
-    <div class="form-group row" *ngIf="selectRequiement">
+    <div class="form-group row" *ngIf="selectRequiement && userRole !== 'RECRUITER'">
+      <label for="sellingRate" class="col-sm-2 col-form-label">Selling Rate:</label>
+      <div class="col-sm-4 ">
+        <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" value="{{selectRequiement.sellingRate}}">
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="selectRequiement && userRole === 'RECRUITER'">
       <label for="sellingRate" class="col-sm-2 col-form-label">Selling Rate:</label>
       <div class="col-sm-4 ">
         <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" value="{{selectRequiement.sellingRate}}"

@@ -44,13 +44,14 @@ export class EditRequirementComponent implements OnInit {
   private selectedTeam: any;
   private selectedTeamUsers: any;
   private userRole: any;
-  editTeam: boolean;
-  recruitersArray: any[];
-  selectedRecruites: any[];
-  isRecruiters: boolean;
-  selectedClient: any;
-  dropdownSettings: any;
-  selectedrecruitersArray: any;
+  private editTeam: boolean;
+  private recruitersArray: any[];
+  private selectedRecruites: any[];
+  private isRecruiters: boolean;
+  private selectedClient: any;
+  private dropdownSettings: any;
+  private selectedrecruitersArray: any;
+  private accountName: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -194,6 +195,7 @@ export class EditRequirementComponent implements OnInit {
             this.selectedTeam = _.findWhere(this.teams, { teamId: this.selectedRequirement.teamId });
             this.selectedTeamUsers.push(this.selectedTeam.leadUser);
             this.isRecruiters = true;
+            this.accountName = this.selectedRequirement.accountId;
             for (const recruiter of this.selectedRequirement.client.clientRecuriters) {
               this.recruitersArray.push({ user: recruiter, firstName: recruiter.name });
             }

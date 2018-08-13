@@ -36,11 +36,11 @@
       </div>
     </div>
 
-    <div class="form-group row" *ngIf="selectedRequirement.account">
+    <div class="form-group row" *ngIf="selectedRequirement">
       <label for="accountName" class="col-sm-2 col-form-label">Account Name:</label>
       <div class="col-sm-4">
         <select name="accountName" class="form-control" formControlName="accountName" (change)="changeAccountName($event.target.value);"
-          ngModel="{{selectedRequirement.account.accountId}}" required>
+          ngModel="{{accountName}}" required>
           <option value="">Select</option>
           <option *ngFor="let name of accounts" value="{{name.accountId}}">{{name.accountName}}</option>
           <option value="other">Other</option>
@@ -48,167 +48,166 @@
       </div>
       <div class="col-sm-4" *ngIf="isOtherAccountName">
         <input type="text" class="form-control" name="otherAccountName" formControlName="otherAccountName" placeholder=" Enter the Bank Name"
-          readonly>
+          </div>
       </div>
-    </div>
 
-    <div class="form-group row" *ngIf="selectedRequirement">
-      <label for="priority" class="col-2 col-form-label">Priority:</label>
-      <div class="col-4">
-        <select name="priority" class="form-control" formControlName="priority" required ngModel="{{selectedRequirement.priority}}">
-          <option value="">Select</option>
-          <option value="HIGH">High</option>
-          <option value="MEDIUM">Medium</option>
-          <option value="CRITICAL">Critical</option>
-          <option value="LOW">Low</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="form-group row" *ngIf="selectedRequirement">
-      <label for="location" class="col-sm-2 col-form-label">Location:</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" name="location" formControlName="location" ngModel="{{selectedRequirement.location}}"
-          required>
-      </div>
-    </div>
-
-    <div class="form-group row" *ngIf="selectedRequirement.requirementType">
-      <label class="col-sm-2 col-form-label">Requirement Type:</label>
-      <div *ngFor="let type of requirementType" ng-checked="requirementByUser.indexOf(type) != 1" (change)="getCheckedRequirementType(type)">
-        <div class="col-md-6">
-          <input type='checkbox' formControlName="{{type}}" [value]="type">
-          <span class="label">{{type}}</span>
+      <div class="form-group row" *ngIf="selectedRequirement">
+        <label for="priority" class="col-2 col-form-label">Priority:</label>
+        <div class="col-4">
+          <select name="priority" class="form-control" formControlName="priority" required ngModel="{{selectedRequirement.priority}}">
+            <option value="">Select</option>
+            <option value="HIGH">High</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="CRITICAL">Critical</option>
+            <option value="LOW">Low</option>
+          </select>
         </div>
       </div>
-    </div>
 
-    <div class="form-group row" *ngIf="selectedRequirement">
-      <label for="positionsCount" class="col-sm-2 col-form-label ">No.of Positions:</label>
-      <div class="col-sm-4">
-        <input type="number " class="form-control" name="positionsCount" maxlength="3" formControlName="positionsCount" ngModel="{{selectedRequirement.positionCount}}"
-          required>
+      <div class="form-group row" *ngIf="selectedRequirement">
+        <label for="location" class="col-sm-2 col-form-label">Location:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" name="location" formControlName="location" ngModel="{{selectedRequirement.location}}"
+            required>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group row" *ngIf="selectedRequirement">
-      <label for="immigrationRequirement" class="col-sm-2 col-form-label">Immigration Requirement:</label>
-      <div *ngFor="let data of immigration" ng-checked="immigrationByUser.indexOf(data) != 1" (change)="getCheckedImmigrationValue(data)">
+      <div class="form-group row" *ngIf="selectedRequirement.requirementType">
+        <label class="col-sm-2 col-form-label">Requirement Type:</label>
+        <div *ngFor="let type of requirementType" ng-checked="requirementByUser.indexOf(type) != 1" (change)="getCheckedRequirementType(type)">
+          <div class="col-md-6">
+            <input type='checkbox' formControlName="{{type}}" [value]="type">
+            <span class="label">{{type}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row" *ngIf="selectedRequirement">
+        <label for="positionsCount" class="col-sm-2 col-form-label ">No.of Positions:</label>
+        <div class="col-sm-4">
+          <input type="number " class="form-control" name="positionsCount" maxlength="3" formControlName="positionsCount" ngModel="{{selectedRequirement.positionCount}}"
+            required>
+        </div>
+      </div>
+
+      <div class="form-group row" *ngIf="selectedRequirement">
+        <label for="immigrationRequirement" class="col-sm-2 col-form-label">Immigration Requirement:</label>
+        <div *ngFor="let data of immigration" ng-checked="immigrationByUser.indexOf(data) != 1" (change)="getCheckedImmigrationValue(data)">
+          <div class="col-sm-4 ">
+            <input type="checkbox" formControlName="{{data.id}}" [value]="data.value">
+            <span class="label">{{data.value}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row" *ngIf="selectedRequirement.client">
+        <label for="clientName" class="col-sm-2 col-form-label">Client:</label>
+        <div class="col-sm-4">
+          <select name="clientName" class="form-control" formControlName="clientName" ngModel="{{selectedRequirement.client.clientId}}"
+            (change)="getClientRecruiters($event.target.value)" required>
+            <option value="">Select</option>
+            <option *ngFor="let client of clients" value="{{client.clientId}}">{{client.name}}</option>
+          </select>
+        </div>
+        <div class="col-sm-4" *ngIf="isRecruiters">
+          <ng-multiselect-dropdown [placeholder]="'Select Recruiters'" [data]="recruitersArray" formControlName="recruitersName" [ngModel]="selectedrecruitersArray"
+            [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)">
+          </ng-multiselect-dropdown>
+        </div>
+      </div>
+
+      <div class="form-group row" *ngIf="selectedRequirement">
+        <label for="clientRate" class="col-sm-2 col-form-label">Client Rate:</label>
         <div class="col-sm-4 ">
-          <input type="checkbox" formControlName="{{data.id}}" [value]="data.value">
-          <span class="label">{{data.value}}</span>
+          <input type="text" class="form-control" name="clientRate" formControlName="clientRate" ngModel="{{selectedRequirement.clientRate}}"
+            required>
         </div>
       </div>
-    </div>
 
-    <div class="form-group row" *ngIf="selectedRequirement.client">
-      <label for="clientName" class="col-sm-2 col-form-label">Client:</label>
-      <div class="col-sm-4">
-        <select name="clientName" class="form-control" formControlName="clientName" ngModel="{{selectedRequirement.client.clientId}}"
-          (change)="getClientRecruiters($event.target.value)" required>
-          <option value="">Select</option>
-          <option *ngFor="let client of clients" value="{{client.clientId}}">{{client.name}}</option>
-        </select>
+      <div class="form-group row" *ngIf="selectedRequirement">
+        <label for="sellingRate" class="col-sm-2 col-form-label">Selling Rate:</label>
+        <div class="col-sm-4 ">
+          <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" ngModel="{{selectedRequirement.sellingRate}}"
+            required>
+        </div>
       </div>
-      <div class="col-sm-4" *ngIf="isRecruiters">
-        <ng-multiselect-dropdown [placeholder]="'Select Recruiters'" [data]="recruitersArray" formControlName="recruitersName" [ngModel]="selectedrecruitersArray"
-          [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)">
-        </ng-multiselect-dropdown>
-      </div>
-    </div>
 
-    <div class="form-group row" *ngIf="selectedRequirement">
-      <label for="clientRate" class="col-sm-2 col-form-label">Client Rate:</label>
-      <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="clientRate" formControlName="clientRate" ngModel="{{selectedRequirement.clientRate}}"
-          required>
+      <div class="form-group row" *ngIf="selectedRequirement">
+        <label for="jobDescription" class="col-sm-2 col-form-label">Job Description:</label>
+        <div class="col-sm-4 ">
+          <textarea rows="8" name="jobDescription" class="form-control" formControlName="jobDescription" placeholder="Description.."
+            ngModel="{{selectedRequirement.jobDescription}}"></textarea>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group row" *ngIf="selectedRequirement">
-      <label for="sellingRate" class="col-sm-2 col-form-label">Selling Rate:</label>
-      <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" ngModel="{{selectedRequirement.sellingRate}}"
-          required>
+      <div class="form-group row" *ngIf="selectedRequirement.technology">
+        <label for="technologies" class="col-sm-2 col-form-label">Technologies:</label>
+        <div class="col-sm-4">
+          <select name="technologies" class="form-control" formControlName="technologies" (change)="addTechnology($event.target.value);"
+            ngModel="{{selectedRequirement.technology[0].technologyId}}" required>
+            <option value="">Select</option>
+            <option *ngFor="let tech of technologies" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="col-sm-4" *ngIf="isOtherTechnology">
+          <input type="text" class="form-control" name="otherTechnology" formControlName="otherTechnology" placeholder=" Enter the Technology"
+            required>
+        </div>
       </div>
-    </div>
-
-    <div class="form-group row" *ngIf="selectedRequirement">
-      <label for="jobDescription" class="col-sm-2 col-form-label">Job Description:</label>
-      <div class="col-sm-4 ">
-        <textarea rows="8" name="jobDescription" class="form-control" formControlName="jobDescription" placeholder="Description.."
-          ngModel="{{selectedRequirement.jobDescription}}"></textarea>
-      </div>
-    </div>
-
-    <div class="form-group row" *ngIf="selectedRequirement.technology">
-      <label for="technologies" class="col-sm-2 col-form-label">Technologies:</label>
-      <div class="col-sm-4">
-        <select name="technologies" class="form-control" formControlName="technologies" (change)="addTechnology($event.target.value);"
-          ngModel="{{selectedRequirement.technology[0].technologyId}}" required>
-          <option value="">Select</option>
-          <option *ngFor="let tech of technologies" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-      <div class="col-sm-4" *ngIf="isOtherTechnology">
-        <input type="text" class="form-control" name="otherTechnology" formControlName="otherTechnology" placeholder=" Enter the Technology"
-          required>
-      </div>
-    </div>
 
 
-    <div class="form-group row" *ngIf="selectedRequirement && !editTeam">
-      <label for="team" class="col-sm-2 col-form-label">Team:</label>
-      <div class="col-sm-4 ">
-        <select name="team" class="form-control" formControlName="team" ngModel="{{selectedRequirement.teamId}}" (change)="selectTeam($event.target.value)"
-          disabled>
-          <option value="">Select</option>
-          <option *ngFor="let team of teams" value="{{team.teamId}}">{{team.name}}</option>
-        </select>
+      <div class="form-group row" *ngIf="selectedRequirement && !editTeam">
+        <label for="team" class="col-sm-2 col-form-label">Team:</label>
+        <div class="col-sm-4 ">
+          <select name="team" class="form-control" formControlName="team" ngModel="{{selectedRequirement.teamId}}" (change)="selectTeam($event.target.value)"
+            disabled>
+            <option value="">Select</option>
+            <option *ngFor="let team of teams" value="{{team.teamId}}">{{team.name}}</option>
+          </select>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group row" *ngIf="selectedRequirement && editTeam">
-      <label for="team" class="col-sm-2 col-form-label">Team:</label>
-      <div class="col-sm-4 ">
-        <select name="team" class="form-control" formControlName="team" ngModel="{{selectedRequirement.teamId}}" (change)="selectTeam($event.target.value)"
-          required>
-          <option value="">Select</option>
-          <option *ngFor="let team of teams" value="{{team.teamId}}">{{team.name}}</option>
-        </select>
+      <div class="form-group row" *ngIf="selectedRequirement && editTeam">
+        <label for="team" class="col-sm-2 col-form-label">Team:</label>
+        <div class="col-sm-4 ">
+          <select name="team" class="form-control" formControlName="team" ngModel="{{selectedRequirement.teamId}}" (change)="selectTeam($event.target.value)"
+            required>
+            <option value="">Select</option>
+            <option *ngFor="let team of teams" value="{{team.teamId}}">{{team.name}}</option>
+          </select>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group row" *ngIf="selectedRequirement">
-      <label for="allocation" class="col-sm-2 col-form-label">Allocation:</label>
-      <div class="col-sm-4 ">
-        <select name="role" class="form-control" formControlName="allocation" ngModel="{{selectedRequirement.allocationUserId}}">
-          <option value="">Select</option>
-          <option *ngFor="let user of selectedTeamUsers" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
-        </select>
+      <div class="form-group row" *ngIf="selectedRequirement">
+        <label for="allocation" class="col-sm-2 col-form-label">Allocation:</label>
+        <div class="col-sm-4 ">
+          <select name="role" class="form-control" formControlName="allocation" ngModel="{{selectedRequirement.allocationUserId}}">
+            <option value="">Select</option>
+            <option *ngFor="let user of selectedTeamUsers" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
+          </select>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group row">
-      <label for="notes" class="col-sm-2 col-form-label">Notes:</label>
-      <div class="col-sm-4">
-        <textarea name="notes" class="form-control" formControlName="notes" placeholder="Type Your Notes.." ngModel="{{selectedRequirement.notes}}"></textarea>
+      <div class="form-group row">
+        <label for="notes" class="col-sm-2 col-form-label">Notes:</label>
+        <div class="col-sm-4">
+          <textarea name="notes" class="form-control" formControlName="notes" placeholder="Type Your Notes.." ngModel="{{selectedRequirement.notes}}"></textarea>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group row" *ngIf="selectedRequirement.comments">
-      <label for="comments" class="col-sm-2 col-form-label">Comments:</label>
-      <div class="col-sm-4">
-        <textarea rows="3" name="comments" class="form-control" formControlName="comments" placeholder="Type Your Comments.." ngModel="{{selectedRequirement.comments}}"></textarea>
+      <div class="form-group row" *ngIf="selectedRequirement.comments">
+        <label for="comments" class="col-sm-2 col-form-label">Comments:</label>
+        <div class="col-sm-4">
+          <textarea rows="3" name="comments" class="form-control" formControlName="comments" placeholder="Type Your Comments.." ngModel="{{selectedRequirement.comments}}"></textarea>
+        </div>
       </div>
-    </div>
 
-    <div class="form-btn-container">
-      <button class="btn btn-default btn-space" type="submit" [disabled]="!myForm.valid">Update Requirement</button>
-      <button [routerLink]="['/submission-by-requirement', requirementId]" class="btn btn-default btn-space" type="submit">Submissions</button>
-      <button [routerLink]="[ '/requirements']" class="btn btn-default">Cancel</button>
-    </div>
+      <div class="form-btn-container">
+        <button class="btn btn-default btn-space" type="submit" [disabled]="!myForm.valid">Update Requirement</button>
+        <button [routerLink]="['/submission-by-requirement', requirementId]" class="btn btn-default btn-space" type="submit">Submissions</button>
+        <button [routerLink]="[ '/requirements']" class="btn btn-default">Cancel</button>
+      </div>
 
   </form>
-</div>
+  </div>

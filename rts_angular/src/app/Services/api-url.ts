@@ -5,6 +5,9 @@ export class ApiUrl {
 
     static BaseUrl = 'http://rameshrasaiyan.com:8080/';
 
+    // base url production
+    // static BaseUrl = 'https://trackmeall.com:8443/';
+
     static AddCompanyUser = 'rtsUser/user/addCompanyUser';
     static UserLogin = 'rtsUser/user/userLogin';
     static GetAllRequirementsByCompany = 'rtsRequirement/requirement/getAllRequirementByCompany';
