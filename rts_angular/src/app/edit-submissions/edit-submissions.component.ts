@@ -40,13 +40,14 @@ export class EditSubmissionsComponent implements OnInit {
   private isEmployerDetails: boolean;
   private isC2c: boolean;
   private isOtherTechnology: boolean;
-  candidateGetFiles: any;
-  candidateFiles: any;
-  immigirationStatus: any;
-  recruiterName: any;
-  recruiterEmail: any;
-  clientRecruiterName: any;
-  clientRecruiterEmail: any;
+  private candidateGetFiles: any;
+  private candidateFiles: any;
+  private immigirationStatus: any;
+  private recruiterName: any;
+  private recruiterEmail: any;
+  private clientRecruiterName: any;
+  private clientRecruiterEmail: any;
+  private allRequirements: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -63,6 +64,7 @@ export class EditSubmissionsComponent implements OnInit {
     this.recruiterName = [];
     this.recruiterEmail = [];
     this.getFiles = [];
+    this.allRequirements = [];
     this.candidateGetFiles = [];
     this.deletedMediaFiles = [];
     this.status = [
@@ -153,13 +155,18 @@ export class EditSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.requirementsDetails = data.requirements;
-            for (const sub of this.requirementsDetails) {
+            for (const require of this.requirementsDetails) {
+              if (require.status !== 'In-Complete') {
+                this.allRequirements.push(require);
+              }
+            }
+            for (const sub of this.allRequirements) {
               const submission = _.findWhere(sub.submissions, { submissionId: this.submissionId });
               if (submission !== undefined) {
                 this.selectedSubmission = submission;
               }
             }
-            this.selectedRequirement = _.findWhere(this.requirementsDetails, { requirementId: this.selectedSubmission.requirementId });
+            this.selectedRequirement = _.findWhere(this.allRequirements, { requirementId: this.selectedSubmission.requirementId });
             if (this.selectedSubmission.status === 'REJECTED') {
               this.isRejected = true;
             }
@@ -210,7 +217,7 @@ export class EditSubmissionsComponent implements OnInit {
   getRequirement(event) {
     this.recruiterName = [];
     this.recruiterEmail = [];
-    this.selectedRequirement = _.findWhere(this.requirementsDetails, { requirementId: event });
+    this.selectedRequirement = _.findWhere(this.allRequirements, { requirementId: event });
     for (const recruiter of this.selectedRequirement.clientRecuriters) {
       this.recruiterName.push(recruiter.name + ' ');
       this.recruiterEmail.push(recruiter.email + ' ');

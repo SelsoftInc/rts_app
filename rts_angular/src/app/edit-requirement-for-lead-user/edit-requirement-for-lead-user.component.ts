@@ -117,6 +117,7 @@ export class EditRequirementForLeadUserComponent implements OnInit {
       jobDescription: [''],
       team: [''],
       comments: [''],
+      notes: [''],
       C2C: [''],
       TBD: [''],
       FTE: [''],

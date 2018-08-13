@@ -1,6 +1,8 @@
+<div class="sub-nav-wrapper" *ngIf="userRole ==='ADMIN' || userRole ==='ACC_MGR'">
+  <a class="sub-nav-link" [routerLink]="['/add-team']">Add New Team</a>
+</div>
 <div class="utility-container">
   <div *ngIf="userRole === 'ADMIN'">
-    <button class="btn btn-default" [routerLink]="['/add-team']">Add New Team</button>
     <div class="search-container">
       <input type="text" class="form-control mr-sm-2" placeholder="Search by First Name" name="searchString " [(ngModel)]="searchString">
     </div>
@@ -49,7 +51,6 @@
 
   <div *ngIf="userRole === 'ACC_MGR'">
 
-    <button class="btn btn-default" [routerLink]="['/add-team']">Add New Team</button>
     <div class="search-container">
       <input type="text" class="form-control mr-sm-2" placeholder="Search by First Name" name="searchString " [(ngModel)]="searchString">
     </div>

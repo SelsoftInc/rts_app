@@ -39,7 +39,6 @@ export class ManageCandidateComponent implements OnInit {
           if (data.success) {
             this.candidates = data.candidates;
             this.candidateLength = this.candidates.length;
-            console.log(this.candidates);
           }
         });
 

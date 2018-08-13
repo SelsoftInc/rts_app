@@ -8,7 +8,7 @@
         <select name="requirements" class="form-control" formControlName="requirements" (change)="getRequirement($event.target.value);"
           ngModel="{{requirementId}}" required>
           <option value="">Select</option>
-          <option *ngFor="let require of requirementsDetails" value="{{require.requirementId}}">{{require.position.positionName}} ({{require.client.name}})</option>
+          <option *ngFor="let require of allRequirements" value="{{require.requirementId}}">{{require.position.positionName}} ({{require.client.name}})</option>
         </select>
       </div>
     </div>

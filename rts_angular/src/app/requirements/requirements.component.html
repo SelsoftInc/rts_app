@@ -3,10 +3,11 @@
 </div>
 <div class="utility-container">
   <div *ngIf="userRole ==='ADMIN'">
-    <!--<button class="btn btn-default" [routerLink]="['/add-new-requirement']">Add New Requirement</button>-->
     <div class="search-container">
       <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString " [(ngModel)]="searchString">
-      <span class="search-icon"><i class="material-icons">search</i></span>
+      <span class="search-icon">
+        <i class="material-icons">search</i>
+      </span>
     </div>
     <table class="table table-hover">
       <thead class="table-header">
@@ -47,10 +48,11 @@
   </div>
 
   <div *ngIf="userRole ==='ACC_MGR'">
-    <!--<button class="btn btn-default" [routerLink]="['/add-new-requirement']">Add New Requirement</button>-->
     <div class="search-container">
       <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString " [(ngModel)]="searchString">
-      <span class="search-icon"><i class="material-icons">search</i></span>
+      <span class="search-icon">
+        <i class="material-icons">search</i>
+      </span>
     </div>
     <table class="table table-hover">
       <thead class="table-header">
@@ -91,10 +93,11 @@
   </div>
 
   <div *ngIf="userRole ==='TL'">
-    <!--<button class="btn btn-default" [routerLink]="['/add-new-requirement']">Add New Requirement</button>-->
     <div class="search-container">
       <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString " [(ngModel)]="searchString">
-      <span class="search-icon"><i class="material-icons">search</i></span>
+      <span class="search-icon">
+        <i class="material-icons">search</i>
+      </span>
     </div>
     <table class="table table-hover">
       <thead class="table-header">
@@ -137,7 +140,9 @@
   <div *ngIf="userRole ==='RECRUITER'">
     <div class="search-container">
       <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString " [(ngModel)]="searchString">
-      <span class="search-icon"><i class="material-icons">search</i></span>
+      <span class="search-icon">
+        <i class="material-icons">search</i>
+      </span>
     </div>
 
     <table class="table table-hover">

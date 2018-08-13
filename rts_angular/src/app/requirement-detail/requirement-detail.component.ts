@@ -100,6 +100,7 @@ export class RequirementDetailComponent implements OnInit {
       jobDescription: [''],
       team: [''],
       comments: [''],
+      notes: [''],
       C2C: [''],
       TBD: [''],
       FTE: [''],

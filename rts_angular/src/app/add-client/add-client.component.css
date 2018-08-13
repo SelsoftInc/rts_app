@@ -23,6 +23,10 @@
   display: none;
 }
 
+.units:nth-child(n+2) .label {
+  display: none;
+}
+
 .units:last-child .add-btn {
   display: inline-block;
 }

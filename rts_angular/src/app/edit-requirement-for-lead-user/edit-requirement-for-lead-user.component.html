@@ -111,8 +111,8 @@
         </select>
       </div>
       <div class="col-sm-4" *ngIf="isRecruiters">
-        <ng-multiselect-dropdown [placeholder]="'Select Recruiters'" [data]="recruitersArray" formControlName="recruitersName" [ngModel]="selectedrecruitersArray" [settings]="dropdownSettings"
-          (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)">
+        <ng-multiselect-dropdown [placeholder]="'Select Recruiters'" [data]="recruitersArray" formControlName="recruitersName" [ngModel]="selectedrecruitersArray"
+          [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)">
         </ng-multiselect-dropdown>
       </div>
     </div>
@@ -190,10 +190,17 @@
       </div>
     </div>
 
+    <div class="form-group row">
+      <label for="notes" class="col-sm-2 col-form-label">Notes:</label>
+      <div class="col-sm-4">
+        <textarea name="notes" class="form-control" formControlName="notes" placeholder="Type Your Notes.." ngModel="{{selectedRequirement.notes}}"></textarea>
+      </div>
+    </div>
+
     <div class="form-group row" *ngIf="selectedRequirement.comments">
       <label for="comments" class="col-sm-2 col-form-label">Comments:</label>
       <div class="col-sm-4">
-        <textarea name="comments" class="form-control" formControlName="comments" placeholder="Type Your Comments.." ngModel="{{selectedRequirement.comments}}"></textarea>
+        <textarea rows="3" name="comments" class="form-control" formControlName="comments" placeholder="Type Your Comments.." ngModel="{{selectedRequirement.comments}}"></textarea>
       </div>
     </div>
 

@@ -41,7 +41,6 @@ export class ManageUsersComponent implements OnInit {
         data => {
           if (data.success) {
             this.userDetails = data.users;
-            console.log(this.userDetails);
             this.userLength = this.userDetails.length;
           }
         });

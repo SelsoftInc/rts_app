@@ -94,6 +94,7 @@ export class AddNewRequirementComponent implements OnInit {
       jobDescription: [''],
       team: [''],
       comments: [''],
+      notes: [''],
       otherTechnology: [''],
       recruitersName: ['']
     });
@@ -224,7 +225,6 @@ export class AddNewRequirementComponent implements OnInit {
         technologyId: form.value.technologies
       }];
     }
-    console.log(saveRequirement);
 
     this.requirementService.saveRequirement(saveRequirement)
       .subscribe(
@@ -308,7 +308,6 @@ export class AddNewRequirementComponent implements OnInit {
 
   onItemSelect(item: any) {
     if (item !== undefined && item !== '') {
-      console.log(item);
       this.selectedRecruites.push({ email: item.user.email });
     }
   }
