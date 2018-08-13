@@ -16,7 +16,7 @@
     <div class="form-group row" *ngIf="selectRequiement && userRole !== 'RECRUITER'">
       <label for="clientRate" class="col-sm-2 col-form-label">Client Rate:</label>
       <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="clientRate" formControlName="clientRate" value="{{selectRequiement.clientRate}}"
+        <input type="text" class="form-control" name="clientRate" formControlName="clientRate" ngModel="{{selectRequiement.clientRate}}"
           readonly>
       </div>
     </div>
@@ -24,14 +24,14 @@
     <div class="form-group row" *ngIf="selectRequiement && userRole !== 'RECRUITER'">
       <label for="sellingRate" class="col-sm-2 col-form-label">Selling Rate:</label>
       <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" value="{{selectRequiement.sellingRate}}">
+        <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" ngModel="{{selectRequiement.sellingRate}}">
       </div>
     </div>
 
     <div class="form-group row" *ngIf="selectRequiement && userRole === 'RECRUITER'">
       <label for="sellingRate" class="col-sm-2 col-form-label">Selling Rate:</label>
       <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" value="{{selectRequiement.sellingRate}}"
+        <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" ngModel="{{selectRequiement.sellingRate}}"
           readonly>
       </div>
     </div>
@@ -56,7 +56,7 @@
     <div class="form-group row" *ngIf="selectRequiement">
       <label for="clientContactname" class="col-sm-2 col-form-label">Client Contact name:</label>
       <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="clientContactname" formControlName="clientContactname" value="{{clientRecruiterName}}"
+        <input type="text" class="form-control" name="clientContactname" formControlName="clientContactname" ngModel="{{clientRecruiterName}}"
           readonly>
       </div>
     </div>
@@ -64,7 +64,7 @@
     <div class="form-group row" *ngIf="selectRequiement">
       <label for="clientContactEmail" class="col-sm-2 col-form-label">Client Contact Email:</label>
       <div class="col-sm-4 ">
-        <input type="text" class="form-control" name="clientContactEmail" formControlName="clientContactEmail" value="{{clientRecruiterEmail}}"
+        <input type="text" class="form-control" name="clientContactEmail" formControlName="clientContactEmail" ngModel="{{clientRecruiterEmail}}"
           readonly>
       </div>
     </div>

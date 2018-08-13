@@ -352,6 +352,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       enteredBy: this.rtsUserId,
       candidateId: candidateId
     };
+    console.log(submission);
 
     this.submissionService.addSubmission(submission)
       .subscribe(
