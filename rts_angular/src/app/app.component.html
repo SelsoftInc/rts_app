@@ -9,9 +9,8 @@
   </div>
   <div class="profile-wrapper">
     <div class="profile-name" *ngIf="rtsUser">
-      <p>{{userRole}}
-        <i>({{rtsUser.firstName}} {{rtsUser.lastName}})</i>
-      </p>
+      <p class="user-name">{{rtsUser.firstName}} {{rtsUser.lastName}}</p>
+      <p class="user-role">Logged in as {{userRole}}</p>
     </div>
   </div>
 </div>
@@ -19,22 +18,22 @@
   <div *ngIf="userRole ==='ADMIN'">
     <ul class="nav nav-taps">
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/requirements']">Requirements</a>
+        <a class="nav-link" [routerLink]="['/requirements']" [routerLinkActive]="['active-link']">Requirements</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/submissions']">Submissions</a>
+        <a class="nav-link" [routerLink]="['/submissions']" [routerLinkActive]="['active-link']">Submissions</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/manage-users']">Manage Users</a>
+        <a class="nav-link" [routerLink]="['/manage-users']" [routerLinkActive]="['active-link']">Manage Users</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/manage-client']">Manage Client</a>
+        <a class="nav-link" [routerLink]="['/manage-client']" [routerLinkActive]="['active-link']">Manage Client</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/manage-candidate']">Manage Candidate</a>
+        <a class="nav-link" [routerLink]="['/manage-candidate']" [routerLinkActive]="['active-link']">Manage Candidate</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/manage-team']">Manage Team</a>
+        <a class="nav-link" [routerLink]="['/manage-team']" [routerLinkActive]="['active-link']">Manage Team</a>
       </li>
       <li class="nav-item-logout">
         <a class="nav-link" href="" (click)="onLogout();">Logout</a>
@@ -45,22 +44,22 @@
   <div *ngIf="userRole ==='ACC_MGR'">
     <ul class="nav nav-taps">
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/requirements']">Requirements</a>
+        <a class="nav-link" [routerLink]="['/requirements']" [routerLinkActive]="['active-link']">Requirements</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/submissions']">Submissions</a>
+        <a class="nav-link" [routerLink]="['/submissions']" [routerLinkActive]="['active-link']">Submissions</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/manage-users']">Manage Users</a>
+        <a class="nav-link" [routerLink]="['/manage-users']" [routerLinkActive]="['active-link']">Manage Users</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/manage-client']">Manage Client</a>
+        <a class="nav-link" [routerLink]="['/manage-client']" [routerLinkActive]="['active-link']">Manage Client</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/manage-team']">Manage Team</a>
+        <a class="nav-link" [routerLink]="['/manage-team']" [routerLinkActive]="['active-link']">Manage Team</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/manage-candidate']">Manage Candidate</a>
+        <a class="nav-link" [routerLink]="['/manage-candidate']" [routerLinkActive]="['active-link']">Manage Candidate</a>
       </li>
       <li class="nav-item-logout">
         <a class="nav-link" href="" (click)="onLogout();">Logout</a>
@@ -71,16 +70,16 @@
   <div *ngIf="userRole ==='TL'">
     <ul class="nav nav-taps">
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/requirements']">Requirements</a>
+        <a class="nav-link" [routerLink]="['/requirements']" [routerLinkActive]="['active-link']">Requirements</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/submissions']">Submissions</a>
+        <a class="nav-link" [routerLink]="['/submissions']" [routerLinkActive]="['active-link']">Submissions</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/manage-team']">Manage Team</a>
+        <a class="nav-link" [routerLink]="['/manage-team']" [routerLinkActive]="['active-link']">Manage Team</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/manage-candidate']">Manage Candidate</a>
+        <a class="nav-link" [routerLink]="['/manage-candidate']" [routerLinkActive]="['active-link']">Manage Candidate</a>
       </li>
       <li class="nav-item-logout">
         <a class="nav-link" href="" (click)="onLogout();">Logout</a>
@@ -91,10 +90,10 @@
   <div *ngIf="userRole ==='RECRUITER'">
     <ul class="nav nav-taps">
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/requirements']">Requirements</a>
+        <a class="nav-link" [routerLink]="['/requirements']" [routerLinkActive]="['active-link']">Requirements</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/recruiter-submissions']">Submissions</a>
+        <a class="nav-link" [routerLink]="['/recruiter-submissions']" [routerLinkActive]="['active-link']">Submissions</a>
       </li>
       <li class="nav-item-logout">
         <a class="nav-link" href="" (click)="onLogout();">Logout</a>

@@ -1,14 +1,18 @@
+<div class="sub-nav-wrapper">
+  <a class="sub-nav-link" [routerLink]="['/add-new-submission']">Add New Submission</a>
+</div>
+<h2 class="main-title">Submissions</h2>
 <div class="utility-container">
-  <button class="btn btn-default" [routerLink]="['/add-new-submission']">Add New Submission</button>
+  <!--<button class="btn btn-default" [routerLink]="['/add-new-submission']">Add New Submission</button>-->
   <!-- <div class="search-container">
       <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString " [(ngModel)]="searchString">
     </div> -->
 
-  <div *ngIf="submissionsLength > 0 ; else noSummissions">
-    <div *ngFor="let sub of submissionDetails">
-      <p class="title">{{sub.position.positionName}} ({{sub.client.name}})
+  <div class="table-wrapper" *ngIf="submissionsLength > 0 ; else noSummissions">
+    <div class="block-wrapper" *ngFor="let sub of submissionDetails">
+      <h2 class="title">{{sub.position.positionName}} ({{sub.client.name}})
         <!-- <i class="allocation-name" *ngIf="sub.allocationUser"> Allocated to:{{sub.allocationUser.firstName}} {{sub.allocationUser.lastName}}</i> -->
-      </p>
+      </h2>
       <table class="table table-hover">
         <thead class="table-header">
           <tr>

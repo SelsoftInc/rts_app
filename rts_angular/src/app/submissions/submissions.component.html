@@ -1,3 +1,6 @@
+<div class="sub-nav-wrapper">
+  <a class="sub-nav-link" [routerLink]="['/add-new-submission']">Add New Submission</a>
+</div>
 <div class="utility-container">
   <button class="btn btn-default" [routerLink]="['/add-new-submission']">Add New Submission</button>
   <button class="btn btn-info" *ngIf="userRole !== 'RECRUITER'" [routerLink]="['/generate-report']">Generate Report</button>

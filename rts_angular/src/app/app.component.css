@@ -6,12 +6,26 @@
 }
 
 .nav-taps {
-  background-color: #3a3535;
+  background-color: #3484c8;
   color: #fff;
 }
 
 .nav-link {
   color: rgb(229, 238, 247);
+  text-transform: uppercase;
+  font-size: .850em;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+.active-link:before {
+  font-family: "Material Icons";
+  content: '\e5c7';
+  font-size: 3em;
+  position: absolute;
+  bottom: -28px;
+  left: 35%;
+  color: #f9faff
 }
 
 .nav-item-logout {
@@ -23,20 +37,12 @@
 }
 
 .profile-name {
-  padding-top: 1em;
-  margin-left: 1em;
-  font-size: 20px;
-  font-weight: 600;
+  color: #FFFFFF;
 }
 
 .profile-wrapper {
-  margin-top: 2em;
-  padding-right: 8em;
-}
-
-.nav-link:focus {
-  border-radius: 10px;
-  border: 1px solid whitesmoke;
+  margin-top: 19px;
+  padding-right: 1em;
 }
 
 .logo-container {
@@ -61,4 +67,19 @@
   max-width: 100%;
   height: auto;
   margin-top: 12px;
+}
+
+.user-name {
+  text-transform: uppercase;
+  padding: 0;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.user-role {
+  text-transform: uppercase;
+  font-size: .700em;
+  padding: 0;
+  margin: 0;
+  letter-spacing: 1px;
 }

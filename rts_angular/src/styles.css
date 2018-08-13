@@ -2,6 +2,12 @@
 @import "~ngx-toastr/toastr.css";
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900');
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 body {
   background: #f9faff !important;
@@ -50,8 +56,6 @@ body {
   color: #e1e1e1;
 }
 
-
-
 .container {
   padding: 1em;
 }
@@ -97,7 +101,7 @@ body {
 }
 
 .utility-container {
-  margin: 2em 2em 2em 2em;
+  margin: 1em 2em 2em 2em;
   background: white;
   -webkit-box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
   -moz-box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
@@ -133,4 +137,78 @@ td {
 .forgot-password-container > a {
   font-size: .800em;
   color: #4c7af1;
+}
+
+.sub-nav-wrapper {
+  padding: .8em;
+  box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
+}
+
+.sub-nav-link {
+  font-size: .800em;
+  text-transform: uppercase;
+}
+
+.table {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.table tbody > tr {
+  cursor: pointer;
+}
+
+.search-container {
+  padding-top: 0 !important;
+  padding-bottom: 1em !important;
+  width: 20em;
+  position: relative;
+}
+
+.table-header {
+  background: #e8e9ef;
+  color: #000000;
+  text-transform: uppercase;
+}
+
+.table-header th {
+  font-weight: 600;
+  font-size: .900em;
+}
+
+.table tbody td {
+  padding: .50rem;
+}
+
+.table th {
+  border-top: 0;
+}
+
+.search-icon {
+  position: absolute;
+  top: 8px;
+  right: 5px;
+  color: #e8e9f0;
+}
+
+.table-wrapper .title {
+  background: #deeaf1;
+  padding: .5em;
+  margin: 0 !important;
+  font-size: .900em;
+  font-weight: 600;
+}
+
+.block-wrapper {
+  margin-bottom: 2em;
+  border: 1px dotted #CCC;
+  box-shadow: 0px 1px 7px rgba(172, 172, 172, 0.3);
+}
+
+.main-title {
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 400;
+  font-size: 1.2em;
+  margin: 1em 0 0 2em;
+  font-weight: 600;
 }
