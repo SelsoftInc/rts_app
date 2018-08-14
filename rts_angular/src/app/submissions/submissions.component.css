@@ -18,11 +18,12 @@
 }
 
 .allocation-name {
-  font-size: 17px;
+  font-size: 15px;
   text-transform: capitalize;
   color: rgb(70, 104, 117);
 }
 
 .btn {
   margin-left: .5em;
+  margin-bottom: 1.5em;
 }

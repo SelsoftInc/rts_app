@@ -125,7 +125,6 @@ export class RequirementsComponent implements OnInit {
     this.requirementService.requirementsDetailsByTeam(userId)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.requirementsForTeam = data.requirements;
             this.requirementsLengthForTeam = this.requirementsForTeam.length;

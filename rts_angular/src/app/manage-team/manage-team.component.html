@@ -7,8 +7,8 @@
       <input type="text" class="form-control mr-sm-2" placeholder="Search by First Name" name="searchString " [(ngModel)]="searchString">
     </div>
 
-    <div *ngIf="teamLength > 0 ; else noTeams">
-      <div *ngFor="let team of teams">
+    <div class="table-wrapper" *ngIf="teamLength > 0 ; else noTeams">
+      <div class="block-wrapper" *ngFor="let team of teams">
         <p class="title" [routerLink]="['/edit-team',team.teamId]">{{team.name}}
           <i class="allocation-name"> Account Manager: {{team.accountManager.firstName}} {{team.accountManager.lastName}} (Lead User: {{team.leadUser.firstName}}
             {{team.leadUser.lastName}})
@@ -55,8 +55,8 @@
       <input type="text" class="form-control mr-sm-2" placeholder="Search by First Name" name="searchString " [(ngModel)]="searchString">
     </div>
 
-    <div *ngIf="teamLength > 0 ; else noTeams">
-      <div *ngFor="let team of teams">
+    <div class="table-wrapper" *ngIf="teamLength > 0 ; else noTeams">
+      <div class="block-wrapper" *ngFor="let team of teams">
         <p class="title" [routerLink]="['/edit-team',team.teamId]">{{team.name}}
           <i class="allocation-name"> Account Manager: {{team.accountManager.firstName}} {{team.accountManager.lastName}} (Lead User: {{team.leadUser.firstName}}
             {{team.leadUser.lastName}})
@@ -103,8 +103,8 @@
       <input type="text" class="form-control mr-sm-2" placeholder="Search by First Name" name="searchString " [(ngModel)]="searchString">
     </div>
 
-    <div *ngIf="teamLength > 0 ; else noTeams">
-      <div *ngFor="let team of teams">
+    <div class="table-wrapper" *ngIf="teamLength > 0 ; else noTeams">
+      <div class="block-wrapper" *ngFor="let team of teams">
         <p class="title">{{team.name}}
           <i class="allocation-name"> Account Manager: {{team.accountManager.firstName}} {{team.accountManager.lastName}} (Lead User: {{team.leadUser.firstName}}
             {{team.leadUser.lastName}})

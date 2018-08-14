@@ -30,6 +30,7 @@
           <th>Position Name</th>
           <th>Client Name</th>
           <th>Submission Date</th>
+          <th>Recruiter Name</th>
           <th>Interview Status</th>
           <th>L1</th>
           <th>L2</th>
@@ -44,6 +45,7 @@
           <td>{{submission.positionName}}</td>
           <td>{{submission.clientName}}</td>
           <td>{{submission.submissionDate | date: 'MMM d, y'}}</td>
+          <td>{{submission.recruiterName}}</td>
           <td>{{submission.interviewStatus}}</td>
           <td>{{submission.dateOfL1 | date: 'MMM d, y'}}</td>
           <td>{{submission.dateOfL2 | date: 'MMM d, y'}}</td>
@@ -55,6 +57,6 @@
     </table>
   </div>
 
-  <button class="btn btn-default" *ngIf="approvedsubmissionsLength > 0" (click)="generateReport();">Get Report</button>
+  <button class="btn btn-default" *ngIf="approvedsubmissionsLength > 0" (click)="generateReport();">Download Report</button>
 
 </div>

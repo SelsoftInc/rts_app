@@ -44,7 +44,6 @@ export class ManageTeamComponent implements OnInit {
         data => {
           if (data.success) {
             this.teams = data.teams;
-            console.log(this.teams);
             this.teamLength = this.teams.length;
           }
         });
