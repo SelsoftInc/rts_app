@@ -109,17 +109,17 @@
           </div>
         </div> -->
 
-        <div class="form-group" *ngIf="selectedSubmission">
+        <!-- <div class="form-group" *ngIf="selectedSubmission">
           <div class="pb-2" *ngFor="let media of selectedSubmission.mediaFiles">
-            <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
-            </a>
+            <i class="panel btn" (click)="openFiles(media);">{{media.fileName}}
+            </i>
             <a class="btn" (click)="removeUploadedFile(media)">
               <i class="material-icons">
                 clear
               </i>
             </a>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="col-6">
         <legend class="sub-heading">Interview Details:</legend>
@@ -279,8 +279,8 @@
           <div class="form-group" *ngIf="selectedSubmission">
             <label>Attachements:</label>
             <div class="pt-3" *ngFor="let media of selectedSubmission.candidate.mediaFiles">
-              <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
-              </a>
+              <i class="panel btn" (click)="openFiles(media);">{{media.fileName}}
+              </i>
             </div>
           </div>
 

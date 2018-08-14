@@ -101,8 +101,8 @@
         <div class="form-group" *ngIf="selectedCandidate">
           <label>Attachements:</label>
           <div class="pb-2" *ngFor="let media of selectedCandidate.mediaFiles">
-            <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
-            </a>
+            <i class="panel btn" (click)="openFiles(media);">{{media.fileName}}
+            </i>
             <a class="btn" (click)="removeUploadedFile(media)">
               <i class="material-icons">
                 clear

@@ -19,7 +19,8 @@
         <div class="form-group row" *ngIf="selectedSubmission">
           <label for="sellingRate" class="col-sm-4 col-form-label">Selling Rate:</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" ngModel="{{selectedSubmission.sellingRate}}" readonly>
+            <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" ngModel="{{selectedSubmission.sellingRate}}"
+              readonly>
           </div>
         </div>
 
@@ -96,17 +97,17 @@
             </a>
           </div>
         </div> -->
-        <div class="form-group" *ngIf="selectedSubmission">
+        <!-- <div class="form-group" *ngIf="selectedSubmission">
           <div class="pb-2" *ngFor="let media of selectedSubmission.mediaFiles">
-            <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
-            </a>
+             <i class="panel btn" (click)="openFiles(media);">{{media.fileName}}
+            </i>
             <a class="btn" (click)="removeUploadedFile(media)">
               <i class="material-icons">
                 clear
               </i>
             </a>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="col-6">
         <legend class="sub-heading">Interview Details:</legend>
@@ -264,13 +265,11 @@
             </div>
           </div>
 
-          <div class="form-group row" *ngIf="selectedSubmission">
-            <label class="col-sm-2 col-form-label">Attachements:</label>
-            <div class="col-sm-4">
-              <div class="pt-3" *ngFor="let media of selectedSubmission.candidate.mediaFiles">
-                <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
-                </a>
-              </div>
+          <div class="form-group" *ngIf="selectedSubmission">
+            <label>Attachements:</label>
+            <div class="pt-3" *ngFor="let media of selectedSubmission.candidate.mediaFiles">
+              <i class="panel btn" (click)="openFiles(media);">{{media.fileName}}
+              </i>
             </div>
           </div>
         </div>

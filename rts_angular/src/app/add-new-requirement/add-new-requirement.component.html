@@ -1,4 +1,5 @@
-<h2 class="main-title"><a [routerLink]="['/requirements']" >Requirements</a> / Add New Requirement</h2>
+<h2 class="main-title">
+  <a [routerLink]="['/requirements']">Requirements</a> / Add New Requirement</h2>
 <div class="utility-container">
   <form [formGroup]="myForm" (ngSubmit)="addNewRequirement(myForm)">
     <div class="row">
@@ -56,19 +57,6 @@
       </div>
     </div>
 
-    <!--<div class="form-group row">-->
-      <!---->
-      <!--<div class="col-4">-->
-        <!--<label for="priority" class="col-2 col-form-label">Priority:</label>-->
-        <!--<select name="priority" class="form-control" formControlName="priority" required>-->
-          <!--<option value="">Select</option>-->
-          <!--<option value="HIGH">High</option>-->
-          <!--<option value="MEDIUM">Medium</option>-->
-          <!--<option value="CRITICAL">Critical</option>-->
-          <!--<option value="LOW">Low</option>-->
-        <!--</select>-->
-      <!--</div>-->
-    <!--</div>-->
 
     <div class="row">
       <div class="col-sm-2">
@@ -98,10 +86,8 @@
       <div class="col-sm-4">
         <label class="form-label">Requirement Type:</label>
         <div class="checkbox-wrapper">
-          <span class="checkbox-container" *ngFor="let type of requirementType" ng-checked="requirementByUser.indexOf(type) != 1" (change)="getCheckedRequirementType(type)">
-            <mat-checkbox color="primary" formControlName="requirementType" [value]="type">{{type}}</mat-checkbox>
-            <!--<input class="checkbox" type='checkbox' >-->
-            <!--<span class="label"></span>-->
+          <span class="checkbox-container" *ngFor="let type of requirementType" ng-checked="requirementByUser.indexOf(type) != 1">
+            <mat-checkbox color="primary" (change)="getCheckedRequirementType(type)" formControlName="requirementType" [value]="type">{{type}}</mat-checkbox>
           </span>
         </div>
       </div>
@@ -112,21 +98,11 @@
       <div class="col-sm-6">
         <label class="form-label">Immigration Requirement:</label>
         <div class="checkbox-wrapper">
-          <span class="checkbox-container" *ngFor="let data of immigration" ng-checked="immigrationByUser.indexOf(data) != 1" (change)="getCheckedImmigrationValue(data)">
-            <mat-checkbox color="primary" formControlName="immigrationRequirement" [value]="data">{{data}}</mat-checkbox>
-            <!--<input class="checkbox" type='checkbox' >-->
-            <!--<span class="label"></span>-->
+          <span class="checkbox-container" *ngFor="let data of immigration" ng-checked="immigrationByUser.indexOf(data) != 1">
+            <mat-checkbox color="primary" (change)="getCheckedImmigrationValue(data)" formControlName="immigrationRequirement" [value]="data">{{data}}</mat-checkbox>
           </span>
         </div>
       </div>
-
-      <!--<label for="immigrationRequirement" class="col-sm-2 col-form-label">Immigration Requirement:</label>-->
-      <!--<div *ngFor="let data of immigration" ng-checked="immigrationByUser.indexOf(data) != 1" (change)="getCheckedImmigrationValue(data)">-->
-        <!--<div class="col-sm-4 ">-->
-          <!--<input type="checkbox" formControlName="immigrationRequirement" [value]="data">-->
-          <!--<span class="label">{{data}}</span>-->
-        <!--</div>-->
-      <!--</div>-->
     </div>
 
     <div class="row">
@@ -142,7 +118,7 @@
         <label for="clientName" class="form-label">Select Recruiters:</label>
         <div class="pt-4">
           <ng-multiselect-dropdown [placeholder]="'Select Recruiters'" [data]="recruitersArray" formControlName="recruitersName" [settings]="dropdownSettings"
-                                   (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)">
+            (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)">
           </ng-multiselect-dropdown>
         </div>
       </div>
@@ -152,7 +128,7 @@
       <div class="col-sm-4">
         <label for="technologies" class="form-label">Technologies:</label>
         <select name="technologies" class="form-input" formControlName="technologies" (change)="addTechnology($event.target.value);"
-                required>
+          required>
           <option value="">Select</option>
           <option *ngFor="let tech of technologies" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
           <option value="other">Other</option>
@@ -161,7 +137,7 @@
       <div class="col-sm-4" *ngIf="isOtherTechnology">
         <label for="technologies" class="form-label">Add New Technologies:</label>
         <input type="text" class="form-input" name="otherTechnology" formControlName="otherTechnology" placeholder=" Enter the Technology"
-               required>
+          required>
       </div>
     </div>
 
@@ -188,7 +164,7 @@
     <div class="row">
       <div class="col-sm-4">
         <label for="jobDescription" class="form-label">Job Description:</label>
-        <textarea rows="3" name="jobDescription" class="form-textarea" formControlName="jobDescription" placeholder="Description.."
+        <textarea rows="5" name="jobDescription" class="form-textarea" formControlName="jobDescription" placeholder="Description.."
           ngModel></textarea>
       </div>
     </div>

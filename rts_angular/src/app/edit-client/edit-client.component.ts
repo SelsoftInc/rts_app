@@ -88,9 +88,7 @@ export class EditClientComponent implements OnInit {
         data => {
           if (data.success) {
             this.clients = data.clients;
-            for (const user of this.clients) {
-              this.selectedClient = _.findWhere(this.clients, { clientId: this.clientId });
-            }
+            this.selectedClient = _.findWhere(this.clients, { clientId: this.clientId });
             console.log(this.selectedClient);
             const control = <FormArray>this.myForm.controls['units'];
             for (const recruiter of this.selectedClient.clientRecuriters) {

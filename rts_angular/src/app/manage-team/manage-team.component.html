@@ -9,7 +9,7 @@
 
     <div *ngIf="teamLength > 0 ; else noTeams">
       <div *ngFor="let team of teams">
-        <p class="title">{{team.name}}
+        <p class="title" [routerLink]="['/edit-team',team.teamId]">{{team.name}}
           <i class="allocation-name"> Account Manager: {{team.accountManager.firstName}} {{team.accountManager.lastName}} (Lead User: {{team.leadUser.firstName}}
             {{team.leadUser.lastName}})
           </i>
@@ -57,7 +57,7 @@
 
     <div *ngIf="teamLength > 0 ; else noTeams">
       <div *ngFor="let team of teams">
-        <p class="title">{{team.name}}
+        <p class="title" [routerLink]="['/edit-team',team.teamId]">{{team.name}}
           <i class="allocation-name"> Account Manager: {{team.accountManager.firstName}} {{team.accountManager.lastName}} (Lead User: {{team.leadUser.firstName}}
             {{team.leadUser.lastName}})
           </i>

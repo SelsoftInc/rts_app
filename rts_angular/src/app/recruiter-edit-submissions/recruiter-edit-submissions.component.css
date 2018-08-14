@@ -22,11 +22,10 @@
 }
 
 .panel {
-  padding: .5em;
+  padding: .3em;
   background: rgb(241, 237, 237);
-  color: rgb(70, 70, 116);
+  color: blue;
   height: 30px;
-  width: 300px;
 }
 
 .material-icons {

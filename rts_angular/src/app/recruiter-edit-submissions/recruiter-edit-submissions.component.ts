@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CandidateService } from '../Services/candidate.service';
 import * as moment from 'moment';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { ApiUrl } from '../Services/api-url';
 
 @Component({
   selector: 'app-recruiter-edit-submissions',
@@ -31,15 +32,16 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   private selectedRequirement: any;
   private addCandidate: boolean;
   private technology: any;
-  isNewCandidate: boolean;
-  isC2c: boolean;
-  isEmployerDetails: boolean;
-  level1Date: string;
-  level2Date: string;
-  candidateGetFiles: any;
-  candidateFiles: any;
-  immigirationStatus: any;
-  isUpdate: boolean;
+  private isNewCandidate: boolean;
+  private isC2c: boolean;
+  private isEmployerDetails: boolean;
+  private level1Date: string;
+  private level2Date: string;
+  private candidateGetFiles: any;
+  private candidateFiles: any;
+  private immigirationStatus: any;
+  private isUpdate: boolean;
+  private baseUrl: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -63,6 +65,8 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       .subscribe((params: Params) => {
         this.submissionId = params['id'];
       });
+
+    this.baseUrl = ApiUrl.BaseUrl;
 
     this.myForm = this.formBuilder.group({
       requirements: ['', Validators.required],
@@ -253,6 +257,10 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
     if (event !== undefined) {
       this.immigirationStatus = event.value;
     }
+  }
+
+  openFiles(media) {
+    window.open(this.baseUrl + media.mediaThumbnailPath, '_blank');
   }
 
   updateSubmission(form: FormGroup) {

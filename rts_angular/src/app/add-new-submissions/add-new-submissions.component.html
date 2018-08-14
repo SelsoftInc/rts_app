@@ -206,8 +206,8 @@
           <div class="form-group" *ngIf="selectedCandidate.mediaFiles.length > 0">
             <label>Attachements:</label>
             <div class="pt-3" *ngFor="let media of selectedCandidate.mediaFiles">
-              <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
-              </a>
+              <i class="panel btn" (click)="openFiles(media);">{{media.fileName}}
+              </i>
             </div>
 
           </div>

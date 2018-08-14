@@ -6,6 +6,7 @@ import { CandidateService } from '../Services/candidate.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router, Params, ActivatedRoute } from '@angular/router';
 import * as _ from 'underscore';
+import { ApiUrl } from 'src/app/Services/api-url';
 
 @Component({
   selector: 'app-edit-candidate',
@@ -31,6 +32,8 @@ export class EditCandidateComponent implements OnInit {
   private selectedCandidate: any;
   private deletedMediaFiles: any[];
   private immigirationStatus: any;
+  private baseUrl: any;
+
   constructor(
     private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -38,7 +41,7 @@ export class EditCandidateComponent implements OnInit {
     private candidateService: CandidateService,
     private activatedRoute: ActivatedRoute,
     private toastr: ToastrService,
-    private router: Router,
+    private router: Router
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -53,6 +56,8 @@ export class EditCandidateComponent implements OnInit {
       .subscribe((params: Params) => {
         this.candidateId = params['id'];
       });
+
+    this.baseUrl = ApiUrl.BaseUrl;
 
     this.myForm = this.formBuilder.group({
       name: [''],
@@ -169,6 +174,10 @@ export class EditCandidateComponent implements OnInit {
     if (event !== undefined) {
       this.immigirationStatus = event.value;
     }
+  }
+
+  openFiles(media) {
+    window.open(this.baseUrl + media.mediaThumbnailPath, '_blank');
   }
 
   updateCandidate(form: FormGroup) {

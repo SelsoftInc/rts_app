@@ -56,6 +56,7 @@ import { EditRequirementForLeadUserComponent } from './edit-requirement-for-lead
 import { EditRequirementForAccMgrComponent } from './edit-requirement-for-acc-mgr/edit-requirement-for-acc-mgr.component';
 import { AccMgrEditSubmissionsComponent } from './acc-mgr-edit-submissions/acc-mgr-edit-submissions.component';
 import { LeadUserEditSubmissionsComponent } from './lead-user-edit-submissions/lead-user-edit-submissions.component';
+import { EditTeamComponent } from './edit-team/edit-team.component';
 
 
 @NgModule({
@@ -91,6 +92,7 @@ import { LeadUserEditSubmissionsComponent } from './lead-user-edit-submissions/l
     EditRequirementForAccMgrComponent,
     AccMgrEditSubmissionsComponent,
     LeadUserEditSubmissionsComponent,
+    EditTeamComponent,
   ],
   imports: [
     BrowserModule,

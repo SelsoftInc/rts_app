@@ -64,7 +64,6 @@ export class EditRequirementForLeadUserComponent implements OnInit {
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
-    console.log(this.rtsUser);
     this.userRole = this.rtsUser.role;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.requirementByUser = [];
@@ -199,11 +198,10 @@ export class EditRequirementForLeadUserComponent implements OnInit {
             this.isRecruiters = true;
             this.accountName = this.selectedRequirement.accountId;
             for (const recruiter of this.selectedRequirement.client.clientRecuriters) {
-              this.recruitersArray.push({ user: recruiter, firstName: recruiter.name });
+              this.recruitersArray.push({ user: recruiter.email, firstName: recruiter.name });
             }
             for (const value of this.selectedRequirement.clientRecuriters) {
-              this.selectedRecruites.push({ email: value.email });
-              this.selectedrecruitersArray.push({ user: value, firstName: value.name });
+              this.selectedrecruitersArray.push({ user: value.email, firstName: value.name });
             }
             for (const user of this.selectedTeam.otherUsers) {
               this.selectedTeamUsers.push(user);
@@ -239,7 +237,6 @@ export class EditRequirementForLeadUserComponent implements OnInit {
                 this.myForm.controls.H4AD.setValue('H4AD');
               }
             }
-            console.log(this.selectedRequirement);
           }
         });
   }
@@ -309,29 +306,23 @@ export class EditRequirementForLeadUserComponent implements OnInit {
       this.isRecruiters = true;
       this.selectedClient = _.findWhere(this.clients, { clientId: event });
       for (const recruiter of this.selectedClient.clientRecuriters) {
-        this.recruitersArray.push({ user: recruiter, firstName: recruiter.name });
+        this.recruitersArray.push({ user: recruiter.email, firstName: recruiter.name });
       }
     }
     this.deSelectAll();
   }
 
-  onItemSelect(item: any) {
-    if (item !== undefined && item !== '') {
-      console.log(item);
-      this.selectedRecruites.push({ email: item.user.email });
-    }
-  }
-
-  onItemDeSelect(items: any) {
-    const clear = this.selectedRecruites.indexOf(items);
-    this.selectedRecruites.splice(clear, 1);
-  }
 
   deSelectAll() {
     this.myForm.controls.recruitersName.setValue('');
   }
 
   updateRequirement(form: FormGroup) {
+
+    this.selectedRecruites = [];
+    for (const recruiter of this.selectedrecruitersArray) {
+      this.selectedRecruites.push({ email: recruiter.user });
+    }
 
     const requirement: any = {
       priority: form.value.priority,

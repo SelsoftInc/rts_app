@@ -26,7 +26,7 @@
         <div class="form-group row" *ngIf="selectedRequirement">
           <label for="sellingRate" class="col-sm-4 col-form-label">Selling Rate:</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" ngModel="{{selectedRequirement.sellingRate}}">
+            <input type="text" class="form-control" name="sellingRate" formControlName="sellingRate" ngModel="{{selectedSubmission.sellingRate}}">
           </div>
         </div>
 
@@ -111,17 +111,17 @@
             </div>
           </div> -->
 
-        <div class="form-group" *ngIf="selectedSubmission">
+        <!-- <div class="form-group" *ngIf="selectedSubmission">
           <div class="pb-2" *ngFor="let media of selectedSubmission.mediaFiles">
-            <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
-            </a>
+            <i class="panel btn" (click)="openFiles(media);">{{media.fileName}}
+            </i>
             <a class="btn" (click)="removeUploadedFile(media)">
               <i class="material-icons">
                 clear
               </i>
             </a>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="col-6">
         <legend class="sub-heading">Interview Details:</legend>
@@ -281,8 +281,8 @@
           <div class="form-group" *ngIf="selectedSubmission">
             <label>Attachements:</label>
             <div class="pt-3" *ngFor="let media of selectedSubmission.candidate.mediaFiles">
-              <a class="panel" href="http://rameshrasaiyan.com:8080{{media.mediaThumbnailPath}}" target="_blank">{{media.fileName}}
-              </a>
+              <i class="panel btn" (click)="openFiles(media);">{{media.fileName}}
+              </i>
             </div>
           </div>
 
@@ -416,6 +416,26 @@
               </mat-radio-group>
             </div>
           </div>
+
+          <div class="form-group">
+            <div>
+              <label class="fileContainer">
+                <button class="btn btn-secondary">
+                  Attach For Candidate</button>
+                <input type="file" (change)="candidateFileEvent($event)" multiple/>
+              </label>
+            </div>
+            <div class="pb-2" *ngFor="let file of candidateGetFiles">
+              <a class="panel">{{file.name}}
+              </a>
+              <a class="btn" (click)="candidateRemoveFile(file)">
+                <i class="material-icons">
+                  clear
+                </i>
+              </a>
+            </div>
+          </div>
+
         </div>
 
         <div class="col-6" *ngIf="isEmployerDetails">

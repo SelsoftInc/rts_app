@@ -197,11 +197,10 @@ export class EditRequirementComponent implements OnInit {
             this.isRecruiters = true;
             this.accountName = this.selectedRequirement.accountId;
             for (const recruiter of this.selectedRequirement.client.clientRecuriters) {
-              this.recruitersArray.push({ user: recruiter, firstName: recruiter.name });
+              this.recruitersArray.push({ user: recruiter.email, firstName: recruiter.name });
             }
             for (const value of this.selectedRequirement.clientRecuriters) {
-              this.selectedRecruites.push({ email: value.email });
-              this.selectedrecruitersArray.push({ user: value, firstName: value.name });
+              this.selectedrecruitersArray.push({ user: value.email, firstName: value.name });
             }
 
             for (const user of this.selectedTeam.otherUsers) {
@@ -234,7 +233,6 @@ export class EditRequirementComponent implements OnInit {
               }
             }
           }
-          console.log(this.selectedRequirement);
         });
   }
 
@@ -304,22 +302,10 @@ export class EditRequirementComponent implements OnInit {
       this.isRecruiters = true;
       this.selectedClient = _.findWhere(this.clients, { clientId: event });
       for (const recruiter of this.selectedClient.clientRecuriters) {
-        this.recruitersArray.push({ user: recruiter, firstName: recruiter.name });
+        this.recruitersArray.push({ user: recruiter.email, firstName: recruiter.name });
       }
     }
     this.deSelectAll();
-  }
-
-  onItemSelect(item: any) {
-    if (item !== undefined && item !== '') {
-      console.log(item);
-      this.selectedRecruites.push({ email: item.user.email });
-    }
-  }
-
-  onItemDeSelect(items: any) {
-    const clear = this.selectedRecruites.indexOf(items);
-    this.selectedRecruites.splice(clear, 1);
   }
 
   deSelectAll() {
@@ -327,6 +313,11 @@ export class EditRequirementComponent implements OnInit {
   }
 
   updateRequirement(form: FormGroup) {
+
+    this.selectedRecruites = [];
+    for (const recruiter of this.selectedrecruitersArray) {
+      this.selectedRecruites.push({ email: recruiter.user });
+    }
 
     const requirement: any = {
       priority: form.value.priority,
@@ -376,7 +367,6 @@ export class EditRequirementComponent implements OnInit {
     }
 
     this.editRequirement = requirement;
-    console.log(this.editRequirement);
 
     this.requirementService.updateRequirement(this.editRequirement)
       .subscribe(

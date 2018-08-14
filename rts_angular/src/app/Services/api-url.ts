@@ -36,4 +36,5 @@ export class ApiUrl {
     static UpdateClient = 'rtsClient/client/updateClient';
     static UpdateUser = 'rtsUser/user/updateUser';
     static AddTeam = 'rtsTeam/team/createTeam';
+    static EditTeam = 'rtsTeam/team/updateTeam';
 }

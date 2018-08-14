@@ -60,7 +60,6 @@ export class RequirementsComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
-            console.log(data);
             this.requirements = data.requirements;
             this.requirementsLength = this.requirements.length;
             for (const require of this.requirements) {

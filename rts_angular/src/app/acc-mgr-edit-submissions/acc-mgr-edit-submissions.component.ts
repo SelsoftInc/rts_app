@@ -8,6 +8,7 @@ import { SubmissionService } from '../Services/submission.service';
 import { ToastrService } from 'ngx-toastr';
 import { CandidateService } from '../Services/candidate.service';
 import * as moment from 'moment';
+import { ApiUrl } from '../Services/api-url';
 
 @Component({
   selector: 'app-acc-mgr-edit-submissions',
@@ -48,6 +49,9 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
   private clientRecruiterName: any;
   private clientRecruiterEmail: any;
   private allRequirements: any;
+  private baseUrl: any;
+  candidateFiles: any;
+  candidateGetFiles: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -64,6 +68,7 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
     this.recruiterName = [];
     this.recruiterEmail = [];
     this.allRequirements = [];
+    this.candidateGetFiles = [];
     this.getFiles = [];
     this.deletedMediaFiles = [];
     this.status = [
@@ -79,6 +84,8 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
       .subscribe((params: Params) => {
         this.submissionId = params['id'];
       });
+
+    this.baseUrl = ApiUrl.BaseUrl;
 
     this.myForm = this.formBuilder.group({
       requirements: [''],
@@ -272,6 +279,18 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
     this.getFiles.splice(clear, 1);
   }
 
+  candidateFileEvent(event: any) {
+    this.candidateFiles = event.target.files;
+    for (const file of this.candidateFiles) {
+      this.candidateGetFiles.push(file);
+    }
+  }
+
+  candidateRemoveFile(file) {
+    const clear = this.candidateGetFiles.indexOf(file);
+    this.candidateGetFiles.splice(clear, 1);
+  }
+
   removeUploadedFile(media) {
     this.deletedMediaFiles.push(media.mediaId);
     const clear = this.selectedSubmission.mediaFiles.indexOf(media);
@@ -310,6 +329,9 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
     }
   }
 
+  openFiles(media) {
+    window.open(this.baseUrl + media.mediaThumbnailPath, '_blank');
+  }
 
   submissionToClient() {
 
@@ -462,6 +484,33 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
     this.candidateService.addCandidate(candidate)
       .subscribe(data => {
         if (data.success) {
+
+          if (this.candidateGetFiles.length > 0) {
+            const upload = {
+              file: this.candidateGetFiles,
+              candidateId: data.candidate.candidateId,
+              enteredBy: this.rtsUserId
+            };
+            this.candidateService.uploadFile(upload).subscribe(
+              file => {
+                if (file.success) {
+                  this.toastr.success(file.message, '', {
+                    positionClass: 'toast-top-center',
+                    timeOut: 3000,
+                  });
+                } else {
+                  this.toastr.error(file.message, '', {
+                    positionClass: 'toast-top-center',
+                    timeOut: 3000,
+                  });
+                }
+              });
+          }
+          this.toastr.success('New Candidate Successfully added', '', {
+            positionClass: 'toast-top-center',
+            timeOut: 3000,
+          });
+
           this.updateCandidateWithSubmission(form, data.candidate.candidateId);
         } else {
           this.toastr.error(data.message, '', {

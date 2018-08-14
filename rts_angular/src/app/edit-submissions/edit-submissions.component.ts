@@ -8,6 +8,7 @@ import { SubmissionService } from '../Services/submission.service';
 import { ToastrService } from 'ngx-toastr';
 import { CandidateService } from '../Services/candidate.service';
 import * as moment from 'moment';
+import { ApiUrl } from '../Services/api-url';
 
 @Component({
   selector: 'app-edit-submissions',
@@ -48,6 +49,7 @@ export class EditSubmissionsComponent implements OnInit {
   private clientRecruiterName: any;
   private clientRecruiterEmail: any;
   private allRequirements: any;
+  baseUrl: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -82,6 +84,8 @@ export class EditSubmissionsComponent implements OnInit {
       .subscribe((params: Params) => {
         this.submissionId = params['id'];
       });
+
+    this.baseUrl = ApiUrl.BaseUrl;
 
     this.myForm = this.formBuilder.group({
       requirements: [''],
@@ -320,6 +324,10 @@ export class EditSubmissionsComponent implements OnInit {
     if (event !== undefined) {
       this.immigirationStatus = event.value;
     }
+  }
+
+  openFiles(media) {
+    window.open(this.baseUrl + media.mediaThumbnailPath, '_blank');
   }
 
 

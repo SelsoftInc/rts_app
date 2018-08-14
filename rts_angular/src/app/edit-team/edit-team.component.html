@@ -1,18 +1,18 @@
 <div class="utility-container">
-  <form [formGroup]="myForm" (ngSubmit)="addNewTeam(myForm)">
-    <legend class="header">Add New Team</legend>
+  <form [formGroup]="myForm" (ngSubmit)="updateTeam(myForm)">
+    <legend class="header">Edit Team</legend>
 
     <div class="form-group row">
       <label for="teamName" class="col-sm-2 col-form-label">Team Name:</label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" name="teamName" formControlName="teamName" required>
+        <input type="text" class="form-control" name="teamName" formControlName="teamName" required ngModel="{{teamName}}">
       </div>
     </div>
 
     <div class="form-group row">
       <label for="accountManager" class="col-sm-2 col-form-label">Account Manager:</label>
       <div class="col-sm-4">
-        <select name="role" class="form-control" formControlName="accountManager" required>
+        <select name="role" class="form-control" formControlName="accountManager" ngModel="{{accountManagerName}}" required>
           <option value="">Select</option>
           <option *ngFor="let mgr of accountManager" value="{{mgr.userId}}">{{mgr.firstName}} {{mgr.lastName}}</option>
         </select>
@@ -22,7 +22,8 @@
     <div class="form-group row">
       <label for="teamLeadUser" class="col-sm-2 col-form-label">Team Lead:</label>
       <div class="col-sm-4">
-        <select name="role" class="form-control" formControlName="teamLeadUser" (change)="selectTeamLead($event.target.value)" required>
+        <select name="role" class="form-control" formControlName="teamLeadUser" ngModel="{{teamLeadName}}" (change)="selectTeamLead($event.target.value)"
+          required>
           <option value="">Select</option>
           <option *ngFor="let lead of leadUsers" value="{{lead.userId}}">{{lead.firstName}} {{lead.lastName}}</option>
         </select>
@@ -39,7 +40,7 @@
     </div>
 
     <div class="form-btn-container">
-      <button class="btn btn-default btn-space" type="submit" [disabled]="!myForm.valid">Add Team</button>
+      <button class="btn btn-default btn-space" type="submit" [disabled]="!myForm.valid">Update Team</button>
       <button [routerLink]="[ '/manage-team']" class="btn btn-default">Cancel</button>
     </div>
   </form>

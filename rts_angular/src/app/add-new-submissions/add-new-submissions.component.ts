@@ -8,6 +8,7 @@ import { SubmissionService } from '../Services/submission.service';
 import { CandidateService } from '../Services/candidate.service';
 import * as _ from 'underscore';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { ApiUrl } from '../Services/api-url';
 
 @Component({
   selector: 'app-add-new-submissions',
@@ -44,6 +45,7 @@ export class AddNewSubmissionsComponent implements OnInit {
   private recruiterName: any;
   private recruiterEmail: any;
   private allRequirements: any;
+  private baseUrl: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -78,6 +80,8 @@ export class AddNewSubmissionsComponent implements OnInit {
       .subscribe((params: Params) => {
         this.requirementId = params['id'];
       });
+
+    this.baseUrl = ApiUrl.BaseUrl;
 
     this.myForm = this.formBuilder.group({
       requirements: [''],
@@ -154,6 +158,14 @@ export class AddNewSubmissionsComponent implements OnInit {
               }
             }
             this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: this.requirementId });
+            if (this.selectRequiement !== undefined) {
+              for (const recruiter of this.selectRequiement.clientRecuriters) {
+                this.recruiterName.push(recruiter.name + ' ');
+                this.recruiterEmail.push(recruiter.email + ' ');
+              }
+              this.clientRecruiterName = this.recruiterName.join();
+              this.clientRecruiterEmail = this.recruiterEmail.join();
+            }
           }
         });
   }
@@ -175,6 +187,14 @@ export class AddNewSubmissionsComponent implements OnInit {
               }
             }
             this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: this.requirementId });
+            if (this.selectRequiement !== undefined) {
+              for (const recruiter of this.selectRequiement.clientRecuriters) {
+                this.recruiterName.push(recruiter.name + ' ');
+                this.recruiterEmail.push(recruiter.email + ' ');
+              }
+              this.clientRecruiterName = this.recruiterName.join();
+              this.clientRecruiterEmail = this.recruiterEmail.join();
+            }
           }
         });
   }
@@ -195,6 +215,14 @@ export class AddNewSubmissionsComponent implements OnInit {
               }
             }
             this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: this.requirementId });
+            if (this.selectRequiement !== undefined) {
+              for (const recruiter of this.selectRequiement.clientRecuriters) {
+                this.recruiterName.push(recruiter.name + ' ');
+                this.recruiterEmail.push(recruiter.email + ' ');
+              }
+              this.clientRecruiterName = this.recruiterName.join();
+              this.clientRecruiterEmail = this.recruiterEmail.join();
+            }
           }
         });
   }
@@ -317,6 +345,10 @@ export class AddNewSubmissionsComponent implements OnInit {
     if (event !== undefined) {
       this.immigirationStatus = event.value;
     }
+  }
+
+  openFiles(media) {
+    window.open(this.baseUrl + media.mediaThumbnailPath, '_blank');
   }
 
 
