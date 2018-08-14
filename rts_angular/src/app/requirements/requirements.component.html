@@ -1,6 +1,7 @@
 <div class="sub-nav-wrapper" *ngIf="userRole ==='ADMIN' || userRole ==='ACC_MGR' || userRole ==='TL'">
   <a class="sub-nav-link" [routerLink]="['/add-new-requirement']">Add New Requirement</a>
 </div>
+<h2 class="main-title">Requirements</h2>
 <div class="utility-container">
   <div *ngIf="userRole ==='ADMIN'">
     <div class="search-container">
