@@ -37,5 +37,5 @@ input[type=checkbox]:checked:after {
 }
 
 .label {
-  padding-left: 2em;
+  margin-left: 1.5em;
 }

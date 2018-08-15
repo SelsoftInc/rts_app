@@ -25,7 +25,9 @@ export class AddCandidateComponent implements OnInit {
   private getFiles: any;
   private isOtherTechnology: boolean;
   private isEmployerDetails: boolean;
-  immigirationStatus: any;
+  private immigirationStatus: any;
+  private isRelocate: boolean;
+
   constructor(
     private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -38,6 +40,7 @@ export class AddCandidateComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.getFiles = [];
+    this.isRelocate = true;
   }
 
   ngOnInit() {
@@ -50,6 +53,10 @@ export class AddCandidateComponent implements OnInit {
       immigirationStatus: [''],
       technologies: [''],
       skype: [''],
+      relocate: [''],
+      interview: [''],
+      experience: [''],
+      resonForChange: [''],
       linkedIn: [''],
       otherTechnology: [''],
       employerName: [''],
@@ -107,6 +114,14 @@ export class AddCandidateComponent implements OnInit {
     }
   }
 
+  relocate(event) {
+    if (event.value === 'true') {
+      this.isRelocate = true;
+    } else {
+      this.isRelocate = false;
+    }
+  }
+
   getImmigiration(event) {
     if (event !== undefined) {
       this.immigirationStatus = event.value;
@@ -124,7 +139,11 @@ export class AddCandidateComponent implements OnInit {
       immigirationStatus: this.immigirationStatus,
       companyId: this.rtsCompanyId,
       skype: form.value.skype,
-      linkedIn: form.value.linkedIn
+      linkedIn: form.value.linkedIn,
+      relocate: this.isRelocate,
+      availableTimeForInterview: form.value.interview,
+      reasonForChange: form.value.resonForChange,
+      experience: form.value.experience
     };
 
     if (this.isEmployerDetails) {

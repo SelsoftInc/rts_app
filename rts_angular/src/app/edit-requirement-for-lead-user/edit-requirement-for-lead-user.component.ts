@@ -196,6 +196,7 @@ export class EditRequirementForLeadUserComponent implements OnInit {
             this.selectedTeam = _.findWhere(this.teams, { teamId: this.selectedRequirement.teamId });
             this.selectedTeamUsers.push(this.selectedTeam.leadUser);
             this.isRecruiters = true;
+            console.log(this.selectedRequirement);
             this.accountName = this.selectedRequirement.accountId;
             for (const recruiter of this.selectedRequirement.client.clientRecuriters) {
               this.recruitersArray.push({ user: recruiter.email, firstName: recruiter.name });

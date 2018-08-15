@@ -49,7 +49,8 @@ export class EditSubmissionsComponent implements OnInit {
   private clientRecruiterName: any;
   private clientRecruiterEmail: any;
   private allRequirements: any;
-  baseUrl: any;
+  private baseUrl: any;
+  private isRelocate: boolean;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -106,6 +107,10 @@ export class EditSubmissionsComponent implements OnInit {
       candidateImmigirationStatus: [''],
       technology: [''],
       workLocation: [''],
+      relocate: [''],
+      interview: [''],
+      experience: [''],
+      resonForChange: [''],
       skype: [''],
       linkedIn: [''],
       interviewStatus: [''],
@@ -120,6 +125,10 @@ export class EditSubmissionsComponent implements OnInit {
       editCandidateLocation: [''],
       editAvailability: [''],
       editTechnology: [''],
+      editRelocate: [''],
+      editInterview: [''],
+      editExperience: [''],
+      editResonForChange: [''],
       otherTechnology: [''],
       editSkype: [''],
       editLinkedIn: [''],
@@ -190,6 +199,13 @@ export class EditSubmissionsComponent implements OnInit {
             } else {
               this.myForm.controls.c2c.setValue('No');
             }
+            if (this.selectedSubmission.candidate.relocate) {
+              this.myForm.controls.editRelocate.setValue('true');
+              this.isRelocate = true;
+            } else {
+              this.myForm.controls.editRelocate.setValue('false');
+              this.isRelocate = false;
+            }
             for (const recruiter of this.selectedRequirement.clientRecuriters) {
               this.recruiterName.push(recruiter.name + ' ');
               this.recruiterEmail.push(recruiter.email + ' ');
@@ -248,9 +264,17 @@ export class EditSubmissionsComponent implements OnInit {
             } else {
               this.myForm.controls.c2c.setValue('No');
             }
+            if (this.selectedSubmission.candidate.isRelocate) {
+              this.myForm.controls.editRelocate.setValue('true');
+            } else {
+              this.myForm.controls.editRelocate.setValue('false');
+            }
             this.addCandidate = false;
             this.isNewCandidate = false;
           } else {
+            this.myForm.controls.editCandidateImmigirationStatus.setValue('GC');
+            this.immigirationStatus = 'GC';
+            this.isRelocate = true;
             this.addCandidate = true;
             this.isNewCandidate = true;
             this.myForm.controls.c2c.setValue('No');
@@ -317,6 +341,14 @@ export class EditSubmissionsComponent implements OnInit {
       this.isEmployerDetails = true;
     } else {
       this.isEmployerDetails = false;
+    }
+  }
+
+  relocate(event) {
+    if (event.value === 'true') {
+      this.isRelocate = true;
+    } else {
+      this.isRelocate = false;
     }
   }
 
@@ -458,7 +490,11 @@ export class EditSubmissionsComponent implements OnInit {
       phoneNumber: form.value.editCandidatePhone,
       immigirationStatus: this.immigirationStatus,
       skype: form.value.editSkype,
-      linkedIn: form.value.editLinkedIn
+      linkedIn: form.value.editLinkedIn,
+      relocate: this.isRelocate,
+      availableTimeForInterview: form.value.interview,
+      reasonForChange: form.value.resonForChange,
+      experience: form.value.experience
     };
 
     if (form.value.editTechnology === 'other') {

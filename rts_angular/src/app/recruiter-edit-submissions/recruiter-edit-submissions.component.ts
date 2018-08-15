@@ -42,6 +42,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   private immigirationStatus: any;
   private isUpdate: boolean;
   private baseUrl: any;
+  private isRelocate: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -88,6 +89,10 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       workLocation: [''],
       skype: [''],
       linkedIn: [''],
+      relocate: [''],
+      interview: [''],
+      experience: [''],
+      resonForChange: [''],
       interviewStatus: [''],
       currentStatus: [''],
       level1Date: [''],
@@ -100,6 +105,10 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       editCandidateLocation: [''],
       editAvailability: [''],
       editTechnology: [''],
+      editRelocate: [''],
+      editInterview: [''],
+      editExperience: [''],
+      editResonForChange: [''],
       editSkype: [''],
       editLinkedIn: [''],
       employerName: [''],
@@ -136,7 +145,6 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
     this.requirementService.requirementsDetailsForUser(userId)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.requirementsDetails = data.requirements;
             for (const sub of this.requirementsDetails) {
@@ -146,7 +154,6 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
               }
             }
             this.selectedRequirement = _.findWhere(this.requirementsDetails, { requirementId: this.selectedSubmission.requirementId });
-            console.log(this.selectedSubmission);
             if (this.selectedSubmission.enteredBy === this.rtsUserId) {
               this.isUpdate = true;
             } else {
@@ -157,6 +164,13 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
               this.isC2c = true;
             } else {
               this.myForm.controls.c2c.setValue('No');
+            }
+            if (this.selectedSubmission.candidate.relocate) {
+              this.myForm.controls.editRelocate.setValue('true');
+              this.isRelocate = true;
+            } else {
+              this.myForm.controls.editRelocate.setValue('false');
+              this.isRelocate = false;
             }
             const immigiration = this.selectedSubmission.candidate.immigirationStatus;
             if (immigiration === 'GC') {
@@ -200,9 +214,17 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             } else {
               this.myForm.controls.c2c.setValue('No');
             }
+            if (this.selectedSubmission.candidate.isRelocate) {
+              this.myForm.controls.editRelocate.setValue('true');
+            } else {
+              this.myForm.controls.editRelocate.setValue('false');
+            }
             this.addCandidate = false;
             this.isNewCandidate = false;
           } else {
+            this.myForm.controls.editCandidateImmigirationStatus.setValue('GC');
+            this.immigirationStatus = 'GC';
+            this.isRelocate = true;
             this.addCandidate = true;
             this.isNewCandidate = true;
             this.myForm.controls.c2c.setValue('No');
@@ -250,6 +272,14 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       this.isEmployerDetails = true;
     } else {
       this.isEmployerDetails = false;
+    }
+  }
+
+  relocate(event) {
+    if (event.value === 'true') {
+      this.isRelocate = true;
+    } else {
+      this.isRelocate = false;
     }
   }
 
@@ -371,7 +401,11 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       phoneNumber: form.value.editCandidatePhone,
       immigirationStatus: this.immigirationStatus,
       skype: form.value.editSkype,
-      linkedIn: form.value.editLinkedIn
+      linkedIn: form.value.editLinkedIn,
+      relocate: this.isRelocate,
+      availableTimeForInterview: form.value.interview,
+      reasonForChange: form.value.resonForChange,
+      experience: form.value.experience
     };
 
     if (form.value.editTechnology === 'other') {

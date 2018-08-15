@@ -50,8 +50,9 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
   private clientRecruiterEmail: any;
   private allRequirements: any;
   private baseUrl: any;
-  candidateFiles: any;
-  candidateGetFiles: any;
+  private candidateFiles: any;
+  private candidateGetFiles: any;
+  private isRelocate: boolean;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -108,6 +109,10 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
       workLocation: [''],
       skype: [''],
       linkedIn: [''],
+      relocate: [''],
+      interview: [''],
+      experience: [''],
+      resonForChange: [''],
       interviewStatus: [''],
       currentStatus: [''],
       level1Date: [''],
@@ -120,6 +125,10 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
       editCandidateLocation: [''],
       editAvailability: [''],
       editTechnology: [''],
+      editRelocate: [''],
+      editInterview: [''],
+      editExperience: [''],
+      editResonForChange: [''],
       otherTechnology: [''],
       editSkype: [''],
       editLinkedIn: [''],
@@ -185,11 +194,6 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
             } else {
               this.sendToClient = false;
             }
-            // if (this.selectedSubmission.clientSubmissionOn === 0) {
-            //   this.isSubmitToClient = true;
-            // } else {
-            //   this.isSubmitToClient = false;
-            // }
             if (this.selectedSubmission.status === 'SUBMITTED') {
               this.isSubmitted = true;
             } else {
@@ -200,6 +204,13 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
               this.isC2c = true;
             } else {
               this.myForm.controls.c2c.setValue('No');
+            }
+            if (this.selectedSubmission.candidate.isRelocate) {
+              this.myForm.controls.editRelocate.setValue('true');
+              this.isRelocate = true;
+            } else {
+              this.myForm.controls.editRelocate.setValue('false');
+              this.isRelocate = false;
             }
             const immigiration = this.selectedSubmission.candidate.immigirationStatus;
             if (immigiration === 'GC') {
@@ -251,10 +262,18 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
             } else {
               this.myForm.controls.c2c.setValue('No');
             }
+            if (this.selectedSubmission.candidate.isRelocate) {
+              this.myForm.controls.editRelocate.setValue('true');
+            } else {
+              this.myForm.controls.editRelocate.setValue('false');
+            }
             this.addCandidate = false;
             this.isNewCandidate = false;
           } else {
+            this.myForm.controls.editCandidateImmigirationStatus.setValue('GC');
+            this.immigirationStatus = 'GC';
             this.addCandidate = true;
+            this.isRelocate = true;
             this.isNewCandidate = true;
             this.myForm.controls.c2c.setValue('No');
             this.isC2c = false;
@@ -326,6 +345,14 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
   getImmigiration(event) {
     if (event !== undefined) {
       this.immigirationStatus = event.value;
+    }
+  }
+
+  relocate(event) {
+    if (event.value === 'true') {
+      this.isRelocate = true;
+    } else {
+      this.isRelocate = false;
     }
   }
 
@@ -460,7 +487,11 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
       phoneNumber: form.value.editCandidatePhone,
       immigirationStatus: this.immigirationStatus,
       skype: form.value.editSkype,
-      linkedIn: form.value.editLinkedIn
+      linkedIn: form.value.editLinkedIn,
+      relocate: this.isRelocate,
+      availableTimeForInterview: form.value.interview,
+      reasonForChange: form.value.resonForChange,
+      experience: form.value.experience
     };
 
     if (form.value.editTechnology === 'other') {
