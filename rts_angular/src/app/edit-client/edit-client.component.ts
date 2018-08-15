@@ -89,7 +89,6 @@ export class EditClientComponent implements OnInit {
           if (data.success) {
             this.clients = data.clients;
             this.selectedClient = _.findWhere(this.clients, { clientId: this.clientId });
-            console.log(this.selectedClient);
             const control = <FormArray>this.myForm.controls['units'];
             for (const recruiter of this.selectedClient.clientRecuriters) {
               control.push(this.formBuilder.group(recruiter));
@@ -116,7 +115,6 @@ export class EditClientComponent implements OnInit {
     this.clientService.editClient(editClient)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.toastr.success('Updated successfully', '', {
               positionClass: 'toast-top-center',

@@ -1,6 +1,7 @@
+<h2 class="main-title">
+  <a [routerLink]="['/requirements']">Requirements</a> / Edit Requirement</h2>
 <div class="utility-container">
   <form [formGroup]="myForm" (ngSubmit)="updateRequirement(myForm)">
-    <legend class="header">Edit Requirement</legend>
 
     <div class="form-group row" *ngIf="selectedRequirement">
       <label for="createdDate" class="col-sm-2 col-form-label">Created Date:</label>
@@ -180,10 +181,9 @@
     <div class="form-group row">
       <label for="notes" class="col-sm-2 col-form-label">Notes:</label>
       <div class="col-sm-4">
-        <textarea name="notes" class="form-control" formControlName="notes" placeholder="Type Your Notes.." ngModel="{{selectedRequirement.notes}}"></textarea>
+        <textarea name="notes" class="form-control" formControlName="notes" placeholder="Type Your Notes.." ngModel="{{selectedRequirement.note}}"></textarea>
       </div>
     </div>
-
 
     <div class="form-group row" *ngIf="selectedRequirement.comments">
       <label for="comments" class="col-sm-2 col-form-label">Comments:</label>

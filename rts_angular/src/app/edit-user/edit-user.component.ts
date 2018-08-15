@@ -73,7 +73,6 @@ export class EditUserComponent implements OnInit {
     this.userService.allUsers(userId)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.userDetails = data.users;
             for (const user of this.userDetails) {

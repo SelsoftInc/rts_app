@@ -111,7 +111,6 @@ export class EditCandidateComponent implements OnInit {
                 this.isEmployerDetails = true;
               }
             }
-            console.log(this.selectedCandidate);
             this.immigirationStatus = this.selectedCandidate.immigirationStatus;
             const immigiration = this.selectedCandidate.immigirationStatus;
             if (immigiration === 'GC') {
@@ -225,7 +224,6 @@ export class EditCandidateComponent implements OnInit {
     this.candidateService.editCandidate(updateCandidate)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
 
             if (this.getFiles.length > 0) {

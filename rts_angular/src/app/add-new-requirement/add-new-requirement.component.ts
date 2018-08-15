@@ -194,6 +194,7 @@ export class AddNewRequirementComponent implements OnInit {
       sellingRate: form.value.sellingRate,
       jobDescription: form.value.jobDescription,
       teamId: form.value.team,
+      note: form.value.notes,
       client: {
         clientId: form.value.clientName,
         clientRecuriters: this.selectedRecruites
@@ -229,7 +230,6 @@ export class AddNewRequirementComponent implements OnInit {
     this.requirementService.saveRequirement(saveRequirement)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.router.navigate(['requirements']);
           }
@@ -353,6 +353,7 @@ export class AddNewRequirementComponent implements OnInit {
       sellingRate: form.value.sellingRate,
       jobDescription: form.value.jobDescription,
       teamId: form.value.team,
+      note: form.value.notes,
       client: {
         clientId: form.value.clientName,
         clientRecuriters: this.selectedRecruites

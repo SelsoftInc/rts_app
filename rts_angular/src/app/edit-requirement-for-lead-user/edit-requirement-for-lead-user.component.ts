@@ -339,6 +339,7 @@ export class EditRequirementForLeadUserComponent implements OnInit {
       jobDescription: form.value.jobDescription,
       requirementId: this.requirementId,
       teamId: form.value.team,
+      note: form.value.notes,
       client: {
         clientId: form.value.clientName,
         clientRecuriters: this.selectedRecruites

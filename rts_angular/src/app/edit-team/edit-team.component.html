@@ -1,6 +1,7 @@
+<h2 class="main-title">
+  <a [routerLink]="['/manage-team']">Manage Team</a> / Edit Team</h2>
 <div class="utility-container">
   <form [formGroup]="myForm" (ngSubmit)="updateTeam(myForm)">
-    <legend class="header">Edit Team</legend>
 
     <div class="form-group row">
       <label for="teamName" class="col-sm-2 col-form-label">Team Name:</label>

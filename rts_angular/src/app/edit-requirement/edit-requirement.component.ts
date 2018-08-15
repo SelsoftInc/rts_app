@@ -117,6 +117,7 @@ export class EditRequirementComponent implements OnInit {
       jobDescription: [''],
       team: [''],
       comments: [''],
+      notes: [''],
       C2C: [''],
       TBD: [''],
       FTE: [''],
@@ -334,6 +335,7 @@ export class EditRequirementComponent implements OnInit {
       jobDescription: form.value.jobDescription,
       requirementId: this.requirementId,
       teamId: form.value.team,
+      note: form.value.notes,
       client: {
         clientId: form.value.clientName,
         clientRecuriters: this.selectedRecruites

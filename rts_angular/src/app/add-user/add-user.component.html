@@ -1,6 +1,7 @@
+<h2 class="main-title">
+  <a [routerLink]="['/manage-users']">Manage users</a> / Add New User</h2>
 <div class="utility-container">
   <form [formGroup]="myForm" (ngSubmit)="addNewUser(myForm)">
-    <legend class="header">Add New User</legend>
 
     <div class="form-group row">
       <label for="firstName" class="col-sm-2 col-form-label">First Name:</label>

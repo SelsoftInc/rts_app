@@ -304,3 +304,52 @@ td {
   -webkit-border-radius: 5px;
   color: #FFFFFF;
 }
+
+.non-editable-content-top {
+  background: #e8e8e8;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: .5em;
+  font-size: .900em;
+}
+
+.non-editable-label {
+  font-weight: 600;
+  display: inline-block;
+  padding-right: .5em;
+}
+
+.form-wrapper {
+  margin-top: 1em;
+}
+
+.read-only-text-input {
+  background: none !important;
+  border: none;
+}
+
+.read-only-text-select {
+  -webkit-appearance: none;
+  background: none !important;
+  border: none;
+}
+
+.bold-text {
+  font-weight: 600;
+}
+
+.push-left {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-bottom: 1px !important;
+}
+
+.shade-col {
+  background: #e6e6e6;
+}
+
+.shade-col-alt {
+  background: #f1f1f1;
+}

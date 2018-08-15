@@ -1,6 +1,7 @@
 <div class="sub-nav-wrapper" *ngIf="userRole ==='ADMIN' || userRole ==='ACC_MGR'">
   <a class="sub-nav-link" [routerLink]="['/add-team']">Add New Team</a>
 </div>
+<h2 class="main-title">Manage Teams</h2>
 <div class="utility-container">
   <div *ngIf="userRole === 'ADMIN'">
     <div class="search-container">

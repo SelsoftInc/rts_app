@@ -1,7 +1,8 @@
+<h2 class="main-title">
+  <a [routerLink]="['/manage-client']">Manage Clients</a> / Add New Client</h2>
 <div class="utility-container">
   <form [formGroup]="myForm" (ngSubmit)="addNewClient(myForm)">
-    <legend class="header">Add New Client</legend>
-
+ 
     <div class="form-group row">
       <label for="name" class="col-sm-2 col-form-label">Name:</label>
       <div class="col-sm-4">

@@ -1,6 +1,7 @@
+<h2 class="main-title">
+  <a [routerLink]="['/submissions']">Submissions</a> / Add New Submission</h2>
 <div class="utility-container">
   <form [formGroup]="myForm" (ngSubmit)="addNewSubmission(myForm)">
-    <legend class="header">Add New Submission</legend>
 
     <div class="form-group row">
       <label for="requirements" class="col-sm-2 col-form-label">Requirements:</label>
