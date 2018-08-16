@@ -130,7 +130,7 @@
         <label for="jobDescription" class="col-form-label bold-text">Job Description:</label>
       </div>
       <div class="col-sm-10 shade-col-alt" *ngIf="selectedRequirement">
-        <textarea rows="2" name="jobDescription" class="form-control read-only-text-input" formControlName="jobDescription" placeholder="Description.."
+        <textarea rows="5" name="jobDescription" class="form-control read-only-text-input" formControlName="jobDescription" placeholder="Description.."
           ngModel="{{selectedRequirement.jobDescription}}" disabled></textarea>
       </div>
     </div>

@@ -4,6 +4,7 @@ import { RequirementsService } from '../Services/requirements.service';
 import { HideComponentService } from '../Services/hide-component.service';
 import { SubmissionService } from '../Services/submission.service';
 import * as moment from 'moment';
+import { ApiUrl } from '../Services/api-url';
 
 @Component({
   selector: 'app-generate-report',
@@ -22,6 +23,7 @@ export class GenerateReportComponent implements OnInit {
   private currentDate: Date;
   private approvedsubmissionsLength: any;
   private userRole: any;
+  private baseUrl: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -38,6 +40,7 @@ export class GenerateReportComponent implements OnInit {
 
   ngOnInit() {
     this.getApprovedSubmissions();
+    this.baseUrl = ApiUrl.BaseUrl;
   }
 
   getApprovedSubmissions() {
@@ -83,7 +86,7 @@ export class GenerateReportComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
-            window.location.href = 'http://rameshrasaiyan.com:8080/' + data.downloadUrl;
+            window.open(this.baseUrl + data.downloadUrl, '_blank');
           }
         });
 
