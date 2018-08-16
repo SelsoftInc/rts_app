@@ -30,6 +30,7 @@ export class EditClientComponent implements OnInit {
   private contactPersonName: any;
   private contactPersonNumber: any;
   private name: any;
+
   constructor(
     private loggedUser: LoggedUserService,
     private formBuilder: FormBuilder,

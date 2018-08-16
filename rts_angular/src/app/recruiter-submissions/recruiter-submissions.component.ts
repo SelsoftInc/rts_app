@@ -11,12 +11,12 @@ import { HideComponentService } from '../Services/hide-component.service';
 })
 export class RecruiterSubmissionsComponent implements OnInit {
 
-  rtsUser: any;
-  rtsUserId: any;
-  requirementsForUser: any;
-  requirementsLengthForUser: any;
-  submissionDetails: any;
-  submissionsLength: any;
+  private rtsUser: any;
+  private rtsUserId: any;
+  private requirementsForUser: any;
+  private requirementsLengthForUser: any;
+  private submissionDetails: any;
+  private submissionsLength: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,

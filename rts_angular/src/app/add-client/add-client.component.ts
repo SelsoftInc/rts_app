@@ -69,7 +69,6 @@ export class AddClientComponent implements OnInit {
       enteredBy: this.rtsUserId,
       clientRecuriters: form.value.units
     };
-    console.log(client);
 
     this.clientService.addClient(client)
       .subscribe(

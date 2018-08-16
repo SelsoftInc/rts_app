@@ -118,6 +118,8 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
       level2Date: [''],
       statusForLevel1: [''],
       statusForLevel2: [''],
+      totalExperience: [''],
+      editTotalExperience: [''],
       editCandidateImmigirationStatus: [''],
       editCandidateName: [''],
       editCandidatePhone: [''],
@@ -168,7 +170,7 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
           if (data.success) {
             this.requirementsDetails = data.requirements;
             for (const require of this.requirementsDetails) {
-              if (require.status !== 'In-Complete') {
+              if (require.status !== 'Draft') {
                 this.allRequirements.push(require);
               }
             }
@@ -187,16 +189,6 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
             this.clientRecruiterEmail = this.recruiterEmail.join();
             if (this.selectedSubmission.status === 'TL_REJECTED') {
               this.isRejected = true;
-            }
-            if (this.selectedSubmission.approvedByAdmin === true) {
-              this.sendToClient = true;
-            } else {
-              this.sendToClient = false;
-            }
-            if (this.selectedSubmission.clientSubmissionOn === 0) {
-              this.isSubmitToClient = true;
-            } else {
-              this.isSubmitToClient = false;
             }
             if (this.selectedSubmission.candidate.c2C) {
               this.myForm.controls.c2c.setValue('Yes');
@@ -261,7 +253,7 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
             } else {
               this.myForm.controls.c2c.setValue('No');
             }
-            if (this.selectedSubmission.candidate.isRelocate) {
+            if (this.selectedSubmission.candidate.relocate) {
               this.myForm.controls.editRelocate.setValue('true');
             } else {
               this.myForm.controls.editRelocate.setValue('false');
@@ -359,31 +351,6 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
     window.open(this.baseUrl + media.mediaThumbnailPath, '_blank');
   }
 
-  submissionToClient() {
-
-    const submit = {
-      submissionId: this.submissionId,
-      submittedBy: this.rtsUserId
-    };
-
-    this.submissionService.submitToClient(submit)
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.toastr.success('Submission Successfully send to Client ', '', {
-              positionClass: 'toast-top-center',
-              timeOut: 3000,
-            });
-            this.router.navigate(['submissions']);
-          } else {
-            this.toastr.error(data.message, '', {
-              positionClass: 'toast-top-center',
-              timeOut: 3000,
-            });
-          }
-        });
-  }
-
 
   updateSubmission(form: FormGroup) {
     if (this.isNewCandidate) {
@@ -433,7 +400,6 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
       submission: submission,
       deletedMediaFiles: this.deletedMediaFiles
     };
-    console.log(editSubmission);
 
     this.submissionService.editSubmission(editSubmission)
       .subscribe(
@@ -491,7 +457,8 @@ export class LeadUserEditSubmissionsComponent implements OnInit {
       relocate: this.isRelocate,
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
-      experience: form.value.experience
+      experience: form.value.experience,
+      totalExperience: form.value.totalExperience
     };
 
     if (form.value.editTechnology === 'other') {

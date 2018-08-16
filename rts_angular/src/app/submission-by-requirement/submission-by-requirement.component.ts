@@ -21,7 +21,8 @@ export class SubmissionByRequirementComponent implements OnInit {
   private userRole: any;
   private rtsUserId: any;
 
-  constructor(private loggedUser: LoggedUserService,
+  constructor(
+    private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
     private activatedRoute: ActivatedRoute,
   ) {

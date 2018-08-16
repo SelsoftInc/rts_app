@@ -79,6 +79,7 @@ export class EditCandidateComponent implements OnInit {
       relocate: [''],
       interview: [''],
       experience: [''],
+      totalExperience: [''],
       resonForChange: [''],
     });
     this.getCommonDetails();
@@ -110,7 +111,6 @@ export class EditCandidateComponent implements OnInit {
           if (data.success) {
             this.candidates = data.candidates;
             this.selectedCandidate = _.findWhere(this.candidates, { candidateId: this.candidateId });
-            console.log(this.selectedCandidate);
             if (this.selectedCandidate.c2C) {
               this.myForm.controls.c2c.setValue('Yes');
               this.isEmployerDetails = true;
@@ -214,6 +214,7 @@ export class EditCandidateComponent implements OnInit {
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
       experience: form.value.experience,
+      totalExperience: form.value.totalExperience,
       enteredBy: this.rtsUserId,
       candidateId: this.candidateId,
     };

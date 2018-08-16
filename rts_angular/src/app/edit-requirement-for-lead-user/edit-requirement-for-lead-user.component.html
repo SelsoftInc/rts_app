@@ -38,6 +38,7 @@
           <select name="status" class="form-input" formControlName="status" ngModel="{{selectedRequirement.status}}" required>
             <option value="">Select</option>
             <option *ngFor="let status of requirementStatus" value="{{status.value}}">{{status.name}}</option>
+            <option *ngIf="selectedRequirement.status === 'Draft'" value="Draft">Draft</option>
           </select>
         </div>
 

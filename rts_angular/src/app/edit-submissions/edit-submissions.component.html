@@ -10,8 +10,7 @@
           <div class="col-sm-7">
             <select name="requirements" class="form-control" formControlName="requirements" ngModel="{{selectedSubmission.requirementId}}"
               (change)="getRequirement($event.target.value);" required>
-              <option value="">Select</option>
-              <option *ngFor="let require of allRequirements" value="{{require.requirementId}}">{{require.position.positionName}} {{require.client.name}}</option>
+              <option *ngFor="let require of allRequirements" value="{{require.requirementId}}">{{require.position.positionName}} ({{require.client.name}})</option>
             </select>
           </div>
         </div>
@@ -292,9 +291,16 @@
           </div>
 
           <div class="form-group row" *ngIf="selectedSubmission">
-            <label for="editExperience" class="col-sm-4 col-form-label">Experience:</label>
+            <label for="editExperience" class="col-sm-4 col-form-label">Relevant Experience:</label>
             <div class="col-sm-7">
               <input type="text" class="form-control" name="editExperience" formControlName="editExperience" readonly ngModel="{{selectedSubmission.candidate.experience}}">
+            </div>
+          </div>
+
+          <div class="form-group row" *ngIf="selectedSubmission">
+            <label for="editTotalExperience" class="col-sm-4 col-form-label">Total Experience:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="totalExperience" formControlName="totalExperience" readonly ngModel="{{selectedSubmission.candidate.totalExperience}}">
             </div>
           </div>
 
@@ -442,7 +448,7 @@
             <div class="col-sm-7">
               <mat-radio-group formControlName="relocate" (change)="relocate($event);">
                 <mat-radio-button value="true" checked>Yes</mat-radio-button>
-                <mat-radio-button value="false" >No</mat-radio-button>
+                <mat-radio-button value="false">No</mat-radio-button>
               </mat-radio-group>
             </div>
           </div>
@@ -450,21 +456,28 @@
           <div class="form-group row">
             <label for="resonForChange" class="col-sm-4 col-form-label">Reson For Change:</label>
             <div class="col-sm-7">
-              <input type="text" class="form-control" name="resonForChange" formControlName="resonForChange">
+              <input type="text" class="form-control" name="resonForChange" ngModel formControlName="resonForChange">
             </div>
           </div>
 
           <div class="form-group row">
             <label for="interview" class="col-sm-4 col-form-label">Availability For Inteview:</label>
             <div class="col-sm-7">
-              <input type="text" class="form-control" name="interview" formControlName="interview">
+              <input type="text" class="form-control" name="interview" ngModel formControlName="interview">
             </div>
           </div>
 
           <div class="form-group row">
-            <label for="experience" class="col-sm-4 col-form-label">Experience:</label>
+            <label for="experience" class="col-sm-4 col-form-label">Relevant Experience:</label>
             <div class="col-sm-7">
-              <input type="text" class="form-control" name="experience" formControlName="experience">
+              <input type="text" class="form-control" name="experience" ngModel formControlName="experience">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="totalExperience" class="col-sm-4 col-form-label">Total Experience:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="totalExperience" ngModel formControlName="totalExperience">
             </div>
           </div>
 
@@ -536,7 +549,7 @@
 
     <div class="form-btn-container">
       <button class="btn btn-default btn-space" type="submit">Update Submission</button>
-      <button type="button" *ngIf="sendToClient && isSubmitToClient" class="btn btn-default btn-space" (click)="submissionToClient();">Send To Client</button>
+      <!-- <button type="button" *ngIf="sendToClient && isSubmitToClient" class="btn btn-default btn-space" (click)="submissionToClient();">Send To Client</button> -->
       <button [routerLink]="[ '/submissions']" class="btn btn-default">Cancel</button>
     </div>
 

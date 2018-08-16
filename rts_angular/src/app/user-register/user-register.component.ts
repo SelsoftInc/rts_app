@@ -42,12 +42,7 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
       userLastName: ['', Validators.required],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
-      // userAddress1: ['', Validators.required],
-      // userAddress2: ['', Validators.required],
       userEmail: ['', Validators.required],
-      // userCity: ['', Validators.required],
-      // userState: ['', Validators.required],
-      // userZipcode: ['', [Validators.required, Validators.pattern('^\\d{5}(?:[-\\s]\\d{4})?$')]],
       userPhoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
     });
   }
@@ -71,12 +66,7 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
       firstName: form.value.userFirstName,
       lastName: form.value.userLastName,
       password: form.value.password,
-      // address1: form.value.userAddress1,
-      // address2: form.value.userAddress2,
       email: form.value.userEmail,
-      // city: form.value.userCity,
-      // state: form.value.userState,
-      // zipCode: form.value.userZipcode,
       phoneNumber: form.value.userPhoneNumber
     };
 
@@ -84,12 +74,10 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
       company: company,
       adminUser: user
     };
-    console.log(userRegister);
 
     this.registerService.registerUser(userRegister)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.toastr.success('You are now registered and can log in', '', {
               positionClass: 'toast-top-center',

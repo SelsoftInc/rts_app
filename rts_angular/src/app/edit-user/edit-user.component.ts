@@ -28,6 +28,7 @@ export class EditUserComponent implements OnInit {
   private role: any;
   private userRole: string;
   private rtsCompanyId: any;
+  private phoneNumber: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -60,6 +61,7 @@ export class EditUserComponent implements OnInit {
       lastName: [''],
       email: [''],
       role: [''],
+      phoneNumber: ['', Validators.pattern('^[0-9]*$')],
     });
 
     this.getAllUser();
@@ -82,6 +84,7 @@ export class EditUserComponent implements OnInit {
             this.lastName = this.selectedUser.lastName;
             this.email = this.selectedUser.email;
             this.role = this.selectedUser.role;
+            this.phoneNumber = this.selectedUser.phoneNumber;
           }
         });
 
@@ -102,6 +105,7 @@ export class EditUserComponent implements OnInit {
       lastName: form.value.lastName,
       email: form.value.email,
       role: form.value.role,
+      phoneNumber: form.value.phoneNumber,
       enteredBy: this.rtsUserId,
       userId: this.userId
     };

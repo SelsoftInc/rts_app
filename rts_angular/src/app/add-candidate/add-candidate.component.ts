@@ -62,7 +62,8 @@ export class AddCandidateComponent implements OnInit {
       employerName: [''],
       employerContactName: [''],
       employerPhone: [''],
-      employerEmail: ['']
+      employerEmail: [''],
+      totalExperience: ['']
     });
     this.getCommonDetails();
     this.myForm.controls.immigirationStatus.setValue('GC');
@@ -143,7 +144,8 @@ export class AddCandidateComponent implements OnInit {
       relocate: this.isRelocate,
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
-      experience: form.value.experience
+      experience: form.value.experience,
+      totalExperience: form.value.totalExperience
     };
 
     if (this.isEmployerDetails) {

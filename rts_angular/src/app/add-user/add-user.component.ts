@@ -38,6 +38,7 @@ export class AddUserComponent implements OnInit {
       firstName: [''],
       lastName: [''],
       email: ['', Validators.email],
+      phoneNumber: ['', Validators.pattern('^[0-9]*$')],
       role: [''],
       userPassword: [''],
       confirmPassword: ['']
@@ -73,6 +74,7 @@ export class AddUserComponent implements OnInit {
       lastName: form.value.lastName,
       email: form.value.email,
       role: form.value.role,
+      phoneNumber: form.value.phoneNumber,
       password: form.value.userPassword,
       enteredBy: this.rtsUserId
     };

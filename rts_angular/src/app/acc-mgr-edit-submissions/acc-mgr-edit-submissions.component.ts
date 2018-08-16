@@ -117,6 +117,8 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
       currentStatus: [''],
       level1Date: [''],
       level2Date: [''],
+      totalExperience: [''],
+      editTotalExperience: [''],
       statusForLevel1: [''],
       statusForLevel2: [''],
       editCandidateImmigirationStatus: [''],
@@ -169,7 +171,7 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
           if (data.success) {
             this.requirementsDetails = data.requirements;
             for (const require of this.requirementsDetails) {
-              if (require.status !== 'In-Complete') {
+              if (require.status !== 'Draft') {
                 this.allRequirements.push(require);
               }
             }
@@ -205,7 +207,7 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
             } else {
               this.myForm.controls.c2c.setValue('No');
             }
-            if (this.selectedSubmission.candidate.isRelocate) {
+            if (this.selectedSubmission.candidate.relocate) {
               this.myForm.controls.editRelocate.setValue('true');
               this.isRelocate = true;
             } else {
@@ -262,7 +264,7 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
             } else {
               this.myForm.controls.c2c.setValue('No');
             }
-            if (this.selectedSubmission.candidate.isRelocate) {
+            if (this.selectedSubmission.candidate.relocate) {
               this.myForm.controls.editRelocate.setValue('true');
             } else {
               this.myForm.controls.editRelocate.setValue('false');
@@ -491,7 +493,8 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
       relocate: this.isRelocate,
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
-      experience: form.value.experience
+      experience: form.value.experience,
+      totalExperience: form.value.totalExperience
     };
 
     if (form.value.editTechnology === 'other') {

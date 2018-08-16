@@ -23,7 +23,8 @@ export class SubmissionsComponent implements OnInit {
   private userRole: any;
 
 
-  constructor(private loggedUser: LoggedUserService,
+  constructor(
+    private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
     private hideComponent: HideComponentService
   ) {

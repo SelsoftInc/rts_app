@@ -107,6 +107,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       relocate: [''],
       interview: [''],
       experience: [''],
+      totalExperience: [''],
       resonForChange: [''],
       c2c: [''],
       editCandidateImmigirationStatus: [''],
@@ -119,6 +120,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       editLinkedIn: [''],
       otherTechnology: [''],
       editRelocate: [''],
+      editTotalExperience: [''],
       editInterview: [''],
       editExperience: [''],
       editResonForChange: [''],
@@ -165,7 +167,7 @@ export class AddNewSubmissionsComponent implements OnInit {
           if (data.success) {
             this.requirementsDetails = data.requirements;
             for (const require of this.requirementsDetails) {
-              if (require.status !== 'In-Complete') {
+              if (require.status !== 'Draft') {
                 this.allRequirements.push(require);
               }
             }
@@ -194,7 +196,7 @@ export class AddNewSubmissionsComponent implements OnInit {
           if (data.success) {
             this.requirementsDetails = data.requirements;
             for (const require of this.requirementsDetails) {
-              if (require.status !== 'In-Complete') {
+              if (require.status !== 'Draft') {
                 this.allRequirements.push(require);
               }
             }
@@ -222,7 +224,7 @@ export class AddNewSubmissionsComponent implements OnInit {
           if (data.success) {
             this.requirementsDetails = data.requirements;
             for (const require of this.requirementsDetails) {
-              if (require.status !== 'In-Complete') {
+              if (require.status !== 'Draft') {
                 this.allRequirements.push(require);
               }
             }
@@ -293,8 +295,7 @@ export class AddNewSubmissionsComponent implements OnInit {
               this.myForm.controls.c2c.setValue('No');
               this.isC2c = false;
             }
-            console.log(this.selectedCandidate);
-            if (this.selectedCandidate.isRelocate) {
+            if (this.selectedCandidate.relocate) {
               this.myForm.controls.editRelocate.setValue('true');
               this.isRelocate = true;
             } else {
@@ -411,7 +412,6 @@ export class AddNewSubmissionsComponent implements OnInit {
       enteredBy: this.rtsUserId,
       candidateId: candidateId
     };
-    console.log(submission);
 
     this.submissionService.addSubmission(submission)
       .subscribe(
@@ -476,7 +476,8 @@ export class AddNewSubmissionsComponent implements OnInit {
       relocate: this.isRelocate,
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
-      experience: form.value.experience
+      experience: form.value.experience,
+      totalExperience: form.value.totalExperience
     };
 
     if (this.isEmployerDetails) {
@@ -496,45 +497,46 @@ export class AddNewSubmissionsComponent implements OnInit {
         technologyId: form.value.editTechnology
       }];
     }
+    console.log(candidate);
 
-    this.candidateService.addCandidate(candidate)
-      .subscribe(data => {
-        if (data.success) {
+    // this.candidateService.addCandidate(candidate)
+    //   .subscribe(data => {
+    //     if (data.success) {
 
-          if (this.candidateGetFiles.length > 0) {
-            const upload = {
-              file: this.candidateGetFiles,
-              candidateId: data.candidate.candidateId,
-              enteredBy: this.rtsUserId
-            };
-            this.candidateService.uploadFile(upload).subscribe(
-              file => {
-                if (file.success) {
-                  this.toastr.success(file.message, '', {
-                    positionClass: 'toast-top-center',
-                    timeOut: 3000,
-                  });
-                } else {
-                  this.toastr.error(file.message, '', {
-                    positionClass: 'toast-top-center',
-                    timeOut: 3000,
-                  });
-                }
-              });
-          }
-          this.toastr.success('New Candidate Successfully added', '', {
-            positionClass: 'toast-top-center',
-            timeOut: 3000,
-          });
+    //       if (this.candidateGetFiles.length > 0) {
+    //         const upload = {
+    //           file: this.candidateGetFiles,
+    //           candidateId: data.candidate.candidateId,
+    //           enteredBy: this.rtsUserId
+    //         };
+    //         this.candidateService.uploadFile(upload).subscribe(
+    //           file => {
+    //             if (file.success) {
+    //               this.toastr.success(file.message, '', {
+    //                 positionClass: 'toast-top-center',
+    //                 timeOut: 3000,
+    //               });
+    //             } else {
+    //               this.toastr.error(file.message, '', {
+    //                 positionClass: 'toast-top-center',
+    //                 timeOut: 3000,
+    //               });
+    //             }
+    //           });
+    //       }
+    //       this.toastr.success('New Candidate Successfully added', '', {
+    //         positionClass: 'toast-top-center',
+    //         timeOut: 3000,
+    //       });
 
-          this.SubmissionWithCandidate(form, data.candidate.candidateId);
-        } else {
-          this.toastr.error(data.message, '', {
-            positionClass: 'toast-top-center',
-            timeOut: 3000,
-          });
-        }
-      });
+    //       this.SubmissionWithCandidate(form, data.candidate.candidateId);
+    //     } else {
+    //       this.toastr.error(data.message, '', {
+    //         positionClass: 'toast-top-center',
+    //         timeOut: 3000,
+    //       });
+    //     }
+    //   });
 
   }
 

@@ -119,6 +119,8 @@ export class EditSubmissionsComponent implements OnInit {
       level2Date: [''],
       statusForLevel1: [''],
       statusForLevel2: [''],
+      totalExperience: [''],
+      editTotalExperience: [''],
       editCandidateImmigirationStatus: [''],
       editCandidateName: [''],
       editCandidatePhone: [''],
@@ -169,7 +171,7 @@ export class EditSubmissionsComponent implements OnInit {
           if (data.success) {
             this.requirementsDetails = data.requirements;
             for (const require of this.requirementsDetails) {
-              if (require.status !== 'In-Complete') {
+              if (require.status !== 'Draft') {
                 this.allRequirements.push(require);
               }
             }
@@ -183,16 +185,16 @@ export class EditSubmissionsComponent implements OnInit {
             if (this.selectedSubmission.status === 'REJECTED') {
               this.isRejected = true;
             }
-            if (this.selectedSubmission.approvedByAdmin === true) {
-              this.sendToClient = true;
-            } else {
-              this.sendToClient = false;
-            }
-            if (this.selectedSubmission.clientSubmissionOn === 0) {
-              this.isSubmitToClient = true;
-            } else {
-              this.isSubmitToClient = false;
-            }
+            // if (this.selectedSubmission.approvedByAdmin === true) {
+            //   this.sendToClient = true;
+            // } else {
+            //   this.sendToClient = false;
+            // }
+            // if (this.selectedSubmission.clientSubmissionOn === 0) {
+            //   this.isSubmitToClient = true;
+            // } else {
+            //   this.isSubmitToClient = false;
+            // }
             if (this.selectedSubmission.candidate.c2C) {
               this.myForm.controls.c2c.setValue('Yes');
               this.isC2c = true;
@@ -213,7 +215,6 @@ export class EditSubmissionsComponent implements OnInit {
             this.clientRecruiterName = this.recruiterName.join();
             this.clientRecruiterEmail = this.recruiterEmail.join();
 
-            console.log(this.selectedSubmission);
             const immigiration = this.selectedSubmission.candidate.immigirationStatus;
             if (immigiration === 'GC') {
               this.myForm.controls.candidateImmigirationStatus.setValue('GC');
@@ -264,7 +265,7 @@ export class EditSubmissionsComponent implements OnInit {
             } else {
               this.myForm.controls.c2c.setValue('No');
             }
-            if (this.selectedSubmission.candidate.isRelocate) {
+            if (this.selectedSubmission.candidate.relocate) {
               this.myForm.controls.editRelocate.setValue('true');
             } else {
               this.myForm.controls.editRelocate.setValue('false');
@@ -363,30 +364,30 @@ export class EditSubmissionsComponent implements OnInit {
   }
 
 
-  submissionToClient() {
+  // submissionToClient() {
 
-    const submit = {
-      submissionId: this.submissionId,
-      submittedBy: this.rtsUserId
-    };
+  //   const submit = {
+  //     submissionId: this.submissionId,
+  //     submittedBy: this.rtsUserId
+  //   };
 
-    this.submissionService.submitToClient(submit)
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.toastr.success('Submission Successfully send to Client ', '', {
-              positionClass: 'toast-top-center',
-              timeOut: 3000,
-            });
-            this.router.navigate(['submissions']);
-          } else {
-            this.toastr.error(data.message, '', {
-              positionClass: 'toast-top-center',
-              timeOut: 3000,
-            });
-          }
-        });
-  }
+  //   this.submissionService.submitToClient(submit)
+  //     .subscribe(
+  //       data => {
+  //         if (data.success) {
+  //           this.toastr.success('Submission Successfully send to Client ', '', {
+  //             positionClass: 'toast-top-center',
+  //             timeOut: 3000,
+  //           });
+  //           this.router.navigate(['submissions']);
+  //         } else {
+  //           this.toastr.error(data.message, '', {
+  //             positionClass: 'toast-top-center',
+  //             timeOut: 3000,
+  //           });
+  //         }
+  //       });
+  // }
 
 
   updateSubmission(form: FormGroup) {
@@ -494,7 +495,8 @@ export class EditSubmissionsComponent implements OnInit {
       relocate: this.isRelocate,
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
-      experience: form.value.experience
+      experience: form.value.experience,
+      totalExperience: form.value.totalExperience
     };
 
     if (form.value.editTechnology === 'other') {

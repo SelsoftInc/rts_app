@@ -43,6 +43,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   private isUpdate: boolean;
   private baseUrl: any;
   private isRelocate: any;
+  private allRequirements: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -59,6 +60,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
     this.getFiles = [];
     this.deletedMediaFiles = [];
     this.candidateGetFiles = [];
+    this.allRequirements = [];
   }
 
   ngOnInit() {
@@ -99,6 +101,8 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       level2Date: [''],
       statusForLevel1: [''],
       statusForLevel2: [''],
+      totalExperience: [''],
+      editTotalExperience: [''],
       editCandidateImmigirationStatus: [''],
       editCandidateName: [''],
       editCandidatePhone: [''],
@@ -147,13 +151,18 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.requirementsDetails = data.requirements;
-            for (const sub of this.requirementsDetails) {
+            for (const require of this.requirementsDetails) {
+              if (require.status !== 'Draft') {
+                this.allRequirements.push(require);
+              }
+            }
+            for (const sub of this.allRequirements) {
               const submission = _.findWhere(sub.submissions, { submissionId: this.submissionId });
               if (submission !== undefined) {
                 this.selectedSubmission = submission;
               }
             }
-            this.selectedRequirement = _.findWhere(this.requirementsDetails, { requirementId: this.selectedSubmission.requirementId });
+            this.selectedRequirement = _.findWhere(this.allRequirements, { requirementId: this.selectedSubmission.requirementId });
             if (this.selectedSubmission.enteredBy === this.rtsUserId) {
               this.isUpdate = true;
             } else {
@@ -193,8 +202,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   }
 
   getRequirement(event) {
-    this.selectedRequirement = _.findWhere(this.requirementsDetails, { requirementId: event });
-    console.log(this.selectedRequirement);
+    this.selectedRequirement = _.findWhere(this.allRequirements, { requirementId: event });
   }
 
   getCandidateDetails() {
@@ -347,7 +355,6 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       deletedMediaFiles: this.deletedMediaFiles
     };
 
-    console.log(editSubmission);
 
     this.submissionService.editSubmission(editSubmission)
       .subscribe(
@@ -405,7 +412,8 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       relocate: this.isRelocate,
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
-      experience: form.value.experience
+      experience: form.value.experience,
+      totalExperience: form.value.totalExperience
     };
 
     if (form.value.editTechnology === 'other') {

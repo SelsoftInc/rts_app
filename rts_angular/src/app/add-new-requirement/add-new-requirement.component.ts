@@ -42,7 +42,7 @@ export class AddNewRequirementComponent implements OnInit {
   private dropdownSettings: any;
   private recruitersArray: any;
   private selectedRecruites: any;
-  selectedClient: any;
+  private selectedClient: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -387,7 +387,6 @@ export class AddNewRequirementComponent implements OnInit {
     }
 
     this.newRequirement = requirement;
-    console.log(this.newRequirement);
 
     this.requirementService.addRequirements(this.newRequirement)
       .subscribe(

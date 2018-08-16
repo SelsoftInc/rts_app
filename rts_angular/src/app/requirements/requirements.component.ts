@@ -24,9 +24,10 @@ export class RequirementsComponent implements OnInit {
   private currentDate: Date;
   private requirementsForTeam: any;
   private requirementsLengthForTeam: any;
-  submittedRequirements: any;
+  private submittedRequirements: any;
 
-  constructor(private loggedUser: LoggedUserService,
+  constructor(
+    private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
     private hideComponent: HideComponentService,
   ) {

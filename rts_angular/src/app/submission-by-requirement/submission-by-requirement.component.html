@@ -1,5 +1,6 @@
 <h2 class="main-title">Submissions</h2>
 <div class="utility-container">
+  <button class="btn btn-forms btn-space" [routerLink]="['/add-new-submission', requirementId]">Add New Submission</button>
 
   <div *ngIf="userRole ==='ADMIN'">
     <div *ngIf="submissionsLength > 0 ; else noSummissions">

@@ -99,24 +99,31 @@
           </div>
         </div>
 
-        <div class="form-group row"  *ngIf="selectedCandidate">
+        <div class="form-group row" *ngIf="selectedCandidate">
           <label for="resonForChange" class="col-sm-4 col-form-label">Reson For Change:</label>
           <div class="col-sm-7">
             <input type="text" class="form-control" name="resonForChange" formControlName="resonForChange" ngModel="{{selectedCandidate.reasonForChange}}">
           </div>
         </div>
 
-        <div class="form-group row"  *ngIf="selectedCandidate">
+        <div class="form-group row" *ngIf="selectedCandidate">
           <label for="interview" class="col-sm-4 col-form-label">Availability For Inteview:</label>
           <div class="col-sm-7">
             <input type="text" class="form-control" name="interview" formControlName="interview" ngModel="{{selectedCandidate.availableTimeForInterview}}">
           </div>
         </div>
 
-        <div class="form-group row"  *ngIf="selectedCandidate">
-          <label for="experience" class="col-sm-4 col-form-label">Experience:</label>
+        <div class="form-group row" *ngIf="selectedCandidate">
+          <label for="experience" class="col-sm-4 col-form-label">Relevant Experience:</label>
           <div class="col-sm-7">
             <input type="text" class="form-control" name="experience" formControlName="experience" ngModel="{{selectedCandidate.experience}}">
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="selectedCandidate">
+          <label for="totalExperience" class="col-sm-4 col-form-label">Total Experience:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="totalExperience" formControlName="totalExperience" ngModel="{{selectedCandidate.totalExperience}}">
           </div>
         </div>
 
