@@ -45,6 +45,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   private isRelocate: any;
   private allRequirements: any;
   isWorkedWithClient: boolean;
+  isOtherTechnology: boolean;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -110,6 +111,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       editCandidateLocation: [''],
       editAvailability: [''],
       editTechnology: [''],
+      otherTechnology: [''],
       editRelocate: [''],
       editInterview: [''],
       editExperience: [''],
@@ -319,6 +321,16 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       this.isWorkedWithClient = true;
     } else {
       this.isWorkedWithClient = false;
+    }
+  }
+
+  addTechnology(event) {
+    if (event === 'other') {
+      this.isOtherTechnology = true;
+      this.myForm.controls.otherTechnology.setValue('');
+    } else {
+      this.myForm.controls.otherTechnology.setValue(event);
+      this.isOtherTechnology = false;
     }
   }
 

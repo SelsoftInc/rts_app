@@ -457,8 +457,8 @@
             <div class="col-sm-7">
               <select name="editTechnology" class="form-control" formControlName="editTechnology" (change)="addTechnology($event.target.value);">
                 <option value="">Select</option>
-                <option *ngFor="let tech of technology" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
                 <option value="other">Other</option>
+                <option *ngFor="let tech of technology" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
               </select>
             </div>
           </div>
