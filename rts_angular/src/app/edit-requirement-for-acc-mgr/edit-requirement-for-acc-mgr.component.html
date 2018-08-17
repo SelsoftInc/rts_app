@@ -14,8 +14,8 @@
           <select name="positionName" class="form-input" formControlName="positionName" (change)="changePositionName($event.target.value);"
             ngModel="{{selectedRequirement.position.positionId}}" required>
             <option value="">Select</option>
-            <option *ngFor="let name of positions" value="{{name.positionId}}">{{name.positionName}}</option>
             <option value="other">Other</option>
+            <option *ngFor="let name of positions" value="{{name.positionId}}">{{name.positionName}}</option>
           </select>
         </div>
         <div class="col-sm-4" *ngIf="isOtherPositionName">
@@ -31,7 +31,7 @@
           <select name="status" class="form-input" formControlName="status" ngModel="{{selectedRequirement.status}}" required>
             <option value="">Select</option>
             <option *ngFor="let status of requirementStatus" value="{{status.value}}">{{status.name}}</option>
-            <option *ngIf="selectedRequirement.status === 'Draft'" value="Draft" >Draft</option>
+            <option *ngIf="selectedRequirement.status === 'Draft'" value="Draft">Draft</option>
           </select>
         </div>
 
@@ -53,8 +53,8 @@
           <select name="accountName" class="form-input" formControlName="accountName" (change)="changeAccountName($event.target.value);"
             ngModel="{{accountName}}" required>
             <option value="">Select</option>
-            <option *ngFor="let name of accounts" value="{{name.accountId}}">{{name.accountName}}</option>
             <option value="other">Other</option>
+            <option *ngFor="let name of accounts" value="{{name.accountId}}">{{name.accountName}}</option>
           </select>
         </div>
         <div class="col-sm-4" *ngIf="isOtherAccountName">
@@ -139,8 +139,8 @@
           <select name="technologies" class="form-input" formControlName="technologies" (change)="addTechnology($event.target.value);"
             ngModel="{{selectedRequirement.technology[0].technologyId}}" required>
             <option value="">Select</option>
-            <option *ngFor="let tech of technologies" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
             <option value="other">Other</option>
+            <option *ngFor="let tech of technologies" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
           </select>
         </div>
         <div class="col-sm-4" *ngIf="isOtherTechnology">

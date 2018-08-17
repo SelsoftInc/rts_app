@@ -61,7 +61,8 @@ export class EditUserComponent implements OnInit {
       lastName: [''],
       email: [''],
       role: [''],
-      phoneNumber: ['', Validators.pattern('^[0-9]*$')],
+      // tslint:disable-next-line:max-line-length
+      phoneNumber: ['', [Validators.maxLength(15), Validators.pattern('^(1\s?)?((\([0-9]{3}\))|[0-9]{3})[\s\-]?[\0-9]{3}[\s\-]?[0-9]{4}$')]],
     });
 
     this.getAllUser();

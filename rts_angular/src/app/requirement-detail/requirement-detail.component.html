@@ -130,7 +130,7 @@
         <label for="jobDescription" class="col-form-label bold-text">Job Description:</label>
       </div>
       <div class="col-sm-10 shade-col-alt" *ngIf="selectedRequirement">
-        <textarea rows="5" name="jobDescription" class="form-control read-only-text-input" formControlName="jobDescription" placeholder="Description.."
+        <textarea rows="10" name="jobDescription" class="form-control read-only-text-input" formControlName="jobDescription" placeholder="Description.."
           ngModel="{{selectedRequirement.jobDescription}}" disabled></textarea>
       </div>
     </div>
@@ -140,7 +140,7 @@
         <label for="notes" class="col-form-label bold-text">Notes:</label>
       </div>
       <div class="col-sm-10 shade-col-alt" *ngIf="selectedRequirement">
-        <textarea rows="2" name="notes" class="form-control" formControlName="notes" placeholder="Type Your Notes.." ngModel="{{selectedRequirement.note}}" disabled></textarea>
+        <textarea rows="6" name="notes" class="form-control" formControlName="notes" placeholder="Type Your Notes.." ngModel="{{selectedRequirement.note}}" disabled></textarea>
       </div>
     </div>
 

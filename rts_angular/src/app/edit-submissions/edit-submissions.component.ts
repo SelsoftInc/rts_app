@@ -51,6 +51,7 @@ export class EditSubmissionsComponent implements OnInit {
   private allRequirements: any;
   private baseUrl: any;
   private isRelocate: boolean;
+  isWorkedWithClient: boolean;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -138,7 +139,14 @@ export class EditSubmissionsComponent implements OnInit {
       employerContactName: [''],
       employerPhone: [''],
       employerEmail: [''],
-      c2c: ['']
+      c2c: [''],
+      editWorkedWithClient: [''],
+      epNumber: [''],
+      authorizedWorkInUs: [''],
+      workedClient: [''],
+      anotherInterviewOffer: [''],
+      vacationPlans: [''],
+      currentCompany: [''],
     });
     this.getAllRequirements();
     this.getAllCommonData();
@@ -208,6 +216,13 @@ export class EditSubmissionsComponent implements OnInit {
               this.myForm.controls.editRelocate.setValue('false');
               this.isRelocate = false;
             }
+            if (this.selectedSubmission.candidate.workedWithClient) {
+              this.myForm.controls.editWorkedWithClient.setValue('true');
+              this.isWorkedWithClient = true;
+            } else {
+              this.myForm.controls.editWorkedWithClient.setValue('false');
+              this.isWorkedWithClient = false;
+            }
             for (const recruiter of this.selectedRequirement.clientRecuriters) {
               this.recruiterName.push(recruiter.name + ' ');
               this.recruiterEmail.push(recruiter.email + ' ');
@@ -270,9 +285,17 @@ export class EditSubmissionsComponent implements OnInit {
             } else {
               this.myForm.controls.editRelocate.setValue('false');
             }
+            if (this.selectedSubmission.candidate.workedWithClient) {
+              this.myForm.controls.editWorkedWithClient.setValue('true');
+              this.isWorkedWithClient = true;
+            } else {
+              this.myForm.controls.editWorkedWithClient.setValue('false');
+              this.isWorkedWithClient = false;
+            }
             this.addCandidate = false;
             this.isNewCandidate = false;
           } else {
+            this.isWorkedWithClient = false;
             this.myForm.controls.editCandidateImmigirationStatus.setValue('GC');
             this.immigirationStatus = 'GC';
             this.isRelocate = true;
@@ -350,6 +373,14 @@ export class EditSubmissionsComponent implements OnInit {
       this.isRelocate = true;
     } else {
       this.isRelocate = false;
+    }
+  }
+
+  getWorkedWithClient(event) {
+    if (event.value === 'true') {
+      this.isWorkedWithClient = true;
+    } else {
+      this.isWorkedWithClient = false;
     }
   }
 
@@ -496,8 +527,21 @@ export class EditSubmissionsComponent implements OnInit {
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
       experience: form.value.experience,
-      totalExperience: form.value.totalExperience
+      totalExperience: form.value.totalExperience,
+      currentCompanyName: form.value.currentCompany,
+      epNumber: form.value.epNumber,
+      authorizedWorkInUS: form.value.authorizedWorkInUs,
+      anyOffer: form.value.anotherInterviewOffer,
+      vacationPlan: form.value.vacationPlans
     };
+
+    if (this.isWorkedWithClient) {
+      candidate.workedWithClient = true;
+      candidate.workedClient = form.value.workedClient;
+    } else {
+      candidate.workedWithClient = false;
+      candidate.workedClient = '';
+    }
 
     if (form.value.editTechnology === 'other') {
       candidate.technology = [{

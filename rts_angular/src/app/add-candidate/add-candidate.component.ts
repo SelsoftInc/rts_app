@@ -27,6 +27,7 @@ export class AddCandidateComponent implements OnInit {
   private isEmployerDetails: boolean;
   private immigirationStatus: any;
   private isRelocate: boolean;
+  private isWorkedWithClient: boolean;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -41,13 +42,15 @@ export class AddCandidateComponent implements OnInit {
     this.rtsCompanyId = this.rtsUser.companyId;
     this.getFiles = [];
     this.isRelocate = true;
+    this.isWorkedWithClient = false;
   }
 
   ngOnInit() {
     this.myForm = this.formBuilder.group({
       name: [''],
       email: ['', Validators.email],
-      phoneNumber: [''],
+      // tslint:disable-next-line:max-line-length
+      phoneNumber: ['', [Validators.maxLength(15), Validators.pattern('^(1\s?)?((\([0-9]{3}\))|[0-9]{3})[\s\-]?[\0-9]{3}[\s\-]?[0-9]{4}$')]],
       location: [''],
       availability: [''],
       immigirationStatus: [''],
@@ -63,7 +66,13 @@ export class AddCandidateComponent implements OnInit {
       employerContactName: [''],
       employerPhone: [''],
       employerEmail: [''],
-      totalExperience: ['']
+      totalExperience: [''],
+      epNumber: [''],
+      authorizedWorkInUs: [''],
+      workedClient: [''],
+      anotherInterviewOffer: [''],
+      vacationPlans: [''],
+      currentCompany: [''],
     });
     this.getCommonDetails();
     this.myForm.controls.immigirationStatus.setValue('GC');
@@ -115,6 +124,14 @@ export class AddCandidateComponent implements OnInit {
     }
   }
 
+  getWorkedWithClient(event) {
+    if (event.value === 'true') {
+      this.isWorkedWithClient = true;
+    } else {
+      this.isWorkedWithClient = false;
+    }
+  }
+
   relocate(event) {
     if (event.value === 'true') {
       this.isRelocate = true;
@@ -145,8 +162,21 @@ export class AddCandidateComponent implements OnInit {
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
       experience: form.value.experience,
-      totalExperience: form.value.totalExperience
+      totalExperience: form.value.totalExperience,
+      currentCompanyName: form.value.currentCompany,
+      epNumber: form.value.epNumber,
+      authorizedWorkInUS: form.value.authorizedWorkInUs,
+      anyOffer: form.value.anotherInterviewOffer,
+      vacationPlan: form.value.vacationPlans
     };
+
+    if (this.isWorkedWithClient) {
+      newCandidate.workedWithClient = true;
+      newCandidate.workedClient = form.value.workedClient;
+    } else {
+      newCandidate.workedWithClient = false;
+      newCandidate.workedClient = '';
+    }
 
     if (this.isEmployerDetails) {
       newCandidate.c2C = true;

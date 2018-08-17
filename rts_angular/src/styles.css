@@ -225,7 +225,7 @@ td {
   padding: 8px 0;
   vertical-align: sub;
   margin-top: 20px!important;
-  overflow: hidden;
+  overflow: none;
   transition: border .2s;
   -webkit-transition: border .2s;
   border-radius: 5px;

@@ -294,6 +294,58 @@
           </div>
 
           <div class="form-group row" *ngIf="selectedSubmission">
+            <label for="currentCompany" class="col-sm-4 col-form-label">Current Company:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="currentCompany" formControlName="currentCompany" readonly ngModel="{{selectedSubmission.candidate.currentCompanyName}}">
+            </div>
+          </div>
+
+          <div class="form-group row" *ngIf="selectedSubmission">
+            <label for="epNumber" class="col-sm-4 col-form-label">EP Number:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="epNumber" formControlName="epNumber" readonly ngModel="{{selectedSubmission.candidate.epNumber}}">
+            </div>
+          </div>
+
+          <div class="form-group row" *ngIf="selectedSubmission">
+            <label for="authorizedWorkInUs" class="col-sm-4 col-form-label">Authorized work in US:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="authorizedWorkInUs" formControlName="authorizedWorkInUs" readonly ngModel="{{selectedSubmission.candidate.authorizedWorkInUS}}">
+            </div>
+          </div>
+
+          <div class="form-group row" *ngIf="selectedSubmission">
+            <label class="col-sm-4 col-form-label">Have you ever worked with Client:
+            </label>
+            <div class="col-sm-7">
+              <mat-radio-group formControlName="editWorkedWithClient" disabled>
+                <mat-radio-button value="true">Yes</mat-radio-button>
+                <mat-radio-button value="false">No</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+          <div class="form-group row" *ngIf="isWorkedWithClient && selectedSubmission">
+            <label for="workedClient" class="col-sm-4 col-form-label">If yes please mention Full Time or contract:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="workedClient" formControlName="workedClient" readonly ngModel="{{selectedSubmission.candidate.workedClient}}">
+            </div>
+          </div>
+
+          <div class="form-group row" *ngIf="selectedSubmission">
+            <label for="anotherInterviewOffer" class="col-sm-4 col-form-label">Any interview or Offer in hand or offered from another client:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="anotherInterviewOffer" formControlName="anotherInterviewOffer" readonly ngModel="{{selectedSubmission.candidate.anyOffer}}">
+            </div>
+          </div>
+
+          <div class="form-group row" *ngIf="selectedSubmission">
+            <label for="vacationPlans" class="col-sm-4 col-form-label">Vacation plans, if any:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="vacationPlans" formControlName="vacationPlans" readonly ngModel="{{selectedSubmission.candidate.vacationPlan}}">
+            </div>
+          </div>
+
+          <div class="form-group row" *ngIf="selectedSubmission">
             <label for="c2c" class="col-sm-4 col-form-label">C2C:</label>
             <div class="col-sm-7">
               <mat-radio-group disabled formControlName="c2c">
@@ -468,6 +520,59 @@
               <input type="text" class="form-control" name="totalExperience" ngModel formControlName="totalExperience">
             </div>
           </div>
+
+          <div class="form-group row">
+            <label for="currentCompany" class="col-sm-4 col-form-label">Current Company:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="currentCompany" ngModel formControlName="currentCompany">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="epNumber" class="col-sm-4 col-form-label">EP Number:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="epNumber" ngModel formControlName="epNumber">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="authorizedWorkInUs" class="col-sm-4 col-form-label">Authorized work in US:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="authorizedWorkInUs" ngModel formControlName="authorizedWorkInUs">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Have you ever worked with Client:
+            </label>
+            <div class="col-sm-7">
+              <mat-radio-group (change)="getWorkedWithClient($event)">
+                <mat-radio-button value="true">Yes</mat-radio-button>
+                <mat-radio-button value="false" checked>No</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+          <div class="form-group row" *ngIf="isWorkedWithClient">
+            <label for="workedClient" class="col-sm-4 col-form-label">If yes please mention Full Time or contract</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="workedClient" ngModel formControlName="workedClient">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="anotherInterviewOffer" class="col-sm-4 col-form-label">Any interview or Offer in hand or offered from another client:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="anotherInterviewOffer" ngModel formControlName="anotherInterviewOffer">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="vacationPlans" class="col-sm-4 col-form-label">Vacation plans, if any:</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="vacationPlans" ngModel formControlName="vacationPlans">
+            </div>
+          </div>
+
 
           <div class="form-group row">
             <label for="c2c" class="col-sm-4 col-form-label">C2C:</label>

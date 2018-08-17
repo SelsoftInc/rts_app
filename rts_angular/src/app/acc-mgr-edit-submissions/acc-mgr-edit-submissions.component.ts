@@ -53,6 +53,7 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
   private candidateFiles: any;
   private candidateGetFiles: any;
   private isRelocate: boolean;
+  isWorkedWithClient: boolean;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -138,7 +139,14 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
       employerContactName: [''],
       employerPhone: [''],
       employerEmail: [''],
-      c2c: ['']
+      c2c: [''],
+      editWorkedWithClient: [''],
+      epNumber: [''],
+      authorizedWorkInUs: [''],
+      workedClient: [''],
+      anotherInterviewOffer: [''],
+      vacationPlans: [''],
+      currentCompany: [''],
     });
     this.getAllRequirements();
     this.getAllCommonData();
@@ -214,6 +222,13 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
               this.myForm.controls.editRelocate.setValue('false');
               this.isRelocate = false;
             }
+            if (this.selectedSubmission.candidate.workedWithClient) {
+              this.myForm.controls.editWorkedWithClient.setValue('true');
+              this.isWorkedWithClient = true;
+            } else {
+              this.myForm.controls.editWorkedWithClient.setValue('false');
+              this.isWorkedWithClient = false;
+            }
             const immigiration = this.selectedSubmission.candidate.immigirationStatus;
             if (immigiration === 'GC') {
               this.myForm.controls.candidateImmigirationStatus.setValue('GC');
@@ -269,9 +284,17 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
             } else {
               this.myForm.controls.editRelocate.setValue('false');
             }
+            if (this.selectedSubmission.candidate.workedWithClient) {
+              this.myForm.controls.editWorkedWithClient.setValue('true');
+              this.isWorkedWithClient = true;
+            } else {
+              this.myForm.controls.editWorkedWithClient.setValue('false');
+              this.isWorkedWithClient = false;
+            }
             this.addCandidate = false;
             this.isNewCandidate = false;
           } else {
+            this.isWorkedWithClient = false;
             this.myForm.controls.editCandidateImmigirationStatus.setValue('GC');
             this.immigirationStatus = 'GC';
             this.addCandidate = true;
@@ -333,6 +356,14 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
     } else {
       this.myForm.controls.otherTechnology.setValue(event);
       this.isOtherTechnology = false;
+    }
+  }
+
+  getWorkedWithClient(event) {
+    if (event.value === 'true') {
+      this.isWorkedWithClient = true;
+    } else {
+      this.isWorkedWithClient = false;
     }
   }
 
@@ -494,8 +525,21 @@ export class AccMgrEditSubmissionsComponent implements OnInit {
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
       experience: form.value.experience,
-      totalExperience: form.value.totalExperience
+      totalExperience: form.value.totalExperience,
+      currentCompanyName: form.value.currentCompany,
+      epNumber: form.value.epNumber,
+      authorizedWorkInUS: form.value.authorizedWorkInUs,
+      anyOffer: form.value.anotherInterviewOffer,
+      vacationPlan: form.value.vacationPlans
     };
+
+    if (this.isWorkedWithClient) {
+      candidate.workedWithClient = true;
+      candidate.workedClient = form.value.workedClient;
+    } else {
+      candidate.workedWithClient = false;
+      candidate.workedClient = '';
+    }
 
     if (form.value.editTechnology === 'other') {
       candidate.technology = [{

@@ -47,6 +47,7 @@ export class AddNewSubmissionsComponent implements OnInit {
   private allRequirements: any;
   private baseUrl: any;
   private isRelocate: any;
+  isWorkedWithClient: boolean;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -63,6 +64,7 @@ export class AddNewSubmissionsComponent implements OnInit {
     this.rtsCompanyId = this.rtsUser.companyId;
     this.userRole = this.rtsUser.role;
     this.isRelocate = true;
+    this.isWorkedWithClient = false;
     this.recruiterName = [];
     this.recruiterEmail = [];
     this.allRequirements = [];
@@ -127,7 +129,14 @@ export class AddNewSubmissionsComponent implements OnInit {
       employerName: [''],
       employerContactName: [''],
       employerPhone: [''],
-      employerEmail: ['']
+      employerEmail: [''],
+      editWorkedWithClient: [''],
+      epNumber: [''],
+      authorizedWorkInUs: [''],
+      workedClient: [''],
+      anotherInterviewOffer: [''],
+      vacationPlans: [''],
+      currentCompany: [''],
     });
     if (this.userRole === 'ADMIN') {
       this.getAllRequirements();
@@ -288,6 +297,7 @@ export class AddNewSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.selectedCandidate = data.candidate;
+            console.log(this.selectedCandidate);
             if (this.selectedCandidate.isC2C) {
               this.myForm.controls.c2c.setValue('Yes');
               this.isC2c = true;
@@ -301,6 +311,13 @@ export class AddNewSubmissionsComponent implements OnInit {
             } else {
               this.myForm.controls.editRelocate.setValue('false');
               this.isRelocate = false;
+            }
+            if (this.selectedCandidate.workedWithClient) {
+              this.myForm.controls.editWorkedWithClient.setValue('true');
+              this.isWorkedWithClient = true;
+            } else {
+              this.myForm.controls.editWorkedWithClient.setValue('false');
+              this.isWorkedWithClient = false;
             }
             this.isCandidate = true;
             this.isNewCandidate = false;
@@ -358,6 +375,14 @@ export class AddNewSubmissionsComponent implements OnInit {
       this.isEmployerDetails = true;
     } else {
       this.isEmployerDetails = false;
+    }
+  }
+
+  getWorkedWithClient(event) {
+    if (event.value === 'true') {
+      this.isWorkedWithClient = true;
+    } else {
+      this.isWorkedWithClient = false;
     }
   }
 
@@ -477,8 +502,21 @@ export class AddNewSubmissionsComponent implements OnInit {
       availableTimeForInterview: form.value.interview,
       reasonForChange: form.value.resonForChange,
       experience: form.value.experience,
-      totalExperience: form.value.totalExperience
+      totalExperience: form.value.totalExperience,
+      currentCompanyName: form.value.currentCompany,
+      epNumber: form.value.epNumber,
+      authorizedWorkInUS: form.value.authorizedWorkInUs,
+      anyOffer: form.value.anotherInterviewOffer,
+      vacationPlan: form.value.vacationPlans
     };
+
+    if (this.isWorkedWithClient) {
+      candidate.workedWithClient = true;
+      candidate.workedClient = form.value.workedClient;
+    } else {
+      candidate.workedWithClient = false;
+      candidate.workedClient = '';
+    }
 
     if (this.isEmployerDetails) {
       candidate.c2C = true;

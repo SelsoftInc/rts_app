@@ -8,8 +8,8 @@
         <select name="positionName" class="form-input" formControlName="positionName" (change)="changePositionName($event.target.value);"
           required>
           <option value="">Select</option>
-          <option *ngFor="let name of positions" value="{{name.positionId}}">{{name.positionName}}</option>
           <option value="other">Other</option>
+          <option *ngFor="let name of positions" value="{{name.positionId}}">{{name.positionName}}</option>
         </select>
       </div>
       <div class="col-sm-4" *ngIf="isOtherPositionName">
@@ -46,8 +46,8 @@
         <select name="accountName" class="form-input" formControlName="accountName" (change)="changeAccountName($event.target.value);"
           required>
           <option value="">Select</option>
-          <option *ngFor="let name of accounts" value="{{name.accountId}}">{{name.accountName}}</option>
           <option value="other">Other</option>
+          <option *ngFor="let name of accounts" value="{{name.accountId}}">{{name.accountName}}</option>
         </select>
       </div>
       <div class="col-sm-4" *ngIf="isOtherAccountName">
@@ -130,8 +130,8 @@
         <select name="technologies" class="form-input" formControlName="technologies" (change)="addTechnology($event.target.value);"
           required>
           <option value="">Select</option>
-          <option *ngFor="let tech of technologies" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
           <option value="other">Other</option>
+          <option *ngFor="let tech of technologies" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
         </select>
       </div>
       <div class="col-sm-4" *ngIf="isOtherTechnology">

@@ -74,7 +74,7 @@ export class EditRequirementComponent implements OnInit {
     this.recruitersArray = [];
     this.selectedRequirement = {};
     this.dropdownSettings = {};
-    this.requirementType = ['C2C', 'FTE', 'TBD'];
+    this.requirementType = ['C2C', 'C2H', 'FTE', 'TBD'];
     this.immigration = [
       { 'id': 'GC', 'value': 'GC' },
       { 'id': 'CITIZEN', 'value': 'CITIZEN' },
@@ -119,6 +119,7 @@ export class EditRequirementComponent implements OnInit {
       comments: [''],
       notes: [''],
       C2C: [''],
+      C2H: [''],
       TBD: [''],
       FTE: [''],
       GC: [''],
@@ -210,6 +211,8 @@ export class EditRequirementComponent implements OnInit {
             for (const value of this.requirementByUser) {
               if (value === 'C2C') {
                 this.myForm.controls.C2C.setValue('C2C');
+              } else if (value === 'C2H') {
+                this.myForm.controls.C2H.setValue('C2H');
               } else if (value === 'FTE') {
                 this.myForm.controls.FTE.setValue('FTE');
               } else if (value === 'TBD') {

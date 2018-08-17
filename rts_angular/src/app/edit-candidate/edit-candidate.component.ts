@@ -34,6 +34,7 @@ export class EditCandidateComponent implements OnInit {
   private immigirationStatus: any;
   private baseUrl: any;
   private isRelocate: boolean;
+  private isWorkedWithClient: boolean;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -63,7 +64,8 @@ export class EditCandidateComponent implements OnInit {
     this.myForm = this.formBuilder.group({
       name: [''],
       email: ['', Validators.email],
-      phoneNumber: [''],
+      // tslint:disable-next-line:max-line-length
+      phoneNumber: ['', [Validators.maxLength(15), Validators.pattern('^(1\s?)?((\([0-9]{3}\))|[0-9]{3})[\s\-]?[\0-9]{3}[\s\-]?[0-9]{4}$')]],
       location: [''],
       availability: [''],
       immigirationStatus: [''],
@@ -81,6 +83,13 @@ export class EditCandidateComponent implements OnInit {
       experience: [''],
       totalExperience: [''],
       resonForChange: [''],
+      epNumber: [''],
+      authorizedWorkInUs: [''],
+      workedClient: [''],
+      anotherInterviewOffer: [''],
+      vacationPlans: [''],
+      currentCompany: [''],
+      workedWithClient: [''],
     });
     this.getCommonDetails();
     this.getAllCandidates();
@@ -121,6 +130,13 @@ export class EditCandidateComponent implements OnInit {
             } else {
               this.myForm.controls.relocate.setValue('false');
               this.isRelocate = false;
+            }
+            if (this.selectedCandidate.workedWithClient) {
+              this.myForm.controls.workedWithClient.setValue('true');
+              this.isWorkedWithClient = true;
+            } else {
+              this.myForm.controls.workedWithClient.setValue('false');
+              this.isWorkedWithClient = false;
             }
             this.immigirationStatus = this.selectedCandidate.immigirationStatus;
             const immigiration = this.selectedCandidate.immigirationStatus;
@@ -180,6 +196,14 @@ export class EditCandidateComponent implements OnInit {
     }
   }
 
+  getWorkedWithClient(event) {
+    if (event.value === 'true') {
+      this.isWorkedWithClient = true;
+    } else {
+      this.isWorkedWithClient = false;
+    }
+  }
+
   relocate(event) {
     if (event.value === 'true') {
       this.isRelocate = true;
@@ -215,9 +239,22 @@ export class EditCandidateComponent implements OnInit {
       reasonForChange: form.value.resonForChange,
       experience: form.value.experience,
       totalExperience: form.value.totalExperience,
+      currentCompanyName: form.value.currentCompany,
+      epNumber: form.value.epNumber,
+      authorizedWorkInUS: form.value.authorizedWorkInUs,
+      anyOffer: form.value.anotherInterviewOffer,
+      vacationPlan: form.value.vacationPlans,
       enteredBy: this.rtsUserId,
       candidateId: this.candidateId,
     };
+
+    if (this.isWorkedWithClient) {
+      candidate.workedWithClient = true;
+      candidate.workedClient = form.value.workedClient;
+    } else {
+      candidate.workedWithClient = false;
+      candidate.workedClient = '';
+    }
 
     if (this.isEmployerDetails) {
       candidate.c2C = true;
@@ -244,6 +281,7 @@ export class EditCandidateComponent implements OnInit {
       candidate: candidate,
       deletedMediaFiles: this.deletedMediaFiles
     };
+    console.log(updateCandidate);
 
     this.candidateService.editCandidate(updateCandidate)
       .subscribe(
