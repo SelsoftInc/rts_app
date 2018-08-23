@@ -91,7 +91,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       status: [''],
       reasonForRejection: [''],
       availability: [''],
-      candidateEmail: [''],
+      candidateEmail: ['', Validators.email],
       candidatePhone: [''],
       candidateLocation: [''],
       candidateImmigirationStatus: [''],

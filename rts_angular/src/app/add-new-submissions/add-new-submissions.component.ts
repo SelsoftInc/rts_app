@@ -89,7 +89,7 @@ export class AddNewSubmissionsComponent implements OnInit {
 
     this.myForm = this.formBuilder.group({
       requirements: [''],
-      candidateEmail: [''],
+      candidateEmail: ['', Validators.email],
       candidatePhone: [''],
       clientContactname: [''],
       clientContactEmail: [''],
