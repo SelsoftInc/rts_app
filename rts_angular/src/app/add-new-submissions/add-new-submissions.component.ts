@@ -297,8 +297,7 @@ export class AddNewSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.selectedCandidate = data.candidate;
-            console.log(this.selectedCandidate);
-            if (this.selectedCandidate.isC2C) {
+            if (this.selectedCandidate.c2C) {
               this.myForm.controls.c2c.setValue('Yes');
               this.isC2c = true;
             } else {
@@ -319,6 +318,7 @@ export class AddNewSubmissionsComponent implements OnInit {
               this.myForm.controls.editWorkedWithClient.setValue('false');
               this.isWorkedWithClient = false;
             }
+            this.isEmployerDetails = false;
             this.isCandidate = true;
             this.isNewCandidate = false;
             const immigiration = this.selectedCandidate.immigirationStatus;
@@ -442,28 +442,6 @@ export class AddNewSubmissionsComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
-
-            if (this.getFiles.length > 0) {
-              const upload = {
-                file: this.getFiles,
-                submissionId: data.submission.submissionId,
-                enteredBy: this.rtsUserId
-              };
-              this.submissionService.uploadFile(upload).subscribe(
-                file => {
-                  if (file.success) {
-                    this.toastr.success(file.message, '', {
-                      positionClass: 'toast-top-center',
-                      timeOut: 3000,
-                    });
-                  } else {
-                    this.toastr.error(file.message, '', {
-                      positionClass: 'toast-top-center',
-                      timeOut: 3000,
-                    });
-                  }
-                });
-            }
             this.toastr.success('New Submission Successfully added', '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,
@@ -526,7 +504,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       candidate.employeeContactEmail = form.value.employerEmail;
     }
 
-    if (form.value.technologies === 'other') {
+    if (form.value.editTechnology === 'other') {
       candidate.technology = [{
         technologyName: form.value.otherTechnology
       }];

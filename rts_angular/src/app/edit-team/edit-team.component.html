@@ -2,47 +2,40 @@
   <a [routerLink]="['/manage-team']">Manage Team</a> / Edit Team</h2>
 <div class="utility-container">
   <form [formGroup]="myForm" (ngSubmit)="updateTeam(myForm)">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+          <label for="teamName" class="form-label">Team Name:</label>
+          <input type="text" class="form-input" name="teamName" formControlName="teamName" required ngModel="{{teamName}}">
+        </div>
 
-    <div class="form-group row">
-      <label for="teamName" class="col-sm-2 col-form-label">Team Name:</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" name="teamName" formControlName="teamName" required ngModel="{{teamName}}">
+        <div class="col-sm-4">
+          <label for="accountManager" class="form-label">Account Manager:</label>
+          <select name="role" class="form-input" formControlName="accountManager" ngModel="{{accountManagerName}}" required>
+            <option value="">Select</option>
+            <option *ngFor="let mgr of accountManager" value="{{mgr.userId}}">{{mgr.firstName}} {{mgr.lastName}}</option>
+          </select>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="teamLeadUser" class="form-label">Team Lead:</label>
+          <select name="role" class="form-input" formControlName="teamLeadUser" ngModel="{{teamLeadName}}" (change)="selectTeamLead($event.target.value)" required>
+              <option value="">Select</option>
+              <option *ngFor="let lead of leadUsers" value="{{lead.userId}}">{{lead.firstName}} {{lead.lastName}}</option>
+            </select>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="teamMembers" class="form-label mb-4">Select Users:</label>
+            <ng-multiselect-dropdown [placeholder]="'Select Users'" [data]="recruiters" formControlName="teamMembers" [(ngModel)]="recruitersArray"
+                                     [settings]="dropdownSettings">
+            </ng-multiselect-dropdown>
+        </div>
       </div>
-    </div>
-
-    <div class="form-group row">
-      <label for="accountManager" class="col-sm-2 col-form-label">Account Manager:</label>
-      <div class="col-sm-4">
-        <select name="role" class="form-control" formControlName="accountManager" ngModel="{{accountManagerName}}" required>
-          <option value="">Select</option>
-          <option *ngFor="let mgr of accountManager" value="{{mgr.userId}}">{{mgr.firstName}} {{mgr.lastName}}</option>
-        </select>
+      <div class="form-btn-container">
+        <button class="btn btn-forms btn-space" type="submit" [disabled]="!myForm.valid">Update Team</button>
+        <button [routerLink]="[ '/manage-team']" class="btn btn-forms">Cancel</button>
       </div>
-    </div>
-
-    <div class="form-group row">
-      <label for="teamLeadUser" class="col-sm-2 col-form-label">Team Lead:</label>
-      <div class="col-sm-4">
-        <select name="role" class="form-control" formControlName="teamLeadUser" ngModel="{{teamLeadName}}" (change)="selectTeamLead($event.target.value)"
-          required>
-          <option value="">Select</option>
-          <option *ngFor="let lead of leadUsers" value="{{lead.userId}}">{{lead.firstName}} {{lead.lastName}}</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <label for="teamMembers" class="col-sm-2 col-form-label">Select Users:</label>
-      <div class="col-sm-4">
-        <ng-multiselect-dropdown [placeholder]="'Select Users'" [data]="recruiters" formControlName="teamMembers" [(ngModel)]="recruitersArray"
-          [settings]="dropdownSettings">
-        </ng-multiselect-dropdown>
-      </div>
-    </div>
-
-    <div class="form-btn-container">
-      <button class="btn btn-default btn-space" type="submit" [disabled]="!myForm.valid">Update Team</button>
-      <button [routerLink]="[ '/manage-team']" class="btn btn-default">Cancel</button>
     </div>
   </form>
 </div>

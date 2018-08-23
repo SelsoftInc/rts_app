@@ -10,12 +10,21 @@
 
     <div class="table-wrapper" *ngIf="teamLength > 0 ; else noTeams">
       <div class="block-wrapper" *ngFor="let team of teams">
-        <p class="title" [routerLink]="['/edit-team',team.teamId]">{{team.name}}
-          <i class="allocation-name"> Account Manager: {{team.accountManager.firstName}} {{team.accountManager.lastName}} (Lead User: {{team.leadUser.firstName}}
-            {{team.leadUser.lastName}})
-          </i>
-        </p>
-        <table class="table table-hover">
+        <div class="meta-info-wrapper">
+          <div class="row">
+            <div class="col-sm-10">
+              <span class="meta-info-content">{{team.name}} -</span>
+              <span class="block-header-label">Account Manager: </span>
+              <span class="meta-info-content">{{team.accountManager.firstName}} {{team.accountManager.lastName}}, </span>
+              <span class="block-header-label">TL:</span>
+              <span class="meta-info-content">{{team.leadUser.firstName}} {{team.leadUser.lastName}} </span>
+            </div>
+            <div class="col-sm-2 text-right">
+              <a class="btn btn-sm btn-forms" [routerLink]="['/edit-team',team.teamId]">Edit Team</a>
+            </div>
+          </div>
+        </div>
+        <table class="table table-bordered table-sm table-hover">
           <thead class="table-header">
             <tr>
               <th>First Name</th>
@@ -58,12 +67,21 @@
 
     <div class="table-wrapper" *ngIf="teamLength > 0 ; else noTeams">
       <div class="block-wrapper" *ngFor="let team of teams">
-        <p class="title" [routerLink]="['/edit-team',team.teamId]">{{team.name}}
-          <i class="allocation-name"> Account Manager: {{team.accountManager.firstName}} {{team.accountManager.lastName}} (Lead User: {{team.leadUser.firstName}}
-            {{team.leadUser.lastName}})
-          </i>
-        </p>
-        <table class="table table-hover">
+        <div class="meta-info-wrapper">
+          <div class="row">
+            <div class="col-sm-10">
+              <span class="meta-info-content">{{team.name}} -</span>
+              <span class="block-header-label">Account Manager: </span>
+              <span class="meta-info-content">{{team.accountManager.firstName}} {{team.accountManager.lastName}}, </span>
+              <span class="block-header-label">TL:</span>
+              <span class="meta-info-content">{{team.leadUser.firstName}} {{team.leadUser.lastName}} </span>
+            </div>
+            <div class="col-sm-2 text-right">
+              <a class="btn btn-sm btn-forms" [routerLink]="['/edit-team',team.teamId]">Edit Team</a>
+            </div>
+          </div>
+        </div>
+        <table class="table table-bordered table-sm table-hover">
           <thead class="table-header">
             <tr>
               <th>First Name</th>
@@ -106,12 +124,18 @@
 
     <div class="table-wrapper" *ngIf="teamLength > 0 ; else noTeams">
       <div class="block-wrapper" *ngFor="let team of teams">
-        <p class="title">{{team.name}}
-          <i class="allocation-name"> Account Manager: {{team.accountManager.firstName}} {{team.accountManager.lastName}} (Lead User: {{team.leadUser.firstName}}
-            {{team.leadUser.lastName}})
-          </i>
-        </p>
-        <table class="table table-hover">
+        <div class="meta-info-wrapper">
+          <div class="row">
+            <div class="col-sm-10">
+              <span class="meta-info-content">{{team.name}} -</span>
+              <span class="block-header-label">Account Manager: </span>
+              <span class="meta-info-content">{{team.accountManager.firstName}} {{team.accountManager.lastName}}, </span>
+              <span class="block-header-label">TL:</span>
+              <span class="meta-info-content">{{team.leadUser.firstName}} {{team.leadUser.lastName}} </span>
+            </div>
+          </div>
+        </div>
+        <table class="table table-bordered table-sm table-hover">
           <thead class="table-header">
             <tr>
               <th>First Name</th>

@@ -264,6 +264,10 @@ export class EditCandidateComponent implements OnInit {
       candidate.employeeContactEmail = form.value.employerEmail;
     } else {
       candidate.c2C = false;
+      candidate.employeeName = '';
+      candidate.employeeContactName = '';
+      candidate.employeeContactPhone = '';
+      candidate.employeeContactEmail = '';
     }
 
 
@@ -281,7 +285,6 @@ export class EditCandidateComponent implements OnInit {
       candidate: candidate,
       deletedMediaFiles: this.deletedMediaFiles
     };
-    console.log(updateCandidate);
 
     this.candidateService.editCandidate(updateCandidate)
       .subscribe(

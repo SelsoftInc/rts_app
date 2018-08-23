@@ -1,0 +1,539 @@
+<h2 class="main-title">
+  <a [routerLink]="['/submissions']">Submissions</a> / Edit Submission</h2>
+<div class="utility-container">
+  <form [formGroup]="myForm" (ngSubmit)="updateSubmission(myForm)">
+    <div class="container">
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="row">
+
+          <div class="col-sm-4" *ngIf="selectedSubmission">
+            <label for="requirements" class="form-label">Requirements:</label>
+            <select name="requirements" class="form-input" formControlName="requirements" ngModel="{{selectedSubmission.requirementId}}"
+                    (change)="getRequirement($event.target.value);" required>
+              <option *ngFor="let require of allRequirements" value="{{require.requirementId}}">{{require.position.positionName}} ({{require.client.name}})</option>
+            </select>
+          </div>
+
+          <div class="col-sm-4" *ngIf="selectedSubmission">
+            <label for="clientRate" class="form-label">Client Rate:</label>
+            <input type="text" class="form-input" name="clientRate" formControlName="clientRate" ngModel="{{selectedSubmission.clientRate}}" readonly>
+          </div>
+
+          <div class="col-sm-4" *ngIf="selectedSubmission">
+            <label for="sellingRate" class="form-label">Selling Rate:</label>
+            <input type="text" class="form-input" name="sellingRate" formControlName="sellingRate" ngModel="{{selectedSubmission.sellingRate}}">
+          </div>
+
+          <div class="col-sm-4" *ngIf="selectedRequirement">
+            <label for="buyingRate" class="form-label">Buying Rate:</label>
+            <input type="text" class="form-input" name="buyingRate" formControlName="buyingRate" required ngModel="{{selectedSubmission.buyingRate}}">
+          </div>
+
+          <div class="col-sm-4" *ngIf="selectedSubmission">
+            <label for="currentStatus" class="form-label">Current Status:</label>
+            <input type="text" class="form-input" name="currentStatus" formControlName="currentStatus" ngModel="{{selectedSubmission.currentStatus}}">
+          </div>
+
+          <div class="col-sm-4" *ngIf="selectedSubmission">
+            <label for="clientContactname" class="form-label">Client Contact name:</label>
+            <input type="text" class="form-input" name="clientContactname" formControlName="clientContactname" ngModel="{{clientRecruiterName}}" readonly>
+          </div>
+
+          <div class="col-sm-4" *ngIf="selectedSubmission">
+            <label for="clientContactEmail" class="form-label">Client Contact Email:</label>
+            <input type="text" class="form-input" name="clientContactEmail" formControlName="clientContactEmail" ngModel="{{clientRecruiterEmail}}" readonly>
+          </div>
+
+          <div class="col-sm-4" *ngIf="selectedRequirement">
+            <label for="accountName" class="form-label">Account Name:</label>
+            <input type="text" class="form-input" name="accountName" formControlName="accountName" ngModel="{{selectedRequirement.account.accountName}}" readonly>
+          </div>
+
+          <div class="col-sm-4" *ngIf="selectedRequirement">
+            <label for="workLocation" class="form-label">Work Location:</label>
+            <input type="text" class="form-input" name="workLocation" formControlName="workLocation" ngModel="{{selectedRequirement.location}}" readonly>
+          </div>
+
+          <div class="col-sm-4" *ngIf="selectedSubmission">
+            <label for="status" class="form-label">Status:</label>
+            <select name="status" class="form-input" formControlName="status" (change)="changeStatus($event.target.value);" ngModel="{{selectedSubmission.status}}" required>
+              <option value="">Select</option>
+              <option *ngFor="let status of status" value="{{status.value}}">{{status.name}}</option>
+              <option *ngIf="selectedSubmission.status === 'SUBMITTED'" value="SUBMITTED">Submitted</option>
+              <option *ngIf="selectedSubmission.status === 'TL_APPROVED' && userRole === 'ACC_MGR'" value="TL_APPROVED">TL Approved</option>
+              <option *ngIf="selectedSubmission.status === 'TL_REJECTED' && userRole === 'ACC_MGR'" value="TL_REJECTED">TL Rejected</option>
+              <option *ngIf="selectedSubmission.status === 'APPROVED' && userRole === 'TL'" value="APPROVED">Approved</option>
+              <option *ngIf="selectedSubmission.status === 'REJECTED' && userRole === 'TL'" value="REJECTED">Rejected</option>
+            </select>
+          </div>
+
+          <div class="col-sm-4" *ngIf="isRejected">
+            <label for="reasonForRejection" class="form-label">Reson For Rejection:</label>
+              <input *ngIf="selectedSubmission.status === 'REJECTED' || selectedSubmission.status === 'TL_REJECTED'" type="text" class="form-input"
+                     name="reasonForRejection" formControlName="reasonForRejection" value="{{selectedSubmission.reasonForRejection}}">
+              <input *ngIf="selectedSubmission.status !== 'REJECTED' && selectedSubmission.status !== 'TL_REJECTED'" type="text" class="form-input"
+                     name="reasonForRejection" formControlName="reasonForRejection">
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <h2 class="form-title">Candidate Details</h2>
+
+          <div class="row">
+            <div class="col-sm-4" *ngIf="selectedSubmission">
+              <label for="candidateEmail" class="form-label">Candidate Email:</label>
+              <input type="text" class="form-input" name="candidateEmail" formControlName="candidateEmail" ngModel="{{selectedSubmission.candidate.email}}" required>
+            </div>
+            <div class="col-sm-1 pt-5 mt-1">
+              <button type="button" class="btn btn-forms" (click)="getCandidateDetails()">Search</button>
+            </div>
+          </div>
+
+          <div *ngIf="!addCandidate">
+
+            <div class="row">
+              <div class="col-sm-8" *ngIf="selectedSubmission">
+                <div class="mb-3">
+                  <label for="candidateImmigirationStatus" class="form-label">Candidate Immigiration Status:</label>
+                </div>
+                <mat-radio-group formControlName="candidateImmigirationStatus" disabled>
+                  <mat-radio-button value="GC">GC</mat-radio-button>
+                  <mat-radio-button value="CITIZEN">CITIZEN</mat-radio-button>
+                  <mat-radio-button value="H1B">H1B</mat-radio-button>
+                  <mat-radio-button value="W2/1099">W2/1099</mat-radio-button>
+                  <mat-radio-button value="OPT/CPT">OPT/CPT</mat-radio-button>
+                  <mat-radio-button value="EAD">EAD</mat-radio-button>
+                  <mat-radio-button value="H4AD">H4AD</mat-radio-button>
+                </mat-radio-group>
+              </div>
+
+              <div class="col-sm-4" *ngIf="selectedSubmission">
+                <div class="mb-3">
+                  <label for="editRelocate" class="form-label">Willing To Relocate:</label>
+                </div>
+                <mat-radio-group formControlName="editRelocate" disabled>
+                  <mat-radio-button value="true">Yes</mat-radio-button>
+                  <mat-radio-button value="false">No</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-4" *ngIf="selectedSubmission">
+                <label for="candidateName" class="form-label">Candidate Name:</label>
+                <input type="text" class="form-input" name="candidateName" formControlName="candidateName" value="{{selectedSubmission.candidate.name}}" readonly>
+              </div>
+
+              <div class="col-sm-4" *ngIf="selectedSubmission">
+                <label for="candidatePhone" class="form-label">Candidate Phone:</label>
+                <input type="text" class="form-input" name="candidatePhone" formControlName="candidatePhone" value="{{selectedSubmission.candidate.phoneNumber}}" readonly>
+              </div>
+
+              <div class="col-sm-4" *ngIf="selectedSubmission">
+                <label for="candidateLocation" class="form-label">Candidate Location:</label>
+                <input type="text" class="form-input" name="candidateLocation" formControlName="candidateLocation" value="{{selectedSubmission.candidate.location}}" readonly>
+              </div>
+
+              <div class="col-sm-4" *ngIf="selectedSubmission">
+                <label for="availability" class="form-label">Availability:</label>
+                <input type="text" class="form-input" name="availability" formControlName="availability" value="{{selectedSubmission.candidate.availability}}" readonly>
+              </div>
+
+              <div class="col-sm-4" *ngIf="selectedSubmission">
+                <label for="technology" class="form-label">Technology:</label>
+                <select name="technology" class="form-input" formControlName="technology" ngModel="{{selectedSubmission.candidate.technology[0].technologyId}}" disabled>
+                  <option *ngFor="let tech of selectedSubmission.candidate.technology" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
+                </select>
+              </div>
+
+              <div class="col-sm-4" *ngIf="selectedSubmission">
+                <label for="skype" class="form-label">Skype:</label>
+                <input type="text" class="form-input" name="skype" formControlName="skype" value="{{selectedSubmission.candidate.skype}}" readonly>
+              </div>
+
+              <div class="col-sm-4" *ngIf="selectedSubmission">
+                <label for="linkedIn" class="form-label">LinkedIn:</label>
+                <input type="text" class="form-input" name="linkedIn" formControlName="linkedIn" value="{{selectedSubmission.candidate.linkedIn}}" readonly>
+              </div>
+
+              <div class="col-sm-4" *ngIf="selectedSubmission">
+                <label for="resonForChange" class="form-label">Reson For Change:</label>
+                <input type="text" class="form-input" name="resonForChange" formControlName="resonForChange" readonly ngModel="{{selectedSubmission.candidate.reasonForChange}}">
+              </div>
+
+              <div class="col-sm-4" *ngIf="selectedSubmission">
+                <label for="interview" class="form-label">Availability For Inteview:</label>
+                <input type="text" class="form-input" name="interview" formControlName="interview" readonly ngModel="{{selectedSubmission.candidate.availableTimeForInterview}}">
+              </div>
+
+              <div class="col-sm-4" *ngIf="selectedSubmission">
+                <label for="experience" class="form-label">Relevant Experience:</label>
+                <input type="text" class="form-input" name="experience" formControlName="experience" readonly ngModel="{{selectedSubmission.candidate.experience}}">
+              </div>
+
+              <div class="col-sm-4" *ngIf="selectedSubmission">
+                <label for="totalExperience" class="form-label">Total Experience:</label>
+                <input type="text" class="form-input" name="totalExperience" formControlName="totalExperience" readonly ngModel="{{selectedSubmission.candidate.totalExperience}}">
+              </div>
+
+              <div class="col-sm-4" *ngIf="selectedSubmission">
+                <label for="currentCompany" class="form-label">Current Company:</label>
+                <input type="text" class="form-input" name="currentCompany" formControlName="currentCompany" readonly ngModel="{{selectedSubmission.candidate.currentCompanyName}}">
+              </div>
+
+              <div class="col-sm-4" *ngIf="selectedSubmission">
+                <label for="epNumber" class="form-label">EP Number:</label>
+                <input type="text" class="form-input" name="epNumber" formControlName="epNumber" readonly ngModel="{{selectedSubmission.candidate.epNumber}}">
+              </div>
+
+              <div class="col-sm-4" *ngIf="selectedSubmission">
+                <label for="authorizedWorkInUs" class="form-label">Authorized work in US:</label>
+                <input type="text" class="form-input" name="authorizedWorkInUs" formControlName="authorizedWorkInUs" readonly ngModel="{{selectedSubmission.candidate.authorizedWorkInUS}}">
+              </div>
+
+              <div class="col-sm-4" *ngIf="selectedSubmission">
+                <div class="mb-3">
+                  <label class="form-label">Have you ever worked with Client:</label>
+                </div>
+                <mat-radio-group formControlName="editWorkedWithClient" disabled>
+                  <mat-radio-button value="true">Yes</mat-radio-button>
+                  <mat-radio-button value="false">No</mat-radio-button>
+                </mat-radio-group>
+              </div>
+
+              <div class="col-sm-4" *ngIf="isWorkedWithClient && selectedSubmission">
+                <label for="workedClient" class="form-label">If yes please mention Full Time or contract:</label>
+                <input type="text" class="form-input" name="workedClient" formControlName="workedClient" readonly ngModel="{{selectedSubmission.candidate.workedClient}}">
+              </div>
+
+              <div class="col-sm-4" *ngIf="selectedSubmission">
+                <label for="anotherInterviewOffer" class="form-label">Any interview or Offer in hand?</label>
+                <input type="text" class="form-input" name="anotherInterviewOffer" formControlName="anotherInterviewOffer" readonly ngModel="{{selectedSubmission.candidate.anyOffer}}">
+              </div>
+
+              <div class="col-sm-4" *ngIf="selectedSubmission">
+                <label for="vacationPlans" class="form-label">Vacation plans, if any:</label>
+                <input type="text" class="form-input" name="vacationPlans" formControlName="vacationPlans" readonly ngModel="{{selectedSubmission.candidate.vacationPlan}}">
+              </div>
+
+
+              <div class="col-sm-4" *ngIf="selectedSubmission">
+                <div class="mb-3">
+                  <label for="c2c" class="form-label">C2C:</label>
+                </div>
+                  <mat-radio-group disabled formControlName="c2c">
+                    <mat-radio-button value="Yes">Yes</mat-radio-button>
+                    <mat-radio-button value="No">No</mat-radio-button>
+                  </mat-radio-group>
+              </div>
+
+            </div>
+
+            <div class="row pt-3">
+              <div class="col-sm-12" *ngIf="isC2c">
+
+                <h2 class="form-title">Employer Details:</h2>
+
+                <div class="row">
+                  <div class="col-sm-4">
+                    <label for="employerName" class="form-label">Employer Name:</label>
+                    <input type="text" class="form-input" name="employerName" formControlName="employerName" ngModel="{{selectedSubmission.candidate.employeeName}}" readonly>
+                  </div>
+
+                  <div class="col-sm-4">
+                    <label for="employerContactName" class="form-label">Employer Contact Name:</label>
+                    <input type="text" class="form-input" name="employerContactName" formControlName="employerContactName" ngModel="{{selectedSubmission.candidate.employeeContactName}}" readonly>
+                  </div>
+
+                  <div class="col-sm-4">
+                    <label for="employerPhone" class="form-label">Employer Phone:</label>
+                    <input type="text" class="form-input" name="employerPhone" formControlName="employerPhone" ngModel="{{selectedSubmission.candidate.employeeContactPhone}}" readonly>
+                  </div>
+
+                  <div class="col-sm-4">
+                    <label for="employerEmail" class="form-label">Employer Email:</label>
+                    <input type="text" class="form-input" name="employerEmail" formControlName="employerEmail" ngModel="{{selectedSubmission.candidate.employeeContactEmail}}" readonly>
+                  </div>
+                </div>
+                </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12 mt-4" *ngIf="selectedSubmission">
+                <h2 class="form-title">Attachements:</h2>
+                <div class="pt-3" *ngFor="let media of selectedSubmission.candidate.mediaFiles">
+                  <i class="panel btn" (click)="openFiles(media);">{{media.fileName}}
+                  </i>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div *ngIf="addCandidate">
+
+          <div class="row">
+            <div class="col-sm-8">
+              <div class="mb-3">
+                <label for="candidateImmigirationStatus" class="form-label">Candidate Immigiration Status:</label>
+              </div>
+              <mat-radio-group (change)="getImmigiration($event)" formControlName="candidateImmigirationStatus">
+                <mat-radio-button value="GC">GC</mat-radio-button>
+                <mat-radio-button value="CITIZEN">CITIZEN</mat-radio-button>
+                <mat-radio-button value="H1B">H1B</mat-radio-button>
+                <mat-radio-button value="W2/1099">W2/1099</mat-radio-button>
+                <mat-radio-button value="OPT/CPT">OPT/CPT</mat-radio-button>
+                <mat-radio-button value="EAD">EAD</mat-radio-button>
+                <mat-radio-button value="H4AD">H4AD</mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label for="relocate" class="form-label">Willing To Relocate:</label>
+              </div>
+              <mat-radio-group formControlName="relocate" (change)="relocate($event);">
+                <mat-radio-button value="true" checked>Yes</mat-radio-button>
+                <mat-radio-button value="false">No</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-sm-4">
+              <label for="candidateName" class="form-label">Candidate Name:</label>
+              <input type="text" class="form-input" name="candidateName" formControlName="candidateName">
+            </div>
+
+            <div class="col-sm-4">
+              <label for="candidatePhone" class="form-label">Candidate Phone:</label>
+              <input type="text" class="form-input" name="candidatePhone" formControlName="candidatePhone">
+            </div>
+
+            <div class="col-sm-4">
+              <label for="candidateLocation" class="form-label">Candidate Location:</label>
+              <input type="text" class="form-input" name="candidateLocation" formControlName="candidateLocation">
+            </div>
+
+            <div class="col-sm-4">
+              <label for="availability" class="form-label">Availability:</label>
+              <input type="text" class="form-input" name="availability" formControlName="availability">
+            </div>
+
+            <div class="col-sm-4">
+              <label for="technology" class="form-label">Technology:</label>
+              <select name="technology" class="form-input" formControlName="technology" ngModel (change)="addTechnology($event.target.value);">
+                <option value="">Select</option>
+                <option value="other">Other</option>
+                <option *ngFor="let tech of technology" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
+              </select>
+            </div>
+
+            <div class="col-sm-4" *ngIf="isOtherTechnology">
+               <label for="otherTechnology" class="form-label">Add New Technology:</label>
+              <input type="text" class="form-input" name="otherTechnology" formControlName="otherTechnology" placeholder=" Enter the Technology">
+            </div>
+
+            <div class="col-sm-4">
+              <label for="skype" class="form-label">Skype:</label>
+              <input type="text" class="form-input" name="skype" formControlName="skype">
+            </div>
+
+            <div class="col-sm-4">
+              <label for="linkedIn" class="form-label">LinkedIn:</label>
+              <input type="text" class="form-input" name="linkedIn" formControlName="linkedIn">
+            </div>
+
+            <div class="col-sm-4">
+              <label for="resonForChange" class="form-label">Reson For Change:</label>
+              <input type="text" class="form-input" name="resonForChange" ngModel formControlName="resonForChange">
+            </div>
+
+            <div class="col-sm-4">
+              <label for="interview" class="form-label">Availability For Inteview:</label>
+              <input type="text" class="form-input" name="interview" ngModel formControlName="interview">
+            </div>
+
+            <div class="col-sm-4">
+              <label for="experience" class="form-label">Relevant Experience:</label>
+              <input type="text" class="form-input" name="experience" ngModel formControlName="experience">
+            </div>
+
+            <div class="col-sm-4">
+              <label for="totalExperience" class="form-label">Total Experience:</label>
+              <input type="text" class="form-input" name="totalExperience" ngModel formControlName="totalExperience">
+            </div>
+
+            <div class="col-sm-4">
+              <label for="currentCompany" class="form-label">Current Company:</label>
+              <input type="text" class="form-input" name="currentCompany" ngModel formControlName="currentCompany">
+            </div>
+
+            <div class="col-sm-4">
+              <label for="epNumber" class="form-label">EP Number:</label>
+              <input type="text" class="form-input" name="epNumber" ngModel formControlName="epNumber">
+            </div>
+
+            <div class="col-sm-4">
+              <label for="authorizedWorkInUs" class="form-label">Authorized work in US:</label>
+              <input type="text" class="form-input" name="authorizedWorkInUs" ngModel formControlName="authorizedWorkInUs">
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Have you ever worked with Client:</label>
+              </div>
+              <mat-radio-group (change)="getWorkedWithClient($event)">
+                <mat-radio-button value="true">Yes</mat-radio-button>
+                <mat-radio-button value="false" checked>No</mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+            <div class="col-sm-4" *ngIf="isWorkedWithClient">
+              <label for="workedClient" class="form-label">If yes please mention Full Time or contract:</label>
+              <input type="text" class="form-input" name="workedClient" ngModel formControlName="workedClient">
+            </div>
+
+            <div class="col-sm-4">
+              <label for="anotherInterviewOffer" class="form-label">Any interview or Offer in hand?</label>
+              <input type="text" class="form-input" name="anotherInterviewOffer" ngModel formControlName="anotherInterviewOffer">
+            </div>
+
+            <div class="col-sm-4">
+              <label for="vacationPlans" class="form-label">Vacation plans, if any:</label>
+              <input type="text" class="form-input" name="vacationPlans" ngModel formControlName="vacationPlans">
+            </div>
+
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label for="c2c" class="form-label">C2C:</label>
+              </div>
+              <mat-radio-group (change)="getC2c($event)" formControlName="c2c">
+                <mat-radio-button value="Yes">Yes</mat-radio-button>
+                <mat-radio-button value="No">No</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12" *ngIf="isEmployerDetails">
+              <h2 class="form-title">Employer Details:</h2>
+
+              <div class="row">
+                <div class="col-sm-4">
+                  <label for="employerName" class="form-label">Employer Name:</label>
+                  <input type="text" class="form-input" name="employerName" formControlName="employerName" ngModel>
+                </div>
+
+                <div class="col-sm-4">
+                  <label for="employerContactName" class="form-label">Employer Contact Name:</label>
+                  <input type="text" class="form-input" name="employerContactName" formControlName="employerContactName" ngModel>
+                </div>
+
+                <div class="col-sm-4">
+                  <label for="employerPhone" class="form-label">Employer Phone:</label>
+                  <input type="text" class="form-input" name="employerPhone" formControlName="employerPhone" ngModel>
+                </div>
+
+                <div class="col-sm-4">
+                  <label for="employerEmail" class="form-label">Employer Email:</label>
+                  <input type="text" class="form-input" name="employerEmail" formControlName="employerEmail" ngModel>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <h2 class="form-title">Attachments</h2>
+              <div class="row ml-2">
+                <div class="form-group">
+                  <div>
+                    <label class="fileContainer">
+                      <button class="btn btn-secondary">Attachments</button>
+                      <input type="file" (change)="candidateFileEvent($event)" multiple/>
+                    </label>
+                  </div>
+                  <div class="pb-2" *ngFor="let file of candidateGetFiles">
+                    <a class="panel">{{file.name}}
+                    </a>
+                    <a class="btn" (click)="candidateRemoveFile(file)">
+                      <i class="material-icons">
+                        clear
+                      </i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row pt-3">
+      <div class="col-sm-12">
+        <h2 class="form-title">Interview Details:</h2>
+        <div class="row">
+          <div class="col-sm-12" *ngIf="selectedSubmission">
+            <label for="interviewStatus" class="form-label">Interview Status:</label>
+            <input type="text" class="form-input" name="interviewStatus" formControlName="interviewStatus" ngModel="{{selectedSubmission.interviewStatus}}">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6" *ngIf="selectedSubmission">
+              <div class="mb-3">
+                <label for="level1Date" class="form-label">Level 1 Date:</label>
+              </div>
+              <mat-form-field>
+                <input matInput [matDatepicker]="dateOfLevel1" formControlName="level1Date" ngModel="{{selectedSubmission.dateOfLevel1}}">
+                <mat-datepicker-toggle matSuffix [for]="dateOfLevel1"></mat-datepicker-toggle>
+                <mat-datepicker #dateOfLevel1></mat-datepicker>
+              </mat-form-field>
+          </div>
+
+          <div class="col-sm-6" *ngIf="selectedSubmission">
+            <label for="statusForLevel1" class="form-label">Level 1 Status:</label>
+              <input type="text" class="form-input" name="statusForLevel1" formControlName="statusForLevel1" ngModel="{{selectedSubmission.statusForLevel1}}">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6" *ngIf="selectedSubmission">
+            <div class="mb-3">
+              <label for="level2Date" class="form-label">Level 2 Date:</label>
+            </div>
+            <mat-form-field>
+              <input matInput [matDatepicker]="dateOfLevel2" formControlName="level2Date" ngModel="{{selectedSubmission.dateOfLevel2}}">
+              <mat-datepicker-toggle matSuffix [for]="dateOfLevel2"></mat-datepicker-toggle>
+              <mat-datepicker #dateOfLevel2></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="col-sm-6" *ngIf="selectedSubmission">
+            <label for="statusForLevel2" class="form-label">Level 2 Status:</label>
+            <input type="text" class="form-input" name="statusForLevel2" formControlName="statusForLevel2" ngModel="{{selectedSubmission.statusForLevel2}}">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="form-btn-container">
+      <button class="btn btn-forms btn-space" type="submit">Update Submission</button>
+      <button type="button" *ngIf="userRole === 'ACC_MGR' && sendToClient && !isSubmitted " class="btn btn-forms btn-space" (click)="submissionToClient();">Send To Client</button>
+      <button [routerLink]="[ '/submissions']" class="btn btn-forms">Cancel</button>
+    </div>
+
+    </div>
+  </form>
+</div>

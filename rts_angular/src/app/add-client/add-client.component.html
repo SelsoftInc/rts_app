@@ -1,67 +1,71 @@
 <h2 class="main-title">
   <a [routerLink]="['/manage-client']">Manage Clients</a> / Add New Client</h2>
 <div class="utility-container">
-  <form [formGroup]="myForm" (ngSubmit)="addNewClient(myForm)">
- 
-    <div class="form-group row">
-      <label for="name" class="col-sm-2 col-form-label">Name:</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" name="name" formControlName="name" required>
-      </div>
-    </div>
+  <div class="container">
+    <form [formGroup]="myForm" (ngSubmit)="addNewClient(myForm)">
+      
+      <div class="row">
+        <div class="col-sm-4">
+          <label for="name" class="form-label">Name:</label>
+          <input type="text" class="form-input" name="name" formControlName="name" required>
+        </div>
 
-    <div class="form-group row">
-      <label for="email" class="col-sm-2 col-form-label">Email:</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" name="email" formControlName="email" required>
-      </div>
-    </div>
+        <div class="col-sm-4">
+          <label for="email" class="form-label">Email:</label>
+          <input type="text" class="form-input" name="email" formControlName="email" required>
+        </div>
 
-    <div class="form-group row">
-      <label for="phoneNumber" class="col-sm-2 col-form-label">Phone Number:</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" name="phoneNumber" formControlName="phoneNumber" required>
-      </div>
-    </div>
-
-    <div class="form-group row pt-3">
-      <label class="col-sm-2 col-form-label">Client Recruiters:</label>
-
-      <div class="unit-container" formArrayName="units">
-        <div class="units" *ngFor="let field of myForm.controls.units.controls; let i = index">
-          <div class="form-row" [formGroupName]='i'>
-            <div class="form-group col-3">
-              <label class="label" for="name">Recruiter Name:</label>
-              <input type="text" class="form-control" name="name" formControlName="name" required>
-            </div>
-
-            <div class="form-group col-5">
-              <label class="label" for="email">Recruiter Email:</label>
-              <input type="email" class="form-control" name="email" formControlName="email" required>
-            </div>
-
-            <div class="form-group col-3">
-              <label class="label" for="phoneNumber">Recruiter Number:</label>
-              <input type="email" class="form-control" name="phoneNumber" formControlName="phoneNumber" required>
-            </div>
-
-            <div class="form-group col-1 unit-btn-container">
-              <a class="btn btn-light delete-btn" (click)="removeUnits(i)">
-                <mat-icon>close</mat-icon>
-              </a>
-              <a class="btn btn-light add-btn" (click)="addUnits(i)">
-                <mat-icon>add</mat-icon>
-              </a>
-            </div>
-
-          </div>
+        <div class="col-sm-4">
+          <label for="phoneNumber" class="form-label">Phone Number:</label>
+          <input type="text" class="form-input" name="phoneNumber" formControlName="phoneNumber" required>
         </div>
       </div>
-    </div>
 
-    <div class="form-btn-container">
-      <button class="btn btn-default btn-space" type="submit" [disabled]="!myForm.valid">Add Client</button>
-      <a [routerLink]="[ '/manage-client']" class="btn btn-default">Cancel</a>
-    </div>
-  </form>
+      <div class="form-group row pt-3">
+        <div class="col-sm-12">
+          <h2 class="form-title">Add Client Recruiters</h2>
+
+          <div class="row">
+            <div class="col-3"><label class="form-label" for="name">Recruiter Name:</label></div>
+            <div class="col-3"><label class="form-label" for="email">Recruiter Email:</label></div>
+            <div class="col-3"><label class="form-label" for="phoneNumber">Recruiter Number:</label></div>
+            <div class="col-3"></div>
+          </div>
+
+          <div class="unit-container" formArrayName="units">
+            <div class="units" *ngFor="let field of myForm.controls.units.controls; let i = index">
+              <div class="form-row" [formGroupName]='i'>
+                <div class="form-group col-3">
+                  <input type="text" class="form-input" name="name" formControlName="name" required>
+                </div>
+
+                <div class="form-group col-3">
+                  <input type="email" class="form-input" name="email" formControlName="email" required>
+                </div>
+
+                <div class="form-group col-3">
+                  <input type="email" class="form-input" name="phoneNumber" formControlName="phoneNumber" required>
+                </div>
+
+                <div class="form-group col-3 unit-btn-container">
+                  <a class="btn btn-light delete-btn" (click)="removeUnits(i)">
+                    <mat-icon>close</mat-icon>
+                  </a>
+                  <a class="btn btn-light add-btn ml-2" (click)="addUnits(i)">
+                    <mat-icon>add</mat-icon>
+                  </a>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+  
+      <div class="form-btn-container">
+        <button class="btn btn-forms btn-space" type="submit" [disabled]="!myForm.valid">Add Client</button>
+        <a [routerLink]="[ '/manage-client']" class="btn btn-forms">Cancel</a>
+      </div>
+    </form>
+  </div>
 </div>

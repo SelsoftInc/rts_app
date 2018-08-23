@@ -21,110 +21,39 @@
       </div>
     </div> -->
   </div>
-  <div *ngIf="userRole ==='ADMIN'">
-    <table class="table table-hover table-bordered">
-      <thead class="table-header">
-        <tr>
-          <th>Candidate Name</th>
-          <th>Position Name</th>
-          <th>Client Name</th>
-          <th>Submission Date</th>
-          <th>Recruiter Name</th>
-          <th>Interview Status</th>
-          <th>L1</th>
-          <th>L2</th>
-          <th>Client Contact Name</th>
-          <th>No.of Days Pending</th>
-          <th>Current Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let submission of approvedsubmissions" [routerLink]="['/edit-submissions', submission.submissionId]">
-          <td>{{submission.candidateName}}</td>
-          <td>{{submission.positionName}}</td>
-          <td>{{submission.clientName}}</td>
-          <td>{{submission.submissionDate | date: 'MMM d, y'}}</td>
-          <td>{{submission.recruiterName}}</td>
-          <td>{{submission.interviewStatus}}</td>
-          <td>{{submission.dateOfL1 | date: 'MMM d, y'}}</td>
-          <td>{{submission.dateOfL2 | date: 'MMM d, y'}}</td>
-          <td>{{submission.clientContactName}}</td>
-          <td>{{submission.age}}</td>
-          <td>{{submission.currentStatus}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <table class="table table-hover table-bordered">
+    <thead class="table-header">
+      <tr>
+        <th>Candidate Name</th>
+        <th>Position Name</th>
+        <th>Client Name</th>
+        <th>Submission Date</th>
+        <th>Recruiter Name</th>
+        <th>Interview Status</th>
+        <th>L1</th>
+        <th>L2</th>
+        <th>Client Contact Name</th>
+        <th>No.of Days Pending</th>
+        <th>Current Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let submission of approvedsubmissions" [routerLink]="['/edit-submission', submission.submissionId]">
+        <td>{{submission.candidateName}}</td>
+        <td>{{submission.positionName}}</td>
+        <td>{{submission.clientName}}</td>
+        <td>{{submission.submissionDate | date: 'MMM d, y'}}</td>
+        <td>{{submission.recruiterName}}</td>
+        <td>{{submission.interviewStatus}}</td>
+        <td>{{submission.dateOfL1 | date: 'MMM d, y'}}</td>
+        <td>{{submission.dateOfL2 | date: 'MMM d, y'}}</td>
+        <td>{{submission.clientContactName}}</td>
+        <td>{{submission.age}}</td>
+        <td>{{submission.currentStatus}}</td>
+      </tr>
+    </tbody>
+  </table>
 
-  <div *ngIf="userRole ==='ACC_MGR'">
-    <table class="table table-hover table-bordered">
-      <thead class="table-header">
-        <tr>
-          <th>Candidate Name</th>
-          <th>Position Name</th>
-          <th>Client Name</th>
-          <th>Submission Date</th>
-          <th>Recruiter Name</th>
-          <th>Interview Status</th>
-          <th>L1</th>
-          <th>L2</th>
-          <th>Client Contact Name</th>
-          <th>No.of Days Pending</th>
-          <th>Current Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let submission of approvedsubmissions" [routerLink]="['/acc_mgr-edit-submissions', submission.submissionId]">
-          <td>{{submission.candidateName}}</td>
-          <td>{{submission.positionName}}</td>
-          <td>{{submission.clientName}}</td>
-          <td>{{submission.submissionDate | date: 'MMM d, y'}}</td>
-          <td>{{submission.recruiterName}}</td>
-          <td>{{submission.interviewStatus}}</td>
-          <td>{{submission.dateOfL1 | date: 'MMM d, y'}}</td>
-          <td>{{submission.dateOfL2 | date: 'MMM d, y'}}</td>
-          <td>{{submission.clientContactName}}</td>
-          <td>{{submission.age}}</td>
-          <td>{{submission.currentStatus}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div *ngIf="userRole ==='TL'">
-    <table class="table table-hover table-bordered">
-      <thead class="table-header">
-        <tr>
-          <th>Candidate Name</th>
-          <th>Position Name</th>
-          <th>Client Name</th>
-          <th>Submission Date</th>
-          <th>Recruiter Name</th>
-          <th>Interview Status</th>
-          <th>L1</th>
-          <th>L2</th>
-          <th>Client Contact Name</th>
-          <th>No.of Days Pending</th>
-          <th>Current Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let submission of approvedsubmissions" [routerLink]="['/leadUser-edit-submissions', submission.submissionId]">
-          <td>{{submission.candidateName}}</td>
-          <td>{{submission.positionName}}</td>
-          <td>{{submission.clientName}}</td>
-          <td>{{submission.submissionDate | date: 'MMM d, y'}}</td>
-          <td>{{submission.recruiterName}}</td>
-          <td>{{submission.interviewStatus}}</td>
-          <td>{{submission.dateOfL1 | date: 'MMM d, y'}}</td>
-          <td>{{submission.dateOfL2 | date: 'MMM d, y'}}</td>
-          <td>{{submission.clientContactName}}</td>
-          <td>{{submission.age}}</td>
-          <td>{{submission.currentStatus}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
 
   <button class="btn btn-default" *ngIf="approvedsubmissionsLength > 0" (click)="generateReport();">Download Report</button>
 

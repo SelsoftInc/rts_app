@@ -32,6 +32,7 @@ import { EditRequirementForAccMgrComponent } from './edit-requirement-for-acc-mg
 import { AccMgrEditSubmissionsComponent } from './acc-mgr-edit-submissions/acc-mgr-edit-submissions.component';
 import { LeadUserEditSubmissionsComponent } from './lead-user-edit-submissions/lead-user-edit-submissions.component';
 import { EditTeamComponent } from './edit-team/edit-team.component';
+import { EditSubmissonComponent } from './edit-submisson/edit-submisson.component';
 
 
 
@@ -70,6 +71,7 @@ const appRoutes: Routes = [
   { path: 'edit-team/:id', component: EditTeamComponent },
   { path: 'leadUser-edit-requirement/:id', component: EditRequirementForLeadUserComponent },
   { path: 'acc_mgr-edit-requirement/:id', component: EditRequirementForAccMgrComponent },
+  { path: 'edit-submission/:id', component: EditSubmissonComponent },
 ];
 
 

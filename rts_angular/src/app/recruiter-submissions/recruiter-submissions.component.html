@@ -10,10 +10,18 @@
 
   <div class="table-wrapper" *ngIf="submissionsLength > 0 ; else noSummissions">
     <div class="block-wrapper" *ngFor="let sub of submissionDetails">
-      <h2 class="title">{{sub.position.positionName}} ({{sub.client.name}})
-        <!-- <i class="allocation-name" *ngIf="sub.allocationUser"> Allocated to:{{sub.allocationUser.firstName}} {{sub.allocationUser.lastName}}</i> -->
-      </h2>
-      <table class="table table-hover">
+
+        <div class="meta-info-wrapper">
+            <span class="block-header-label">Position Name: </span><span class="meta-info-content">{{sub.position.positionName}},</span>
+            <span class="block-header-label">Client Name: </span><span class="meta-info-content">{{sub.client.name}},</span>
+            <span *ngIf="sub.allocationUser">
+              <span class="block-header-label">Allocated to: </span><span class="meta-info-content">{{sub.allocationUser.firstName}} {{sub.allocationUser.lastName}}
+              <!-- <span class="meta-info-content" *ngIf="sub.allocationUserId === ''">(Team: {{sub.team.name}})</span> -->
+            </span>
+          </span>
+          </div>
+    
+      <table class="table table-bordered table-sm table-hover">
         <thead class="table-header">
           <tr>
             <th>Created Date:</th>
