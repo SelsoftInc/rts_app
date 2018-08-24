@@ -22,7 +22,7 @@
           <label for="toDate" class="form-label">To Date:</label>
         </div>
         <mat-form-field>
-          <input matInput [matDatepicker]="toDate" formControlName="toDate" ([ngModel])="toDate">
+          <input matInput [matDatepicker]="toDate" formControlName="toDate" [ngModel]="currentDate">
           <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
           <mat-datepicker #toDate></mat-datepicker>
         </mat-form-field>

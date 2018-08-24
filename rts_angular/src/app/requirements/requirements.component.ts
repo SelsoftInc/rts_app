@@ -55,7 +55,7 @@ export class RequirementsComponent implements OnInit {
     this.userRole = this.rtsUser.role;
     this.fromDate = '';
     this.toDate = '';
-    this.currentDate = new Date();
+    this.currentDate = new Date(Date.now());
     this.submittedRequirements = [];
     this.teamUsers = [];
     this.requirementStatus = [
@@ -127,10 +127,13 @@ export class RequirementsComponent implements OnInit {
     this.fromDate = moment(this.myForm.controls.fromDate.value).format('YYYY-MM-DD');
     this.toDate = moment(this.myForm.controls.toDate.value).format('YYYY-MM-DD');
 
-    if (this.fromDate === 'Invalid date' || this.toDate === 'Invalid date') {
+    if (this.fromDate === 'Invalid date') {
       this.fromDate = '';
+    }
+    if (this.toDate === 'Invalid date') {
       this.toDate = '';
     }
+
     const userId = {
       status: event,
       fromDate: this.fromDate,
@@ -151,8 +154,10 @@ export class RequirementsComponent implements OnInit {
     this.fromDate = moment(this.myForm.controls.fromDate.value).format('YYYY-MM-DD');
     this.toDate = moment(this.myForm.controls.toDate.value).format('YYYY-MM-DD');
 
-    if (this.fromDate === 'Invalid date' || this.toDate === 'Invalid date') {
+    if (this.fromDate === 'Invalid date') {
       this.fromDate = '';
+    }
+    if (this.toDate === 'Invalid date') {
       this.toDate = '';
     }
 
@@ -176,11 +181,12 @@ export class RequirementsComponent implements OnInit {
     this.fromDate = moment(this.myForm.controls.fromDate.value).format('YYYY-MM-DD');
     this.toDate = moment(this.myForm.controls.toDate.value).format('YYYY-MM-DD');
 
-    if (this.fromDate === 'Invalid date' || this.toDate === 'Invalid date') {
+    if (this.fromDate === 'Invalid date') {
       this.fromDate = '';
+    }
+    if (this.toDate === 'Invalid date') {
       this.toDate = '';
     }
-
     const userId = {
       clientId: event,
       fromDate: this.fromDate,
@@ -201,8 +207,10 @@ export class RequirementsComponent implements OnInit {
     this.fromDate = moment(this.myForm.controls.fromDate.value).format('YYYY-MM-DD');
     this.toDate = moment(this.myForm.controls.toDate.value).format('YYYY-MM-DD');
 
-    if (this.fromDate === 'Invalid date' || this.toDate === 'Invalid date') {
+    if (this.fromDate === 'Invalid date') {
       this.fromDate = '';
+    }
+    if (this.toDate === 'Invalid date') {
       this.toDate = '';
     }
 
