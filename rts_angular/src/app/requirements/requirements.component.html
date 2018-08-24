@@ -3,6 +3,73 @@
 </div>
 <h2 class="main-title">Requirements</h2>
 <div class="utility-container">
+
+  <form [formGroup]="myForm">
+    <div class="row">
+      <div class="col-sm-2">
+        <div class="mb-3">
+          <label for="fromDate" class="form-label">From Date:</label>
+        </div>
+        <mat-form-field>
+          <input matInput [matDatepicker]="fromDate" formControlName="fromDate" ([ngModel])="fromDate">
+          <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+          <mat-datepicker #fromDate></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-2">
+        <div class="mb-3">
+          <label for="toDate" class="form-label">To Date:</label>
+        </div>
+        <mat-form-field>
+          <input matInput [matDatepicker]="toDate" formControlName="toDate" ([ngModel])="toDate">
+          <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+          <mat-datepicker #toDate></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-sm-2">
+        <select class="custom-select" (change)="filterBy($event.target.value)">
+          <option value="" selected>Filter By</option>
+          <option value="status">Status</option>
+          <option value="team">Team</option>
+          <option value="client">Client</option>
+          <option value="recruiter">Recruiter</option>
+        </select>
+      </div>
+
+      <div *ngIf="isStatus" class="col-sm-2">
+        <select class="custom-select" (change)="selectStatus($event.target.value)">
+          <option value="" selected>Select</option>
+          <option *ngFor="let status of requirementStatus" value="{{status.value}}">{{status.name}}</option>
+        </select>
+      </div>
+
+      <div *ngIf="isTeam" class="col-sm-2">
+        <select class="custom-select" (change)="selectTeam($event.target.value)">
+          <option value="" selected>Select</option>
+          <option *ngFor="let team of teams" value="{{team.teamId}}">{{team.name}}</option>
+        </select>
+      </div>
+
+      <div *ngIf="isClient" class="col-sm-2">
+        <select class="custom-select" (change)="selectClient($event.target.value)">
+          <option value="" selected>Select</option>
+          <option *ngFor="let client of clients" value="{{client.clientId}}">{{client.name}}</option>
+        </select>
+      </div>
+
+      <div *ngIf="isRecruiter" class="col-sm-2">
+        <select class="custom-select" (change)="selectRecruiter($event.target.value)">
+          <option value="" selected>Select</option>
+          <option *ngFor="let user of teamUsers" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
+        </select>
+      </div>
+
+    </div>
+
+  </form>
+
   <div *ngIf="userRole ==='ADMIN'">
     <div class="search-container">
       <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString " [(ngModel)]="searchString">
@@ -68,8 +135,8 @@
           <th>Age</th>
         </tr>
       </thead>
-      <tbody *ngIf="requirementsLengthForTeam > 0 ; else noRequirements">
-        <tr *ngFor="let require of requirementsForTeam | filter:searchString" [routerLink]="['/acc_mgr-edit-requirement',require.requirementId]">
+      <tbody *ngIf="requirementsLength > 0 ; else noRequirements">
+        <tr *ngFor="let require of requirements | filter:searchString" [routerLink]="['/acc_mgr-edit-requirement',require.requirementId]">
           <td>{{require.position.positionName}}</td>
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>
@@ -113,8 +180,8 @@
           <th>Age</th>
         </tr>
       </thead>
-      <tbody *ngIf="requirementsLengthForTeam > 0 ; else noRequirements">
-        <tr *ngFor="let require of requirementsForTeam | filter:searchString" [routerLink]="['/leadUser-edit-requirement',require.requirementId]">
+      <tbody *ngIf="requirementsLength > 0 ; else noRequirements">
+        <tr *ngFor="let require of requirements | filter:searchString" [routerLink]="['/leadUser-edit-requirement',require.requirementId]">
           <td>{{require.position.positionName}}</td>
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>
@@ -159,8 +226,8 @@
           <th>Age</th>
         </tr>
       </thead>
-      <tbody *ngIf="requirementsLengthForUser > 0 ; else noRequirements">
-        <tr *ngFor="let require of requirementsForUser | filter:searchString" [routerLink]="['/requirement-detail',require.requirementId]">
+      <tbody *ngIf="requirementsLength > 0 ; else noRequirements">
+        <tr *ngFor="let require of requirements | filter:searchString" [routerLink]="['/requirement-detail',require.requirementId]">
           <td>{{require.position.positionName}}</td>
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>

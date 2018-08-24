@@ -244,7 +244,6 @@ export class EditSubmissonComponent implements OnInit {
         data => {
           if (data.success) {
             this.selectedSubmission.candidate = data.candidate;
-            console.log(this.selectedSubmission.candidate);
             if (this.selectedSubmission.candidate.c2C) {
               this.myForm.controls.c2c.setValue('Yes');
               this.isC2c = true;

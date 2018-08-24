@@ -36,6 +36,86 @@ export class RequirementsService {
             });
     }
 
+    requirementsDetailsForStatus(userId) {
+        const token = localStorage.getItem('id_token');
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', token);
+
+        return this.http.post(ApiUrl.BaseUrl + ApiUrl.GetRequirementForStatus, userId,
+            { headers: headers })
+            .map(res => {
+                const responseToken = res.headers.get('refresh-token');
+                localStorage.setItem('id_token', responseToken);
+                return res.json();
+            }).catch(err => {
+                if (err.status === 401) {
+                    this.loginService.logout();
+                }
+                return '{}';
+            });
+    }
+
+    requirementsDetailsForTeam(userId) {
+        const token = localStorage.getItem('id_token');
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', token);
+
+        return this.http.post(ApiUrl.BaseUrl + ApiUrl.GetRequirementForTeam, userId,
+            { headers: headers })
+            .map(res => {
+                const responseToken = res.headers.get('refresh-token');
+                localStorage.setItem('id_token', responseToken);
+                return res.json();
+            }).catch(err => {
+                if (err.status === 401) {
+                    this.loginService.logout();
+                }
+                return '{}';
+            });
+    }
+
+    requirementsDetailsForClient(userId) {
+        const token = localStorage.getItem('id_token');
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', token);
+
+        return this.http.post(ApiUrl.BaseUrl + ApiUrl.GetRequirementForClient, userId,
+            { headers: headers })
+            .map(res => {
+                const responseToken = res.headers.get('refresh-token');
+                localStorage.setItem('id_token', responseToken);
+                return res.json();
+            }).catch(err => {
+                if (err.status === 401) {
+                    this.loginService.logout();
+                }
+                return '{}';
+            });
+    }
+
+    requirementsDetailsForRecruiter(userId) {
+        const token = localStorage.getItem('id_token');
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', token);
+
+        return this.http.post(ApiUrl.BaseUrl + ApiUrl.GetRequirementForRecruiter, userId,
+            { headers: headers })
+            .map(res => {
+                const responseToken = res.headers.get('refresh-token');
+                localStorage.setItem('id_token', responseToken);
+                return res.json();
+            }).catch(err => {
+                if (err.status === 401) {
+                    this.loginService.logout();
+                }
+                return '{}';
+            });
+    }
+
     commonDetails(companyId) {
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
