@@ -172,13 +172,38 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
                 this.allRequirements.push(require);
               }
             }
-            for (const sub of this.allRequirements) {
-              const submission = _.findWhere(sub.submissions, { submissionId: this.submissionId });
-              if (submission !== undefined) {
-                this.selectedSubmission = submission;
-              }
+            this.editSubmission();
+          }
+        });
+  }
+
+  editSubmission() {
+    // for (const require of this.requirementsDetails) {
+    //   if (require.status !== 'Draft') {
+    //     this.allRequirements.push(require);
+    //   }
+    // }
+    // for (const sub of this.allRequirements) {
+    //   const submission = _.findWhere(sub.submissions, { submissionId: this.submissionId });
+    //   if (submission !== undefined) {
+    //     this.selectedSubmission = submission;
+    //   }
+    // }
+    // this.selectedRequirement = _.findWhere(this.allRequirements, { requirementId: this.selectedSubmission.requirementId });
+
+    const submit = {
+      submissionId: this.submissionId,
+    };
+
+    this.submissionService.getRequirementBySubmission(submit)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.selectedRequirement = data.requirement;
+            const submission = _.findWhere(this.selectedRequirement.submissions, { submissionId: this.submissionId });
+            if (submission !== undefined) {
+              this.selectedSubmission = submission;
             }
-            this.selectedRequirement = _.findWhere(this.allRequirements, { requirementId: this.selectedSubmission.requirementId });
             if (this.selectedSubmission.enteredBy === this.rtsUserId) {
               this.isUpdate = true;
             } else {

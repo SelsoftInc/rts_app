@@ -34,13 +34,7 @@
               <input type="text" class="form-input" name="clientContactname" formControlName="clientContactname" ngModel="{{clientRecruiterName}}"
                 readonly>
             </div>
-
-            <!-- <div class="col-sm-4" *ngIf="selectedSubmission">
-          <label for="clientContactEmail" class="form-label">Client Contact Email:</label>
-                      <input type="text" class="form-input" name="clientContactEmail" formControlName="clientContactEmail"ngModel="{{clientRecruiterEmail}}"
-              readonly>
-                </div> -->
-
+         
             <div class="col-sm-4" *ngIf="selectedRequirement">
               <label for="accountName" class="form-label">Account Name:</label>
               <input type="text" class="form-input" name="accountName" formControlName="accountName" ngModel="{{selectedRequirement.account.accountName}}"
