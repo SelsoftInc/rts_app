@@ -40,6 +40,8 @@ export class RequirementsComponent implements OnInit {
   private isRecruiter: boolean;
   private userDetails: any;
   private teamUsers: any;
+  private selectedRequirements: any;
+  private startDate: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -53,10 +55,9 @@ export class RequirementsComponent implements OnInit {
     this.rtsCompanyId = this.rtsUser.companyId;
     this.rtsUserId = this.rtsUser.userId;
     this.userRole = this.rtsUser.role;
-    this.fromDate = '';
-    this.toDate = '';
     this.currentDate = new Date(Date.now());
     this.submittedRequirements = [];
+    this.selectedRequirements = [];
     this.teamUsers = [];
     this.requirementStatus = [
       { 'name': 'Open', 'value': 'Open' },
@@ -73,6 +74,10 @@ export class RequirementsComponent implements OnInit {
       fromDate: [''],
       toDate: ['']
     });
+
+    const currentDateMoment: moment.Moment = moment(this.currentDate);
+    this.startDate = currentDateMoment.subtract(3, 'days').format('YYYY-MM-DD');
+
     this.getCommonDetails();
     if (this.userRole === 'ADMIN') {
       this.getAllRequirements();
@@ -122,111 +127,62 @@ export class RequirementsComponent implements OnInit {
 
   }
 
+  filterByDate(form: FormGroup) {
+
+    if (form.value.fromDate !== 'Invalid date' && form.value.fromDate !== '') {
+      this.startDate = moment(form.value.fromDate).format('YYYY-MM-DD');
+    } else {
+      this.startDate = '';
+    }
+
+    if (this.userRole === 'ADMIN') {
+      this.getAllRequirements();
+    } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
+      this.getAllRequirementsForTeam();
+    } else if (this.userRole === 'RECRUITER') {
+      this.getAllRequirementsForUser();
+    }
+
+  }
+
   selectStatus(event) {
-
-    this.fromDate = moment(this.myForm.controls.fromDate.value).format('YYYY-MM-DD');
-    this.toDate = moment(this.myForm.controls.toDate.value).format('YYYY-MM-DD');
-
-    if (this.fromDate === 'Invalid date') {
-      this.fromDate = '';
+    if (event === 'selectAll') {
+      this.selectedRequirements = this.requirements;
+    } else {
+      this.selectedRequirements = [];
+      this.selectedRequirements = _.where(this.requirements, { status: event });
+      this.selectedRequirementsDetails(this.selectedRequirements);
     }
-    if (this.toDate === 'Invalid date') {
-      this.toDate = '';
-    }
-
-    const userId = {
-      status: event,
-      fromDate: this.fromDate,
-      toDate: this.toDate
-    };
-
-    this.requirementService.requirementsDetailsForStatus(userId)
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.requirementsDetails(data);
-          }
-        });
   }
 
   selectTeam(event) {
-
-    this.fromDate = moment(this.myForm.controls.fromDate.value).format('YYYY-MM-DD');
-    this.toDate = moment(this.myForm.controls.toDate.value).format('YYYY-MM-DD');
-
-    if (this.fromDate === 'Invalid date') {
-      this.fromDate = '';
+    if (event === 'selectAll') {
+      this.selectedRequirements = this.requirements;
+    } else {
+      this.selectedRequirements = [];
+      this.selectedRequirements = _.where(this.requirements, { teamId: event });
+      this.selectedRequirementsDetails(this.selectedRequirements);
     }
-    if (this.toDate === 'Invalid date') {
-      this.toDate = '';
-    }
-
-    const userId = {
-      teamId: event,
-      fromDate: this.fromDate,
-      toDate: this.toDate
-    };
-
-    this.requirementService.requirementsDetailsForTeam(userId)
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.requirementsDetails(data);
-          }
-        });
   }
 
   selectClient(event) {
-
-    this.fromDate = moment(this.myForm.controls.fromDate.value).format('YYYY-MM-DD');
-    this.toDate = moment(this.myForm.controls.toDate.value).format('YYYY-MM-DD');
-
-    if (this.fromDate === 'Invalid date') {
-      this.fromDate = '';
+    if (event === 'selectAll') {
+      this.selectedRequirements = this.requirements;
+    } else {
+      this.selectedRequirements = [];
+      this.selectedRequirements = _.where(this.requirements, { clientId: event });
+      this.selectedRequirementsDetails(this.selectedRequirements);
     }
-    if (this.toDate === 'Invalid date') {
-      this.toDate = '';
-    }
-    const userId = {
-      clientId: event,
-      fromDate: this.fromDate,
-      toDate: this.toDate
-    };
-
-    this.requirementService.requirementsDetailsForClient(userId)
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.requirementsDetails(data);
-          }
-        });
   }
 
   selectRecruiter(event) {
-
-    this.fromDate = moment(this.myForm.controls.fromDate.value).format('YYYY-MM-DD');
-    this.toDate = moment(this.myForm.controls.toDate.value).format('YYYY-MM-DD');
-
-    if (this.fromDate === 'Invalid date') {
-      this.fromDate = '';
+    if (event === 'selectAll') {
+      this.selectedRequirements = this.requirements;
+    } else {
+      this.selectedRequirements = [];
+      this.selectedRequirements = _.where(this.requirements, { allocationUserId: event });
+      this.selectedRequirementsDetails(this.selectedRequirements);
     }
-    if (this.toDate === 'Invalid date') {
-      this.toDate = '';
-    }
-
-    const userId = {
-      userId: event,
-      fromDate: this.fromDate,
-      toDate: this.toDate
-    };
-
-    this.requirementService.requirementsDetailsForRecruiter(userId)
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.requirementsDetails(data);
-          }
-        });
   }
 
   getCommonDetails() {
@@ -247,8 +203,12 @@ export class RequirementsComponent implements OnInit {
 
   getAllRequirements() {
 
+    this.toDate = moment(this.currentDate).format('YYYY-MM-DD');
+
     const userId = {
-      companyId: this.rtsCompanyId
+      companyId: this.rtsCompanyId,
+      fromDate: this.startDate,
+      toDate: this.toDate
     };
 
     this.requirementService.requirementsDetails(userId)
@@ -262,8 +222,12 @@ export class RequirementsComponent implements OnInit {
 
   getAllRequirementsForUser() {
 
+    this.toDate = moment(this.currentDate).format('YYYY-MM-DD');
+
     const userId = {
-      userId: this.rtsUserId
+      userId: this.rtsUserId,
+      fromDate: this.startDate,
+      toDate: this.toDate
     };
 
     this.requirementService.requirementsDetailsForUser(userId)
@@ -277,8 +241,12 @@ export class RequirementsComponent implements OnInit {
 
   getAllRequirementsForTeam() {
 
+    this.toDate = moment(this.currentDate).format('YYYY-MM-DD');
+
     const userId = {
-      userId: this.rtsUserId
+      userId: this.rtsUserId,
+      fromDate: this.startDate,
+      toDate: this.toDate
     };
 
     this.requirementService.requirementsDetailsByTeam(userId)
@@ -292,8 +260,31 @@ export class RequirementsComponent implements OnInit {
 
   requirementsDetails(data) {
     this.requirements = data.requirements;
+    this.selectedRequirements = this.requirements;
     this.requirementsLength = this.requirements.length;
     for (const require of this.requirements) {
+      const diff = Math.floor(this.currentDate.getTime() - require.createdOn);
+      const day = 1000 * 60 * 60 * 24;
+      const days = Math.floor(diff / day);
+      const weeks = Math.floor(days / 7);
+      const months = Math.floor(days / 31);
+      const years = Math.floor(months / 12);
+      if (days < 7) {
+        require.age = days + ' days ago';
+      } else if (weeks < 4) {
+        require.age = weeks + ' weeks ago';
+      } else if (months < 12) {
+        require.age = months + ' months ago';
+      } else {
+        require.age = years + ' years ago';
+      }
+    }
+  }
+
+  selectedRequirementsDetails(data) {
+    this.selectedRequirements = data;
+    this.requirementsLength = this.selectedRequirements.length;
+    for (const require of this.selectedRequirements) {
       const diff = Math.floor(this.currentDate.getTime() - require.createdOn);
       const day = 1000 * 60 * 60 * 24;
       const days = Math.floor(diff / day);

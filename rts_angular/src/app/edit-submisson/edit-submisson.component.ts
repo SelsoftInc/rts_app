@@ -479,7 +479,7 @@ export class EditSubmissonComponent implements OnInit {
     } else {
       this.level1Date = '';
     }
-    if (form.value.level1Date !== 'Invalid date' && form.value.level1Date !== '') {
+    if (form.value.level2Date !== 'Invalid date' && form.value.level2Date !== '') {
       this.level2Date = moment(form.value.level2Date).format('YYYY-MM-DD');
     } else {
       this.level2Date = '';
