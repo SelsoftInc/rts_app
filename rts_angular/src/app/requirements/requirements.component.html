@@ -5,78 +5,86 @@
 <div class="utility-container">
 
   <form [formGroup]="myForm">
-    <div class="row">
-      <div class="col-sm-2">
-        <div class="mb-3">
-          <label for="fromDate" class="form-label">From Date:</label>
+    <div class="filter-container">
+      <div class="row">
+        <div class="col-3 divider-right">
+          <div class="row mt-2">
+            <div class="col-4">
+              <mat-form-field>
+                <input matInput [matDatepicker]="fromDate" formControlName="fromDate" ([ngModel])="fromDate" placeholder="From Date">
+                <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+                <mat-datepicker #fromDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="col-4">
+              <mat-form-field>
+                <input matInput [matDatepicker]="toDate" formControlName="toDate" [ngModel]="currentDate" placeholder="To Date">
+                <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+                <mat-datepicker #toDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="col-4 mt-3">
+              <a (click)="eventName" class="btn btn-sm btn-primary">Show Results</a>
+            </div>
+          </div>
         </div>
-        <mat-form-field>
-          <input matInput [matDatepicker]="fromDate" formControlName="fromDate" ([ngModel])="fromDate">
-          <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
-          <mat-datepicker #fromDate></mat-datepicker>
-        </mat-form-field>
-      </div>
+        <div class="col-md-auto divider-right">
+          <div class="row mt-3">
+            <div class="col-6">
+              <select class="form-control width-200" (change)="filterBy($event.target.value)">
+                <option value="" selected>Filter By</option>
+                <option value="status">Status</option>
+                <option value="team">Team</option>
+                <option value="client">Client</option>
+                <option value="recruiter">Recruiter</option>
+              </select>
+            </div>
 
-      <div class="col-sm-2">
-        <div class="mb-3">
-          <label for="toDate" class="form-label">To Date:</label>
+            <div *ngIf="isStatus" class="col-6 width-200">
+              <select class="form-control" (change)="selectStatus($event.target.value)">
+                <option value="" selected>Select</option>
+                <option *ngFor="let status of requirementStatus" value="{{status.value}}">{{status.name}}</option>
+              </select>
+            </div>
+
+            <div *ngIf="isTeam" class="col-6 width-200">
+              <select class="form-control" (change)="selectTeam($event.target.value)">
+                <option value="" selected>Select</option>
+                <option *ngFor="let team of teams" value="{{team.teamId}}">{{team.name}}</option>
+              </select>
+            </div>
+
+            <div *ngIf="isClient" class="col-6 width-200">
+              <select class="form-control" (change)="selectClient($event.target.value)">
+                <option value="" selected>Select</option>
+                <option *ngFor="let client of clients" value="{{client.clientId}}">{{client.name}}</option>
+              </select>
+            </div>
+
+            <div *ngIf="isRecruiter" class="col-6 width-200">
+              <select class="form-control" (change)="selectRecruiter($event.target.value)">
+                <option value="" selected>Select</option>
+                <option *ngFor="let user of teamUsers" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
+              </select>
+            </div>
+          </div>
         </div>
-        <mat-form-field>
-          <input matInput [matDatepicker]="toDate" formControlName="toDate" [ngModel]="currentDate">
-          <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
-          <mat-datepicker #toDate></mat-datepicker>
-        </mat-form-field>
+        <div class="col-4 mt-3">
+          <div class="search-container">
+            <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString " [(ngModel)]="searchString">
+            <span class="search-icon">
+            <i class="material-icons">search</i>
+            </span>
+          </div>
+        </div>
       </div>
-
-      <div class="col-sm-2">
-        <select class="custom-select" (change)="filterBy($event.target.value)">
-          <option value="" selected>Filter By</option>
-          <option value="status">Status</option>
-          <option value="team">Team</option>
-          <option value="client">Client</option>
-          <option value="recruiter">Recruiter</option>
-        </select>
-      </div>
-
-      <div *ngIf="isStatus" class="col-sm-2">
-        <select class="custom-select" (change)="selectStatus($event.target.value)">
-          <option value="" selected>Select</option>
-          <option *ngFor="let status of requirementStatus" value="{{status.value}}">{{status.name}}</option>
-        </select>
-      </div>
-
-      <div *ngIf="isTeam" class="col-sm-2">
-        <select class="custom-select" (change)="selectTeam($event.target.value)">
-          <option value="" selected>Select</option>
-          <option *ngFor="let team of teams" value="{{team.teamId}}">{{team.name}}</option>
-        </select>
-      </div>
-
-      <div *ngIf="isClient" class="col-sm-2">
-        <select class="custom-select" (change)="selectClient($event.target.value)">
-          <option value="" selected>Select</option>
-          <option *ngFor="let client of clients" value="{{client.clientId}}">{{client.name}}</option>
-        </select>
-      </div>
-
-      <div *ngIf="isRecruiter" class="col-sm-2">
-        <select class="custom-select" (change)="selectRecruiter($event.target.value)">
-          <option value="" selected>Select</option>
-          <option *ngFor="let user of teamUsers" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
-        </select>
-      </div>
-
     </div>
-
   </form>
 
-  <div *ngIf="userRole ==='ADMIN'">
-    <div class="search-container">
-      <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString " [(ngModel)]="searchString">
-      <span class="search-icon">
-        <i class="material-icons">search</i>
-      </span>
-    </div>
+  <div *ngIf="userRole ==='ADMIN'" class="mt-5 pt-5">
+
     <table class="table table-hover">
       <thead class="table-header">
         <tr>
@@ -115,13 +123,13 @@
     </table>
   </div>
 
-  <div *ngIf="userRole ==='ACC_MGR'">
-    <div class="search-container">
-      <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString " [(ngModel)]="searchString">
-      <span class="search-icon">
-        <i class="material-icons">search</i>
-      </span>
-    </div>
+  <div *ngIf="userRole ==='ACC_MGR'" class="mt-5 pt-5">
+    <!--<div class="search-container">-->
+      <!--<input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString " [(ngModel)]="searchString">-->
+      <!--<span class="search-icon">-->
+        <!--<i class="material-icons">search</i>-->
+      <!--</span>-->
+    <!--</div>-->
     <table class="table table-hover">
       <thead class="table-header">
         <tr>
@@ -160,13 +168,13 @@
     </table>
   </div>
 
-  <div *ngIf="userRole ==='TL'">
-    <div class="search-container">
-      <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString " [(ngModel)]="searchString">
-      <span class="search-icon">
-        <i class="material-icons">search</i>
-      </span>
-    </div>
+  <div *ngIf="userRole ==='TL'" class="mt-5 pt-5">
+    <!--<div class="search-container">-->
+      <!--<input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString " [(ngModel)]="searchString">-->
+      <!--<span class="search-icon">-->
+        <!--<i class="material-icons">search</i>-->
+      <!--</span>-->
+    <!--</div>-->
     <table class="table table-hover">
       <thead class="table-header">
         <tr>
@@ -205,13 +213,13 @@
     </table>
   </div>
 
-  <div *ngIf="userRole ==='RECRUITER'">
-    <div class="search-container">
-      <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString " [(ngModel)]="searchString">
-      <span class="search-icon">
-        <i class="material-icons">search</i>
-      </span>
-    </div>
+  <div *ngIf="userRole ==='RECRUITER'" class="mt-5 pt-5">
+    <!--<div class="search-container">-->
+      <!--<input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString " [(ngModel)]="searchString">-->
+      <!--<span class="search-icon">-->
+        <!--<i class="material-icons">search</i>-->
+      <!--</span>-->
+    <!--</div>-->
 
     <table class="table table-hover">
       <thead class="table-header">

@@ -437,3 +437,29 @@ td {
 .btn-secondary {
   cursor: pointer;
 }
+
+.filter-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: .5em;
+  background: #e8e9ee;
+  width: 100%;
+}
+
+.filter-container .mat-form-field-wrapper {
+  width: 125px;
+  margin-right: 15px;
+}
+
+.divider-right {
+  border-right: 1px solid #aeaeaf;
+}
+
+.width-200 {
+  width: 200px;
+}
+
+.filter-container a {
+  color: #FFFFFF !important;
+}
