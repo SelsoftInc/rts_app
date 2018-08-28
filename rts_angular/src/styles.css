@@ -503,7 +503,7 @@ td {
 }
 
 .chart-label {
-  display: inline-block;
+  display: inline;
   width: 100px;
 }
 

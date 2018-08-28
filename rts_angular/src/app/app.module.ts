@@ -57,11 +57,11 @@ import { AccMgrEditSubmissionsComponent } from './acc-mgr-edit-submissions/acc-m
 import { LeadUserEditSubmissionsComponent } from './lead-user-edit-submissions/lead-user-edit-submissions.component';
 import { EditTeamComponent } from './edit-team/edit-team.component';
 import { EditSubmissonComponent } from './edit-submisson/edit-submisson.component';
-import { RecruiterDashboardComponent } from './recruiter-dashboard/recruiter-dashboard.component';
-import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
-import { AccMgrDashboardComponent } from './acc-mgr-dashboard/acc-mgr-dashboard.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { GraphService } from './Services/graph.service';
+import { AccMgrDashboardComponent } from './dashboard/acc-mgr-dashboard/acc-mgr-dashboard.component';
+import { AdminDashboardComponent } from './dashboard/admin-dashboard/admin-dashboard.component';
+import { RecruiterDashboardComponent } from './dashboard/recruiter-dashboard/recruiter-dashboard.component';
 
 
 @NgModule({

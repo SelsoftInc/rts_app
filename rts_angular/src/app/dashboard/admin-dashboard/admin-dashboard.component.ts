@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { LoggedUserService } from '../Services/logged-user.service';
 import * as moment from 'moment';
-import { GraphService } from '../Services/graph.service';
+import { LoggedUserService } from '../../Services/logged-user.service';
+import { GraphService } from '../../Services/graph.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -42,6 +42,7 @@ export class AdminDashboardComponent implements OnInit {
   colorSchemeMulti = {
     domain: ['#0386a4', '#A10A28', '#5AA454']
   };
+  totalSubmission: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -66,12 +67,15 @@ export class AdminDashboardComponent implements OnInit {
       userId: this.rtsUserId,
       date: date
     };
-
+    this.totalSubmission = 0;
     this.graphService.userGraphDetails(graph)
       .subscribe(
         data => {
           if (data.success) {
             this.single = data.userSubmissions;
+            for (const count of this.single) {
+              this.totalSubmission = this.totalSubmission + count.value;
+            }
           }
         });
   }
@@ -85,16 +89,18 @@ export class AdminDashboardComponent implements OnInit {
       date: date
     };
 
+
     this.graphService.teamGraphDetails(graph)
       .subscribe(
         data => {
           if (data.success) {
             this.totalSubmissionByTeam = data.teamSubmission;
-            for (const team of this.totalSubmissionByTeam) {
-              if (team.value !== 0) {
-                this.teamDetails.push(team);
-              }
-            }
+            // for (const team of this.totalSubmissionByTeam) {
+            //   if (team.value !== 0) {
+            //     this.teamDetails.push(team);
+            //     this.totalSubmission = this.totalSubmission + team.value;
+            //   }
+            // }
           }
         });
   }
