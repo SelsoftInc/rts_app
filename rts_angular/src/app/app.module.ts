@@ -9,7 +9,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RegisterService } from './user-register/user-register-service';
 import { HttpClientModule } from '@angular/common/http';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginService } from './login/login-service';
 import { LoggedUserService } from './Services/logged-user.service';
 import { RequirementsComponent } from './requirements/requirements.component';
@@ -58,6 +57,11 @@ import { AccMgrEditSubmissionsComponent } from './acc-mgr-edit-submissions/acc-m
 import { LeadUserEditSubmissionsComponent } from './lead-user-edit-submissions/lead-user-edit-submissions.component';
 import { EditTeamComponent } from './edit-team/edit-team.component';
 import { EditSubmissonComponent } from './edit-submisson/edit-submisson.component';
+import { RecruiterDashboardComponent } from './recruiter-dashboard/recruiter-dashboard.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { AccMgrDashboardComponent } from './acc-mgr-dashboard/acc-mgr-dashboard.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { GraphService } from './Services/graph.service';
 
 
 @NgModule({
@@ -65,7 +69,6 @@ import { EditSubmissonComponent } from './edit-submisson/edit-submisson.componen
     AppComponent,
     LoginComponent,
     UserRegisterComponent,
-    DashboardComponent,
     RequirementsComponent,
     SubmissionsComponent,
     AddNewRequirementComponent,
@@ -95,6 +98,9 @@ import { EditSubmissonComponent } from './edit-submisson/edit-submisson.componen
     LeadUserEditSubmissionsComponent,
     EditTeamComponent,
     EditSubmissonComponent,
+    RecruiterDashboardComponent,
+    AdminDashboardComponent,
+    AccMgrDashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -115,7 +121,8 @@ import { EditSubmissonComponent } from './edit-submisson/edit-submisson.componen
     ToastrModule.forRoot(),
     NgMultiSelectDropDownModule.forRoot(),
     MatIconModule,
-    MatRadioModule
+    MatRadioModule,
+    NgxChartsModule
   ],
   providers: [
     RegisterService,
@@ -129,6 +136,7 @@ import { EditSubmissonComponent } from './edit-submisson/edit-submisson.componen
     SubmissionService,
     TeamService,
     ToastrService,
+    GraphService,
     DatePipe],
 
   bootstrap: [AppComponent]

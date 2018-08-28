@@ -42,6 +42,7 @@ export class RequirementsComponent implements OnInit {
   private teamUsers: any;
   private selectedRequirements: any;
   private startDate: any;
+  private filter: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -65,6 +66,7 @@ export class RequirementsComponent implements OnInit {
       { 'name': 'Closed', 'value': 'Closed' },
       { 'name': 'Draft', 'value': 'Draft' }
     ];
+    this.filter = '';
   }
 
   ngOnInit() {
@@ -111,6 +113,7 @@ export class RequirementsComponent implements OnInit {
       this.isStatus = false;
       this.isClient = false;
     } else if (value === '') {
+      this.filter = '';
       this.isRecruiter = false;
       this.isTeam = false;
       this.isStatus = false;
@@ -134,6 +137,7 @@ export class RequirementsComponent implements OnInit {
     } else {
       this.startDate = '';
     }
+    this.filterBy('');
 
     if (this.userRole === 'ADMIN') {
       this.getAllRequirements();
@@ -148,6 +152,7 @@ export class RequirementsComponent implements OnInit {
   selectStatus(event) {
     if (event === 'selectAll') {
       this.selectedRequirements = this.requirements;
+      this.selectedRequirementsDetails(this.selectedRequirements);
     } else {
       this.selectedRequirements = [];
       this.selectedRequirements = _.where(this.requirements, { status: event });
@@ -158,6 +163,7 @@ export class RequirementsComponent implements OnInit {
   selectTeam(event) {
     if (event === 'selectAll') {
       this.selectedRequirements = this.requirements;
+      this.selectedRequirementsDetails(this.selectedRequirements);
     } else {
       this.selectedRequirements = [];
       this.selectedRequirements = _.where(this.requirements, { teamId: event });
@@ -168,6 +174,7 @@ export class RequirementsComponent implements OnInit {
   selectClient(event) {
     if (event === 'selectAll') {
       this.selectedRequirements = this.requirements;
+      this.selectedRequirementsDetails(this.selectedRequirements);
     } else {
       this.selectedRequirements = [];
       this.selectedRequirements = _.where(this.requirements, { clientId: event });
@@ -178,6 +185,7 @@ export class RequirementsComponent implements OnInit {
   selectRecruiter(event) {
     if (event === 'selectAll') {
       this.selectedRequirements = this.requirements;
+      this.selectedRequirementsDetails(this.selectedRequirements);
     } else {
       this.selectedRequirements = [];
       this.selectedRequirements = _.where(this.requirements, { allocationUserId: event });
@@ -261,6 +269,7 @@ export class RequirementsComponent implements OnInit {
   requirementsDetails(data) {
     this.requirements = data.requirements;
     this.selectedRequirements = this.requirements;
+    this.selectedRequirements.reverse();
     this.requirementsLength = this.requirements.length;
     for (const require of this.requirements) {
       const diff = Math.floor(this.currentDate.getTime() - require.createdOn);

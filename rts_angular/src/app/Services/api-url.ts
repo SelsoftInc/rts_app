@@ -42,4 +42,6 @@ export class ApiUrl {
     static GetRequirementForClient = 'rtsRequirement/requirement/getAllRequirementByClient';
     static GetRequirementForRecruiter = 'rtsRequirement/requirement/getRequirementsForAllocationUser';
     static GetRequirementForSubmission = 'rtsRequirement/requirement/getRequirementBySubmission';
+    static GetUserGraphDetails = 'rtsCommon/common/getGraphDetails';
+    static GetTeamGraphDetails = 'rtsCommon/common/getTeamGraphDetails';
 }

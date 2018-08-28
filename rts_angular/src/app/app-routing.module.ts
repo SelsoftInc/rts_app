@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { UserRegisterComponent } from './user-register/user-register.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { RequirementsComponent } from './requirements/requirements.component';
 import { SubmissionsComponent } from './submissions/submissions.component';
 import { AddNewRequirementComponent } from './add-new-requirement/add-new-requirement.component';
@@ -33,6 +32,7 @@ import { AccMgrEditSubmissionsComponent } from './acc-mgr-edit-submissions/acc-m
 import { LeadUserEditSubmissionsComponent } from './lead-user-edit-submissions/lead-user-edit-submissions.component';
 import { EditTeamComponent } from './edit-team/edit-team.component';
 import { EditSubmissonComponent } from './edit-submisson/edit-submisson.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 
 
@@ -40,7 +40,7 @@ const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: UserRegisterComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'admin-dashboard', component: AdminDashboardComponent },
   { path: 'requirements', component: RequirementsComponent },
   { path: 'submissions', component: SubmissionsComponent },
   { path: 'add-new-requirement', component: AddNewRequirementComponent },

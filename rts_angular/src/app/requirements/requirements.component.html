@@ -34,7 +34,7 @@
       <div class="col-md-auto divider-right">
         <div class="row mt-3">
           <div class="col-6">
-            <select class="form-control width-200" (change)="filterBy($event.target.value)">
+            <select class="form-control width-200" (change)="filterBy($event.target.value)" [(ngModel)]="filter" >
               <option value="" selected>Filter By</option>
               <option value="status">Status</option>
               <option value="team">Team</option>
@@ -129,12 +129,7 @@
   </div>
 
   <div *ngIf="userRole ==='ACC_MGR'" class="mt-5 pt-5">
-    <!--<div class="search-container">-->
-    <!--<input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString " [(ngModel)]="searchString">-->
-    <!--<span class="search-icon">-->
-    <!--<i class="material-icons">search</i>-->
-    <!--</span>-->
-    <!--</div>-->
+  
     <table class="table table-hover">
       <thead class="table-header">
         <tr>
@@ -174,12 +169,7 @@
   </div>
 
   <div *ngIf="userRole ==='TL'" class="mt-5 pt-5">
-    <!--<div class="search-container">-->
-    <!--<input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString " [(ngModel)]="searchString">-->
-    <!--<span class="search-icon">-->
-    <!--<i class="material-icons">search</i>-->
-    <!--</span>-->
-    <!--</div>-->
+  
     <table class="table table-hover">
       <thead class="table-header">
         <tr>

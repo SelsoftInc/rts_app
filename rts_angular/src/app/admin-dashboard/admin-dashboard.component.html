@@ -1,0 +1,93 @@
+<div class="utility-container">
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="col-block pt-5">
+          <div class="chart-title-wrapper">
+            <h2 class="chart-title">Recruiters Submission Status</h2>
+            <div class="filter-container-dashboard">
+              <mat-form-field>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="currentDate" (dateChange)="onDateChange($event.target.value)">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="chart-align-100-400">
+            <ngx-charts-bar-vertical
+              [view]="view"
+              [scheme]="colorScheme"
+              [results]="single"
+              [gradient]="gradient"
+              [xAxis]="showXAxis"
+              [yAxis]="showYAxis"
+              [showXAxisLabel]="showXAxisLabel"
+              [showYAxisLabel]="showYAxisLabel"
+              [xAxisLabel]="xAxisLabel"
+              [yAxisLabel]="yAxisLabel"
+              (select)="onSelect($event)">
+            </ngx-charts-bar-vertical>
+          </div>
+        </div>
+       </div>
+      <div class="col-sm-4">
+        <div class="col-block pt-5">
+          <div class="chart-title-wrapper">
+            <h2 class="chart-title">Team wise submission status</h2>
+  
+          </div>
+          <div class="chart-align-100-400">
+            <ngx-charts-pie-chart
+              [view]="view"
+              [scheme]="colorScheme"
+              [results]="totalSubmissionByTeam"
+              [gradient]="gradient"
+              [labels]="show"
+              [doughnut]="show"
+              (select)="onSelect($event)">
+            </ngx-charts-pie-chart>
+          </div>
+          <!-- <div>
+            <div><span class="chart-label" *ngFor="let team of teamDetails" >{{team.name}}: <span class="chart-result">{{team.value}}</span></span></div>
+         </div> -->
+        </div>
+      </div>
+    </div>
+    <!-- <div class="row">
+      <div class="col-4 height-400">
+        <ngx-charts-pie-grid
+          [view]="view"
+          [scheme]="colorScheme"
+          [results]="single"
+          (select)="onSelect($event)">
+        </ngx-charts-pie-grid>
+      </div>
+      <div class="col-4 height-400">
+        <ngx-charts-gauge
+          [view]="view"
+          [scheme]="colorScheme"
+          [results]="single"
+          (select)="onSelect($event)">
+        </ngx-charts-gauge>
+      </div>
+      <div class="col-4">
+        <ngx-charts-bar-vertical-2d
+          [view]="view"
+          [scheme]="colorSchemeMulti"
+          [results]="multi"
+          [gradient]="gradient"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel"
+          [showDataLabel]="showDataLabel"
+          [legend]="showDataLabel"
+          (select)="onSelect($event)">
+        </ngx-charts-bar-vertical-2d>
+      </div>
+    </div> -->
+  </div>
+</div>
+  

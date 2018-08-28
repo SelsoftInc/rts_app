@@ -1,10 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+
 @import "~ngx-toastr/toastr.css";
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900');
 @import url('https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700');
-
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -17,6 +18,7 @@ body {
   min-height: 100%;
   height: 100%;
 }
+
 .navigation-wrapper {
   width: 250px;
   order: 1;
@@ -136,7 +138,7 @@ td {
   left: 0;
 }
 
-.forgot-password-container > a {
+.forgot-password-container>a {
   font-size: .800em;
   color: #4c7af1;
 }
@@ -155,7 +157,7 @@ td {
   font-family: 'Source Sans Pro', sans-serif;
 }
 
-.table tbody > tr {
+.table tbody>tr {
   cursor: pointer;
 }
 
@@ -178,7 +180,9 @@ td {
 }
 
 /*.table tbody td {*/
-  /*padding: .50rem;*/
+
+/*padding: .50rem;*/
+
 /*}*/
 
 .table th {
@@ -206,7 +210,7 @@ td {
   /*box-shadow: 0px 1px 7px rgba(172, 172, 172, 0.3);*/
 }
 
-.block-wrapper > table {
+.block-wrapper>table {
   border: 1px dotted #CCC;
   box-shadow: 0px 1px 7px rgba(172, 172, 172, 0.3);
 }
@@ -223,7 +227,7 @@ td {
 .form-textarea {
   text-indent: .5rem;
   border: 1px solid #cdcdcd;
-  background-color: #fff!important;
+  background-color: #fff !important;
   color: #3b3b3b;
   font-size: 14px;
   width: 100%;
@@ -231,7 +235,7 @@ td {
   outline: 0;
   padding: 8px 0;
   vertical-align: sub;
-  margin-top: 20px!important;
+  margin-top: 20px !important;
   overflow: none;
   transition: border .2s;
   -webkit-transition: border .2s;
@@ -242,7 +246,7 @@ td {
 .form-input {
   text-indent: .5rem;
   border: 1px solid #cdcdcd;
-  background-color: #fff!important;
+  background-color: #fff !important;
   color: #3b3b3b;
   font-size: 14px;
   width: 100%;
@@ -251,7 +255,7 @@ td {
   height: 40px;
   padding: 8px 0;
   vertical-align: sub;
-  margin-top: 20px!important;
+  margin-top: 20px !important;
   overflow: hidden;
   transition: border .2s;
   -webkit-transition: border .2s;
@@ -266,12 +270,13 @@ td {
   pointer-events: none;
   position: relative;
   z-index: 1;
-  -webkit-transform: translate3d(0,22px,0) scale(1);
-  transform: translate3d(0,22px,0) scale(1);
+  -webkit-transform: translate3d(0, 22px, 0) scale(1);
+  transform: translate3d(0, 22px, 0) scale(1);
   -webkit-transform-origin: left top;
   transform-origin: left top;
   transition: 240ms;
 }
+
 .checkbox-wrapper {
   padding-top: 1.5em;
 }
@@ -301,7 +306,6 @@ td {
 ::ng-deep .mat-checkbox-checked .mat-checkbox-background {
   background-color: #3484c8 !important;
 }
-
 
 .btn-forms {
   background: #50b2eb;
@@ -391,7 +395,7 @@ td {
   padding: .5em;
 }
 
-.filter-wrapper > .search-container {
+.filter-wrapper>.search-container {
   padding-bottom: 0 !important;
 }
 
@@ -430,7 +434,7 @@ td {
   font-size: 22px;
 }
 
-.icon-attachment > i {
+.icon-attachment>i {
   vertical-align: middle;
 }
 
@@ -462,4 +466,69 @@ td {
 
 .filter-container a {
   color: #FFFFFF !important;
+}
+
+.col-block {
+  box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
+  padding: 1em;
+  position: relative;
+  height: 450px;
+}
+
+.width-98 {
+  margin-right: 15px;
+}
+
+.tick.ng-star-inserted>text {
+  transform: rotate(-60deg);
+  text-anchor: end;
+}
+
+.chart-align-100-400 {
+  width: 100%;
+  min-height: 350px;
+}
+
+.chart-title-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1em .5em .5em 1em;
+  width: 100%;
+}
+
+.chart-title {
+  font-size: 1em;
+  text-transform: uppercase;
+}
+
+.chart-label {
+  display: inline-block;
+  width: 100px;
+}
+
+.filter-container-dashboard {
+  position: absolute;
+  top: 0;
+  right: 1em;
+}
+
+.height-400 {
+  height: 400px;
+}
+
+.height-450 {
+  height: 450px;
+}
+
+.height-300 {
+  height: 300px;
+}
+
+.height-200 {
+  height: 200px;
+}
+
+.height-100 {
+  height: 100px;
 }

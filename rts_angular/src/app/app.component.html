@@ -18,6 +18,9 @@
   <div *ngIf="userRole ==='ADMIN'">
     <ul class="nav nav-taps">
       <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/admin-dashboard']" [routerLinkActive]="['active-link']">Dashboard</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" [routerLink]="['/requirements']" [routerLinkActive]="['active-link']">Requirements</a>
       </li>
       <li class="nav-item">

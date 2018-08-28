@@ -1,60 +1,108 @@
 <div class="utility-container">
 
-  <div class="form-row">
-    <!-- <div class="form-group col-md-2">
-      <div>
-        <mat-form-field>
-          <input matInput [matDatepicker]="startDatePicker" placeholder="Start Date">
-          <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
-          <mat-datepicker #startDatePicker></mat-datepicker>
-        </mat-form-field>
+  <div class="filter-container">
+    <div class="row">
+      <div class="col-3 divider-right">
+        <form [formGroup]="myForm" (ngSubmit)="filterByDate(myForm)">
+          <div class="row mt-2">
+            <div class="col-4">
+              <mat-form-field>
+                <input matInput [matDatepicker]="fromDate" formControlName="fromDate" [(ngModel)]="startDate" placeholder="From Date">
+                <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+                <mat-datepicker #fromDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="col-4">
+              <mat-form-field>
+                <input matInput [matDatepicker]="toDate" formControlName="toDate" [(ngModel)]="currentDate" placeholder="To Date">
+                <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+                <mat-datepicker #toDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="col-4 mt-3">
+              <button class="btn btn-sm btn-primary" type="submit">Show Results</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="col-md-auto">
+        <div class="row mt-3">
+          <div class="col-6">
+            <select class="form-control width-200" (change)="filterBy($event.target.value)" [(ngModel)]="filter">
+              <option value="" selected>Filter By</option>
+              <option value="team">Team</option>
+              <option value="client">Client</option>
+              <option value="recruiter">Recruiter</option>
+            </select>
+          </div>
+
+          <div *ngIf="isTeam" class="col-6 width-200">
+            <select class="form-control" (change)="selectTeam($event.target.value)">
+              <option value="" selected>Select</option>
+              <option value="selectAll">Select All</option>
+              <option *ngFor="let team of teams" value="{{team.teamId}}">{{team.name}}</option>
+            </select>
+          </div>
+
+          <div *ngIf="isClient" class="col-6 width-200">
+            <select class="form-control" (change)="selectClient($event.target.value)">
+              <option value="" selected>Select</option>
+              <option value="selectAll">Select All</option>
+              <option *ngFor="let client of clients" value="{{client.clientId}}">{{client.name}}</option>
+            </select>
+          </div>
+
+          <div *ngIf="isRecruiter" class="col-6 width-200">
+            <select class="form-control" (change)="selectRecruiter($event.target.value)">
+              <option value="" selected>Select</option>
+              <option value="selectAll">Select All</option>
+              <option *ngFor="let user of teamUsers" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="form-group col-md-2">
-      <div>
-        <mat-form-field>
-          <input matInput [matDatepicker]="endDatePicker" placeholder="End Date">
-          <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
-          <mat-datepicker #endDatePicker></mat-datepicker>
-        </mat-form-field>
-      </div>
-    </div> -->
   </div>
-  <table class="table table-hover table-bordered">
-    <thead class="table-header">
-      <tr>
-        <th>Candidate Name</th>
-        <th>Position Name</th>
-        <th>Client Name</th>
-        <th>Submission Date</th>
-        <th>Recruiter Name</th>
-        <th>Interview Status</th>
-        <th>L1</th>
-        <th>L2</th>
-        <th>Client Contact Name</th>
-        <th>No.of Days Pending</th>
-        <th>Current Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let submission of approvedsubmissions" [routerLink]="['/edit-submission', submission.submissionId]">
-        <td>{{submission.candidateName}}</td>
-        <td>{{submission.positionName}}</td>
-        <td>{{submission.clientName}}</td>
-        <td>{{submission.submissionDate | date: 'MMM d, y'}}</td>
-        <td>{{submission.recruiterName}}</td>
-        <td>{{submission.interviewStatus}}</td>
-        <td>{{submission.dateOfL1 | date: 'MMM d, y'}}</td>
-        <td>{{submission.dateOfL2 | date: 'MMM d, y'}}</td>
-        <td>{{submission.clientContactName}}</td>
-        <td>{{submission.age}}</td>
-        <td>{{submission.currentStatus}}</td>
-      </tr>
-    </tbody>
-  </table>
+
+  <div class="mt-5 pt-5">
+    <table class="table table-hover table-bordered">
+      <thead class="table-header">
+        <tr>
+          <th>Candidate Name</th>
+          <th>Position Name</th>
+          <th>Client Name</th>
+          <th>Submission Date</th>
+          <th>Recruiter Name</th>
+          <th>Interview Status</th>
+          <th>L1</th>
+          <th>L2</th>
+          <th>Client Contact Name</th>
+          <th>No.of Days Pending</th>
+          <th>Current Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let submission of selectedSubmissions" [routerLink]="['/edit-submission', submission.submissionId]">
+          <td>{{submission.candidateName}}</td>
+          <td>{{submission.positionName}}</td>
+          <td>{{submission.clientName}}</td>
+          <td>{{submission.submissionDate | date: 'MMM d, y'}}</td>
+          <td>{{submission.recruiterName}}</td>
+          <td>{{submission.interviewStatus}}</td>
+          <td>{{submission.dateOfL1 | date: 'MMM d, y'}}</td>
+          <td>{{submission.dateOfL2 | date: 'MMM d, y'}}</td>
+          <td>{{submission.clientContactName}}</td>
+          <td>{{submission.age}}</td>
+          <td>{{submission.currentStatus}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
 
-  <button class="btn btn-default" *ngIf="approvedsubmissionsLength > 0" (click)="generateReport();">Download Report</button>
+  <button class="btn btn-forms btn-space" *ngIf="approvedSubmissionsLength > 0" (click)="generateReport();">Download Report</button>
 
 </div>
