@@ -14,11 +14,10 @@ export class AdminDashboardComponent implements OnInit {
 
   private rtsUser: any;
   private rtsUserId: any;
-  private single: any[];
+  private recruitersSubmissions: any[];
   private multi: any[];
   private totalSubmissionByTeam: any[];
   private currentDate: Date;
-  private teamDetails: any;
   private date: any;
 
   view: any[] = undefined;
@@ -51,7 +50,6 @@ export class AdminDashboardComponent implements OnInit {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
     this.currentDate = new Date(Date.now());
-    this.teamDetails = [];
   }
 
   ngOnInit() {
@@ -60,21 +58,23 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   getUserGraphDetails() {
-    this.single = [];
+    this.recruitersSubmissions = [];
 
     const date = moment(this.currentDate).format('YYYY-MM-DD');
     const graph = {
       userId: this.rtsUserId,
       date: date
     };
-    this.totalSubmission = 0;
+
     this.graphService.userGraphDetails(graph)
       .subscribe(
         data => {
           if (data.success) {
-            this.single = data.userSubmissions;
-            for (const count of this.single) {
-              this.totalSubmission = this.totalSubmission + count.value;
+            this.recruitersSubmissions = data.userSubmissions;
+            for (const count of this.recruitersSubmissions) {
+              count.extra = {
+                userId: count.userId
+              };
             }
           }
         });
@@ -88,19 +88,16 @@ export class AdminDashboardComponent implements OnInit {
       userId: this.rtsUserId,
       date: date
     };
-
+    this.totalSubmission = 0;
 
     this.graphService.teamGraphDetails(graph)
       .subscribe(
         data => {
           if (data.success) {
             this.totalSubmissionByTeam = data.teamSubmission;
-            // for (const team of this.totalSubmissionByTeam) {
-            //   if (team.value !== 0) {
-            //     this.teamDetails.push(team);
-            //     this.totalSubmission = this.totalSubmission + team.value;
-            //   }
-            // }
+            for (const count of this.totalSubmissionByTeam) {
+              this.totalSubmission = this.totalSubmission + count.value;
+            }
           }
         });
   }

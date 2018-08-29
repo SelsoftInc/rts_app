@@ -55,6 +55,7 @@ export class SubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.requirements = data.requirements;
+            this.requirements.reverse();
             for (const require of this.requirements) {
               if (require.submissions.length > 0) {
                 this.submissionDetails.push(require);
@@ -76,6 +77,7 @@ export class SubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.requirements = data.requirements;
+            this.requirements.reverse();
             for (const require of this.requirements) {
               if (require.submissions.length > 0) {
                 this.submissionDetails.push(require);

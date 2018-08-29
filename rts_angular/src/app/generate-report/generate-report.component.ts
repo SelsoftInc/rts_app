@@ -7,6 +7,8 @@ import * as moment from 'moment';
 import * as _ from 'underscore';
 import { ApiUrl } from '../Services/api-url';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { saveAs } from 'file-saver/FileSaver';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-generate-report',
@@ -37,6 +39,7 @@ export class GenerateReportComponent implements OnInit {
   private teams: any;
   private teamUsers: any;
   private selectedSubmissions: any;
+  private selectedReport: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -51,6 +54,7 @@ export class GenerateReportComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.currentDate = new Date();
     this.filter = '';
+    this.selectedReport = [];
   }
 
   ngOnInit() {
@@ -112,6 +116,7 @@ export class GenerateReportComponent implements OnInit {
       this.isTeam = false;
       this.isClient = false;
     }
+    this.getApprovedSubmissions();
   }
 
   selectTeam(event) {
@@ -167,21 +172,28 @@ export class GenerateReportComponent implements OnInit {
   }
 
   generateReport() {
-    this.toDate = moment(this.currentDate).format('YYYY-MM-DD');
 
-    const userId = {
-      userId: this.rtsUserId,
-      fromDate: this.startDate,
-      toDate: this.toDate
-    };
-
-    this.submissonService.getReport(userId)
-      .subscribe(
-        data => {
-          if (data.success) {
-            window.open(this.baseUrl + data.downloadUrl, '_blank');
-          }
-        });
+    this.selectedReport = [];
+    for (const report of this.selectedSubmissions) {
+      const submissionDate = moment(report.submissionDate).format('MM/DD/YYYY');
+      this.selectedReport.push({
+        'Candidate Name': report.candidateName,
+        'Position Name': report.positionName,
+        'Client Name': report.clientName,
+        'Submission Date': submissionDate,
+        'Recruiter Name': report.recruiterName,
+        'Interview Status': report.interviewStatus,
+        'L1': report.dateOfL1,
+        'L2': report.dateOfL2,
+        'Client Contact Name': report.clientContactName,
+        'No of DaysPending': report.age,
+        'Current Status': report.currentStatus
+      });
+    }
+    const data = this.selectedReport;
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    XLSX.writeFile(workbook, 'Client_Submission_Report.xlsx', { bookType: 'xlsx', type: 'buffer' });
 
   }
 
