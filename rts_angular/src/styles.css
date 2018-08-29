@@ -151,6 +151,7 @@ td {
 .sub-nav-link {
   font-size: .800em;
   text-transform: uppercase;
+  font-weight: 700;
 }
 
 .table {
@@ -221,6 +222,15 @@ td {
   font-weight: 400;
   font-size: 1.2em;
   margin: 1em 0 0 2em;
+  font-weight: 600;
+}
+
+.main-title-dashboard {
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 400;
+  font-size: 1.2em;
+  margin: 1em 0 0 1em;
   font-weight: 600;
 }
 
@@ -473,6 +483,7 @@ td {
   padding: 1em;
   position: relative;
   height: 450px;
+  background: #FFFFFF;
 }
 
 .width-98 {
@@ -531,4 +542,8 @@ td {
 
 .height-100 {
   height: 100px;
+}
+
+.table-report th {
+  text-align: center;
 }

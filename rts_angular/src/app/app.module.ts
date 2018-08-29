@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './/app-routing.module';
+import { appRoutes } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { UserRegisterComponent } from './user-register/user-register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -62,6 +62,7 @@ import { GraphService } from './Services/graph.service';
 import { AccMgrDashboardComponent } from './dashboard/acc-mgr-dashboard/acc-mgr-dashboard.component';
 import { AdminDashboardComponent } from './dashboard/admin-dashboard/admin-dashboard.component';
 import { RecruiterDashboardComponent } from './dashboard/recruiter-dashboard/recruiter-dashboard.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -104,7 +105,7 @@ import { RecruiterDashboardComponent } from './dashboard/recruiter-dashboard/rec
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    RouterModule.forRoot(appRoutes, { useHash: true }),
     FormsModule,
     ReactiveFormsModule,
     HttpModule,

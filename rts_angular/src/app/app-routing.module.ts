@@ -35,9 +35,7 @@ import { EditSubmissonComponent } from './edit-submisson/edit-submisson.componen
 import { AdminDashboardComponent } from './dashboard/admin-dashboard/admin-dashboard.component';
 
 
-
-
-const appRoutes: Routes = [
+export const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: UserRegisterComponent },
@@ -76,8 +74,8 @@ const appRoutes: Routes = [
 ];
 
 
-@NgModule({
-  imports: [RouterModule.forRoot(appRoutes, { useHash: true })],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }
+// @NgModule({
+//   imports: [RouterModule.forRoot(appRoutes, { useHash: true })],
+//   exports: [RouterModule]
+// })
+// export class AppRoutingModule { }

@@ -6,7 +6,7 @@
 
   <div class="filter-container">
     <div class="row">
-      <div class="col-3 divider-right">
+      <div class="col-4 divider-right">
         <form [formGroup]="myForm" (ngSubmit)="filterByDate(myForm)">
           <div class="row mt-2">
             <div class="col-4">
@@ -31,7 +31,7 @@
           </div>
         </form>
       </div>
-      <div class="col-md-auto divider-right">
+      <div class="col-auto divider-right">
         <div class="row mt-3">
           <div class="col-6">
             <select class="form-control width-200" (change)="filterBy($event.target.value)" [(ngModel)]="filter" >
@@ -90,7 +90,7 @@
 
   <div *ngIf="userRole ==='ADMIN'" class="mt-5 pt-5">
 
-    <table class="table table-hover">
+    <table class="table table-hover table-sm">
       <thead class="table-header">
         <tr>
           <th>Position Name</th>
