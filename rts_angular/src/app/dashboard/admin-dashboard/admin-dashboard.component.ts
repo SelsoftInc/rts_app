@@ -3,6 +3,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import * as moment from 'moment';
 import { LoggedUserService } from '../../Services/logged-user.service';
 import { GraphService } from '../../Services/graph.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -45,7 +46,8 @@ export class AdminDashboardComponent implements OnInit {
 
   constructor(
     private loggedUser: LoggedUserService,
-    private graphService: GraphService
+    private graphService: GraphService,
+    private router: Router
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -110,6 +112,8 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   onSelect(event) {
-    console.log(event);
+    const date = moment(this.currentDate).format('YYYY-MM-DD');
+    this.router.navigate(['user-submisson', event.extra.userId, date]);
+
   }
 }

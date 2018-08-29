@@ -63,6 +63,7 @@ import { AccMgrDashboardComponent } from './dashboard/acc-mgr-dashboard/acc-mgr-
 import { AdminDashboardComponent } from './dashboard/admin-dashboard/admin-dashboard.component';
 import { RecruiterDashboardComponent } from './dashboard/recruiter-dashboard/recruiter-dashboard.component';
 import { RouterModule } from '@angular/router';
+import { UserSubmissionsComponent } from './user-submissions/user-submissions.component';
 
 
 @NgModule({
@@ -102,6 +103,7 @@ import { RouterModule } from '@angular/router';
     RecruiterDashboardComponent,
     AdminDashboardComponent,
     AccMgrDashboardComponent,
+    UserSubmissionsComponent,
   ],
   imports: [
     BrowserModule,
