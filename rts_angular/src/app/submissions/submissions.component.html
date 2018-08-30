@@ -6,58 +6,193 @@
   </span>
 </div>
 <h2 class="main-title">Submissions</h2>
-<div class="utility-container pt-5">
-  <div class="filter-wrapper">
-    <div class="search-container">
-      <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString " [(ngModel)]="searchString">
-      <span class="search-icon">
-        <i class="material-icons">search</i>
-      </span>
-    </div>
-  </div>
+<div class="utility-container">
+  <div class="filter-container">
+    <div class="row">
+      <div class="col-4 divider-right">
+        <form [formGroup]="myForm" (ngSubmit)="filterByDate(myForm)">
+          <div class="row mt-2">
+            <div class="col-4">
+              <mat-form-field>
+                <input matInput [matDatepicker]="fromDate" formControlName="fromDate" [(ngModel)]="startDate"
+                  placeholder="From Date">
+                <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+                <mat-datepicker #fromDate></mat-datepicker>
+              </mat-form-field>
+            </div>
 
-  <div class="table-wrapper mt-4" *ngIf="submissionsLength > 0 ; else noSummissions">
-    <div class="block-wrapper" *ngFor="let sub of submissionDetails">
+            <div class="col-4">
+              <mat-form-field>
+                <input matInput [matDatepicker]="toDate" formControlName="toDate" [(ngModel)]="currentDate" placeholder="To Date">
+                <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+                <mat-datepicker #toDate></mat-datepicker>
+              </mat-form-field>
+            </div>
 
-      <div class="meta-info-wrapper">
-        <span class="block-header-label">Position Name: </span>
-        <span class="meta-info-content">{{sub.position.positionName}},</span>
-        <span class="block-header-label">Client Name: </span>
-        <span class="meta-info-content">{{sub.client.name}},</span>
-        <span *ngIf="sub.allocationUser">
-          <span class="block-header-label">Allocated to: </span>
-          <span class="meta-info-content">{{sub.allocationUser.firstName}} {{sub.allocationUser.lastName}}
-            <span class="meta-info-content" *ngIf="sub.allocationUserId === ''">(Team: {{sub.team.name}})</span>
-          </span>
-        </span>
+            <div class="col-4 mt-3">
+              <button class="btn btn-sm btn-primary" type="submit">Show Results</button>
+            </div>
+          </div>
+        </form>
       </div>
+      <div class="col-auto divider-right">
+        <div class="row mt-3">
+          <div class="col-6">
+            <select class="form-control width-200" (change)="filterBy($event.target.value)" [(ngModel)]="filter">
+              <option value="" selected>Filter By</option>
+              <option value="status">Status</option>
+              <option value="team">Team</option>
+              <option value="client">Client</option>
+              <option *ngIf="userRole !== 'RECRUITER'" value="recruiter">Recruiter</option>
+            </select>
+          </div>
 
-      <table class="table table-bordered table-sm table-hover">
-        <thead class="table-header">
-          <tr>
-            <th>Created Date:</th>
-            <th>Candidate Name</th>
-            <th>Technology</th>
-            <th>Availability</th>
-            <th>Work Location</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let submission of sub.submissions | filter : searchString" [routerLink]="['/edit-submission', submission.submissionId]">
-            <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
-            <td>{{submission.candidate.name}}</td>
-            <td>{{submission.candidate.technology[0].technologyName}}</td>
-            <td>{{submission.candidate.availability}}</td>
-            <td>{{sub.location}}</td>
-            <td>{{submission.status}}</td>
-          </tr>
-        </tbody>
-      </table>
+          <div *ngIf="isStatus" class="col-6 width-200">
+            <select class="form-control" (change)="selectStatus($event.target.value)">
+              <option value="" selected>Select</option>
+              <option value="selectAll">Select All</option>
+              <option *ngFor="let status of submissionStatus" value="{{status.value}}">{{status.name}}</option>
+            </select>
+          </div>
+
+          <div *ngIf="isTeam" class="col-6 width-200">
+            <select class="form-control" (change)="selectTeam($event.target.value)">
+              <option value="" selected>Select</option>
+              <option value="selectAll">Select All</option>
+              <option *ngFor="let team of teams" value="{{team.teamId}}">{{team.name}}</option>
+            </select>
+          </div>
+
+          <div *ngIf="isClient" class="col-6 width-200">
+            <select class="form-control" (change)="selectClient($event.target.value)">
+              <option value="" selected>Select</option>
+              <option value="selectAll">Select All</option>
+              <option *ngFor="let client of clients" value="{{client.clientId}}">{{client.name}}</option>
+            </select>
+          </div>
+
+          <div *ngIf="isRecruiter" class="col-6 width-200">
+            <select class="form-control" (change)="selectRecruiter($event.target.value)">
+              <option value="" selected>Select</option>
+              <option value="selectAll">Select All</option>
+              <option *ngFor="let user of teamUsers" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-4 mt-3">
+        <div class="search-container">
+          <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString "
+            [(ngModel)]="searchString">
+          <span class="search-icon">
+            <i class="material-icons">search</i>
+          </span>
+        </div>
+      </div>
     </div>
   </div>
-  <ng-template #noSummissions>
-    <p class="message">No Submissions yet, Please click Add Submission to add a new submission.</p>
-  </ng-template>
+
+  <div class="mt-5 pt-5">
+    <h6>Total Submissions: {{submissionsLength}}</h6>
+  </div>
+
+  <div *ngIf="userRole === 'ADMIN' || userRole === 'TL' || userRole === 'ACC_MGR'" class="pt-2">
+
+    <div class="table-wrapper mt-4" *ngIf="submissionsLength > 0 ; else noSummissions">
+      <div class="block-wrapper" *ngFor="let sub of submissionDetails">
+
+        <div class="meta-info-wrapper">
+          <span class="block-header-label">Position Name: </span>
+          <span class="meta-info-content">{{sub.position.positionName}},</span>
+          <span class="block-header-label">Client Name: </span>
+          <span class="meta-info-content">{{sub.client.name}},</span>
+          <span *ngIf="sub.allocationUser">
+            <span class="block-header-label">Allocated to: </span>
+            <span class="meta-info-content">{{sub.allocationUser.firstName}} {{sub.allocationUser.lastName}}
+            </span>
+          </span>
+          <span *ngIf="!sub.allocationUser">
+            <span class="block-header-label">Allocated Team: </span>
+            <span class="meta-info-content" *ngIf="sub.allocationUserId === '' || sub.allocationUserId === undefined">{{sub.team.name}}</span>
+          </span>
+        </div>
+
+        <table class="table table-bordered table-sm table-hover">
+          <thead class="table-header">
+            <tr>
+              <th>Created Date:</th>
+              <th>Candidate Name</th>
+              <th>Technology</th>
+              <th>Availability</th>
+              <th>Work Location</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let submission of sub.submissions | filter : searchString" [routerLink]="['/edit-submission', submission.submissionId]">
+              <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
+              <td>{{submission.candidate.name}}</td>
+              <td>{{submission.candidate.technology[0].technologyName}}</td>
+              <td>{{submission.candidate.availability}}</td>
+              <td>{{sub.location}}</td>
+              <td>{{submission.status}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <ng-template #noSummissions>
+      <p class="message">No Submissions yet, Please click Add Submission to add a new submission.</p>
+    </ng-template>
+  </div>
+
+  <div *ngIf="userRole === 'RECRUITER'" class="pt-2">
+    <div class="table-wrapper" *ngIf="submissionsLength > 0 ; else noSummissions">
+      <div class="block-wrapper" *ngFor="let sub of submissionDetails">
+
+        <div class="meta-info-wrapper">
+          <span class="block-header-label">Position Name: </span>
+          <span class="meta-info-content">{{sub.position.positionName}},</span>
+          <span class="block-header-label">Client Name: </span>
+          <span class="meta-info-content">{{sub.client.name}},</span>
+          <span *ngIf="sub.allocationUser">
+            <span class="block-header-label">Allocated to: </span>
+            <span class="meta-info-content">{{sub.allocationUser.firstName}} {{sub.allocationUser.lastName}}
+            </span>
+          </span>
+          <span *ngIf="!sub.allocationUser">
+            <span class="block-header-label">Allocated Team: </span>
+            <span class="meta-info-content" *ngIf="sub.allocationUserId === '' || sub.allocationUserId === undefined">{{sub.team.name}}</span>
+          </span>
+        </div>
+
+        <table class="table table-bordered table-sm table-hover">
+          <thead class="table-header">
+            <tr>
+              <th>Created Date:</th>
+              <th>Candidate Name</th>
+              <th>Technology</th>
+              <th>Availability</th>
+              <th>Work Location</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let submission of sub.submissions" [routerLink]="['/recruiter-edit-submissions', submission.submissionId]">
+              <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
+              <td>{{submission.candidate.name}}</td>
+              <td>{{submission.candidate.technology[0].technologyName}}</td>
+              <td>{{submission.candidate.availability}}</td>
+              <td>{{sub.location}}</td>
+              <td>{{submission.status}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <ng-template #noSummissions>
+      <p class="message">No Submissions yet, Please click Add Submission to add a new submission.</p>
+    </ng-template>
+  </div>
 
 </div>

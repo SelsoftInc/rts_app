@@ -70,6 +70,7 @@ export class EditSubmissonComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.userRole = this.rtsUser.role;
     this.rtsCompanyId = this.rtsUser.companyId;
+    this.sendToClient = false;
     this.recruiterName = [];
     this.recruiterEmail = [];
     this.getFiles = [];
@@ -326,12 +327,12 @@ export class EditSubmissonComponent implements OnInit {
             if (this.selectedSubmission.status === 'REJECTED' || this.selectedSubmission.status === 'TL_REJECTED') {
               this.isRejected = true;
             }
-            if (this.selectedSubmission.approvedByAdmin === true) {
-              this.sendToClient = true;
-            } else {
-              this.sendToClient = false;
-            }
-            if (this.selectedSubmission.status === 'SUBMITTED') {
+            // if (this.selectedSubmission.approvedByAdmin === true) {
+            //   this.sendToClient = true;
+            // } else {
+            //   this.sendToClient = false;
+            // }
+            if (this.selectedSubmission.status === 'TL_APPROVED' || this.selectedSubmission.status === 'APPROVED') {
               this.isSubmitted = true;
             } else {
               this.isSubmitted = false;
@@ -384,15 +385,13 @@ export class EditSubmissonComponent implements OnInit {
         });
   }
 
-  submissionToClient() {
+  approveSubmission(form: FormGroup) {
+    console.log(form);
+    this.sendToClient = true;
+    this.updateCandidateWithSubmission(form, this.selectedSubmission.candidate.candidateId);
+  }
 
-    if (this.plainFormat === undefined) {
-      this.toastr.error('Please Select the Mail Format', '', {
-        positionClass: 'toast-top-center',
-        timeOut: 3000,
-      });
-      return false;
-    }
+  submissionToClient() {
 
     const submit = {
       submissionId: this.submissionId,
@@ -417,6 +416,7 @@ export class EditSubmissonComponent implements OnInit {
           }
         });
   }
+
 
   getMailFormat(event) {
     if (event.value === 'Yes') {
@@ -517,7 +517,7 @@ export class EditSubmissonComponent implements OnInit {
       this.level2Date = '';
     }
 
-    const submission = {
+    const submission: any = {
       requirementId: form.value.requirements,
       location: form.value.location,
       accountName: form.value.accountName,
@@ -527,7 +527,6 @@ export class EditSubmissonComponent implements OnInit {
       clientContactname: form.value.clientContactname,
       clientContactEmail: form.value.clientContactEmail,
       workLocation: form.value.workLocation,
-      status: form.value.status,
       reasonForRejection: form.value.reasonForRejection,
       interviewStatus: form.value.interviewStatus,
       currentStatus: form.value.currentStatus,
@@ -540,10 +539,27 @@ export class EditSubmissonComponent implements OnInit {
       candidateId: candidateId,
       approvalUserId: this.rtsUserId
     };
+
+    if (this.sendToClient) {
+      submission.status = 'APPROVED';
+    } else {
+      submission.status = form.value.status;
+    }
+
     const editSubmission = {
       submission: submission,
       deletedMediaFiles: this.deletedMediaFiles
     };
+
+    if (this.sendToClient) {
+      if (this.plainFormat === undefined) {
+        this.toastr.error('Please Select the Mail Format', '', {
+          positionClass: 'toast-top-center',
+          timeOut: 3000,
+        });
+        return false;
+      }
+    }
 
     this.submissionService.editSubmission(editSubmission)
       .subscribe(
@@ -553,7 +569,11 @@ export class EditSubmissonComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
-            this.router.navigate(['submissions']);
+            if (this.sendToClient) {
+              this.submissionToClient();
+            } else {
+              this.router.navigate(['submissions']);
+            }
 
           } else {
             this.toastr.error(data.message, '', {

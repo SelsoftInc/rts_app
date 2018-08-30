@@ -43,6 +43,7 @@ export class RequirementsComponent implements OnInit {
   private selectedRequirements: any;
   private startDate: any;
   private filter: any;
+  private filteredRequirements: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -89,6 +90,15 @@ export class RequirementsComponent implements OnInit {
       this.getAllRequirementsForUser();
     }
   }
+
+  filterItem(value) {
+    const filteredItems = Object.assign([], this.filteredRequirements).filter(
+      item => item.position.positionName.toLowerCase().indexOf(value.toLowerCase()) > -1
+    );
+    this.selectedRequirements = filteredItems;
+    this.requirementsLength = this.selectedRequirements.length;
+  }
+
 
   filterBy(value) {
 
@@ -268,6 +278,7 @@ export class RequirementsComponent implements OnInit {
 
   requirementsDetails(data) {
     this.requirements = data.requirements;
+    this.filteredRequirements = this.requirements;
     this.selectedRequirements = this.requirements;
     this.selectedRequirements.reverse();
     this.requirementsLength = this.requirements.length;
@@ -292,6 +303,7 @@ export class RequirementsComponent implements OnInit {
 
   selectedRequirementsDetails(data) {
     this.selectedRequirements = data;
+    this.filteredRequirements = this.selectedRequirements;
     this.requirementsLength = this.selectedRequirements.length;
     for (const require of this.selectedRequirements) {
       const diff = Math.floor(this.currentDate.getTime() - require.createdOn);

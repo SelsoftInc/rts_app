@@ -34,6 +34,7 @@ import { EditTeamComponent } from './edit-team/edit-team.component';
 import { EditSubmissonComponent } from './edit-submisson/edit-submisson.component';
 import { AdminDashboardComponent } from './dashboard/admin-dashboard/admin-dashboard.component';
 import { UserSubmissionsComponent } from './user-submissions/user-submissions.component';
+import { TeamSubmissionsComponent } from './team-submissions/team-submissions.component';
 
 
 export const appRoutes: Routes = [
@@ -73,6 +74,7 @@ export const appRoutes: Routes = [
   { path: 'acc_mgr-edit-requirement/:id', component: EditRequirementForAccMgrComponent },
   { path: 'edit-submission/:id', component: EditSubmissonComponent },
   { path: 'user-submisson/:id/:date', component: UserSubmissionsComponent },
+  { path: 'team-submisson/:id/:date', component: TeamSubmissionsComponent },
 ];
 
 

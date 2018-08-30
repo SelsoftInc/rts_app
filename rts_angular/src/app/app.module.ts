@@ -64,6 +64,7 @@ import { AdminDashboardComponent } from './dashboard/admin-dashboard/admin-dashb
 import { RecruiterDashboardComponent } from './dashboard/recruiter-dashboard/recruiter-dashboard.component';
 import { RouterModule } from '@angular/router';
 import { UserSubmissionsComponent } from './user-submissions/user-submissions.component';
+import { TeamSubmissionsComponent } from './team-submissions/team-submissions.component';
 
 
 @NgModule({
@@ -104,6 +105,7 @@ import { UserSubmissionsComponent } from './user-submissions/user-submissions.co
     AdminDashboardComponent,
     AccMgrDashboardComponent,
     UserSubmissionsComponent,
+    TeamSubmissionsComponent,
   ],
   imports: [
     BrowserModule,

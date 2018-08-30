@@ -99,6 +99,9 @@ export class AdminDashboardComponent implements OnInit {
             this.totalSubmissionByTeam = data.teamSubmission;
             for (const count of this.totalSubmissionByTeam) {
               this.totalSubmission = this.totalSubmission + count.value;
+              count.extra = {
+                teamId: count.teamId
+              };
             }
           }
         });
@@ -111,9 +114,14 @@ export class AdminDashboardComponent implements OnInit {
     }
   }
 
-  onSelect(event) {
+  onUserSelect(event) {
     const date = moment(this.currentDate).format('YYYY-MM-DD');
     this.router.navigate(['user-submisson', event.extra.userId, date]);
 
+  }
+
+  onTeamSelect(event) {
+    const date = moment(this.currentDate).format('YYYY-MM-DD');
+    this.router.navigate(['team-submisson', event.extra.teamId, date]);
   }
 }

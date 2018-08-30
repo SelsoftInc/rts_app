@@ -11,7 +11,8 @@
           <div class="row mt-2">
             <div class="col-4">
               <mat-form-field>
-                <input matInput [matDatepicker]="fromDate" formControlName="fromDate" [(ngModel)]="startDate" placeholder="From Date">
+                <input matInput [matDatepicker]="fromDate" formControlName="fromDate" [(ngModel)]="startDate"
+                  placeholder="From Date">
                 <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
                 <mat-datepicker #fromDate></mat-datepicker>
               </mat-form-field>
@@ -34,12 +35,12 @@
       <div class="col-auto divider-right">
         <div class="row mt-3">
           <div class="col-6">
-            <select class="form-control width-200" (change)="filterBy($event.target.value)" [(ngModel)]="filter" >
+            <select class="form-control width-200" (change)="filterBy($event.target.value)" [(ngModel)]="filter">
               <option value="" selected>Filter By</option>
               <option value="status">Status</option>
               <option value="team">Team</option>
               <option value="client">Client</option>
-              <option *ngIf="userRole !== 'RECRUITER'"  value="recruiter">Recruiter</option>
+              <option *ngIf="userRole !== 'RECRUITER'" value="recruiter">Recruiter</option>
             </select>
           </div>
 
@@ -78,7 +79,8 @@
       </div>
       <div class="col-4 mt-3">
         <div class="search-container">
-          <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString " [(ngModel)]="searchString">
+          <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString "
+            [(ngModel)]="searchString" (input)="filterItem($event.target.value)">
           <span class="search-icon">
             <i class="material-icons">search</i>
           </span>
@@ -87,8 +89,12 @@
     </div>
   </div>
 
+  <div class="mt-5 pt-5">
+   <h6>Total Requirements: {{requirementsLength}}</h6>
+  </div>
 
-  <div *ngIf="userRole ==='ADMIN'" class="mt-5 pt-5">
+
+  <div *ngIf="userRole ==='ADMIN'" class="pt-2">
 
     <table class="table table-hover table-sm">
       <thead class="table-header">
@@ -104,13 +110,14 @@
         </tr>
       </thead>
       <tbody *ngIf="requirementsLength > 0 ; else noRequirements">
-        <tr *ngFor="let require of selectedRequirements | filter:searchString" [routerLink]="['/edit-requirement',require.requirementId]">
-          <td>{{require.position.positionName}}</td>
+        <tr *ngFor="let require of selectedRequirements" [routerLink]="['/edit-requirement',require.requirementId]">
+          <td>{{require.position.positionName }}</td>
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>
           <td>{{require.clientSubmissionCount}}</td>
           <td>{{require.team.name}}</td>
-          <td *ngIf="require.allocationUser ; else noAlloction">{{require.allocationUser.firstName}} {{require.allocationUser.lastName}}</td>
+          <td *ngIf="require.allocationUser ; else noAlloction">{{require.allocationUser.firstName}}
+            {{require.allocationUser.lastName}}</td>
           <ng-template #noAlloction>
             <td>-</td>
           </ng-template>
@@ -128,8 +135,8 @@
     </table>
   </div>
 
-  <div *ngIf="userRole ==='ACC_MGR'" class="mt-5 pt-5">
-  
+  <div *ngIf="userRole ==='ACC_MGR'" class="pt-">
+
     <table class="table table-hover table-sm">
       <thead class="table-header">
         <tr>
@@ -144,13 +151,14 @@
         </tr>
       </thead>
       <tbody *ngIf="requirementsLength > 0 ; else noRequirements">
-        <tr *ngFor="let require of selectedRequirements | filter:searchString" [routerLink]="['/acc_mgr-edit-requirement',require.requirementId]">
+        <tr *ngFor="let require of selectedRequirements" [routerLink]="['/acc_mgr-edit-requirement',require.requirementId]">
           <td>{{require.position.positionName}}</td>
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>
           <td>{{require.clientSubmissionCount}}</td>
           <td>{{require.team.name}}</td>
-          <td *ngIf="require.allocationUser ; else noAlloction">{{require.allocationUser.firstName}} {{require.allocationUser.lastName}}</td>
+          <td *ngIf="require.allocationUser ; else noAlloction">{{require.allocationUser.firstName}}
+            {{require.allocationUser.lastName}}</td>
           <ng-template #noAlloction>
             <td>-</td>
           </ng-template>
@@ -168,8 +176,8 @@
     </table>
   </div>
 
-  <div *ngIf="userRole ==='TL'" class="mt-5 pt-5">
-  
+  <div *ngIf="userRole ==='TL'" class="pt-2">
+
     <table class="table table-hover table-sm">
       <thead class="table-header">
         <tr>
@@ -184,13 +192,14 @@
         </tr>
       </thead>
       <tbody *ngIf="requirementsLength > 0 ; else noRequirements">
-        <tr *ngFor="let require of selectedRequirements | filter:searchString" [routerLink]="['/leadUser-edit-requirement',require.requirementId]">
+        <tr *ngFor="let require of selectedRequirements" [routerLink]="['/leadUser-edit-requirement',require.requirementId]">
           <td>{{require.position.positionName}}</td>
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>
           <td>{{require.clientSubmissionCount}}</td>
           <td>{{require.team.name}}</td>
-          <td *ngIf="require.allocationUser ; else noAlloction">{{require.allocationUser.firstName}} {{require.allocationUser.lastName}}</td>
+          <td *ngIf="require.allocationUser ; else noAlloction">{{require.allocationUser.firstName}}
+            {{require.allocationUser.lastName}}</td>
           <ng-template #noAlloction>
             <td>-</td>
           </ng-template>
@@ -208,8 +217,8 @@
     </table>
   </div>
 
-  <div *ngIf="userRole ==='RECRUITER'" class="mt-5 pt-5">
-   
+  <div *ngIf="userRole ==='RECRUITER'" class="pt-2">
+
     <table class="table table-hover table-sm">
       <thead class="table-header">
         <tr>
@@ -224,13 +233,14 @@
         </tr>
       </thead>
       <tbody *ngIf="requirementsLength > 0 ; else noRequirements">
-        <tr *ngFor="let require of selectedRequirements | filter:searchString" [routerLink]="['/requirement-detail',require.requirementId]">
+        <tr *ngFor="let require of selectedRequirements" [routerLink]="['/requirement-detail',require.requirementId]">
           <td>{{require.position.positionName}}</td>
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>
           <td>{{require.clientSubmissionCount}}</td>
           <td>{{require.team.name}}</td>
-          <td *ngIf="require.allocationUser ; else noAlloction">{{require.allocationUser.firstName}} {{require.allocationUser.lastName}}</td>
+          <td *ngIf="require.allocationUser ; else noAlloction">{{require.allocationUser.firstName}}
+            {{require.allocationUser.lastName}}</td>
           <ng-template #noAlloction>
             <td>-</td>
           </ng-template>

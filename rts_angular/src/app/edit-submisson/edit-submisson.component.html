@@ -527,7 +527,7 @@
 
       </div>
     </div>
-    <div *ngIf="userRole === 'ACC_MGR' && sendToClient && !isSubmitted ">
+    <div *ngIf="userRole === 'ACC_MGR' && isSubmitted ">
       <h2  class="form-title">Mail Format:</h2>
       <mat-radio-group (change)="getMailFormat($event)">
         <mat-radio-button value="Yes">Plain (For TCS Client) </mat-radio-button>
@@ -537,7 +537,7 @@
 
        <div class="form-btn-container">
       <button class="btn btn-forms btn-space" type="submit">Update Submission</button>
-      <button type="button" *ngIf="userRole === 'ACC_MGR' && sendToClient && !isSubmitted " class="btn btn-forms btn-space" (click)="submissionToClient();">Send To Client</button>
+      <button type="button" *ngIf="userRole === 'ACC_MGR' && isSubmitted " class="btn btn-forms btn-space" (click)="approveSubmission(myForm);">Approve and Submit to Client</button>
       <button [routerLink]="[ '/submissions']" class="btn btn-forms">Cancel</button>
     </div>
 

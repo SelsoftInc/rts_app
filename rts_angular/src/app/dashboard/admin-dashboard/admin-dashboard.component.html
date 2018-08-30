@@ -25,7 +25,7 @@
             [showYAxisLabel]="showYAxisLabel"
             [xAxisLabel]="xAxisLabel"
             [yAxisLabel]="yAxisLabel"
-            (select)="onSelect($event)">
+            (select)="onUserSelect($event)">
           </ngx-charts-bar-vertical>
         </div>
       </div>
@@ -34,7 +34,6 @@
       <div class="col-block pt-5">
         <div class="chart-title-wrapper">
           <h2 class="chart-title">Team wise submission status</h2>
-
         </div>
         <div class="chart-align-100-400">
           <ngx-charts-pie-chart
@@ -43,7 +42,8 @@
             [results]="totalSubmissionByTeam"
             [gradient]="gradient"
             [labels]="show"
-            [doughnut]="show">
+            [doughnut]="show"
+            (select)="onTeamSelect($event)">
           </ngx-charts-pie-chart>
         </div>
         <div>
