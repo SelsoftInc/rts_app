@@ -386,7 +386,6 @@ export class EditSubmissonComponent implements OnInit {
   }
 
   approveSubmission(form: FormGroup) {
-    console.log(form);
     this.sendToClient = true;
     this.updateCandidateWithSubmission(form, this.selectedSubmission.candidate.candidateId);
   }

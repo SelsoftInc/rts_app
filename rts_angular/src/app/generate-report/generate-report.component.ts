@@ -199,9 +199,10 @@ export class GenerateReportComponent implements OnInit {
 
   submissionDetails(data) {
     this.approvedsubmissions = data.submissionReport;
-    this.selectedSubmissions = this.approvedsubmissions;
+    const decendingOrder = _.sortBy(this.approvedsubmissions, 'submissionDate').reverse();
+    this.selectedSubmissions = decendingOrder;
     this.approvedSubmissionsLength = this.selectedSubmissions.length;
-    for (const submission of this.approvedsubmissions) {
+    for (const submission of this.selectedSubmissions) {
       const diff = Math.floor(this.currentDate.getTime() - submission.submissionDate);
       const day = 1000 * 60 * 60 * 24;
       const days = Math.floor(diff / day);
@@ -221,7 +222,8 @@ export class GenerateReportComponent implements OnInit {
   }
 
   selectedSubmissionDetails(data) {
-    this.selectedSubmissions = data;
+    const decendingOrder = _.sortBy(data, 'submissionDate').reverse();
+    this.selectedSubmissions = decendingOrder;
     this.approvedSubmissionsLength = this.selectedSubmissions.length;
     for (const submission of this.selectedSubmissions) {
       const diff = Math.floor(this.currentDate.getTime() - submission.submissionDate);

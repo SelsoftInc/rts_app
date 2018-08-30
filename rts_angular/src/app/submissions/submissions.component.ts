@@ -24,18 +24,19 @@ export class SubmissionsComponent implements OnInit {
   private userRole: any;
   private currentDate: Date;
   public myForm: FormGroup;
-  isStatus: boolean;
-  isClient: boolean;
-  isTeam: boolean;
-  isRecruiter: boolean;
-  filter: string;
-  startDate: string;
-  clients: any;
-  teams: any;
-  teamUsers: any;
-  selectedRequirements: any;
-  submissionStatus: any;
-  toDate: any;
+  private isStatus: boolean;
+  private isClient: boolean;
+  private isTeam: boolean;
+  private isRecruiter: boolean;
+  private filter: string;
+  private startDate: string;
+  private clients: any;
+  private teams: any;
+  private teamUsers: any;
+  private selectedRequirements: any;
+  private submissionStatus: any;
+  private toDate: any;
+  private filteredRequirements: any;
 
 
   constructor(
@@ -142,26 +143,34 @@ export class SubmissionsComponent implements OnInit {
   }
 
   requimentsDetails(data) {
+    this.submissionsLength = 0;
     this.submissionDetails = [];
     this.requirements = data.requirements;
+    this.filteredRequirements = this.requirements;
     this.selectedRequirements = this.requirements;
     for (const require of this.selectedRequirements) {
       if (require.submissions.length > 0) {
         this.submissionDetails.push(require);
       }
     }
-    this.submissionsLength = this.submissionDetails.length;
+    for (const count of this.submissionDetails) {
+      this.submissionsLength = this.submissionsLength + count.submissions.length;
+    }
   }
 
   selectedRequirementsDetails(data) {
+    this.submissionsLength = 0;
     this.submissionDetails = [];
     this.selectedRequirements = data;
+    this.filteredRequirements = this.selectedRequirements;
     for (const require of this.selectedRequirements) {
       if (require.submissions.length > 0) {
         this.submissionDetails.push(require);
       }
     }
-    this.submissionsLength = this.submissionDetails.length;
+    for (const count of this.submissionDetails) {
+      this.submissionsLength = this.submissionsLength + count.submissions.length;
+    }
   }
 
   getCommonDetails() {
@@ -218,6 +227,23 @@ export class SubmissionsComponent implements OnInit {
       this.getAllRequirementsForUser();
     }
 
+  }
+
+  filterItem(value) {
+    this.submissionsLength = 0;
+    this.submissionDetails = [];
+    const filteredItems = Object.assign([], this.filteredRequirements).filter(
+      item => item.position.positionName.toLowerCase().indexOf(value.toLowerCase()) > -1
+    );
+    this.selectedRequirements = filteredItems;
+    for (const require of this.selectedRequirements) {
+      if (require.submissions.length > 0) {
+        this.submissionDetails.push(require);
+      }
+    }
+    for (const count of this.submissionDetails) {
+      this.submissionsLength = this.submissionsLength + count.submissions.length;
+    }
   }
 
   filterByDate(form: FormGroup) {
