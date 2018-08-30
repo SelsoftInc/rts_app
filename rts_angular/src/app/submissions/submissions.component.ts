@@ -76,45 +76,21 @@ export class SubmissionsComponent implements OnInit {
     this.startDate = currentDateMoment.subtract(3, 'days').format('YYYY-MM-DD');
 
     this.getCommonDetails();
-    if (this.userRole === 'ADMIN') {
-      this.getAllSubmissions();
-    } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
-      this.getAllSubmissionsForTeam();
-    } else if (this.userRole === 'RECRUITER') {
-      this.getAllRequirementsForUser();
-    }
+    this.getAllSubmissions();
   }
+
 
   getAllSubmissions() {
 
     this.toDate = moment(this.currentDate).format('YYYY-MM-DD');
 
     const userId = {
-      companyId: this.rtsCompanyId,
-      fromDate: this.startDate,
-      toDate: this.toDate
-    };
-
-    this.requirementService.requirementsDetails(userId)
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.requimentsDetails(data);
-          }
-        });
-  }
-
-  getAllSubmissionsForTeam() {
-
-    this.toDate = moment(this.currentDate).format('YYYY-MM-DD');
-
-    const teamId = {
       userId: this.rtsUserId,
       fromDate: this.startDate,
       toDate: this.toDate
     };
 
-    this.requirementService.requirementsDetailsByTeam(teamId)
+    this.requirementService.getAllSubmissionsByDate(userId)
       .subscribe(
         data => {
           if (data.success) {
@@ -123,24 +99,6 @@ export class SubmissionsComponent implements OnInit {
         });
   }
 
-  getAllRequirementsForUser() {
-
-    this.toDate = moment(this.currentDate).format('YYYY-MM-DD');
-
-    const userId = {
-      userId: this.rtsUserId,
-      fromDate: this.startDate,
-      toDate: this.toDate
-    };
-
-    this.requirementService.requirementsDetailsForUser(userId)
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.requimentsDetails(data);
-          }
-        });
-  }
 
   requimentsDetails(data) {
     this.submissionsLength = 0;
@@ -218,14 +176,7 @@ export class SubmissionsComponent implements OnInit {
       this.isStatus = false;
       this.isClient = false;
     }
-
-    if (this.userRole === 'ADMIN') {
-      this.getAllSubmissions();
-    } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
-      this.getAllSubmissionsForTeam();
-    } else if (this.userRole === 'RECRUITER') {
-      this.getAllRequirementsForUser();
-    }
+    this.getAllSubmissions();
 
   }
 
@@ -255,13 +206,7 @@ export class SubmissionsComponent implements OnInit {
     }
 
     this.filterBy('');
-    if (this.userRole === 'ADMIN') {
-      this.getAllSubmissions();
-    } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
-      this.getAllSubmissionsForTeam();
-    } else if (this.userRole === 'RECRUITER') {
-      this.getAllRequirementsForUser();
-    }
+    this.getAllSubmissions();
   }
 
   selectStatus(event) {

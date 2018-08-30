@@ -454,7 +454,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
-            this.router.navigate(['recruiter-submissions']);
+            this.router.navigate(['submissions']);
 
           } else {
             this.toastr.error(data.message, '', {

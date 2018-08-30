@@ -46,4 +46,5 @@ export class ApiUrl {
     static GetTeamGraphDetails = 'rtsCommon/common/getTeamGraphDetails';
     static GetUserSubmission = 'rtsRequirement/requirement/userSubmission';
     static GetTeamSubmission = 'rtsRequirement/requirement/teamSubmission';
+    static GetRequirementsSubmissionByDate = 'rtsRequirement/requirement/getRequirementSubmissionByDate';
 }

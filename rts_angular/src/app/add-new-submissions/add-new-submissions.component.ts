@@ -446,15 +446,7 @@ export class AddNewSubmissionsComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
-
-            if (this.userRole === 'ADMIN') {
-              this.router.navigate(['submissions']);
-            } else if (this.userRole === 'RECRUITER') {
-              this.router.navigate(['recruiter-submissions']);
-            } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
-              this.router.navigate(['submissions']);
-            }
-
+            this.router.navigate(['submissions']);
           } else {
             this.toastr.error(data.message, '', {
               positionClass: 'toast-top-center',

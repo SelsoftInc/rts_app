@@ -530,8 +530,8 @@
     <div *ngIf="userRole === 'ACC_MGR' && isSubmitted ">
       <h2  class="form-title">Mail Format:</h2>
       <mat-radio-group (change)="getMailFormat($event)">
-        <mat-radio-button value="Yes">Plain (For TCS Client) </mat-radio-button>
-        <mat-radio-button value="No">Classic (Others)</mat-radio-button>
+        <mat-radio-button value="Yes">Plain (TEXT) </mat-radio-button>
+        <mat-radio-button value="No">Classic (HTML)</mat-radio-button>
        </mat-radio-group>
       </div>
 

@@ -22,6 +22,7 @@ export class TeamSubmissionsComponent implements OnInit {
   private submissionDetails: any;
   private teamDetails: any;
   private teamName: string;
+  private filteredRequirements: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -53,12 +54,21 @@ export class TeamSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.submissionDetails = data.requirements;
+            this.filteredRequirements = this.submissionDetails;
             this.teamDetails = data.team;
             this.teamName = this.teamDetails.name;
             this.submissionsLength = this.submissionDetails.length;
 
           }
         });
+  }
+
+  filterItem(value) {
+    this.submissionDetails = [];
+    const filteredItems = Object.assign([], this.filteredRequirements).filter(
+      item => item.position.positionName.toLowerCase().indexOf(value.toLowerCase()) > -1
+    );
+    this.submissionDetails = filteredItems;
   }
 
 }
