@@ -9,6 +9,7 @@ import { ApiUrl } from '../Services/api-url';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { saveAs } from 'file-saver/FileSaver';
 import * as XLSX from 'xlsx';
+import { Sort } from '@angular/material';
 
 @Component({
   selector: 'app-generate-report',
@@ -17,6 +18,7 @@ import * as XLSX from 'xlsx';
   providers: [LoggedUserService]
 })
 export class GenerateReportComponent implements OnInit {
+
 
   private rtsUser: any;
   private rtsUserId: any;
@@ -40,6 +42,7 @@ export class GenerateReportComponent implements OnInit {
   private teamUsers: any;
   private selectedSubmissions: any;
   private selectedReport: any;
+  private sortedData: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -174,7 +177,7 @@ export class GenerateReportComponent implements OnInit {
   generateReport() {
 
     this.selectedReport = [];
-    for (const report of this.selectedSubmissions) {
+    for (const report of this.sortedData) {
       const submissionDate = moment(report.submissionDate).format('MM/DD/YYYY');
       this.selectedReport.push({
         'Candidate Name': report.candidateName,
@@ -201,6 +204,7 @@ export class GenerateReportComponent implements OnInit {
     this.approvedsubmissions = data.submissionReport;
     const decendingOrder = _.sortBy(this.approvedsubmissions, 'submissionDate').reverse();
     this.selectedSubmissions = decendingOrder;
+    this.selectedSubmissions = this.approvedsubmissions;
     this.approvedSubmissionsLength = this.selectedSubmissions.length;
     for (const submission of this.selectedSubmissions) {
       const diff = Math.floor(this.currentDate.getTime() - submission.submissionDate);
@@ -219,11 +223,13 @@ export class GenerateReportComponent implements OnInit {
         submission.age = years + ' years ago';
       }
     }
+    this.sortedData = this.selectedSubmissions.slice();
   }
 
   selectedSubmissionDetails(data) {
     const decendingOrder = _.sortBy(data, 'submissionDate').reverse();
     this.selectedSubmissions = decendingOrder;
+    this.selectedSubmissions = data;
     this.approvedSubmissionsLength = this.selectedSubmissions.length;
     for (const submission of this.selectedSubmissions) {
       const diff = Math.floor(this.currentDate.getTime() - submission.submissionDate);
@@ -242,7 +248,41 @@ export class GenerateReportComponent implements OnInit {
         submission.age = years + ' years ago';
       }
     }
+    this.sortedData = this.selectedSubmissions.slice();
   }
+
+  sortData(sort: Sort) {
+    const data = this.selectedSubmissions.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = data;
+      return;
+    }
+
+    this.sortedData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'candidateName': return this.compare(a.candidateName, b.candidateName, isAsc);
+        case 'positionName': return this.compare(a.positionName, b.positionName, isAsc);
+        case 'clientName': return this.compare(a.clientName, b.clientName, isAsc);
+        case 'submissionDate': return this.compare(a.submissionDate, b.submissionDate, isAsc);
+        case 'recruiterName': return this.compare(a.recruiterName, b.recruiterName, isAsc);
+        case 'interviewStatus': return this.compare(a.interviewStatus, b.interviewStatus, isAsc);
+        case 'l1': return this.compare(a.l1, b.l1, isAsc);
+        case 'l2': return this.compare(a.l2, b.l2, isAsc);
+        case 'age': return this.compare(a.age, b.age, isAsc);
+        case 'currentStatus': return this.compare(a.currentStatus, b.currentStatus, isAsc);
+        default: return 0;
+      }
+    });
+  }
+
+  compare(a, b, isAsc) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
 }
+
+
+
 
 

@@ -35,6 +35,7 @@ import { EditSubmissonComponent } from './edit-submisson/edit-submisson.componen
 import { AdminDashboardComponent } from './dashboard/admin-dashboard/admin-dashboard.component';
 import { UserSubmissionsComponent } from './user-submissions/user-submissions.component';
 import { TeamSubmissionsComponent } from './team-submissions/team-submissions.component';
+import { ClientRequirementsComponent } from './client-requirements/client-requirements.component';
 
 
 export const appRoutes: Routes = [
@@ -75,6 +76,7 @@ export const appRoutes: Routes = [
   { path: 'edit-submission/:id', component: EditSubmissonComponent },
   { path: 'user-submisson/:id/:date', component: UserSubmissionsComponent },
   { path: 'team-submisson/:id/:date', component: TeamSubmissionsComponent },
+  { path: 'client-requirements/:id/:date', component: ClientRequirementsComponent },
 ];
 
 

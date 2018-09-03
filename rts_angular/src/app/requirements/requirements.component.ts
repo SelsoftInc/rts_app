@@ -6,6 +6,7 @@ import { HideComponentService } from '../Services/hide-component.service';
 import * as _ from 'underscore';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { UserService } from '../Services/user.service';
+import { Sort } from '@angular/material';
 
 @Component({
   selector: 'app-requirements',
@@ -44,6 +45,7 @@ export class RequirementsComponent implements OnInit {
   private startDate: any;
   private filter: any;
   private filteredRequirements: any;
+  private sortedData: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -97,6 +99,7 @@ export class RequirementsComponent implements OnInit {
     );
     this.selectedRequirements = filteredItems;
     this.requirementsLength = this.selectedRequirements.length;
+    this.sortedData = this.selectedRequirements.slice();
   }
 
 
@@ -299,6 +302,7 @@ export class RequirementsComponent implements OnInit {
         require.age = years + ' years ago';
       }
     }
+    this.sortedData = this.selectedRequirements.slice();
   }
 
   selectedRequirementsDetails(data) {
@@ -322,6 +326,33 @@ export class RequirementsComponent implements OnInit {
         require.age = years + ' years ago';
       }
     }
+    this.sortedData = this.selectedRequirements.slice();
+  }
+
+  sortData(sort: Sort) {
+    const data = this.selectedRequirements.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = data;
+      return;
+    }
+
+    this.sortedData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'positionName': return this.compare(a.position.positionName, b.position.positionName, isAsc);
+        case 'status': return this.compare(a.status, b.status, isAsc);
+        case 'positions': return this.compare(a.positionCount, b.positionCount, isAsc);
+        case 'submittedCount': return this.compare(a.clientSubmissionCount, b.clientSubmissionCount, isAsc);
+        case 'allocationByTeam': return this.compare(a.team.name, b.team.name, isAsc);
+        case 'client': return this.compare(a.client.name, b.client.name, isAsc);
+        case 'age': return this.compare(a.age, b.age, isAsc);
+        default: return 0;
+      }
+    });
+  }
+
+  compare(a, b, isAsc) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
 }

@@ -34,6 +34,7 @@ export class AdminDashboardComponent implements OnInit {
   xAxisLabel = 'Recruiters';
   showYAxisLabel = true;
   yAxisLabel = 'Submissions';
+  yAxisClientLabel = 'Requirements';
 
   colorScheme = {
     domain: ['#a8385d', '#7aa3e5', '#a27ea8', '#aae3f5', '#adcded', '#a95963', '#8796c0', '#7ed3ed']
@@ -42,7 +43,9 @@ export class AdminDashboardComponent implements OnInit {
   colorSchemeMulti = {
     domain: ['#0386a4', '#A10A28', '#5AA454']
   };
-  totalSubmission: any;
+  private totalSubmission: any;
+  private teamDetails: any;
+  private clientOpenRequitements: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -57,6 +60,7 @@ export class AdminDashboardComponent implements OnInit {
   ngOnInit() {
     this.getUserGraphDetails();
     this.getTeamGraphDetails();
+    this.getClientRequirementsDetails();
   }
 
   getUserGraphDetails() {
@@ -81,6 +85,31 @@ export class AdminDashboardComponent implements OnInit {
           }
         });
   }
+
+  getClientRequirementsDetails() {
+    this.clientOpenRequitements = [];
+
+    const date = moment(this.currentDate).format('YYYY-MM-DD');
+    const graph = {
+      userId: this.rtsUserId,
+      fromDate: date,
+      toDate: date
+    };
+
+    this.graphService.getClientOpenRequirements(graph)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.clientOpenRequitements = data.clientRequirements;
+            for (const count of this.clientOpenRequitements) {
+              count.extra = {
+                clientId: count.clientId
+              };
+            }
+          }
+        });
+  }
+
 
   getTeamGraphDetails() {
     this.totalSubmissionByTeam = [];
@@ -111,6 +140,7 @@ export class AdminDashboardComponent implements OnInit {
     if (event !== undefined) {
       this.getUserGraphDetails();
       this.getTeamGraphDetails();
+      this.getClientRequirementsDetails();
     }
   }
 
@@ -123,5 +153,10 @@ export class AdminDashboardComponent implements OnInit {
   onTeamSelect(event) {
     const date = moment(this.currentDate).format('YYYY-MM-DD');
     this.router.navigate(['team-submisson', event.extra.teamId, date]);
+  }
+
+  onClientSelect(event) {
+    const date = moment(this.currentDate).format('YYYY-MM-DD');
+    this.router.navigate(['client-requirements', event.extra.clientId, date]);
   }
 }

@@ -1,0 +1,40 @@
+<h2 class="main-title">Requirements</h2>
+<div class="utility-container">
+
+    <table class="table table-hover table-sm">
+        <thead class="table-header">
+          <tr>
+            <th>Position Name</th>
+            <th>Status</th>
+            <th>Positions</th>
+            <th>Submitted Count</th>
+            <th>Allocation By Team</th>
+            <th>Allocation By User</th>
+            <th>Client</th>
+            <th>Age</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="requirementsLength > 0 ; else noRequirements">
+          <tr *ngFor="let require of selectedRequirements">
+            <td>{{require.position.positionName }}</td>
+            <td>{{require.status}}</td>
+            <td>{{require.positionCount}}</td>
+            <td>{{require.clientSubmissionCount}}</td>
+            <td>{{require.team.name}}</td>
+            <td *ngIf="require.allocationUser ; else noAlloction">{{require.allocationUser.firstName}}
+              {{require.allocationUser.lastName}}</td>
+            <ng-template #noAlloction>
+              <td>-</td>
+            </ng-template>
+            <td>{{require.client.name}}</td>
+            <td>{{require.age}}</td>
+          </tr>
+        </tbody>
+        <ng-template #noRequirements>
+          <tbody>
+            <tr>
+              <td>No requirements yet, Please click Add Requirement to add a new requirement.</td>
+            </tr>
+          </tbody>
+        </ng-template>
+      </table>
