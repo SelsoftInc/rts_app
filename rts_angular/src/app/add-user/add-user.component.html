@@ -35,16 +35,15 @@
         </div>
 
         <div class="col-sm-4">
-          <label for="confirmPassword" class="form-label">Confim Password :</label>
-          <input type="password" class="form-input" name="confirmPassword" formControlName="confirmPassword" required>
-        </div>
-
-        <div class="col-sm-4">
           <label for="userPassword" class="form-label">Password:</label>
           <input type="password" class="form-input" name="userPassword" formControlName="userPassword" required>
         </div>
-      </div>
 
+        <div class="col-sm-4">
+          <label for="confirmPassword" class="form-label">Confim Password:</label>
+          <input type="password" class="form-input" name="confirmPassword" formControlName="confirmPassword" required>
+        </div>
+      </div>
 
       <div class="form-btn-container mt-5">
         <button class="btn btn-forms btn-space" type="submit" [disabled]="!myForm.valid">Add User</button>

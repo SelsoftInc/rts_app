@@ -20,15 +20,16 @@
         </div>
         <div class="col-sm-4" *ngIf="isOtherPositionName">
           <label for="positionName" class="form-label">Add New Position Name:</label>
-          <input type="text" class="form-input" name="otherPositionName" formControlName="otherPositionName" placeholder=" Enter the Position Name"
-            required>
+          <input type="text" class="form-input" name="otherPositionName" formControlName="otherPositionName"
+            placeholder=" Enter the Position Name" required>
         </div>
       </div>
 
       <div class="row">
         <div class="col-sm-2" *ngIf="selectedRequirement">
           <label for="status" class="form-label">Status:</label>
-          <select name="status" class="form-input" formControlName="status" ngModel="{{selectedRequirement.status}}" required>
+          <select name="status" class="form-input" formControlName="status" ngModel="{{selectedRequirement.status}}"
+            required>
             <option value="">Select</option>
             <option *ngFor="let status of requirementStatus" value="{{status.value}}">{{status.name}}</option>
             <option *ngIf="selectedRequirement.status === 'Draft'" value="Draft">Draft</option>
@@ -66,8 +67,8 @@
       <div class="row">
         <div class="col-sm-2" *ngIf="selectedRequirement">
           <label for="positionsCount" class="form-label ">No.of Positions:</label>
-          <input type="number" class="form-input" name="positionsCount" maxlength="3" formControlName="positionsCount" ngModel="{{selectedRequirement.positionCount}}"
-            required>
+          <input type="number" class="form-input" name="positionsCount" maxlength="3" formControlName="positionsCount"
+            ngModel="{{selectedRequirement.positionCount}}" required>
         </div>
 
         <div class="col-sm-2" *ngIf="selectedRequirement">
@@ -102,8 +103,8 @@
         <div class="col-sm-4" *ngIf="isRecruiters">
           <label for="clientName" class="form-label">Add New Client:</label>
           <div class="pt-4">
-            <ng-multiselect-dropdown [placeholder]="'Select Recruiters'" [data]="recruitersArray" formControlName="recruitersName" [(ngModel)]="selectedrecruitersArray"
-              [settings]="dropdownSettings">
+            <ng-multiselect-dropdown [placeholder]="'Select Recruiters'" [data]="recruitersArray" formControlName="recruitersName"
+              [(ngModel)]="selectedrecruitersArray" [settings]="dropdownSettings">
             </ng-multiselect-dropdown>
           </div>
         </div>
@@ -127,10 +128,10 @@
       </div>
 
       <div class="row">
-        <div class="col-sm-2" *ngIf="selectedRequirement && !editTeam">
+        <div class="col-sm-2" *ngIf="selectedRequirement && editTeam">
           <label for="team" class="form-label">Team:</label>
-          <select name="team" class="form-input" formControlName="team" ngModel="{{selectedRequirement.teamId}}" (change)="selectTeam($event.target.value)"
-            disabled>
+          <select name="team" class="form-input" formControlName="team" ngModel="{{selectedRequirement.teamId}}"
+            (change)="selectTeam($event.target.value)" required>
             <option value="">Select</option>
             <option *ngFor="let team of teams" value="{{team.teamId}}">{{team.name}}</option>
           </select>
@@ -151,7 +152,8 @@
           <label class="form-label">Reqirement Type:</label>
           <div class="checkbox-wrapper">
             <span class="checkbox-container" *ngFor="let type of requirementType" ng-checked="requirementByUser.indexOf(type) != 1">
-              <mat-checkbox color="primary" (change)="getCheckedRequirementType(type)" formControlName="{{type}}" [value]="type">{{type}}</mat-checkbox>
+              <mat-checkbox color="primary" (change)="getCheckedRequirementType(type)" formControlName="{{type}}"
+                [value]="type">{{type}}</mat-checkbox>
             </span>
           </div>
         </div>
@@ -162,7 +164,8 @@
           <label for="immigrationRequirement" class="form-label">Immigration Requirement:</label>
           <div class="checkbox-wrapper">
             <span class="checkbox-container" *ngFor="let data of immigration" ng-checked="immigrationByUser.indexOf(data) != 1">
-              <mat-checkbox color="primary" (change)="getCheckedImmigrationValue(data)" formControlName="{{data.id}}" [value]="data.value">{{data.value}}</mat-checkbox>
+              <mat-checkbox color="primary" (change)="getCheckedImmigrationValue(data)" formControlName="{{data.id}}"
+                [value]="data.value">{{data.value}}</mat-checkbox>
             </span>
           </div>
         </div>
@@ -179,14 +182,16 @@
       <div class="row">
         <div class="col-sm-4">
           <label for="notes" class="form-label">Notes:</label>
-          <textarea row="3" name="notes" class="form-textarea" formControlName="notes" placeholder="Type Your Notes.." ngModel="{{selectedRequirement.note}}"></textarea>
+          <textarea row="3" name="notes" class="form-textarea" formControlName="notes" placeholder="Type Your Notes.."
+            ngModel="{{selectedRequirement.note}}"></textarea>
         </div>
       </div>
 
       <div class="row">
         <div class="col-sm-4" *ngIf="selectedRequirement.comments">
           <label for="comments" class="form-label">Comments:</label>
-          <textarea rows="3" name="comments" class="form-textarea" formControlName="comments" placeholder="Type Your Comments.." ngModel="{{selectedRequirement.comments}}"></textarea>
+          <textarea rows="3" name="comments" class="form-textarea" formControlName="comments" placeholder="Type Your Comments.."
+            ngModel="{{selectedRequirement.comments}}"></textarea>
         </div>
       </div>
     </div>

@@ -284,6 +284,7 @@ export class AddNewRequirementComponent implements OnInit {
   }
 
   selectTeam(event) {
+    this.selectedTeamUsers = [];
     if (event !== '') {
       this.selectedTeam = _.findWhere(this.teams, { teamId: event });
       this.selectedTeamUsers.push(this.selectedTeam.leadUser);

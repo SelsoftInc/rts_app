@@ -135,7 +135,7 @@ export class EditTeamComponent implements OnInit {
     this.recruiters = [];
     this.teamMembers = [];
     for (const user of this.users) {
-      if (user.role === 'RECRUITER') {
+      if (user.role === 'RECRUITER' || user.role === 'TRAINEE') {
         this.recruiters.push({ user: user.userId, firstName: user.firstName + ' ' + user.lastName });
       }
     }

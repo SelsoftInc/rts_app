@@ -1,18 +1,18 @@
 <h2 class="main-title-dashboard">Dashboard</h2>
 <div class="dash-filter-container">
   <div class="row">
-    <div class="col-6">
-      <div class="row">
+    <div class="col-8">
+      <div class="row mt-2">
         <div class="col-3">
           <mat-form-field>
-            <input matInput [matDatepicker]="fromDatePicker" [(ngModel)]="fromDate">
+            <input matInput [matDatepicker]="fromDatePicker" [(ngModel)]="fromDate" placeholder="From Date">
             <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #fromDatePicker></mat-datepicker>
           </mat-form-field>
         </div>
         <div class="col-3">
           <mat-form-field>
-            <input matInput [matDatepicker]="toDatePicker" [(ngModel)]="currentDate">
+            <input matInput [matDatepicker]="toDatePicker" [(ngModel)]="currentDate"  placeholder="To Date">
             <mat-datepicker-toggle matSuffix [for]="toDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #toDatePicker></mat-datepicker>
           </mat-form-field>

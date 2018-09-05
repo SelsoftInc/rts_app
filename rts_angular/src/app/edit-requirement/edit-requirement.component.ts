@@ -255,7 +255,6 @@ export class EditRequirementComponent implements OnInit {
     } else {
       this.immigrationByUser.splice(this.immigrationByUser.indexOf(data.value), 1);
     }
-    console.log(this.immigrationByUser);
   }
 
   changePositionName(event) {

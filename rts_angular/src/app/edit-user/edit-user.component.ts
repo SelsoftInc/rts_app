@@ -46,6 +46,7 @@ export class EditUserComponent implements OnInit {
       { 'name': 'Account Manager', 'value': 'ACC_MGR' },
       { 'name': 'Team Leader', 'value': 'TL' },
       { 'name': 'Recruiter', 'value': 'RECRUITER' },
+      { 'name': 'Trainee', 'value': 'TRAINEE' },
     ];
   }
 

@@ -88,7 +88,7 @@ export class RequirementsComponent implements OnInit {
       this.getAllRequirements();
     } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
       this.getAllRequirementsForTeam();
-    } else if (this.userRole === 'RECRUITER') {
+    } else if (this.userRole === 'RECRUITER' || this.userRole === 'TRAINEE') {
       this.getAllRequirementsForUser();
     }
   }
@@ -137,7 +137,7 @@ export class RequirementsComponent implements OnInit {
       this.getAllRequirements();
     } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
       this.getAllRequirementsForTeam();
-    } else if (this.userRole === 'RECRUITER') {
+    } else if (this.userRole === 'RECRUITER' || this.userRole === 'TRAINEE') {
       this.getAllRequirementsForUser();
     }
 
@@ -156,7 +156,7 @@ export class RequirementsComponent implements OnInit {
       this.getAllRequirements();
     } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
       this.getAllRequirementsForTeam();
-    } else if (this.userRole === 'RECRUITER') {
+    } else if (this.userRole === 'RECRUITER' || this.userRole === 'TRAINEE') {
       this.getAllRequirementsForUser();
     }
 

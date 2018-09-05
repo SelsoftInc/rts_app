@@ -1,6 +1,7 @@
 <h2 class="main-title">
   <a [routerLink]="['/submissions']">Submissions</a> / Edit Submission</h2>
 <div class="utility-container">
+  <ngx-loading-spinner> </ngx-loading-spinner>
   <form [formGroup]="myForm" (ngSubmit)="updateSubmission(myForm)">
     <div class="container">
 

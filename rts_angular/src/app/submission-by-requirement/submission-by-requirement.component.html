@@ -12,8 +12,10 @@
           <span class="meta-info-content">{{selectedRequirement.client.name}},</span>
           <span *ngIf="selectedRequirement.allocationUser">
             <span class="block-header-label">Allocated to: </span>
-            <span class="meta-info-content">{{selectedRequirement.allocationUser.firstName}} {{selectedRequirement.allocationUser.lastName}}
-              <span class="meta-info-content" *ngIf="selectedRequirement.allocationUserId === ''">(Team: {{selectedRequirement.team.name}})</span>
+            <span class="meta-info-content">{{selectedRequirement.allocationUser.firstName}}
+              {{selectedRequirement.allocationUser.lastName}}
+              <span class="meta-info-content" *ngIf="selectedRequirement.allocationUserId === ''">(Team:
+                {{selectedRequirement.team.name}})</span>
             </span>
           </span>
         </div>
@@ -56,8 +58,10 @@
           <span class="meta-info-content">{{selectedRequirement.client.name}},</span>
           <span *ngIf="selectedRequirement.allocationUser">
             <span class="block-header-label">Allocated to: </span>
-            <span class="meta-info-content">{{selectedRequirement.allocationUser.firstName}} {{selectedRequirement.allocationUser.lastName}}
-              <span class="meta-info-content" *ngIf="selectedRequirement.allocationUserId === ''">(Team: {{selectedRequirement.team.name}})</span>
+            <span class="meta-info-content">{{selectedRequirement.allocationUser.firstName}}
+              {{selectedRequirement.allocationUser.lastName}}
+              <span class="meta-info-content" *ngIf="selectedRequirement.allocationUserId === ''">(Team:
+                {{selectedRequirement.team.name}})</span>
             </span>
           </span>
         </div>
@@ -101,8 +105,10 @@
           <span class="meta-info-content">{{selectedRequirement.client.name}},</span>
           <span *ngIf="selectedRequirement.allocationUser">
             <span class="block-header-label">Allocated to: </span>
-            <span class="meta-info-content">{{selectedRequirement.allocationUser.firstName}} {{selectedRequirement.allocationUser.lastName}}
-              <span class="meta-info-content" *ngIf="selectedRequirement.allocationUserId === ''">(Team: {{selectedRequirement.team.name}})</span>
+            <span class="meta-info-content">{{selectedRequirement.allocationUser.firstName}}
+              {{selectedRequirement.allocationUser.lastName}}
+              <span class="meta-info-content" *ngIf="selectedRequirement.allocationUserId === ''">(Team:
+                {{selectedRequirement.team.name}})</span>
             </span>
           </span>
         </div>
@@ -136,7 +142,7 @@
     </ng-template>
   </div>
 
-  <div *ngIf="userRole ==='RECRUITER'">
+  <div *ngIf="userRole ==='RECRUITER' || userRole === 'TRAINEE'">
     <div class="table-wrapper mt-4" *ngIf="submissionsLength > 0 ; else noSummissions">
       <div class="block-wrapper">
         <div class="meta-info-wrapper">

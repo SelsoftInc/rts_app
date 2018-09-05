@@ -9,15 +9,17 @@
         <div class="col-sm-4">
           <label for="requirements" class="form-label">Requirements:</label>
           <select name="requirements" class="form-input" formControlName="requirements" (change)="getRequirement($event.target.value);"
-                  ngModel="{{requirementId}}" required>
+            ngModel="{{requirementId}}" required>
             <option value="">Select</option>
-            <option *ngFor="let require of allRequirements" value="{{require.requirementId}}">{{require.position.positionName}} ({{require.client.name}})</option>
+            <option *ngFor="let require of allRequirements" value="{{require.requirementId}}">{{require.position.positionName}}
+              ({{require.client.name}})</option>
           </select>
         </div>
 
         <div class="col-sm-4" *ngIf="selectRequiement && userRole !== 'RECRUITER'">
           <label for="clientRate" class="form-label">Client Rate:</label>
-          <input type="text" class="form-input" name="clientRate" formControlName="clientRate" ngModel="{{selectRequiement.clientRate}}" readonly>
+          <input type="text" class="form-input" name="clientRate" formControlName="clientRate" ngModel="{{selectRequiement.clientRate}}"
+            readonly>
         </div>
 
         <div class="col-sm-4" *ngIf="selectRequiement && userRole !== 'RECRUITER'">
@@ -27,7 +29,8 @@
 
         <div class="col-sm-4" *ngIf="selectRequiement && userRole === 'RECRUITER'">
           <label for="sellingRate" class="form-label">Selling Rate:</label>
-          <input type="text" class="form-input" name="sellingRate" formControlName="sellingRate" ngModel="{{selectRequiement.sellingRate}}" readonly>
+          <input type="text" class="form-input" name="sellingRate" formControlName="sellingRate" ngModel="{{selectRequiement.sellingRate}}"
+            readonly>
         </div>
 
         <div class="col-sm-4">
@@ -45,57 +48,42 @@
 
         <div class="col-sm-4" *ngIf="selectRequiement">
           <label for="clientContactname" class="form-label">Client Contact name:</label>
-          <input type="text" class="form-input" name="clientContactname" formControlName="clientContactname" ngModel="{{clientRecruiterName}}" readonly>
+          <input type="text" class="form-input" name="clientContactname" formControlName="clientContactname" ngModel="{{clientRecruiterName}}"
+            readonly>
         </div>
 
         <div class="col-sm-4" *ngIf="selectRequiement && userRole !== 'RECRUITER'">
           <label for="clientContactEmail" class="form-label">Client Contact Email:</label>
-          <input type="text" class="form-input" name="clientContactEmail" formControlName="clientContactEmail" ngModel="{{clientRecruiterEmail}}" readonly>
+          <input type="text" class="form-input" name="clientContactEmail" formControlName="clientContactEmail" ngModel="{{clientRecruiterEmail}}"
+            readonly>
         </div>
 
         <div class="col-sm-4" *ngIf="selectRequiement">
           <label for="accountName" class="form-label">Account Name:</label>
-          <input type="text" class="form-input" name="accountName" formControlName="accountName" value="{{selectRequiement.account.accountName}}" readonly>
+          <input type="text" class="form-input" name="accountName" formControlName="accountName" value="{{selectRequiement.account.accountName}}"
+            readonly>
         </div>
 
         <div class="col-sm-4" *ngIf="selectRequiement">
           <label for="workLocation" class="form-label">Work Location:</label>
-          <input type="text" class="form-input" name="workLocation" formControlName="workLocation" value="{{selectRequiement.location}}" readonly>
+          <input type="text" class="form-input" name="workLocation" formControlName="workLocation" value="{{selectRequiement.location}}"
+            readonly>
         </div>
 
       </div>
 
-
-      <!-- <div class="form-group">
-        <div>
-          <label class="fileContainer">
-            <button class="btn btn-secondary" >
-              Attach For Submission</button>
-            <input type="file" (change)="fileChangeEvent($event)" multiple />
-          </label>
-        </div>
-        <div class="pb-2" *ngFor="let file of getFiles">
-          <a class="panel">{{file.name}}
-          </a>
-          <a class="btn" (click)="removeFile(file)">
-            <i class="material-icons">
-              clear
-            </i>
-          </a>
-        </div>
-      </div> -->
-
       <h2 class="form-title">Candidate Deatils:</h2>
-        <div class="row">
-          <div class="col-sm-4">
-            <label for="candidateEmail" class="form-label">Candidate Email:</label>
-            <input type="text" class="form-input" name="candidateEmail" formControlName="candidateEmail" value="{{selectedCandidate.email}}" required>
+      <div class="row">
+        <div class="col-sm-4">
+          <label for="candidateEmail" class="form-label">Candidate Email:</label>
+          <input type="text" class="form-input" name="candidateEmail" formControlName="candidateEmail" value="{{selectedCandidate.email}}"
+            required>
 
-          </div>
-          <div class="col-sm-1">
-            <button type="button" class="btn btn-forms mt-5 pt-2" (click)="getCandidateDetails()">Search</button>
-          </div>
         </div>
+        <div class="col-sm-1">
+          <button type="button" class="btn btn-forms mt-5 pt-2" (click)="getCandidateDetails()">Search</button>
+        </div>
+      </div>
 
       <div *ngIf="isCandidate">
 
@@ -127,44 +115,52 @@
 
           <div class="col-sm-4">
             <label for="candidateName" class="form-label">Candidate Name:</label>
-            <input type="text" class="form-input" name="candidateName" formControlName="candidateName" value="{{selectedCandidate.name}}" readonly>
+            <input type="text" class="form-input" name="candidateName" formControlName="candidateName" value="{{selectedCandidate.name}}"
+              readonly>
           </div>
 
           <div class="col-sm-4">
             <label for="candidatePhone" class="form-label">Candidate Phone:</label>
-            <input type="text" class="form-input" name="candidatePhone" formControlName="candidatePhone" value="{{selectedCandidate.phoneNumber}}" readonly>
+            <input type="text" class="form-input" name="candidatePhone" formControlName="candidatePhone" value="{{selectedCandidate.phoneNumber}}"
+              readonly>
           </div>
 
           <div class="col-sm-4">
             <label for="candidateLocation" class="form-label">Candidate Location:</label>
-            <input type="text" class="form-input" name="candidateLocation" formControlName="candidateLocation" value="{{selectedCandidate.location}}" readonly>
+            <input type="text" class="form-input" name="candidateLocation" formControlName="candidateLocation" value="{{selectedCandidate.location}}"
+              readonly>
           </div>
 
           <div class="col-sm-4">
             <label for="availability" class="form-label">Availability:</label>
-            <input type="text" class="form-input" name="availability" formControlName="availability" value="{{selectedCandidate.availability}}" readonly>
+            <input type="text" class="form-input" name="availability" formControlName="availability" value="{{selectedCandidate.availability}}"
+              readonly>
           </div>
 
           <div class="col-sm-4">
             <label for="technology" class="form-label">Technology:</label>
-            <select name="technology" class="form-input" formControlName="technology" ngModel="{{selectedCandidate.technology[0].technologyId}}" disabled>
+            <select name="technology" class="form-input" formControlName="technology" ngModel="{{selectedCandidate.technology[0].technologyId}}"
+              disabled>
               <option *ngFor="let tech of selectedCandidate.technology" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
             </select>
           </div>
 
           <div class="col-sm-4">
             <label for="skype" class="form-label">Skype:</label>
-            <input type="text" class="form-input" name="skype" formControlName="skype" value="{{selectedCandidate.skype}}" readonly>
+            <input type="text" class="form-input" name="skype" formControlName="skype" value="{{selectedCandidate.skype}}"
+              readonly>
           </div>
 
           <div class="col-sm-4">
             <label for="linkedIn" class="form-label">LinkedIn:</label>
-            <input type="text" class="form-input" name="linkedIn" formControlName="linkedIn" value="{{selectedCandidate.linkedIn}}" readonly>
+            <input type="text" class="form-input" name="linkedIn" formControlName="linkedIn" value="{{selectedCandidate.linkedIn}}"
+              readonly>
           </div>
 
           <div class="col-sm-4" *ngIf="selectedCandidate">
             <label for="editResonForChange" class="form-label">Reson For Change:</label>
-            <input type="text" class="form-input" name="editResonForChange" formControlName="editResonForChange" readonly ngModel="{{selectedCandidate.reasonForChange}}">
+            <input type="text" class="form-input" name="editResonForChange" formControlName="editResonForChange"
+              readonly ngModel="{{selectedCandidate.reasonForChange}}">
           </div>
 
           <div class="col-sm-4" *ngIf="selectedCandidate">
@@ -174,17 +170,20 @@
 
           <div class="col-sm-4" *ngIf="selectedCandidate">
             <label for="editExperience" class="form-label">Relevant Experience:</label>
-            <input type="text" class="form-input" name="editExperience" formControlName="editExperience" readonly ngModel="{{selectedCandidate.experience}}">
+            <input type="text" class="form-input" name="editExperience" formControlName="editExperience" readonly
+              ngModel="{{selectedCandidate.experience}}">
           </div>
 
           <div class="col-sm-4" *ngIf="selectedCandidate">
             <label for="editTotalExperience" class="form-label">Total Experience:</label>
-            <input type="text" class="form-input" name="totalExperience" formControlName="totalExperience" readonly ngModel="{{selectedCandidate.totalExperience}}">
+            <input type="text" class="form-input" name="totalExperience" formControlName="totalExperience" readonly
+              ngModel="{{selectedCandidate.totalExperience}}">
           </div>
 
           <div class="col-sm-4" *ngIf="selectedCandidate">
             <label for="currentCompany" class="form-label">Current Company:</label>
-            <input type="text" class="form-input" name="currentCompany" formControlName="currentCompany" readonly ngModel="{{selectedCandidate.currentCompanyName}}">
+            <input type="text" class="form-input" name="currentCompany" formControlName="currentCompany" readonly
+              ngModel="{{selectedCandidate.currentCompanyName}}">
           </div>
 
           <div class="col-sm-4" *ngIf="selectedCandidate">
@@ -194,7 +193,8 @@
 
           <div class="col-sm-4" *ngIf="selectedCandidate">
             <label for="authorizedWorkInUs" class="form-label">Authorized work in US:</label>
-            <input type="text" class="form-input" name="authorizedWorkInUs" formControlName="authorizedWorkInUs" readonly ngModel="{{selectedCandidate.authorizedWorkInUS}}">
+            <input type="text" class="form-input" name="authorizedWorkInUs" formControlName="authorizedWorkInUs"
+              readonly ngModel="{{selectedCandidate.authorizedWorkInUS}}">
           </div>
 
           <div class="col-sm-4" *ngIf="selectedCandidate">
@@ -215,7 +215,8 @@
 
           <div class="col-sm-4" *ngIf="selectedCandidate">
             <label for="anotherInterviewOffer" class="form-label">Any interview or Offers in hand?</label>
-            <input type="text" class="form-input" name="anotherInterviewOffer" formControlName="anotherInterviewOffer" readonly ngModel="{{selectedCandidate.anyOffer}}">
+            <input type="text" class="form-input" name="anotherInterviewOffer" formControlName="anotherInterviewOffer"
+              readonly ngModel="{{selectedCandidate.anyOffer}}">
           </div>
 
           <div class="col-sm-4" *ngIf="selectedCandidate">
@@ -241,22 +242,26 @@
             <div class="row">
               <div class="col-sm-4">
                 <label for="employerName" class="form-label">Employer Name:</label>
-                <input type="text" class="form-input" name="employerName" formControlName="employerName" ngModel="{{selectedCandidate.employeeName}}" readonly>
+                <input type="text" class="form-input" name="employerName" formControlName="employerName" ngModel="{{selectedCandidate.employeeName}}"
+                  readonly>
               </div>
 
               <div class="col-sm-4">
                 <label for="employerContactName" class="form-label">Employer Contact Name:</label>
-                <input type="text" class="form-input" name="employerContactName" formControlName="employerContactName" ngModel="{{selectedCandidate.employeeContactName}}" readonly>
+                <input type="text" class="form-input" name="employerContactName" formControlName="employerContactName"
+                  ngModel="{{selectedCandidate.employeeContactName}}" readonly>
               </div>
 
               <div class="col-sm-4">
                 <label for="employerPhone" class="form-label">Employer Phone:</label>
-                <input type="text" class="form-input" name="employerPhone" formControlName="employerPhone" ngModel="{{selectedCandidate.employeeContactPhone}}" readonly>
+                <input type="text" class="form-input" name="employerPhone" formControlName="employerPhone" ngModel="{{selectedCandidate.employeeContactPhone}}"
+                  readonly>
               </div>
 
               <div class="col-sm-4">
                 <label for="employerEmail" class="form-label">Employer Email:</label>
-                <input type="text" class="form-input" name="employerEmail" formControlName="employerEmail" ngModel="{{selectedCandidate.employeeContactEmail}}" readonly>
+                <input type="text" class="form-input" name="employerEmail" formControlName="employerEmail" ngModel="{{selectedCandidate.employeeContactEmail}}"
+                  readonly>
               </div>
             </div>
           </div>
@@ -265,7 +270,7 @@
         <div class="row">
           <div class="col-sm-12 mt-4">
             <div class="form-group" *ngIf="selectedCandidate">
-                <h2 class="form-title">Attachements:</h2>
+              <h2 class="form-title">Attachements:</h2>
               <div class="pt-3" *ngFor="let media of selectedCandidate.mediaFiles">
                 <i class="panel btn" (click)="openFiles(media);">{{media.fileName}}
                 </i>
@@ -284,13 +289,13 @@
             <div><label for="editCandidateImmigirationStatus" class="form-label">Candidate Immigiration Status:</label></div>
             <div class="pt-3">
               <mat-radio-group (change)="getImmigiration($event)" formControlName="editCandidateImmigirationStatus">
-              <mat-radio-button value="GC">GC</mat-radio-button>
-              <mat-radio-button value="CITIZEN">CITIZEN</mat-radio-button>
-              <mat-radio-button value="H1B">H1B</mat-radio-button>
-              <mat-radio-button value="W2/1099">W2/1099</mat-radio-button>
-              <mat-radio-button value="OPT/CPT">OPT/CPT</mat-radio-button>
-              <mat-radio-button value="EAD">EAD</mat-radio-button>
-              <mat-radio-button value="H4AD">H4AD</mat-radio-button>
+                <mat-radio-button value="GC">GC</mat-radio-button>
+                <mat-radio-button value="CITIZEN">CITIZEN</mat-radio-button>
+                <mat-radio-button value="H1B">H1B</mat-radio-button>
+                <mat-radio-button value="W2/1099">W2/1099</mat-radio-button>
+                <mat-radio-button value="OPT/CPT">OPT/CPT</mat-radio-button>
+                <mat-radio-button value="EAD">EAD</mat-radio-button>
+                <mat-radio-button value="H4AD">H4AD</mat-radio-button>
               </mat-radio-group>
             </div>
           </div>
@@ -424,61 +429,62 @@
             </mat-radio-group>
           </div>
 
-          </div>
-       
-
-      <div class="row" *ngIf="isEmployerDetails">
-        <div class="col-sm-12">
-          <h2 class="form-title">Employer Details:</h2>
-
-          <div class="row">
-            <div class="col-sm-4">
-              <label for="employerName" class="form-label">Employer Name:</label>
-              <input type="text" class="form-input" name="employerName" ngModel formControlName="employerName">
-            </div>
-
-            <div class="col-sm-4">
-              <label for="employerContactName" class="form-label">Employer Contact Name:</label>
-              <input type="text" class="form-input" name="employerContactName" ngModel formControlName="employerContactName">
-            </div>
-
-            <div class="col-sm-4">
-              <label for="employerPhone" class="form-label">Employer Phone:</label>
-              <input type="text" class="form-input" name="employerPhone" ngModel formControlName="employerPhone">
-            </div>
-
-            <div class="col-sm-4">
-              <label for="employerEmail" class="form-label">Employer Email:</label>
-              <input type="text" class="form-input" name="employerEmail" ngModel formControlName="employerEmail">
-            </div>
-          </div>
-          </div>
-      </div>
-
-      <div class="row pt-4">
-        <div class="col-sm-12">
-          <h2 class="form-title">Attachments:</h2>
         </div>
-        <div class="form-group pl-3">
-          <div>
-            <label class="fileContainer">
-              <button class="btn btn-secondary"><span class="icon-attachment"><i class="material-icons">attachment</i></span>Attach Files</button>
-              <input type="file" (change)="candidateFileEvent($event)" multiple/>
-            </label>
-          </div>
-          <div class="pb-2" *ngFor="let file of candidateGetFiles">
-            <a class="panel">{{file.name}}
-            </a>
-            <a class="btn" (click)="candidateRemoveFile(file)">
-              <i class="material-icons">
-                clear
-              </i>
-            </a>
+
+
+        <div class="row" *ngIf="isEmployerDetails">
+          <div class="col-sm-12">
+            <h2 class="form-title">Employer Details:</h2>
+
+            <div class="row">
+              <div class="col-sm-4">
+                <label for="employerName" class="form-label">Employer Name:</label>
+                <input type="text" class="form-input" name="employerName" ngModel formControlName="employerName">
+              </div>
+
+              <div class="col-sm-4">
+                <label for="employerContactName" class="form-label">Employer Contact Name:</label>
+                <input type="text" class="form-input" name="employerContactName" ngModel formControlName="employerContactName">
+              </div>
+
+              <div class="col-sm-4">
+                <label for="employerPhone" class="form-label">Employer Phone:</label>
+                <input type="text" class="form-input" name="employerPhone" ngModel formControlName="employerPhone">
+              </div>
+
+              <div class="col-sm-4">
+                <label for="employerEmail" class="form-label">Employer Email:</label>
+                <input type="text" class="form-input" name="employerEmail" ngModel formControlName="employerEmail">
+              </div>
+            </div>
           </div>
         </div>
 
+        <div class="row pt-4">
+          <div class="col-sm-12">
+            <h2 class="form-title">Attachments:</h2>
+          </div>
+          <div class="form-group pl-3">
+            <div>
+              <label class="fileContainer">
+                <button class="btn btn-secondary"><span class="icon-attachment"><i class="material-icons">attachment</i></span>Attach
+                  Files</button>
+                <input type="file" (change)="candidateFileEvent($event)" multiple />
+              </label>
+            </div>
+            <div class="pb-2" *ngFor="let file of candidateGetFiles">
+              <a class="panel">{{file.name}}
+              </a>
+              <a class="btn" (click)="candidateRemoveFile(file)">
+                <i class="material-icons">
+                  clear
+                </i>
+              </a>
+            </div>
+          </div>
+
+        </div>
       </div>
-    </div>
 
       <div class="form-btn-container">
         <button class="btn btn-forms btn-space" type="submit" [disabled]="!myForm.valid">Add Submission</button>
@@ -487,6 +493,6 @@
       </div>
 
     </form>
-    
+
   </div>
 </div>

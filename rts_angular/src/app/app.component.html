@@ -90,7 +90,7 @@
     </ul>
   </div>
 
-  <div *ngIf="userRole ==='RECRUITER'">
+  <div *ngIf="userRole ==='RECRUITER' || userRole === 'TRAINEE'">
     <ul class="nav nav-taps">
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/requirements']" [routerLinkActive]="['active-link']">Requirements</a>

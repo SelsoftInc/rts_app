@@ -68,6 +68,7 @@ import { TeamSubmissionsComponent } from './team-submissions/team-submissions.co
 import { MatSortModule } from '@angular/material/sort';
 import { ClientRequirementsComponent } from './client-requirements/client-requirements.component';
 import { NgxEditorModule } from 'ngx-editor';
+import { Ng4LoadingSpinnerModule } from 'ngx-loading-spinner';
 
 
 @NgModule({
@@ -133,7 +134,8 @@ import { NgxEditorModule } from 'ngx-editor';
     MatRadioModule,
     NgxChartsModule,
     MatSortModule,
-    NgxEditorModule
+    NgxEditorModule,
+    Ng4LoadingSpinnerModule
   ],
   providers: [
     RegisterService,

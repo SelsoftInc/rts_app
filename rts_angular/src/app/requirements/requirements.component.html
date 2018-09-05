@@ -217,7 +217,7 @@
     </table>
   </div>
 
-  <div *ngIf="userRole ==='RECRUITER'" class="pt-2">
+  <div *ngIf="userRole ==='RECRUITER' || userRole==='TRAINEE'" class="pt-2">
 
     <table class="table table-hover table-sm" matSort (matSortChange)="sortData($event)">
       <thead class="table-header">

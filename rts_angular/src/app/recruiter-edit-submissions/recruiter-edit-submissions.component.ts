@@ -10,6 +10,7 @@ import { CandidateService } from '../Services/candidate.service';
 import * as moment from 'moment';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { ApiUrl } from '../Services/api-url';
+import { Ng4LoadingSpinnerService } from 'ngx-loading-spinner';
 
 @Component({
   selector: 'app-recruiter-edit-submissions',
@@ -58,7 +59,8 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private submissionService: SubmissionService,
-    private router: Router
+    private router: Router,
+    private spinnerService: Ng4LoadingSpinnerService
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -72,6 +74,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.spinnerService.show();
     this.activatedRoute.params
       .subscribe((params: Params) => {
         this.submissionId = params['id'];
@@ -178,18 +181,6 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   }
 
   editSubmission() {
-    // for (const require of this.requirementsDetails) {
-    //   if (require.status !== 'Draft') {
-    //     this.allRequirements.push(require);
-    //   }
-    // }
-    // for (const sub of this.allRequirements) {
-    //   const submission = _.findWhere(sub.submissions, { submissionId: this.submissionId });
-    //   if (submission !== undefined) {
-    //     this.selectedSubmission = submission;
-    //   }
-    // }
-    // this.selectedRequirement = _.findWhere(this.allRequirements, { requirementId: this.selectedSubmission.requirementId });
 
     const submit = {
       submissionId: this.submissionId,
@@ -199,6 +190,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.spinnerService.hide();
             this.selectedRequirement = data.requirement;
             const submission = _.findWhere(this.selectedRequirement.submissions, { submissionId: this.submissionId });
             if (submission !== undefined) {

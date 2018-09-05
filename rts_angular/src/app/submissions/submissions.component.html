@@ -1,6 +1,6 @@
 <div class="sub-nav-wrapper">
   <a class="sub-nav-link" [routerLink]="['/add-new-submission']">Add New Submission</a>
-  <span *ngIf="userRole !== 'RECRUITER'" class="divider">
+  <span *ngIf="userRole === 'ADMIN' || userRole === 'ACC_MGR' || userRole === 'TL'" class="divider">
     <i class="material-icons icon-subnav">assessment</i>
     <a class="sub-nav-link" [routerLink]="['/generate-report']"> Generate Report</a>
   </span>
@@ -146,7 +146,7 @@
     </ng-template>
   </div>
 
-  <div *ngIf="userRole === 'RECRUITER'" class="pt-2">
+  <div *ngIf="userRole === 'RECRUITER' || userRole === 'TRAINEE' " class="pt-2">
     <div class="table-wrapper" *ngIf="submissionsLength > 0 ; else noSummissions">
       <div class="block-wrapper" *ngFor="let sub of submissionDetails">
 
