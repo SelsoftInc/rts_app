@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ApiUrl {
 
-    // static BaseUrl = 'http://rameshrasaiyan.com:8080/';
+    static BaseUrl = 'http://rameshrasaiyan.com:8080/';
 
     // base url production
-    static BaseUrl = 'https://trackmeall.com:8443/';
+    // static BaseUrl = 'https://trackmeall.com:8443/';
 
     static AddCompanyUser = 'rtsUser/user/addCompanyUser';
     static UserLogin = 'rtsUser/user/userLogin';
