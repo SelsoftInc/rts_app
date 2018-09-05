@@ -46,6 +46,7 @@ export class AdminDashboardComponent implements OnInit {
   private totalSubmission: any;
   private teamDetails: any;
   private clientOpenRequitements: any;
+  fromDate: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -58,6 +59,8 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    const currentDateMoment: moment.Moment = moment(this.currentDate);
+    this.fromDate = currentDateMoment.subtract(3, 'days').format('YYYY-MM-DD');
     this.getUserGraphDetails();
     this.getTeamGraphDetails();
     this.getClientRequirementsDetails();
@@ -66,10 +69,12 @@ export class AdminDashboardComponent implements OnInit {
   getUserGraphDetails() {
     this.recruitersSubmissions = [];
 
-    const date = moment(this.currentDate).format('YYYY-MM-DD');
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
     const graph = {
       userId: this.rtsUserId,
-      date: date
+      fromDate: fromDate,
+      toDate: toDate
     };
 
     this.graphService.userGraphDetails(graph)
@@ -89,11 +94,12 @@ export class AdminDashboardComponent implements OnInit {
   getClientRequirementsDetails() {
     this.clientOpenRequitements = [];
 
-    const date = moment(this.currentDate).format('YYYY-MM-DD');
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
     const graph = {
       userId: this.rtsUserId,
-      fromDate: date,
-      toDate: date
+      fromDate: fromDate,
+      toDate: toDate
     };
 
     this.graphService.getClientOpenRequirements(graph)
@@ -114,10 +120,12 @@ export class AdminDashboardComponent implements OnInit {
   getTeamGraphDetails() {
     this.totalSubmissionByTeam = [];
 
-    const date = moment(this.currentDate).format('YYYY-MM-DD');
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
     const graph = {
       userId: this.rtsUserId,
-      date: date
+      fromDate: fromDate,
+      toDate: toDate
     };
     this.totalSubmission = 0;
 
@@ -136,27 +144,27 @@ export class AdminDashboardComponent implements OnInit {
         });
   }
 
-  onDateChange(event: Date) {
-    if (event !== undefined) {
-      this.getUserGraphDetails();
-      this.getTeamGraphDetails();
-      this.getClientRequirementsDetails();
-    }
+  dateFilter() {
+    this.getUserGraphDetails();
+    this.getTeamGraphDetails();
+    this.getClientRequirementsDetails();
   }
 
   onUserSelect(event) {
-    const date = moment(this.currentDate).format('YYYY-MM-DD');
-    this.router.navigate(['user-submisson', event.extra.userId, date]);
-
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    this.router.navigate(['user-submisson', event.extra.userId, fromDate, toDate]);
   }
 
   onTeamSelect(event) {
-    const date = moment(this.currentDate).format('YYYY-MM-DD');
-    this.router.navigate(['team-submisson', event.extra.teamId, date]);
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    this.router.navigate(['team-submisson', event.extra.teamId, fromDate, toDate]);
   }
 
   onClientSelect(event) {
-    const date = moment(this.currentDate).format('YYYY-MM-DD');
-    this.router.navigate(['client-requirements', event.extra.clientId, date]);
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    this.router.navigate(['client-requirements', event.extra.clientId, fromDate, toDate]);
   }
 }

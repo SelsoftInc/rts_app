@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CandidateService } from '../Services/candidate.service';
 import * as moment from 'moment';
 import { ApiUrl } from '../Services/api-url';
+import { UserService } from '../Services/user.service';
 
 @Component({
   selector: 'app-edit-submisson',
@@ -56,11 +57,23 @@ export class EditSubmissonComponent implements OnInit {
   private isWorkedWithClient: boolean;
   private isSubmitted: boolean;
   private plainFormat: boolean;
+  private adminUsers: any;
+  private dropdownSettings: any;
+  private users: any;
+  private adminUsersArray: any;
+  private customBodyMessage: boolean;
+  private defaultBodyMessage: boolean;
+  private customMailBody: any;
+  private selectedAdmins: any;
+  private isCustomBody: boolean;
+  private isDefaultBody: boolean;
 
-  constructor(private loggedUser: LoggedUserService,
+  constructor(
+    private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
     private activatedRoute: ActivatedRoute,
     private candidateService: CandidateService,
+    private userService: UserService,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private submissionService: SubmissionService,
@@ -72,25 +85,33 @@ export class EditSubmissonComponent implements OnInit {
     this.rtsCompanyId = this.rtsUser.companyId;
     this.sendToClient = false;
     this.recruiterName = [];
+    this.adminUsersArray = [];
     this.recruiterEmail = [];
     this.getFiles = [];
     this.allRequirements = [];
     this.candidateGetFiles = [];
     this.deletedMediaFiles = [];
-    // this.status = [
-    //   { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
-    //   { 'name': 'TL Approved', 'value': 'TL_APPROVED' },
-    //   { 'name': 'Approved', 'value': 'APPROVED' },
-    //   { 'name': 'TL Rejeced', 'value': 'TL_REJECTED' },
-    //   { 'name': 'Rejected', 'value': 'REJECTED' },
-    //   { 'name': 'Closed', 'value': 'CLOSED' }
-    // ];
+    this.dropdownSettings = {};
+    this.adminUsers = [];
+    this.customMailBody = '';
+    this.selectedAdmins = [];
   }
   ngOnInit() {
     this.activatedRoute.params
       .subscribe((params: Params) => {
         this.submissionId = params['id'];
       });
+
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'email',
+      textField: 'firstName',
+      enableCheckAll: false,
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
 
     this.baseUrl = ApiUrl.BaseUrl;
 
@@ -140,11 +161,14 @@ export class EditSubmissonComponent implements OnInit {
       anotherInterviewOffer: [''],
       vacationPlans: [''],
       currentCompany: [''],
+      adminUser: [''],
+      customMailBody: ['']
     });
 
     this.isNewCandidate = false;
 
     this.getAllCommonData();
+    this.getAllUser();
 
     if (this.userRole === 'ADMIN') {
       this.status = [
@@ -175,6 +199,26 @@ export class EditSubmissonComponent implements OnInit {
         { 'name': 'Closed', 'value': 'CLOSED' }
       ];
     }
+  }
+
+  getAllUser() {
+    const userId = {
+      companyId: this.rtsCompanyId
+    };
+
+    this.userService.allUsers(userId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.users = data.users;
+            for (const user of this.users) {
+              if (user.role === 'ADMIN') {
+                this.adminUsers.push({ email: user.email, firstName: user.firstName + ' ' + user.lastName });
+              }
+            }
+            this.adminUsersArray = [{ email: 'pushban@selsoftinc.com', firstName: 'Pushban R' }];
+          }
+        });
   }
 
   getAllCommonData() {
@@ -391,11 +435,18 @@ export class EditSubmissonComponent implements OnInit {
   }
 
   submissionToClient() {
+    this.selectedAdmins = [];
+    for (const user of this.adminUsersArray) {
+      this.selectedAdmins.push(user.email);
+    }
 
     const submit = {
       submissionId: this.submissionId,
       submittedBy: this.rtsUserId,
-      isPlainFormat: this.plainFormat
+      isPlainFormat: this.plainFormat,
+      isCustomBody: this.isCustomBody,
+      bodyText: this.customMailBody,
+      adminCC: this.selectedAdmins
     };
 
     this.submissionService.submitToClient(submit)
@@ -422,6 +473,16 @@ export class EditSubmissonComponent implements OnInit {
       this.plainFormat = true;
     } else {
       this.plainFormat = false;
+    }
+  }
+
+  getMailBodyMessage(event) {
+    if (event.value === 'Yes') {
+      this.isDefaultBody = true;
+      this.isCustomBody = false;
+    } else {
+      this.isCustomBody = true;
+      this.isDefaultBody = false;
     }
   }
 
@@ -553,6 +614,14 @@ export class EditSubmissonComponent implements OnInit {
     if (this.sendToClient) {
       if (this.plainFormat === undefined) {
         this.toastr.error('Please Select the Mail Format', '', {
+          positionClass: 'toast-top-center',
+          timeOut: 3000,
+        });
+        return false;
+      }
+
+      if (this.isCustomBody === undefined || this.isDefaultBody === undefined) {
+        this.toastr.error('Please Select the Mail Body', '', {
           positionClass: 'toast-top-center',
           timeOut: 3000,
         });

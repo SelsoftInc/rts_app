@@ -67,6 +67,7 @@ import { UserSubmissionsComponent } from './user-submissions/user-submissions.co
 import { TeamSubmissionsComponent } from './team-submissions/team-submissions.component';
 import { MatSortModule } from '@angular/material/sort';
 import { ClientRequirementsComponent } from './client-requirements/client-requirements.component';
+import { NgxEditorModule } from 'ngx-editor';
 
 
 @NgModule({
@@ -131,7 +132,8 @@ import { ClientRequirementsComponent } from './client-requirements/client-requir
     MatIconModule,
     MatRadioModule,
     NgxChartsModule,
-    MatSortModule
+    MatSortModule,
+    NgxEditorModule
   ],
   providers: [
     RegisterService,

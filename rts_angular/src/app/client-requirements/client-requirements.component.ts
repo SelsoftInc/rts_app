@@ -16,9 +16,10 @@ export class ClientRequirementsComponent implements OnInit {
   private rtsUser: any;
   private rtsUserId: any;
   private clientId: any;
-  private date: any;
   private requirementsLength: any;
   private selectedRequirements: any;
+  private fromDate: any;
+  private toDate: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -33,7 +34,8 @@ export class ClientRequirementsComponent implements OnInit {
     this.activatedRoute.params
       .subscribe((params: Params) => {
         this.clientId = params['id'];
-        this.date = params['date'];
+        this.fromDate = params['fromDate'];
+        this.toDate = params['toDate'];
       });
     this.getClientRequirements();
   }
@@ -42,8 +44,8 @@ export class ClientRequirementsComponent implements OnInit {
 
     const userId = {
       clientId: this.clientId,
-      fromDate: this.date,
-      toDate: this.date
+      fromDate: this.fromDate,
+      toDate: this.toDate
     };
 
     this.clientService.getClientRequirements(userId)

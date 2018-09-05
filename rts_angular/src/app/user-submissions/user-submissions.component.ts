@@ -17,12 +17,13 @@ export class UserSubmissionsComponent implements OnInit {
   private rtsUser: any;
   private rtsUserId: any;
   private recruiterId: any;
-  private date: any;
   private submissionsLength: any;
   private submissionDetails: any;
   private recruiterDetails: any;
   private recruiterName: string;
-  filteredRequirements: any;
+  private filteredRequirements: any;
+  private fromDate: any;
+  private toDate: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -37,7 +38,8 @@ export class UserSubmissionsComponent implements OnInit {
     this.activatedRoute.params
       .subscribe((params: Params) => {
         this.recruiterId = params['id'];
-        this.date = params['date'];
+        this.fromDate = params['fromDate'];
+        this.toDate = params['toDate'];
       });
     this.getUserSubmission();
   }
@@ -45,8 +47,8 @@ export class UserSubmissionsComponent implements OnInit {
   getUserSubmission() {
     const userId = {
       userId: this.recruiterId,
-      fromDate: this.date,
-      toDate: this.date
+      fromDate: this.fromDate,
+      toDate: this.toDate
     };
 
     this.submissionService.getUserSubmissions(userId)

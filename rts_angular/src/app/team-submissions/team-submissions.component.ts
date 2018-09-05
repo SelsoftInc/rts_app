@@ -17,12 +17,13 @@ export class TeamSubmissionsComponent implements OnInit {
   private rtsUser: any;
   private rtsUserId: any;
   private teamId: any;
-  private date: any;
   private submissionsLength: any;
   private submissionDetails: any;
   private teamDetails: any;
   private teamName: string;
   private filteredRequirements: any;
+  private fromDate: any;
+  private toDate: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -37,7 +38,8 @@ export class TeamSubmissionsComponent implements OnInit {
     this.activatedRoute.params
       .subscribe((params: Params) => {
         this.teamId = params['id'];
-        this.date = params['date'];
+        this.fromDate = params['fromDate'];
+        this.toDate = params['toDate'];
       });
     this.getTeamSubmission();
   }
@@ -45,8 +47,8 @@ export class TeamSubmissionsComponent implements OnInit {
   getTeamSubmission() {
     const userId = {
       teamId: this.teamId,
-      fromDate: this.date,
-      toDate: this.date
+      fromDate: this.fromDate,
+      toDate: this.toDate
     };
 
     this.submissionService.getTeamSubmissions(userId)
