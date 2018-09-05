@@ -40,6 +40,14 @@ export class AdminDashboardComponent implements OnInit {
     domain: ['#a8385d', '#7aa3e5', '#a27ea8', '#aae3f5', '#adcded', '#a95963', '#8796c0', '#7ed3ed']
   };
 
+  colorSchemePie = {
+    domain: ['#b24348', '#f3a043', '#f8c644', '#d0d864', '#d05577', '#d14e46']
+  };
+
+  colorSchemeMultiBar1 = {
+    domain: ['#f5dd98', '#d2da66', '#b83330', '#a8385d']
+  };
+
   colorSchemeMulti = {
     domain: ['#0386a4', '#A10A28', '#5AA454']
   };

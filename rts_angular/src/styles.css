@@ -114,6 +114,21 @@ body {
   padding: 1em;
 }
 
+.dash-filter-container {
+  margin: 1em 1em 1em 1em;
+  background: white;
+  -webkit-box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
+  -moz-box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
+  box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
+  position: relative;
+  padding-left: .5em;
+}
+
+.dashboard-container {
+  margin: 1em 1em 1em 1em;
+  position: relative;
+}
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -483,7 +498,7 @@ td {
   box-shadow: 0 0 7px rgba(172, 172, 172, 0.7);
   padding: 1em;
   position: relative;
-  height: 450px;
+  height: 350px;
   background: #FFFFFF;
 }
 
@@ -498,7 +513,7 @@ td {
 
 .chart-align-100-400 {
   width: 100%;
-  min-height: 350px;
+  min-height: 300px;
 }
 
 .chart-title-wrapper {
@@ -547,4 +562,15 @@ td {
 
 .table-report th {
   text-align: center;
+}
+
+.chart-additional-item {
+  position: absolute;
+  top: 34px;
+  text-transform: uppercase;
+  font-size: .900em;
+}
+
+.ngx-charts .tick.ng-star-inserted>text {
+  font-size: .900em !important;
 }
