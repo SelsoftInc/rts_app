@@ -7,6 +7,7 @@ import { Router, Params, ActivatedRoute } from '@angular/router';
 import { TeamService } from '../Services/team.service';
 import { RequirementsService } from '../Services/requirements.service';
 import * as _ from 'underscore';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-edit-team',
@@ -46,7 +47,8 @@ export class EditTeamComponent implements OnInit {
     private teamService: TeamService,
     private requirementService: RequirementsService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -60,7 +62,7 @@ export class EditTeamComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.ngProgress.start();
     this.activatedRoute.params
       .subscribe((params: Params) => {
         this.teamId = params['id'];
@@ -95,6 +97,7 @@ export class EditTeamComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.teams = data.teams;
             this.selectedTeam = _.findWhere(this.teams, { teamId: this.teamId });
             this.teamName = this.selectedTeam.name;

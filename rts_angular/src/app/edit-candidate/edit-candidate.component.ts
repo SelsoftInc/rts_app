@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router, Params, ActivatedRoute } from '@angular/router';
 import * as _ from 'underscore';
 import { ApiUrl } from 'src/app/Services/api-url';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-edit-candidate',
@@ -43,7 +44,8 @@ export class EditCandidateComponent implements OnInit {
     private candidateService: CandidateService,
     private activatedRoute: ActivatedRoute,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -53,7 +55,7 @@ export class EditCandidateComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.ngProgress.start();
     this.activatedRoute.params
       .subscribe((params: Params) => {
         this.candidateId = params['id'];
@@ -118,6 +120,7 @@ export class EditCandidateComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.candidates = data.candidates;
             this.selectedCandidate = _.findWhere(this.candidates, { candidateId: this.candidateId });
             if (this.selectedCandidate.c2C) {

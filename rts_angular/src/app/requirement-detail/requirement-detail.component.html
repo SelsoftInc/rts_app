@@ -1,5 +1,9 @@
 <h2 class="main-title">
   <a [routerLink]="['/requirements']">Requirements</a> / Requirement Deatils</h2>
+
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
+
 <div class="utility-container">
   <form [formGroup]="myForm">
 
@@ -8,15 +12,15 @@
         <label for="createdDate" class="col-form-label bold-text">Created Date:</label>
       </div>
       <div class="col-sm-4 shade-col-alt" *ngIf="selectedRequirement">
-        <input type="text" class="form-control read-only-text-input" name="createdDate" formControlName="createdDate" ngModel="{{requirementCreatedDate}}"
-          disabled>
+        <input type="text" class="form-control read-only-text-input" name="createdDate" formControlName="createdDate"
+          ngModel="{{requirementCreatedDate}}" disabled>
       </div>
       <div class="col-sm-2 shade-col">
         <label for="positionName" class="col-form-label bold-text">Position Name:</label>
       </div>
       <div class="col-sm-4 shade-col-alt" *ngIf="selectedRequirement.position">
-        <input type="text" class="form-control read-only-text-input" name="positionName" formControlName="positionName" ngModel="{{selectedRequirement.position.positionName}}"
-          disabled>
+        <input type="text" class="form-control read-only-text-input" name="positionName" formControlName="positionName"
+          ngModel="{{selectedRequirement.position.positionName}}" disabled>
       </div>
     </div>
 
@@ -32,8 +36,8 @@
         <label for="accountName" class="col-form-label bold-text">Account Name:</label>
       </div>
       <div class="col-sm-4 shade-col-alt" *ngIf="selectedRequirement.account">
-        <input type="text" class="form-control read-only-text-input" name="accountName" formControlName="accountName" ngModel="{{selectedRequirement.account.accountName}}"
-          disabled>
+        <input type="text" class="form-control read-only-text-input" name="accountName" formControlName="accountName"
+          ngModel="{{selectedRequirement.account.accountName}}" disabled>
       </div>
     </div>
 
@@ -59,15 +63,15 @@
         <label for="positionsCount" class="col-form-label bold-text">No.of Positions:</label>
       </div>
       <div class="col-sm-4 shade-col-alt" *ngIf="selectedRequirement">
-        <input type="number" class="form-control read-only-text-input" name="positionsCount" maxlength="3" formControlName="positionsCount"
-          ngModel="{{selectedRequirement.positionCount}}" disabled>
+        <input type="number" class="form-control read-only-text-input" name="positionsCount" maxlength="3"
+          formControlName="positionsCount" ngModel="{{selectedRequirement.positionCount}}" disabled>
       </div>
       <div class="col-sm-2 shade-col">
         <label for="clientName" class="col-form-label bold-text">Client:</label>
       </div>
       <div class="col-sm-4 shade-col-alt" *ngIf="selectedRequirement.client">
-        <input type="text" class="form-control read-only-text-input" name="clientName" formControlName="clientName" ngModel="{{selectedRequirement.client.name}}"
-          disabled>
+        <input type="text" class="form-control read-only-text-input" name="clientName" formControlName="clientName"
+          ngModel="{{selectedRequirement.client.name}}" disabled>
       </div>
     </div>
 
@@ -76,15 +80,15 @@
         <label class="col-form-label bold-text">Requirement Type:</label>
       </div>
       <div class="col-sm-4 shade-col-alt" *ngIf="selectedRequirement.requirementType">
-        <input type="text" class="form-control read-only-text-input" name="requirementType" formControlName="requirementType" ngModel="{{requirementByUser}}"
-          disabled>
+        <input type="text" class="form-control read-only-text-input" name="requirementType" formControlName="requirementType"
+          ngModel="{{requirementByUser}}" disabled>
       </div>
       <div class="col-sm-2 shade-col">
         <label for="immigrationRequirement" class="col-form-label bold-text">Immigration Requirement:</label>
       </div>
       <div class="col-sm-4 shade-col-alt" *ngIf="selectedRequirement">
-        <input type="text" class="form-control read-only-text-input" name="immigrationType" formControlName="immigrationType" ngModel="{{immigrationByUser}}"
-          disabled>
+        <input type="text" class="form-control read-only-text-input" name="immigrationType" formControlName="immigrationType"
+          ngModel="{{immigrationByUser}}" disabled>
       </div>
     </div>
 
@@ -93,15 +97,15 @@
         <label for="sellingRate" class="col-form-label bold-text">Selling Rate:</label>
       </div>
       <div class="col-sm-4 shade-col-alt" *ngIf="selectedRequirement">
-        <input type="text" class="form-control read-only-text-input" name="sellingRate" formControlName="sellingRate" ngModel="{{selectedRequirement.sellingRate}}"
-          disabled>
+        <input type="text" class="form-control read-only-text-input" name="sellingRate" formControlName="sellingRate"
+          ngModel="{{selectedRequirement.sellingRate}}" disabled>
       </div>
       <div class="col-sm-2 shade-col">
         <label for="technologies" class="col-form-label bold-text">Technologies:</label>
       </div>
       <div class="col-sm-4 shade-col-alt" *ngIf="selectedRequirement.technology">
-        <input type="text" class="form-control read-only-text-input" name="technologies" formControlName="technologies" ngModel="{{selectedRequirement.technology[0].technologyName}}"
-          disabled>
+        <input type="text" class="form-control read-only-text-input" name="technologies" formControlName="technologies"
+          ngModel="{{selectedRequirement.technology[0].technologyName}}" disabled>
       </div>
     </div>
 
@@ -130,8 +134,8 @@
         <label for="jobDescription" class="col-form-label bold-text">Job Description:</label>
       </div>
       <div class="col-sm-10 shade-col-alt" *ngIf="selectedRequirement">
-        <textarea rows="10" name="jobDescription" class="form-control read-only-text-input" formControlName="jobDescription" placeholder="Description.."
-          ngModel="{{selectedRequirement.jobDescription}}" disabled></textarea>
+        <textarea rows="10" name="jobDescription" class="form-control read-only-text-input" formControlName="jobDescription"
+          placeholder="Description.." ngModel="{{selectedRequirement.jobDescription}}" disabled></textarea>
       </div>
     </div>
 
@@ -140,7 +144,8 @@
         <label for="notes" class="col-form-label bold-text">Notes:</label>
       </div>
       <div class="col-sm-10 shade-col-alt" *ngIf="selectedRequirement">
-        <textarea rows="6" name="notes" class="form-control" formControlName="notes" placeholder="Type Your Notes.." ngModel="{{selectedRequirement.note}}" disabled></textarea>
+        <textarea rows="6" name="notes" class="form-control" formControlName="notes" placeholder="Type Your Notes.."
+          ngModel="{{selectedRequirement.note}}" disabled></textarea>
       </div>
     </div>
 

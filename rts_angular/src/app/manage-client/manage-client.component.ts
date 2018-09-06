@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { ClientService } from '../Services/client.service';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-manage-client',
@@ -22,7 +23,8 @@ export class ManageClientComponent implements OnInit {
   public myForm: FormGroup;
   constructor(
     private loggedUser: LoggedUserService,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -30,6 +32,7 @@ export class ManageClientComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.ngProgress.start();
     this.getAllClients();
   }
 
@@ -42,6 +45,7 @@ export class ManageClientComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.clients = data.clients;
             this.clientsLength = this.clients.length;
           }

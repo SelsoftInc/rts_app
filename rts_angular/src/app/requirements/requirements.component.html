@@ -1,6 +1,10 @@
 <div class="sub-nav-wrapper" *ngIf="userRole ==='ADMIN' || userRole ==='ACC_MGR' || userRole ==='TL'">
   <a class="sub-nav-link" [routerLink]="['/add-new-requirement']">Add New Requirement</a>
 </div>
+
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
+
 <h2 class="main-title">Requirements</h2>
 <div class="utility-container">
 
@@ -115,7 +119,10 @@
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>
           <td>{{require.clientSubmissionCount}}</td>
-          <td>{{require.team.name}}</td>
+          <td *ngIf="require.team !== undefined else noTeam">{{require.team.name}}</td>
+          <ng-template #noTeam>
+            <td>-</td>
+          </ng-template>
           <td *ngIf="require.allocationUser ; else noAlloction">{{require.allocationUser.firstName}}
             {{require.allocationUser.lastName}}</td>
           <ng-template #noAlloction>
@@ -151,7 +158,7 @@
         </tr>
       </thead>
       <tbody *ngIf="requirementsLength > 0 ; else noRequirements">
-        <tr *ngFor="let require of sortedData" [routerLink]="['/acc_mgr-edit-requirement',require.requirementId]">
+        <tr *ngFor="let require of sortedData" [routerLink]="['/edit-requirement',require.requirementId]">
           <td>{{require.position.positionName}}</td>
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>
@@ -192,7 +199,7 @@
         </tr>
       </thead>
       <tbody *ngIf="requirementsLength > 0 ; else noRequirements">
-        <tr *ngFor="let require of sortedData" [routerLink]="['/leadUser-edit-requirement',require.requirementId]">
+        <tr *ngFor="let require of sortedData" [routerLink]="['/edit-requirement',require.requirementId]">
           <td>{{require.position.positionName}}</td>
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>

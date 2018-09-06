@@ -7,6 +7,7 @@ import * as _ from 'underscore';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { UserService } from '../Services/user.service';
 import { Sort } from '@angular/material';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-requirements',
@@ -53,6 +54,7 @@ export class RequirementsComponent implements OnInit {
     private hideComponent: HideComponentService,
     private userService: UserService,
     private formBuilder: FormBuilder,
+    private ngProgress: NgProgress
   ) {
     this.hideComponent.displayComponent = true;
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
@@ -73,6 +75,7 @@ export class RequirementsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.ngProgress.start();
     this.hideComponent.displayComponent = true;
 
     this.myForm = this.formBuilder.group({
@@ -151,6 +154,7 @@ export class RequirementsComponent implements OnInit {
       this.startDate = '';
     }
     this.filterBy('');
+    this.ngProgress.start();
 
     if (this.userRole === 'ADMIN') {
       this.getAllRequirements();
@@ -280,6 +284,7 @@ export class RequirementsComponent implements OnInit {
   }
 
   requirementsDetails(data) {
+    this.ngProgress.done();
     this.requirements = data.requirements;
     this.filteredRequirements = this.requirements;
     this.selectedRequirements = this.requirements;

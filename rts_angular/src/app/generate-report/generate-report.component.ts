@@ -10,6 +10,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { saveAs } from 'file-saver/FileSaver';
 import * as XLSX from 'xlsx';
 import { Sort } from '@angular/material';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-generate-report',
@@ -49,6 +50,7 @@ export class GenerateReportComponent implements OnInit {
     private submissonService: SubmissionService,
     private hideComponent: HideComponentService,
     private formBuilder: FormBuilder,
+    private ngProgress: NgProgress
   ) {
     this.hideComponent.displayComponent = true;
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
@@ -61,6 +63,7 @@ export class GenerateReportComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.ngProgress.start();
     this.myForm = this.formBuilder.group({
       fromDate: [''],
       toDate: ['']
@@ -169,6 +172,7 @@ export class GenerateReportComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.submissionDetails(data);
           }
         });

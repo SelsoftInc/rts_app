@@ -1,5 +1,9 @@
 <h2 class="main-title">
   <a [routerLink]="['/requirements']">Requirements</a> / Edit Requirement</h2>
+
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
+
 <div class="utility-container">
   <form [formGroup]="myForm" (ngSubmit)="updateRequirement(myForm)">
     <div class="non-editable-content-top" *ngIf="selectedRequirement">
@@ -20,15 +24,16 @@
         </div>
         <div class="col-sm-4" *ngIf="isOtherPositionName">
           <label for="positionName" class="form-label">New Position Name:</label>
-          <input type="text" class="form-input" name="otherPositionName" formControlName="otherPositionName" placeholder=" Enter the Position Name"
-            required>
+          <input type="text" class="form-input" name="otherPositionName" formControlName="otherPositionName"
+            placeholder=" Enter the Position Name" required>
         </div>
       </div>
 
       <div class="row">
         <div class="col-sm-2" *ngIf="selectedRequirement">
           <label for="status" class="form-label">Status:</label>
-          <select name="status" class="form-input" formControlName="status" ngModel="{{selectedRequirement.status}}" required>
+          <select name="status" class="form-input" formControlName="status" ngModel="{{selectedRequirement.status}}"
+            required>
             <option value="">Select</option>
             <option *ngFor="let status of requirementStatus" value="{{status.value}}">{{status.name}}</option>
             <option *ngIf="selectedRequirement.status === 'Draft'" value="Draft">Draft</option>
@@ -58,11 +63,10 @@
           </select>
         </div>
         <div class="col-sm-4" *ngIf="isOtherAccountName">
-          <input type="text" class="form-control" name="otherAccountName" formControlName="otherAccountName" placeholder=" Enter the Bank Name">
+          <input type="text" class="form-control" name="otherAccountName" formControlName="otherAccountName"
+            placeholder=" Enter the Bank Name">
         </div>
       </div>
-
-
 
       <div class="row">
         <div class="col-sm-2" *ngIf="selectedRequirement">
@@ -73,8 +77,8 @@
 
         <div class="col-sm-2" *ngIf="selectedRequirement">
           <label for="positionsCount" class="form-label ">No.of Positions:</label>
-          <input type="number" class="form-input" name="positionsCount" maxlength="3" formControlName="positionsCount" ngModel="{{selectedRequirement.positionCount}}"
-            required>
+          <input type="number" class="form-input" name="positionsCount" maxlength="3" formControlName="positionsCount"
+            ngModel="{{selectedRequirement.positionCount}}" required>
         </div>
       </div>
 
@@ -97,7 +101,8 @@
           <label class="form-label">Requirement Type:</label>
           <div class="checkbox-wrapper">
             <span class="checkbox-container" *ngFor="let type of requirementType" ng-checked="requirementByUser.indexOf(type) != 1">
-              <mat-checkbox color="primary" (change)="getCheckedRequirementType(type)" formControlName="{{type}}" [value]="type">{{type}}</mat-checkbox>
+              <mat-checkbox color="primary" (change)="getCheckedRequirementType(type)" formControlName="{{type}}"
+                [value]="type">{{type}}</mat-checkbox>
             </span>
           </div>
         </div>
@@ -108,7 +113,8 @@
           <label for="immigrationRequirement" class="form-label">Immigration Requirement:</label>
           <div class="checkbox-wrapper">
             <span class="checkbox-container" *ngFor="let data of immigration" ng-checked="immigrationByUser.indexOf(data) != 1">
-              <mat-checkbox color="primary" (change)="getCheckedImmigrationValue(data)" formControlName="{{data.id}}" [value]="data.value">{{data.value}}</mat-checkbox>
+              <mat-checkbox color="primary" (change)="getCheckedImmigrationValue(data)" formControlName="{{data.id}}"
+                [value]="data.value">{{data.value}}</mat-checkbox>
             </span>
           </div>
         </div>
@@ -126,8 +132,8 @@
         <div class="col-sm-4" *ngIf="isRecruiters">
           <label for="clientName" class="form-label">Add New Client:</label>
           <div class="pt-4">
-            <ng-multiselect-dropdown [placeholder]="'Select Recruiters'" [data]="recruitersArray" formControlName="recruitersName" [(ngModel)]="selectedrecruitersArray"
-              [settings]="dropdownSettings">
+            <ng-multiselect-dropdown [placeholder]="'Select Recruiters'" [data]="recruitersArray" formControlName="recruitersName"
+              [(ngModel)]="selectedrecruitersArray" [settings]="dropdownSettings">
             </ng-multiselect-dropdown>
           </div>
         </div>
@@ -153,8 +159,8 @@
       <div class="row" *ngIf="selectedRequirement">
         <div class="col-sm-2">
           <label for="team" class="form-label">Select Team:</label>
-          <select name="team" class="form-input" formControlName="team" ngModel="{{selectedRequirement.teamId}}" (change)="selectTeam($event.target.value)"
-            required>
+          <select name="team" class="form-input" formControlName="team" ngModel="{{selectedRequirement.teamId}}"
+            (change)="selectTeam($event.target.value)" required>
             <option value="">Select</option>
             <option *ngFor="let team of teams" value="{{team.teamId}}">{{team.name}}</option>
           </select>
@@ -187,7 +193,8 @@
       <div class="row" *ngIf="selectedRequirement.comments">
         <div class="col-sm-4">
           <label for="comments" class="form-label">Comments:</label>
-          <textarea name="comments" class="form-textarea" formControlName="comments" placeholder="Type Your Comments.." ngModel="{{selectedRequirement.comments}}"></textarea>
+          <textarea name="comments" class="form-textarea" formControlName="comments" placeholder="Type Your Comments.."
+            ngModel="{{selectedRequirement.comments}}"></textarea>
         </div>
       </div>
     </div>

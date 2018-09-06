@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoggedUserService } from '../Services/logged-user.service';
 import { Router } from '@angular/router';
 import { UserService } from '../Services/user.service';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-manage-users',
@@ -20,7 +21,8 @@ export class ManageUsersComponent implements OnInit {
   constructor(
     private loggedUser: LoggedUserService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -28,6 +30,7 @@ export class ManageUsersComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.ngProgress.start();
     this.getAllUser();
   }
 
@@ -40,6 +43,7 @@ export class ManageUsersComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.userDetails = data.users;
             this.userLength = this.userDetails.length;
           }

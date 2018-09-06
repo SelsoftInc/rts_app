@@ -11,9 +11,7 @@ import { AddNewSubmissionsComponent } from './add-new-submissions/add-new-submis
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { RecruiterSubmissionsComponent } from './recruiter-submissions/recruiter-submissions.component';
-import { RecruiterAddNewSubmissionsComponent } from './recruiter-add-new-submissions/recruiter-add-new-submissions.component';
 import { SubmissionByRequirementComponent } from './submission-by-requirement/submission-by-requirement.component';
-import { EditSubmissionsComponent } from './edit-submissions/edit-submissions.component';
 import { ManageClientComponent } from './manage-client/manage-client.component';
 import { AddClientComponent } from './add-client/add-client.component';
 import { RecruiterEditSubmissionsComponent } from './recruiter-edit-submissions/recruiter-edit-submissions.component';
@@ -28,14 +26,13 @@ import { AddTeamComponent } from './add-team/add-team.component';
 import { ManageTeamComponent } from './manage-team/manage-team.component';
 import { EditRequirementForLeadUserComponent } from './edit-requirement-for-lead-user/edit-requirement-for-lead-user.component';
 import { EditRequirementForAccMgrComponent } from './edit-requirement-for-acc-mgr/edit-requirement-for-acc-mgr.component';
-import { AccMgrEditSubmissionsComponent } from './acc-mgr-edit-submissions/acc-mgr-edit-submissions.component';
-import { LeadUserEditSubmissionsComponent } from './lead-user-edit-submissions/lead-user-edit-submissions.component';
 import { EditTeamComponent } from './edit-team/edit-team.component';
 import { EditSubmissonComponent } from './edit-submisson/edit-submisson.component';
 import { AdminDashboardComponent } from './dashboard/admin-dashboard/admin-dashboard.component';
 import { UserSubmissionsComponent } from './user-submissions/user-submissions.component';
 import { TeamSubmissionsComponent } from './team-submissions/team-submissions.component';
 import { ClientRequirementsComponent } from './client-requirements/client-requirements.component';
+import { DeleteTeamComponent } from './delete-team/delete-team.component';
 
 
 export const appRoutes: Routes = [
@@ -51,13 +48,8 @@ export const appRoutes: Routes = [
   { path: 'add-new-submission/:id', component: AddNewSubmissionsComponent },
   { path: 'manage-users', component: ManageUsersComponent },
   { path: 'add-user', component: AddUserComponent },
-  { path: 'recruiter-submissions', component: RecruiterSubmissionsComponent },
-  // { path: 'recruiter-add-new-submissions', component: RecruiterAddNewSubmissionsComponent },
-  // { path: 'recruiter-add-new-submissions/:id', component: RecruiterAddNewSubmissionsComponent },
+  // { path: 'recruiter-submissions', component: RecruiterSubmissionsComponent },
   { path: 'submission-by-requirement/:id', component: SubmissionByRequirementComponent },
-  { path: 'edit-submissions/:id', component: EditSubmissionsComponent },
-  { path: 'acc_mgr-edit-submissions/:id', component: AccMgrEditSubmissionsComponent },
-  { path: 'leadUser-edit-submissions/:id', component: LeadUserEditSubmissionsComponent },
   { path: 'manage-client', component: ManageClientComponent },
   { path: 'add-client', component: AddClientComponent },
   { path: 'recruiter-edit-submissions/:id', component: RecruiterEditSubmissionsComponent },
@@ -71,12 +63,13 @@ export const appRoutes: Routes = [
   { path: 'manage-team', component: ManageTeamComponent },
   { path: 'add-team', component: AddTeamComponent },
   { path: 'edit-team/:id', component: EditTeamComponent },
-  { path: 'leadUser-edit-requirement/:id', component: EditRequirementForLeadUserComponent },
-  { path: 'acc_mgr-edit-requirement/:id', component: EditRequirementForAccMgrComponent },
+  // { path: 'leadUser-edit-requirement/:id', component: EditRequirementForLeadUserComponent },
+  // { path: 'acc_mgr-edit-requirement/:id', component: EditRequirementForAccMgrComponent },
   { path: 'edit-submission/:id', component: EditSubmissonComponent },
   { path: 'user-submisson/:id/:fromDate/:toDate', component: UserSubmissionsComponent },
   { path: 'team-submisson/:id/:fromDate/:toDate', component: TeamSubmissionsComponent },
   { path: 'client-requirements/:id/:fromDate/:toDate', component: ClientRequirementsComponent },
+  { path: 'delete-team/:id', component: DeleteTeamComponent },
 ];
 
 

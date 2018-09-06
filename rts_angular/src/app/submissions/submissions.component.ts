@@ -5,6 +5,7 @@ import { HideComponentService } from '../Services/hide-component.service';
 import * as moment from 'moment';
 import * as _ from 'underscore';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-submissions',
@@ -44,6 +45,7 @@ export class SubmissionsComponent implements OnInit {
     private requirementService: RequirementsService,
     private hideComponent: HideComponentService,
     private formBuilder: FormBuilder,
+    private ngProgress: NgProgress
   ) {
     this.hideComponent.displayComponent = true;
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
@@ -66,6 +68,7 @@ export class SubmissionsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.ngProgress.start();
 
     this.myForm = this.formBuilder.group({
       fromDate: [''],
@@ -101,6 +104,7 @@ export class SubmissionsComponent implements OnInit {
 
 
   requimentsDetails(data) {
+    this.ngProgress.done();
     this.submissionsLength = 0;
     this.submissionDetails = [];
     this.requirements = data.requirements;
@@ -204,7 +208,7 @@ export class SubmissionsComponent implements OnInit {
     } else {
       this.startDate = '';
     }
-
+    this.ngProgress.start();
     this.filterBy('');
     this.getAllSubmissions();
   }

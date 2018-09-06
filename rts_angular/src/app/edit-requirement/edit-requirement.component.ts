@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import { UserService } from '../Services/user.service';
 import { ClientService } from '../Services/client.service';
 import { ToastrService } from 'ngx-toastr';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-edit-requirement',
@@ -60,7 +61,8 @@ export class EditRequirementComponent implements OnInit {
     private toastr: ToastrService,
     private userService: UserService,
     private clientService: ClientService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -92,6 +94,7 @@ export class EditRequirementComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.ngProgress.start();
 
     this.activatedRoute.params
       .subscribe((params: Params) => {
@@ -189,13 +192,19 @@ export class EditRequirementComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.requirements = data.requirements;
             this.selectedRequirement = _.findWhere(this.requirements, { requirementId: this.requirementId });
             this.requirementCreatedDate = moment(this.selectedRequirement.createdOn).format('MMM D, Y');
             this.requirementByUser = this.selectedRequirement.requirementType;
             this.immigrationByUser = this.selectedRequirement.immigrationRequirement;
-            this.selectedTeam = _.findWhere(this.teams, { teamId: this.selectedRequirement.teamId });
-            this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+            if (this.selectedRequirement.team !== undefined) {
+              this.selectedTeam = _.findWhere(this.teams, { teamId: this.selectedRequirement.teamId });
+              this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+              for (const user of this.selectedTeam.otherUsers) {
+                this.selectedTeamUsers.push(user);
+              }
+            }
             this.isRecruiters = true;
             this.accountName = this.selectedRequirement.accountId;
             for (const recruiter of this.selectedRequirement.client.clientRecuriters) {
@@ -203,10 +212,6 @@ export class EditRequirementComponent implements OnInit {
             }
             for (const value of this.selectedRequirement.clientRecuriters) {
               this.selectedrecruitersArray.push({ user: value.email, firstName: value.name });
-            }
-
-            for (const user of this.selectedTeam.otherUsers) {
-              this.selectedTeamUsers.push(user);
             }
             for (const value of this.requirementByUser) {
               if (value === 'C2C') {

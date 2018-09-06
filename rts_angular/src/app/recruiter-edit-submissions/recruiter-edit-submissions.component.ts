@@ -10,7 +10,7 @@ import { CandidateService } from '../Services/candidate.service';
 import * as moment from 'moment';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { ApiUrl } from '../Services/api-url';
-import { Ng4LoadingSpinnerService } from 'ngx-loading-spinner';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-recruiter-edit-submissions',
@@ -45,10 +45,10 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   private baseUrl: any;
   private isRelocate: any;
   private allRequirements: any;
-  isWorkedWithClient: boolean;
-  isOtherTechnology: boolean;
-  recruiterName: any;
-  recruiterEmail: any;
+  private isWorkedWithClient: boolean;
+  private isOtherTechnology: boolean;
+  private recruiterName: any;
+  private recruiterEmail: any;
   private clientRecruiterName: any;
   private clientRecruiterEmail: any;
 
@@ -60,7 +60,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
     private toastr: ToastrService,
     private submissionService: SubmissionService,
     private router: Router,
-    private spinnerService: Ng4LoadingSpinnerService
+    private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -74,7 +74,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.spinnerService.show();
+    this.ngProgress.start();
     this.activatedRoute.params
       .subscribe((params: Params) => {
         this.submissionId = params['id'];
@@ -190,7 +190,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
-            this.spinnerService.hide();
+            this.ngProgress.done();
             this.selectedRequirement = data.requirement;
             const submission = _.findWhere(this.selectedRequirement.submissions, { submissionId: this.submissionId });
             if (submission !== undefined) {

@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { LoggedUserService } from '../../Services/logged-user.service';
 import { GraphService } from '../../Services/graph.service';
 import { Router } from '@angular/router';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -59,7 +60,8 @@ export class AdminDashboardComponent implements OnInit {
   constructor(
     private loggedUser: LoggedUserService,
     private graphService: GraphService,
-    private router: Router
+    private router: Router,
+    private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -67,6 +69,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.ngProgress.start();
     const currentDateMoment: moment.Moment = moment(this.currentDate);
     this.fromDate = currentDateMoment.subtract(3, 'days').format('YYYY-MM-DD');
     this.getUserGraphDetails();
@@ -114,6 +117,7 @@ export class AdminDashboardComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.clientOpenRequitements = data.clientRequirements;
             for (const count of this.clientOpenRequitements) {
               count.extra = {
@@ -153,6 +157,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   dateFilter() {
+    this.ngProgress.start();
     this.getUserGraphDetails();
     this.getTeamGraphDetails();
     this.getClientRequirementsDetails();

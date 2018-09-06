@@ -1,5 +1,9 @@
 <div class="sub-nav-wrapper">
   <a class="sub-nav-link" [routerLink]="['/add-new-submission']">Add New Submission</a>
+
+  <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+    [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
+
   <span *ngIf="userRole === 'ADMIN' || userRole === 'ACC_MGR' || userRole === 'TL'" class="divider">
     <i class="material-icons icon-subnav">assessment</i>
     <a class="sub-nav-link" [routerLink]="['/generate-report']"> Generate Report</a>
@@ -111,9 +115,9 @@
             <span class="meta-info-content">{{sub.allocationUser.firstName}} {{sub.allocationUser.lastName}}
             </span>
           </span>
-          <span *ngIf="!sub.allocationUser">
+          <span *ngIf="!sub.allocationUser && sub.team !== undefined">
             <span class="block-header-label">Allocated Team: </span>
-            <span class="meta-info-content" *ngIf="sub.allocationUserId === '' || sub.allocationUserId === undefined">{{sub.team.name}}</span>
+            <span class="meta-info-content" *ngIf="(sub.allocationUserId === '' || sub.allocationUserId === undefined) && (sub.team !== undefined)">{{sub.team.name}}</span>
           </span>
         </div>
 
@@ -160,9 +164,9 @@
             <span class="meta-info-content">{{sub.allocationUser.firstName}} {{sub.allocationUser.lastName}}
             </span>
           </span>
-          <span *ngIf="!sub.allocationUser">
+          <span *ngIf="!sub.allocationUser && sub.team !== undefined">
             <span class="block-header-label">Allocated Team: </span>
-            <span class="meta-info-content" *ngIf="sub.allocationUserId === '' || sub.allocationUserId === undefined">{{sub.team.name}}</span>
+            <span class="meta-info-content" *ngIf="(sub.allocationUserId === '' || sub.allocationUserId === undefined) && (sub.team !== undefined)">{{sub.team.name}}</span>
           </span>
         </div>
 

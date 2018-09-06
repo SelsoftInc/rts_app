@@ -5,7 +5,7 @@
   <div class="filter-wrapper">
     <div class="search-container">
       <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString "
-        [(ngModel)]="searchString"  (input)="filterItem($event.target.value)">
+        [(ngModel)]="searchString" (input)="filterItem($event.target.value)">
       <span class="search-icon">
         <i class="material-icons">search</i>
       </span>
@@ -43,7 +43,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let submission of sub.submissions">
+          <tr *ngFor="let submission of sub.submissions" [routerLink]="['/edit-submission', submission.submissionId]">
             <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
             <td>{{submission.candidate.name}}</td>
             <td>{{submission.candidate.technology[0].technologyName}}</td>
@@ -55,4 +55,4 @@
       </table>
     </div>
   </div>
- </div>
+</div>

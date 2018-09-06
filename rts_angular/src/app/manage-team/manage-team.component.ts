@@ -3,6 +3,13 @@ import { LoggedUserService } from '../Services/logged-user.service';
 import { Router } from '@angular/router';
 import { RequirementsService } from '../Services/requirements.service';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { MatDialog } from '@angular/material';
+import { DeleteTeamComponent } from '../delete-team/delete-team.component';
+import { NgProgress } from 'ngx-progressbar';
+
+export interface DialogData {
+  teamId: any;
+}
 
 @Component({
   selector: 'app-manage-team',
@@ -18,11 +25,14 @@ export class ManageTeamComponent implements OnInit {
   private teams: any;
   private teamLength: any;
   private userRole: any;
+  private teamId: any;
 
   constructor(
     private loggedUser: LoggedUserService,
     private router: Router,
-    private requirementService: RequirementsService
+    private requirementService: RequirementsService,
+    private dialog: MatDialog,
+    private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -31,6 +41,7 @@ export class ManageTeamComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.ngProgress.start();
     this.getCommonDetails();
   }
 
@@ -43,9 +54,23 @@ export class ManageTeamComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.teams = data.teams;
             this.teamLength = this.teams.length;
           }
         });
+  }
+
+  deleteTeam(teamId) {
+    this.teamId = teamId;
+    const dialogRef = this.dialog.open(DeleteTeamComponent, {
+      width: '500px',
+      data: { teamId: this.teamId }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getCommonDetails();
+    });
+
   }
 }

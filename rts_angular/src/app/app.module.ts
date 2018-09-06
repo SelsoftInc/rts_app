@@ -32,9 +32,7 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { UserService } from './Services/user.service';
 import { SubmissionService } from './Services/submission.service';
 import { RecruiterSubmissionsComponent } from './recruiter-submissions/recruiter-submissions.component';
-import { RecruiterAddNewSubmissionsComponent } from './recruiter-add-new-submissions/recruiter-add-new-submissions.component';
 import { SubmissionByRequirementComponent } from './submission-by-requirement/submission-by-requirement.component';
-import { EditSubmissionsComponent } from './edit-submissions/edit-submissions.component';
 import { ClientService } from './Services/client.service';
 import { ManageClientComponent } from './manage-client/manage-client.component';
 import { AddClientComponent } from './add-client/add-client.component';
@@ -53,8 +51,6 @@ import { TeamService } from './Services/team.service';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { EditRequirementForLeadUserComponent } from './edit-requirement-for-lead-user/edit-requirement-for-lead-user.component';
 import { EditRequirementForAccMgrComponent } from './edit-requirement-for-acc-mgr/edit-requirement-for-acc-mgr.component';
-import { AccMgrEditSubmissionsComponent } from './acc-mgr-edit-submissions/acc-mgr-edit-submissions.component';
-import { LeadUserEditSubmissionsComponent } from './lead-user-edit-submissions/lead-user-edit-submissions.component';
 import { EditTeamComponent } from './edit-team/edit-team.component';
 import { EditSubmissonComponent } from './edit-submisson/edit-submisson.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -69,6 +65,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { ClientRequirementsComponent } from './client-requirements/client-requirements.component';
 import { NgxEditorModule } from 'ngx-editor';
 import { Ng4LoadingSpinnerModule } from 'ngx-loading-spinner';
+import { NgProgressModule } from 'ngx-progressbar';
+import { DeleteTeamComponent } from './delete-team/delete-team.component';
 
 
 @NgModule({
@@ -84,9 +82,7 @@ import { Ng4LoadingSpinnerModule } from 'ngx-loading-spinner';
     ManageUsersComponent,
     AddUserComponent,
     RecruiterSubmissionsComponent,
-    RecruiterAddNewSubmissionsComponent,
     SubmissionByRequirementComponent,
-    EditSubmissionsComponent,
     ManageClientComponent,
     AddClientComponent,
     RecruiterEditSubmissionsComponent,
@@ -101,8 +97,6 @@ import { Ng4LoadingSpinnerModule } from 'ngx-loading-spinner';
     AddTeamComponent,
     EditRequirementForLeadUserComponent,
     EditRequirementForAccMgrComponent,
-    AccMgrEditSubmissionsComponent,
-    LeadUserEditSubmissionsComponent,
     EditTeamComponent,
     EditSubmissonComponent,
     RecruiterDashboardComponent,
@@ -111,6 +105,7 @@ import { Ng4LoadingSpinnerModule } from 'ngx-loading-spinner';
     UserSubmissionsComponent,
     TeamSubmissionsComponent,
     ClientRequirementsComponent,
+    DeleteTeamComponent,
   ],
   imports: [
     BrowserModule,
@@ -135,7 +130,8 @@ import { Ng4LoadingSpinnerModule } from 'ngx-loading-spinner';
     NgxChartsModule,
     MatSortModule,
     NgxEditorModule,
-    Ng4LoadingSpinnerModule
+    Ng4LoadingSpinnerModule,
+    NgProgressModule
   ],
   providers: [
     RegisterService,

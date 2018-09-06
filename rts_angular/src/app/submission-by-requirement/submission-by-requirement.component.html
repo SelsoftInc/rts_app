@@ -1,4 +1,6 @@
 <h2 class="main-title">Submissions</h2>
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
 <div class="utility-container">
   <button class="btn btn-forms btn-space" [routerLink]="['/add-new-submission', requirementId]">Add New Submission</button>
 

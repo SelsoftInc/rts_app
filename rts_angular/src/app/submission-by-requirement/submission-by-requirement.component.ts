@@ -3,6 +3,7 @@ import { RequirementsService } from '../Services/requirements.service';
 import { LoggedUserService } from '../Services/logged-user.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import * as _ from 'underscore';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-submission-by-requirement',
@@ -25,6 +26,7 @@ export class SubmissionByRequirementComponent implements OnInit {
     private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
     private activatedRoute: ActivatedRoute,
+    private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsCompanyId = this.rtsUser.companyId;
@@ -33,6 +35,7 @@ export class SubmissionByRequirementComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.ngProgress.start();
     this.activatedRoute.params
       .subscribe((params: Params) => {
         this.requirementId = params['id'];
@@ -56,6 +59,7 @@ export class SubmissionByRequirementComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.requirements = data.requirements;
             this.selectedRequirement = _.findWhere(this.requirements, { requirementId: this.requirementId });
             this.submissionsLength = this.selectedRequirement.submissions.length;
@@ -73,6 +77,7 @@ export class SubmissionByRequirementComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.requirements = data.requirements;
             this.selectedRequirement = _.findWhere(this.requirements, { requirementId: this.requirementId });
             this.submissionsLength = this.selectedRequirement.submissions.length;
@@ -90,6 +95,7 @@ export class SubmissionByRequirementComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.requirements = data.requirements;
             this.selectedRequirement = _.findWhere(this.requirements, { requirementId: this.requirementId });
             this.submissionsLength = this.selectedRequirement.submissions.length;

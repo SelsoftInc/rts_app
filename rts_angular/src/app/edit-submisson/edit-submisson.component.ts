@@ -10,7 +10,7 @@ import { CandidateService } from '../Services/candidate.service';
 import * as moment from 'moment';
 import { ApiUrl } from '../Services/api-url';
 import { UserService } from '../Services/user.service';
-import { Ng4LoadingSpinnerService } from 'ngx-loading-spinner';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-edit-submisson',
@@ -79,7 +79,7 @@ export class EditSubmissonComponent implements OnInit {
     private toastr: ToastrService,
     private submissionService: SubmissionService,
     private router: Router,
-    private spinnerService: Ng4LoadingSpinnerService
+    private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -99,7 +99,7 @@ export class EditSubmissonComponent implements OnInit {
     this.selectedAdmins = [];
   }
   ngOnInit() {
-    this.spinnerService.show();
+    this.ngProgress.start();
     this.activatedRoute.params
       .subscribe((params: Params) => {
         this.submissionId = params['id'];
@@ -366,7 +366,7 @@ export class EditSubmissonComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
-            this.spinnerService.hide();
+            this.ngProgress.done();
             this.selectedRequirement = data.requirement;
             const submission = _.findWhere(this.selectedRequirement.submissions, { submissionId: this.submissionId });
             if (submission !== undefined) {
@@ -375,11 +375,6 @@ export class EditSubmissonComponent implements OnInit {
             if (this.selectedSubmission.status === 'REJECTED' || this.selectedSubmission.status === 'TL_REJECTED') {
               this.isRejected = true;
             }
-            // if (this.selectedSubmission.approvedByAdmin === true) {
-            //   this.sendToClient = true;
-            // } else {
-            //   this.sendToClient = false;
-            // }
             if (this.selectedSubmission.status === 'TL_APPROVED' || this.selectedSubmission.status === 'APPROVED') {
               this.isSubmitted = true;
             } else {

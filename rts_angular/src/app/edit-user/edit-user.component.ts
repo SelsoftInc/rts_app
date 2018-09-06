@@ -5,6 +5,7 @@ import { UserService } from '../Services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import * as _ from 'underscore';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-edit-user',
@@ -36,7 +37,8 @@ export class EditUserComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private userService: UserService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -46,12 +48,12 @@ export class EditUserComponent implements OnInit {
       { 'name': 'Account Manager', 'value': 'ACC_MGR' },
       { 'name': 'Team Leader', 'value': 'TL' },
       { 'name': 'Recruiter', 'value': 'RECRUITER' },
-      { 'name': 'Trainee', 'value': 'TRAINEE' },
+      // { 'name': 'Trainee', 'value': 'TRAINEE' },
     ];
   }
 
   ngOnInit() {
-
+    this.ngProgress.start();
     this.activatedRoute.params
       .subscribe((params: Params) => {
         this.userId = params['id'];
@@ -78,6 +80,7 @@ export class EditUserComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.userDetails = data.users;
             for (const user of this.userDetails) {
               this.selectedUser = _.findWhere(this.userDetails, { userId: this.userId });

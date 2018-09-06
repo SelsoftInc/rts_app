@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoggedUserService } from '../Services/logged-user.service';
 import { CandidateService } from '../Services/candidate.service';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-manage-candidate',
@@ -17,14 +18,18 @@ export class ManageCandidateComponent implements OnInit {
   private candidates: any;
   private candidateLength: any;
 
-  constructor(private loggedUser: LoggedUserService,
-    private candidateService: CandidateService) {
+  constructor(
+    private loggedUser: LoggedUserService,
+    private candidateService: CandidateService,
+    private ngProgress: NgProgress
+  ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
     this.rtsCompanyId = this.rtsUser.companyId;
   }
 
   ngOnInit() {
+    this.ngProgress.start();
     this.getAllCandidates();
   }
 
@@ -37,6 +42,7 @@ export class ManageCandidateComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.candidates = data.candidates;
             this.candidateLength = this.candidates.length;
           }

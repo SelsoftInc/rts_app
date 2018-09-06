@@ -37,6 +37,7 @@ export class ApiUrl {
     static UpdateUser = 'rtsUser/user/updateUser';
     static AddTeam = 'rtsTeam/team/createTeam';
     static EditTeam = 'rtsTeam/team/updateTeam';
+    static DeleteTeam = 'rtsTeam/team/deleteTeam';
     static GetRequirementForStatus = 'rtsRequirement/requirement/getRequirementByStatus';
     static GetRequirementForTeam = 'rtsRequirement/requirement/getRequirementByAllocationTeam';
     static GetRequirementForClient = 'rtsRequirement/requirement/getAllRequirementByClient';

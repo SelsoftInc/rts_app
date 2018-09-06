@@ -49,7 +49,7 @@ export class AddUserComponent implements OnInit {
       this.userType = [
         { 'name': 'Team Leader', 'value': 'TL' },
         { 'name': 'Recruiter', 'value': 'RECRUITER' },
-        { 'name': 'Trainee', 'value': 'TRAINEE' },
+        // { 'name': 'Trainee', 'value': 'TRAINEE' },
       ];
     } else if (this.userRole === 'ADMIN') {
       this.userType = [
@@ -57,7 +57,7 @@ export class AddUserComponent implements OnInit {
         { 'name': 'Account Manager', 'value': 'ACC_MGR' },
         { 'name': 'Team Leader', 'value': 'TL' },
         { 'name': 'Recruiter', 'value': 'RECRUITER' },
-        { 'name': 'Trainee', 'value': 'TRAINEE' },
+        // { 'name': 'Trainee', 'value': 'TRAINEE' },
       ];
     }
   }

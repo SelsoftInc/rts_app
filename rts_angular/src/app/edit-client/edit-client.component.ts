@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ClientService } from '../Services/client.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import * as _ from 'underscore';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-edit-client',
@@ -37,7 +38,8 @@ export class EditClientComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private toastr: ToastrService,
     private router: Router,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -45,7 +47,7 @@ export class EditClientComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.ngProgress.start();
     this.activatedRoute.params
       .subscribe((params: Params) => {
         this.clientId = params['id'];
@@ -88,6 +90,7 @@ export class EditClientComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.clients = data.clients;
             this.selectedClient = _.findWhere(this.clients, { clientId: this.clientId });
             const control = <FormArray>this.myForm.controls['units'];
