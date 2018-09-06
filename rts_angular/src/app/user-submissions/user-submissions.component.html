@@ -1,7 +1,7 @@
 <h2 class="main-title">
   <a [routerLink]="['/admin-dashboard']">Dashboard</a> / {{recruiterName}} Submissions</h2>
-  <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
-[direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
 <div class="utility-container pt-5">
 
   <div class="filter-wrapper">
@@ -27,9 +27,9 @@
           <span class="meta-info-content">{{sub.allocationUser.firstName}} {{sub.allocationUser.lastName}}
           </span>
         </span>
-        <span *ngIf="!sub.allocationUser">
+        <span *ngIf="!sub.allocationUser && sub.team !== undefined">
           <span class="block-header-label">Allocated Team: </span>
-          <span class="meta-info-content" *ngIf="sub.allocationUserId === '' || sub.allocationUserId === undefined">{{sub.team.name}}</span>
+          <span class="meta-info-content" *ngIf="(sub.allocationUserId === '' || sub.allocationUserId === undefined) && (sub.team !== undefined)">{{sub.team.name}}</span>
         </span>
       </div>
 
