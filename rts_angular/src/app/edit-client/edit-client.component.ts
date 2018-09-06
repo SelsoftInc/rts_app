@@ -106,6 +106,7 @@ export class EditClientComponent implements OnInit {
   }
 
   updateClient(form: FormGroup) {
+    this.ngProgress.start();
 
     const editClient = {
       name: form.value.name,
@@ -124,6 +125,7 @@ export class EditClientComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
             this.router.navigate(['manage-client']);
 
           } else {
@@ -131,6 +133,7 @@ export class EditClientComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
           }
         });
   }

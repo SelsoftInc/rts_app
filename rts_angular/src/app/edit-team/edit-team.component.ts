@@ -150,6 +150,7 @@ export class EditTeamComponent implements OnInit {
   }
 
   updateTeam(form: FormGroup) {
+    this.ngProgress.start();
 
     this.teamMembers = [];
     for (const recruiter of this.recruitersArray) {
@@ -172,6 +173,7 @@ export class EditTeamComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
             this.router.navigate(['manage-team']);
 
           } else {
@@ -179,6 +181,7 @@ export class EditTeamComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
           }
         });
   }

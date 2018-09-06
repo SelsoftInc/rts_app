@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { ClientService } from '../Services/client.service';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-add-client',
@@ -24,7 +25,8 @@ export class AddClientComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -61,6 +63,7 @@ export class AddClientComponent implements OnInit {
   }
 
   addNewClient(form: FormGroup) {
+    this.ngProgress.start();
 
     const client = {
       name: form.value.name,
@@ -78,6 +81,7 @@ export class AddClientComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
             this.router.navigate(['manage-client']);
 
           } else {
@@ -85,6 +89,7 @@ export class AddClientComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
           }
         });
 

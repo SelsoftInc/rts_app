@@ -104,6 +104,7 @@ export class EditUserComponent implements OnInit {
       });
       return false;
     }
+    this.ngProgress.start();
 
     const editUser = {
       firstName: form.value.firstName,
@@ -123,6 +124,7 @@ export class EditUserComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
             this.router.navigate(['manage-users']);
 
           } else {
@@ -130,6 +132,7 @@ export class EditUserComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
           }
         });
 

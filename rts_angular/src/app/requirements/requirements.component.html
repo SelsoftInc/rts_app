@@ -163,7 +163,10 @@
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>
           <td>{{require.clientSubmissionCount}}</td>
-          <td>{{require.team.name}}</td>
+          <td *ngIf="require.team !== undefined else noTeam">{{require.team.name}}</td>
+          <ng-template #noTeam>
+            <td>-</td>
+          </ng-template>
           <td *ngIf="require.allocationUser ; else noAlloction">{{require.allocationUser.firstName}}
             {{require.allocationUser.lastName}}</td>
           <ng-template #noAlloction>
@@ -204,7 +207,10 @@
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>
           <td>{{require.clientSubmissionCount}}</td>
-          <td>{{require.team.name}}</td>
+          <td *ngIf="require.team !== undefined else noTeam">{{require.team.name}}</td>
+          <ng-template #noTeam>
+            <td>-</td>
+          </ng-template>
           <td *ngIf="require.allocationUser ; else noAlloction">{{require.allocationUser.firstName}}
             {{require.allocationUser.lastName}}</td>
           <ng-template #noAlloction>
@@ -245,7 +251,10 @@
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>
           <td>{{require.clientSubmissionCount}}</td>
-          <td>{{require.team.name}}</td>
+          <td *ngIf="require.team !== undefined else noTeam">{{require.team.name}}</td>
+          <ng-template #noTeam>
+            <td>-</td>
+          </ng-template>
           <td *ngIf="require.allocationUser ; else noAlloction">{{require.allocationUser.firstName}}
             {{require.allocationUser.lastName}}</td>
           <ng-template #noAlloction>

@@ -1,5 +1,7 @@
 <h2 class="main-title">
   <a [routerLink]="['/manage-team']">Manage Teams</a> / Add New Team</h2>
+  <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
 <div class="utility-container">
   <form [formGroup]="myForm" (ngSubmit)="addNewTeam(myForm)">
     <div class="container">

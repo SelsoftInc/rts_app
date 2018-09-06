@@ -9,6 +9,7 @@ import { CandidateService } from '../Services/candidate.service';
 import * as _ from 'underscore';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { ApiUrl } from '../Services/api-url';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-add-new-submissions',
@@ -57,7 +58,8 @@ export class AddNewSubmissionsComponent implements OnInit {
     private toastr: ToastrService,
     private submissionService: SubmissionService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -414,6 +416,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       });
       return false;
     }
+    this.ngProgress.start();
 
     if (this.isNewCandidate) {
       this.createNewCandidate(form);
@@ -442,6 +445,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.toastr.success('New Submission Successfully added', '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,
@@ -452,6 +456,7 @@ export class AddNewSubmissionsComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
           }
         });
   }

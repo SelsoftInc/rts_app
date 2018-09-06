@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../Services/user.service';
 import { ClientService } from '../Services/client.service';
 import * as _ from 'underscore';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-add-new-requirement',
@@ -51,7 +52,8 @@ export class AddNewRequirementComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private userService: UserService,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -339,7 +341,7 @@ export class AddNewRequirementComponent implements OnInit {
       });
       return false;
     }
-
+    this.ngProgress.start();
     const requirement: any = {
       priority: form.value.priority,
       location: form.value.location,
@@ -397,6 +399,7 @@ export class AddNewRequirementComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
             this.router.navigate(['requirements']);
 
           } else {
@@ -404,6 +407,7 @@ export class AddNewRequirementComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
           }
         });
   }

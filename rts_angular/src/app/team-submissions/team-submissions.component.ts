@@ -5,6 +5,7 @@ import { ClientService } from '../Services/client.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import * as _ from 'underscore';
 import { SubmissionService } from '../Services/submission.service';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-team-submissions',
@@ -29,12 +30,14 @@ export class TeamSubmissionsComponent implements OnInit {
     private loggedUser: LoggedUserService,
     private activatedRoute: ActivatedRoute,
     private submissionService: SubmissionService,
+    private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
   }
 
   ngOnInit() {
+    this.ngProgress.start();
     this.activatedRoute.params
       .subscribe((params: Params) => {
         this.teamId = params['id'];
@@ -55,6 +58,7 @@ export class TeamSubmissionsComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.submissionDetails = data.requirements;
             this.filteredRequirements = this.submissionDetails;
             this.teamDetails = data.team;

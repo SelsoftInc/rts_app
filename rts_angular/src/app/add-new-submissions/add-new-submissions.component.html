@@ -1,5 +1,7 @@
 <h2 class="main-title">
   <a [routerLink]="['/submissions']">Submissions</a> / Add New Submission</h2>
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
 <div class="utility-container">
   <div class="container">
 
@@ -52,7 +54,7 @@
             readonly>
         </div>
 
-        <div class="col-sm-4"*ngIf="selectRequiement && userRole !== 'RECRUITER' && userRole !== 'TRAINEE'">
+        <div class="col-sm-4" *ngIf="selectRequiement && userRole !== 'RECRUITER' && userRole !== 'TRAINEE'">
           <label for="clientContactEmail" class="form-label">Client Contact Email:</label>
           <input type="text" class="form-input" name="clientContactEmail" formControlName="clientContactEmail" ngModel="{{clientRecruiterEmail}}"
             readonly>

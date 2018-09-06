@@ -429,11 +429,13 @@ export class EditSubmissonComponent implements OnInit {
   }
 
   approveSubmission(form: FormGroup) {
+    this.ngProgress.start();
     this.sendToClient = true;
     this.updateCandidateWithSubmission(form, this.selectedSubmission.candidate.candidateId);
   }
 
   submissionToClient() {
+    this.ngProgress.start();
     this.selectedAdmins = [];
     for (const user of this.adminUsersArray) {
       this.selectedAdmins.push(user.email);
@@ -456,12 +458,14 @@ export class EditSubmissonComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
             this.router.navigate(['submissions']);
           } else {
             this.toastr.error(data.message, '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
           }
         });
   }
@@ -556,6 +560,7 @@ export class EditSubmissonComponent implements OnInit {
   }
 
   updateSubmission(form: FormGroup) {
+    this.ngProgress.start();
     if (this.isNewCandidate) {
       this.createNewCandidate(form);
     } else {
@@ -636,6 +641,7 @@ export class EditSubmissonComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
             if (this.sendToClient) {
               this.submissionToClient();
             } else {

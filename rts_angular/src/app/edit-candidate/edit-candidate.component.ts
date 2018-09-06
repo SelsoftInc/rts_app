@@ -226,6 +226,7 @@ export class EditCandidateComponent implements OnInit {
   }
 
   updateCandidate(form: FormGroup) {
+    this.ngProgress.start();
 
     const candidate: any = {
       name: form.value.name,
@@ -315,7 +316,7 @@ export class EditCandidateComponent implements OnInit {
                   }
                 });
             }
-
+            this.ngProgress.done();
             this.toastr.success('Updated Successfully', '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,
@@ -327,6 +328,7 @@ export class EditCandidateComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
           }
         });
   }

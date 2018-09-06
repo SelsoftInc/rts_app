@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { RequirementsService } from '../Services/requirements.service';
 import { CandidateService } from '../Services/candidate.service';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-add-candidate',
@@ -36,6 +37,7 @@ export class AddCandidateComponent implements OnInit {
     private candidateService: CandidateService,
     private toastr: ToastrService,
     private router: Router,
+    private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -147,6 +149,7 @@ export class AddCandidateComponent implements OnInit {
   }
 
   addNewCandidate(form: FormGroup) {
+    this.ngProgress.start();
 
     const newCandidate: any = {
       name: form.value.name,
@@ -226,6 +229,7 @@ export class AddCandidateComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
             this.router.navigate(['manage-candidate']);
 
           } else {
@@ -233,6 +237,7 @@ export class AddCandidateComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
           }
         });
   }

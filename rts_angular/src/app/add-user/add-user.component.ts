@@ -4,6 +4,7 @@ import { LoggedUserService } from '../Services/logged-user.service';
 import { UserService } from '../Services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-add-user',
@@ -25,7 +26,8 @@ export class AddUserComponent implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsCompanyId = this.rtsUser.companyId;
@@ -71,6 +73,7 @@ export class AddUserComponent implements OnInit {
       });
       return false;
     }
+    this.ngProgress.start();
 
     const user = {
       firstName: form.value.firstName,
@@ -90,6 +93,7 @@ export class AddUserComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
             this.router.navigate(['manage-users']);
 
           } else {
@@ -97,6 +101,7 @@ export class AddUserComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
           }
         });
 

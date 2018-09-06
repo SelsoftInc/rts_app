@@ -1,4 +1,6 @@
 <h2 class="main-title">Requirements</h2>
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
 <div class="utility-container">
 
   <table class="table table-hover table-sm">
@@ -20,7 +22,10 @@
         <td>{{require.status}}</td>
         <td>{{require.positionCount}}</td>
         <td>{{require.clientSubmissionCount}}</td>
-        <td>{{require.team.name}}</td>
+        <td *ngIf="require.team !== undefined else noTeam">{{require.team.name}}</td>
+        <ng-template #noTeam>
+          <td>-</td>
+        </ng-template>
         <td *ngIf="require.allocationUser ; else noAlloction">{{require.allocationUser.firstName}}
           {{require.allocationUser.lastName}}</td>
         <ng-template #noAlloction>

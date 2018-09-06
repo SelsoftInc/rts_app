@@ -98,6 +98,7 @@ export class GenerateReportComponent implements OnInit {
     } else {
       this.startDate = '';
     }
+    this.ngProgress.start();
     this.filterBy('');
     this.getApprovedSubmissions();
   }

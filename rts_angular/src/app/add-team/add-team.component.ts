@@ -5,6 +5,7 @@ import { UserService } from '../Services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { TeamService } from '../Services/team.service';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-add-team',
@@ -35,7 +36,8 @@ export class AddTeamComponent implements OnInit {
     private userService: UserService,
     private teamService: TeamService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -106,7 +108,7 @@ export class AddTeamComponent implements OnInit {
   }
 
   addNewTeam(form: FormGroup) {
-
+    this.ngProgress.start();
     this.teamMembers = [];
     for (const recruiter of this.recruitersArray) {
       this.teamMembers.push(recruiter.user);
@@ -127,6 +129,7 @@ export class AddTeamComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
             this.router.navigate(['manage-team']);
 
           } else {
@@ -134,6 +137,7 @@ export class AddTeamComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
           }
         });
   }

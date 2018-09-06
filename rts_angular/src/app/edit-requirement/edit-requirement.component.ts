@@ -321,6 +321,7 @@ export class EditRequirementComponent implements OnInit {
   }
 
   updateRequirement(form: FormGroup) {
+    this.ngProgress.start();
 
     this.selectedRecruites = [];
     for (const recruiter of this.selectedrecruitersArray) {
@@ -385,6 +386,7 @@ export class EditRequirementComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
             this.router.navigate(['requirements']);
 
           } else {
@@ -392,6 +394,7 @@ export class EditRequirementComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
           }
         });
   }

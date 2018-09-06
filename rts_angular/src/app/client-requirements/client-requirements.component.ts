@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ClientService } from '../Services/client.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import * as _ from 'underscore';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-client-requirements',
@@ -25,7 +26,8 @@ export class ClientRequirementsComponent implements OnInit {
   constructor(
     private loggedUser: LoggedUserService,
     private activatedRoute: ActivatedRoute,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -33,6 +35,7 @@ export class ClientRequirementsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.ngProgress.start();
     this.activatedRoute.params
       .subscribe((params: Params) => {
         this.clientId = params['id'];
@@ -54,6 +57,7 @@ export class ClientRequirementsComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.selectedRequirements = data.requirements;
             this.requirementsLength = this.selectedRequirements.length;
             for (const require of this.selectedRequirements) {
