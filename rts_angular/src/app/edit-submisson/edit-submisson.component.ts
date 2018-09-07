@@ -68,6 +68,7 @@ export class EditSubmissonComponent implements OnInit {
   private selectedAdmins: any;
   private isCustomBody: boolean;
   private isDefaultBody: boolean;
+  private comment: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -165,7 +166,8 @@ export class EditSubmissonComponent implements OnInit {
       vacationPlans: [''],
       currentCompany: [''],
       adminUser: [''],
-      customMailBody: ['']
+      customMailBody: [''],
+      comments: ['']
     });
 
     this.isNewCandidate = false;
@@ -372,6 +374,7 @@ export class EditSubmissonComponent implements OnInit {
             if (submission !== undefined) {
               this.selectedSubmission = submission;
             }
+            console.log(this.selectedSubmission);
             if (this.selectedSubmission.status === 'REJECTED' || this.selectedSubmission.status === 'TL_REJECTED') {
               this.isRejected = true;
             }
@@ -601,13 +604,24 @@ export class EditSubmissonComponent implements OnInit {
       enteredBy: this.rtsUserId,
       submissionId: this.submissionId,
       candidateId: candidateId,
-      approvalUserId: this.rtsUserId
+      approvalUserId: this.rtsUserId,
     };
 
     if (this.sendToClient) {
       submission.status = 'APPROVED';
     } else {
       submission.status = form.value.status;
+    }
+
+    if (this.comment === '' || this.comment === undefined) {
+      submission.comments = [];
+    } else {
+      submission.comments = [
+        {
+          comment: this.comment,
+          enteredBy: this.rtsUserId
+        }
+      ];
     }
 
     const editSubmission = {
@@ -653,6 +667,7 @@ export class EditSubmissonComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
           }
         });
   }
@@ -743,6 +758,7 @@ export class EditSubmissonComponent implements OnInit {
             positionClass: 'toast-top-center',
             timeOut: 3000,
           });
+          this.ngProgress.done();
         }
       });
 

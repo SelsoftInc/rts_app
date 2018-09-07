@@ -51,6 +51,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   private recruiterEmail: any;
   private clientRecruiterName: any;
   private clientRecruiterEmail: any;
+  private comment: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -139,6 +140,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       anotherInterviewOffer: [''],
       vacationPlans: [''],
       currentCompany: [''],
+      comments: ['']
     });
     this.getAllRequirementsForUser();
     this.getAllCommonData();
@@ -392,7 +394,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       });
       return false;
     }
-
+    this.ngProgress.start();
     if (this.isNewCandidate) {
       this.createNewCandidate(form);
     } else {
@@ -413,7 +415,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       this.level2Date = '';
     }
 
-    const submission = {
+    const submission: any = {
       requirementId: form.value.requirements,
       accountName: form.value.accountName,
       buyingRate: form.value.buyingRate,
@@ -432,11 +434,22 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       submissionId: this.submissionId,
       candidateId: candidateId,
     };
+
+    if (this.comment === '' || this.comment === undefined) {
+      submission.comments = [];
+    } else {
+      submission.comments = [
+        {
+          comment: this.comment,
+          enteredBy: this.rtsUserId
+        }
+      ];
+    }
+
     const editSubmission = {
       submission: submission,
       deletedMediaFiles: this.deletedMediaFiles
     };
-
 
     this.submissionService.editSubmission(editSubmission)
       .subscribe(
@@ -446,6 +459,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
             this.router.navigate(['submissions']);
 
           } else {
@@ -453,6 +467,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.ngProgress.done();
           }
         });
   }
@@ -543,6 +558,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             positionClass: 'toast-top-center',
             timeOut: 3000,
           });
+          this.ngProgress.done();
         }
       });
 

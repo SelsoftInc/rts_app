@@ -75,8 +75,7 @@ export class SubmissionsComponent implements OnInit {
       toDate: ['']
     });
 
-    const currentDateMoment: moment.Moment = moment(this.currentDate);
-    this.startDate = currentDateMoment.subtract(3, 'days').format('YYYY-MM-DD');
+    this.startDate = moment(this.currentDate).format('YYYY-MM-DD');
 
     this.getCommonDetails();
     this.getAllSubmissions();
