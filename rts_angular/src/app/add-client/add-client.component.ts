@@ -40,6 +40,9 @@ export class AddClientComponent implements OnInit {
       phoneNumber: [''],
       units: this.formBuilder.array([
         this.initUnits()
+      ]),
+      ccUnits: this.formBuilder.array([
+        this.initCcUnits()
       ])
     });
   }
@@ -49,6 +52,13 @@ export class AddClientComponent implements OnInit {
       name: [''],
       email: ['', Validators.email],
       phoneNumber: [''],
+    });
+  }
+
+  initCcUnits() {
+    return this.formBuilder.group({
+      name: [''],
+      email: ['', Validators.email],
     });
   }
 
@@ -62,6 +72,16 @@ export class AddClientComponent implements OnInit {
     control.removeAt(i);
   }
 
+  addCcUnits() {
+    const control = <FormArray>this.myForm.controls['ccUnits'];
+    control.push(this.initCcUnits());
+  }
+
+  removeCcUnits(i: number) {
+    const control = <FormArray>this.myForm.controls['ccUnits'];
+    control.removeAt(i);
+  }
+
   addNewClient(form: FormGroup) {
     this.ngProgress.start();
 
@@ -70,7 +90,8 @@ export class AddClientComponent implements OnInit {
       email: form.value.email,
       phoneNumber: form.value.phoneNumber,
       enteredBy: this.rtsUserId,
-      clientRecuriters: form.value.units
+      clientRecuriters: form.value.units,
+      ccRecuriters: form.value.ccUnits
     };
 
     this.clientService.addClient(client)

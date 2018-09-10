@@ -46,7 +46,7 @@ export class AdminDashboardComponent implements OnInit {
   };
 
   colorSchemeMultiBar1 = {
-    domain: ['#f5dd98', '#d2da66', '#b83330', '#a8385d']
+    domain: ['#f5dd98', '#d2da66', '#b83330', '#a8385d', '#7aa3e5']
   };
 
   colorSchemeMulti = {
@@ -70,8 +70,7 @@ export class AdminDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.ngProgress.start();
-    const currentDateMoment: moment.Moment = moment(this.currentDate);
-    this.fromDate = currentDateMoment.subtract(3, 'days').format('YYYY-MM-DD');
+    this.fromDate = moment(this.currentDate).format('YYYY-MM-DD');
     this.getUserGraphDetails();
     this.getTeamGraphDetails();
     this.getClientRequirementsDetails();

@@ -67,6 +67,8 @@ import { NgxEditorModule } from 'ngx-editor';
 import { Ng4LoadingSpinnerModule } from 'ngx-loading-spinner';
 import { NgProgressModule } from 'ngx-progressbar';
 import { DeleteTeamComponent } from './delete-team/delete-team.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { PaginationModule } from 'ngx-bootstrap';
 
 
 @NgModule({
@@ -131,7 +133,9 @@ import { DeleteTeamComponent } from './delete-team/delete-team.component';
     MatSortModule,
     NgxEditorModule,
     Ng4LoadingSpinnerModule,
-    NgProgressModule
+    NgProgressModule,
+    NgxPaginationModule,
+    PaginationModule
   ],
   providers: [
     RegisterService,

@@ -58,6 +58,8 @@ export class EditClientComponent implements OnInit {
       email: ['', Validators.email],
       phoneNumber: [''],
       units: this.formBuilder.array([
+      ]),
+      ccUnits: this.formBuilder.array([
       ])
     });
     this.getAllClients();
@@ -71,6 +73,13 @@ export class EditClientComponent implements OnInit {
     });
   }
 
+  initCcUnits() {
+    return this.formBuilder.group({
+      name: [''],
+      email: ['', Validators.email],
+    });
+  }
+
   addUnits() {
     const control = <FormArray>this.myForm.controls['units'];
     control.push(this.initUnits());
@@ -78,6 +87,16 @@ export class EditClientComponent implements OnInit {
 
   removeUnits(i: number) {
     const control = <FormArray>this.myForm.controls['units'];
+    control.removeAt(i);
+  }
+
+  addCcUnits() {
+    const control = <FormArray>this.myForm.controls['ccUnits'];
+    control.push(this.initCcUnits());
+  }
+
+  removeCcUnits(i: number) {
+    const control = <FormArray>this.myForm.controls['ccUnits'];
     control.removeAt(i);
   }
 
@@ -97,6 +116,10 @@ export class EditClientComponent implements OnInit {
             for (const recruiter of this.selectedClient.clientRecuriters) {
               control.push(this.formBuilder.group(recruiter));
             }
+            const CcControl = <FormArray>this.myForm.controls['ccUnits'];
+            for (const ccRecruiter of this.selectedClient.ccRecuriters) {
+              CcControl.push(this.formBuilder.group(ccRecruiter));
+            }
             this.name = this.selectedClient.name;
             this.email = this.selectedClient.email;
             this.phoneNumber = this.selectedClient.phoneNumber;
@@ -114,7 +137,8 @@ export class EditClientComponent implements OnInit {
       phoneNumber: form.value.phoneNumber,
       enteredBy: this.rtsUserId,
       clientId: this.clientId,
-      clientRecuriters: form.value.units
+      clientRecuriters: form.value.units,
+      ccRecuriters: form.value.ccUnits,
     };
 
     this.clientService.editClient(editClient)

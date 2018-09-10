@@ -22,6 +22,41 @@
           <input type="text" class="form-input" name="phoneNumber" formControlName="phoneNumber" required ngModel="{{phoneNumber}}">
         </div>
       </div>
+      
+      <div class="form-group row pt-3">
+        <div class="col-sm-12">
+          <h2 class="form-title">Add CC List</h2>
+          <div class="row">
+            <div class="col-3"><label class="form-label" for="name">CC Name:</label></div>
+            <div class="col-3"><label class="form-label" for="email">CC Email:</label></div>
+            <div class="col-3"></div>
+          </div>
+
+          <div class="unit-container" formArrayName="ccUnits">
+            <div class="units" *ngFor="let field of myForm.controls.ccUnits.controls; let i = index">
+              <div class="form-row" [formGroupName]='i'>
+                <div class="form-group col-3">
+                  <input type="text" class="form-input" name="name" formControlName="name" >
+                </div>
+
+                <div class="form-group col-3">
+                  <input type="email" class="form-input" name="email" formControlName="email" >
+                </div>
+
+                <div class="form-group col-3 unit-btn-container">
+                  <a class="btn btn-light delete-btn" (click)="removeCcUnits(i)">
+                    <mat-icon>close</mat-icon>
+                  </a>
+                  <a class="btn btn-light add-btn ml-2" (click)="addCcUnits(i)">
+                    <mat-icon>add</mat-icon>
+                  </a>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div class="form-group row pt-3">
         <div class="col-sm-12">

@@ -385,6 +385,25 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
     window.open(this.baseUrl + media.mediaThumbnailPath, '_blank');
   }
 
+  addChatMessage() {
+    if (this.comment !== '' && this.comment !== undefined) {
+      const addMessage = {
+        submissionId: this.submissionId,
+        enteredBy: this.rtsUserId,
+        comment: this.comment
+      };
+
+      this.submissionService.addComment(addMessage)
+        .subscribe(
+          data => {
+            if (data.success) {
+              this.selectedSubmission.comments = data.submission.comments;
+              this.comment = '';
+            }
+          });
+    }
+  }
+
   updateSubmission(form: FormGroup) {
 
     if (!this.isUpdate) {

@@ -562,48 +562,49 @@
         </div>
       </div>
 
-      <div class="chat-container">
+      <div class="chat-container" *ngIf="selectedSubmission">
         <h2 class="form-title">Chat History</h2>
-        <div class="chat-body">
+        <div class="chat-body" *ngIf="selectedSubmission.comments.length > 0">
           <div class="chat-item" *ngFor="let comment of selectedSubmission.comments">
             <div class="chat-legend">
               <div class="chat-meta">
-                <span class="chat-meta-items">{{comment.enteredUser.firstName}} {{comment.enteredUser.lastName}} ({{comment.enteredUser.role}}) on {{comment.enteredOn | date: 'MMM d, y'}}</span>
+                <span class="chat-meta-items">{{comment.enteredUser.firstName}} {{comment.enteredUser.lastName}}
+                  ({{comment.enteredUser.role}}) on {{comment.enteredOn | date: 'MMM d, y h:mm:ss a'}}</span>
               </div>
               <p class="mt-2 mb-2">{{comment.comment}}</p>
             </div>
           </div>
         </div>
         <div class="input-group mb-3 mt-3">
-          <input type="text" class="form-control" placeholder="Chat Message" aria-label="Chat Message" aria-describedby="basic-addon2">
+          <input type="text" class="form-control" placeholder="Chat Message" aria-label="Chat Message" aria-describedby="basic-addon2"
+            formControlName="comments" [(ngModel)]="comment">
           <div class="input-group-append">
-            <button class="btn btn-primary" type="button">Add Message</button>
+            <button class="btn btn-primary" type="button" (click)="addChatMessage();">Add Message</button>
           </div>
         </div>
-
-
-        <!--<table class="table" *ngIf="selectedSubmission">-->
-          <!--<thead class="table_header">-->
-          <!--<tr>-->
-            <!--<th>Comments</th>-->
-            <!--<th>Commented By</th>-->
-            <!--<th>Commented On</th>-->
-          <!--</tr>-->
-          <!--</thead>-->
-          <!--<tbody>-->
-          <!--<tr *ngFor="let comment of selectedSubmission.comments">-->
-            <!--<td>{{comment.comment}}</td>-->
-            <!--<td>{{comment.enteredUser.firstName}} {{comment.enteredUser.lastName}} ({{comment.enteredUser.role}})</td>-->
-            <!--<td></td>-->
-          <!--</tr>-->
-          <!--</tbody>-->
-        <!--</table>-->
       </div>
 
-      <div class="mb-3">
+      <!--<table class="table" *ngIf="selectedSubmission">-->
+      <!--<thead class="table_header">-->
+      <!--<tr>-->
+      <!--<th>Comments</th>-->
+      <!--<th>Commented By</th>-->
+      <!--<th>Commented On</th>-->
+      <!--</tr>-->
+      <!--</thead>-->
+      <!--<tbody>-->
+      <!--<tr *ngFor="let comment of selectedSubmission.comments">-->
+      <!--<td>{{comment.comment}}</td>-->
+      <!--<td>{{comment.enteredUser.firstName}} {{comment.enteredUser.lastName}} ({{comment.enteredUser.role}})</td>-->
+      <!--<td></td>-->
+      <!--</tr>-->
+      <!--</tbody>-->
+      <!--</table>-->
+
+      <!-- <div class="mb-3">
         <input type="text" class="form-input" placeholder="comments" aria-label="User comments..." aria-describedby="basic-addon2"
           formControlName="comments" [(ngModel)]="comment">
-      </div>
+      </div> -->
 
       <div *ngIf="userRole === 'ACC_MGR' && isSubmitted ">
 
