@@ -68,7 +68,7 @@ export class GenerateReportComponent implements OnInit {
       fromDate: [''],
       toDate: ['']
     });
-    this.startDate = moment(this.currentDate).format('YYYY-MM-DD');
+    this.startDate = this.currentDate;
     this.getCommonDetails();
     this.getApprovedSubmissions();
     this.baseUrl = ApiUrl.BaseUrl;

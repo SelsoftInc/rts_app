@@ -83,8 +83,7 @@ export class RequirementsComponent implements OnInit {
       toDate: ['']
     });
 
-    this.startDate = moment(this.currentDate).format('YYYY-MM-DD');
-
+    this.startDate = this.currentDate;
     this.getCommonDetails();
     if (this.userRole === 'ADMIN') {
       this.getAllRequirements();

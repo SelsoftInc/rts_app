@@ -30,7 +30,7 @@ export class SubmissionsComponent implements OnInit {
   private isTeam: boolean;
   private isRecruiter: boolean;
   private filter: string;
-  private startDate: string;
+  private startDate: any;
   private clients: any;
   private teams: any;
   private teamUsers: any;
@@ -75,8 +75,7 @@ export class SubmissionsComponent implements OnInit {
       toDate: ['']
     });
 
-    this.startDate = moment(this.currentDate).format('YYYY-MM-DD');
-
+    this.startDate = this.currentDate;
     this.getCommonDetails();
     this.getAllSubmissions();
   }
