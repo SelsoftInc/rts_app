@@ -55,7 +55,8 @@ export class AdminDashboardComponent implements OnInit {
   private totalSubmission: any;
   private teamDetails: any;
   private clientOpenRequitements: any;
-  fromDate: any;
+  private fromDate: any;
+  private interviewReport: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -74,6 +75,27 @@ export class AdminDashboardComponent implements OnInit {
     this.getUserGraphDetails();
     this.getTeamGraphDetails();
     this.getClientRequirementsDetails();
+    this.getInterviewReport();
+  }
+
+  getInterviewReport() {
+    this.recruitersSubmissions = [];
+
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    const graph = {
+      userId: this.rtsUserId,
+      fromDate: fromDate,
+      toDate: toDate
+    };
+
+    this.graphService.getInterviewDetails(graph)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.interviewReport = data.submissionReport;
+          }
+        });
   }
 
   getUserGraphDetails() {
@@ -160,6 +182,7 @@ export class AdminDashboardComponent implements OnInit {
     this.getUserGraphDetails();
     this.getTeamGraphDetails();
     this.getClientRequirementsDetails();
+    this.getInterviewReport();
   }
 
   onUserSelect(event) {

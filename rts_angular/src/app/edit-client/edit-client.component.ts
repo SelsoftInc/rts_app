@@ -120,6 +120,9 @@ export class EditClientComponent implements OnInit {
             for (const ccRecruiter of this.selectedClient.ccRecuriters) {
               CcControl.push(this.formBuilder.group(ccRecruiter));
             }
+            if (this.selectedClient.ccRecuriters.length === 0) {
+              CcControl.push(this.initCcUnits());
+            }
             this.name = this.selectedClient.name;
             this.email = this.selectedClient.email;
             this.phoneNumber = this.selectedClient.phoneNumber;

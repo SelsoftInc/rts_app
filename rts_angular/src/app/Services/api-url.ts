@@ -51,5 +51,6 @@ export class ApiUrl {
     static GetRequirementsSubmissionByDate = 'rtsRequirement/requirement/getRequirementSubmissionByDate';
     static GetClientRequirements = 'rtsRequirement/requirement/clientWiseOpenRequirement';
     static AddComment = 'rtsSubmission/submission/addComment';
+    static InterViewReport = 'rtsSubmission/submission/interviewReport';
 
 }

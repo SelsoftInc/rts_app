@@ -1,6 +1,6 @@
 <h2 class="main-title-dashboard">Dashboard</h2>
 <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
-[direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
 <div class="dash-filter-container">
   <div class="row">
     <div class="col-8">
@@ -14,7 +14,7 @@
         </div>
         <div class="col-3">
           <mat-form-field>
-            <input matInput [matDatepicker]="toDatePicker" [(ngModel)]="currentDate"  placeholder="To Date">
+            <input matInput [matDatepicker]="toDatePicker" [(ngModel)]="currentDate" placeholder="To Date">
             <mat-datepicker-toggle matSuffix [for]="toDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #toDatePicker></mat-datepicker>
           </mat-form-field>
@@ -58,7 +58,7 @@
     </div>
   </div>
 
-  <div class="row mt-4 mb-5">
+  <div class="row mt-4">
     <div class="col-6 height-400">
       <div class="col-block pt-5">
         <div class="chart-title-wrapper">
@@ -87,4 +87,44 @@
       </div>
     </div>
   </div>
+
+    <div class="col-block pt-5">
+      <div class="chart-title-wrapper">
+        <h2 class="chart-title">Interview Details</h2>
+      </div>
+      <table class="table table-hover table-sm table-bordered">
+        <thead class="table-header">
+          <tr>
+            <th>Candidate Name</th>
+            <th>Position Name</th>
+            <th>Client Name</th>
+            <th>Submission Date</th>
+            <th>Recruiter Name</th>
+            <th>Interview Status</th>
+            <th>L1</th>
+            <th>L2</th>
+            <th>Client Contact Name</th>
+            <th>No.of Days Pending</th>
+            <th>Current Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let submission of interviewReport" [routerLink]="['/edit-submission', submission.submissionId]">
+            <td>{{submission.candidateName}}</td>
+            <td>{{submission.positionName}}</td>
+            <td>{{submission.clientName}}</td>
+            <td>{{submission.submissionDate | date: 'MMM d, y'}}</td>
+            <td>{{submission.recruiterName}}</td>
+            <td>{{submission.interviewStatus}}</td>
+            <td>{{submission.dateOfL1 | date: 'MMM d, y'}}</td>
+            <td>{{submission.dateOfL2 | date: 'MMM d, y'}}</td>
+            <td>{{submission.clientContactName}}</td>
+            <td>{{submission.age}}</td>
+            <td>{{submission.currentStatus}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
 </div>
