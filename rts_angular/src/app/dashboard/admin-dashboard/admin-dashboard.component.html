@@ -88,43 +88,41 @@
     </div>
   </div>
 
-    <div class="interview-block pt-5 mb-5">
-      <div class="chart-title-wrapper">
-        <h2 class="chart-title">Interview Details</h2>
-      </div>
-      <table class="table table-hover table-sm table-bordered">
-        <thead class="table-header">
-          <tr>
-            <th>Candidate Name</th>
-            <th>Position Name</th>
-            <th>Client Name</th>
-            <th>Submission Date</th>
-            <th>Recruiter Name</th>
-            <th>Interview Status</th>
-            <th>L1</th>
-            <th>L2</th>
-            <th>Client Contact Name</th>
-            <th>No.of Days Pending</th>
-            <th>Current Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let submission of interviewReport" [routerLink]="['/edit-submission', submission.submissionId]">
-            <td>{{submission.candidateName}}</td>
-            <td>{{submission.positionName}}</td>
-            <td>{{submission.clientName}}</td>
-            <td>{{submission.submissionDate | date: 'MMM d, y'}}</td>
-            <td>{{submission.recruiterName}}</td>
-            <td>{{submission.interviewStatus}}</td>
-            <td>{{submission.dateOfL1 | date: 'MMM d, y'}}</td>
-            <td>{{submission.dateOfL2 | date: 'MMM d, y'}}</td>
-            <td>{{submission.clientContactName}}</td>
-            <td>{{submission.age}}</td>
-            <td>{{submission.currentStatus}}</td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="interview-block pt-5 mb-5">
+    <div class="chart-title-wrapper">
+      <h2 class="chart-title">Interview Details</h2>
     </div>
+    <table class="table table-hover table-sm table-bordered">
+      <thead class="table-header">
+        <tr>
+          <th>Candidate Name</th>
+          <th>Position Name</th>
+          <th>Client Name</th>
+          <th>Submission Date</th>
+          <th>Recruiter Name</th>
+          <th>Interview Status</th>
+          <th>L1</th>
+          <th>L2</th>
+          <th>Client Contact Name</th>
+          <th>Current Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let submission of interviewReport" [routerLink]="['/edit-submission', submission.submissionId]">
+          <td>{{submission.candidateName}}</td>
+          <td>{{submission.positionName}}</td>
+          <td>{{submission.clientName}}</td>
+          <td>{{submission.submissionDate | date: 'MMM d, y'}}</td>
+          <td>{{submission.recruiterName}}</td>
+          <td>{{submission.interviewStatus}}</td>
+          <td>{{submission.dateOfL1 | date: 'MMM d, y'}}</td>
+          <td>{{submission.dateOfL2 | date: 'MMM d, y'}}</td>
+          <td>{{submission.clientContactName}}</td>
+          <td>{{submission.currentStatus}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
 
 </div>
