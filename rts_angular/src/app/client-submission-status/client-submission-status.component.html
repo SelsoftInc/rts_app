@@ -1,0 +1,60 @@
+<h2 class="main-title">
+  <a [routerLink]="['/admin-dashboard']">Dashboard</a> / {{clientName}} Submissions</h2>
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
+<div class="utility-container pt-5">
+
+  <div class="filter-wrapper">
+    <div class="search-container">
+      <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString "
+        [(ngModel)]="searchString" (input)="filterItem($event.target.value)">
+      <span class="search-icon">
+        <i class="material-icons">search</i>
+      </span>
+    </div>
+  </div>
+
+  <div class="table-wrapper mt-4">
+    <div class="block-wrapper" *ngFor="let sub of submissionDetails">
+
+      <div class="meta-info-wrapper">
+        <span class="block-header-label">Position Name: </span>
+        <span class="meta-info-content">{{sub.position.positionName}},</span>
+        <span class="block-header-label">Client Name: </span>
+        <span class="meta-info-content">{{sub.client.name}},</span>
+        <span *ngIf="sub.allocationUser">
+          <span class="block-header-label">Allocated to: </span>
+          <span class="meta-info-content">{{sub.allocationUser.firstName}} {{sub.allocationUser.lastName}}
+          </span>
+        </span>
+        <span *ngIf="!sub.allocationUser && sub.team !== undefined">
+          <span class="block-header-label">Allocated Team: </span>
+          <span class="meta-info-content" *ngIf="(sub.allocationUserId === '' || sub.allocationUserId === undefined) && (sub.team !== undefined)">{{sub.team.name}}</span>
+        </span>
+      </div>
+
+      <table class="table table-bordered table-sm table-hover">
+        <thead class="table-header">
+          <tr>
+            <th>Created Date:</th>
+            <th>Candidate Name</th>
+            <th>Technology</th>
+            <th>Availability</th>
+            <th>Work Location</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let submission of sub.submissions" [routerLink]="['/edit-submission', submission.submissionId]">
+            <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
+            <td>{{submission.candidate.name}}</td>
+            <td>{{submission.candidate.technology[0].technologyName}}</td>
+            <td>{{submission.candidate.availability}}</td>
+            <td>{{sub.location}}</td>
+            <td>{{submission.status}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

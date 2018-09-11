@@ -256,9 +256,14 @@ export class SubmissionsComponent implements OnInit {
       this.selectedRequirementsDetails(this.selectedRequirements);
     } else {
       this.selectedRequirements = [];
-      this.selectedRequirements = _.where(this.requirements, { allocationUserId: event });
+      for (const require of this.requirements) {
+        const selectedSubmissions = _.where(require.submissions, { enteredBy: event });
+        if (selectedSubmissions.length !== 0) {
+          require.submissions = selectedSubmissions;
+          this.selectedRequirements.push(require);
+        }
+      }
       this.selectedRequirementsDetails(this.selectedRequirements);
     }
   }
-
 }

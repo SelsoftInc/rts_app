@@ -69,6 +69,9 @@ import { NgProgressModule } from 'ngx-progressbar';
 import { DeleteTeamComponent } from './delete-team/delete-team.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PaginationModule } from 'ngx-bootstrap';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { TeamSubmissionStatusComponent } from './team-submission-status/team-submission-status.component';
+import { ClientSubmissionStatusComponent } from './client-submission-status/client-submission-status.component';
 
 
 @NgModule({
@@ -108,6 +111,8 @@ import { PaginationModule } from 'ngx-bootstrap';
     TeamSubmissionsComponent,
     ClientRequirementsComponent,
     DeleteTeamComponent,
+    TeamSubmissionStatusComponent,
+    ClientSubmissionStatusComponent,
   ],
   imports: [
     BrowserModule,
@@ -135,7 +140,9 @@ import { PaginationModule } from 'ngx-bootstrap';
     Ng4LoadingSpinnerModule,
     NgProgressModule,
     NgxPaginationModule,
-    PaginationModule
+    PaginationModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
   providers: [
     RegisterService,

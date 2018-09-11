@@ -36,8 +36,8 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   private isNewCandidate: boolean;
   private isC2c: boolean;
   private isEmployerDetails: boolean;
-  private level1Date: string;
-  private level2Date: string;
+  private level1Date: any;
+  private level2Date: any;
   private candidateGetFiles: any;
   private candidateFiles: any;
   private immigirationStatus: any;
@@ -140,7 +140,8 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       anotherInterviewOffer: [''],
       vacationPlans: [''],
       currentCompany: [''],
-      comments: ['']
+      comments: [''],
+      interviewConferenceNumber: ['']
     });
     this.getAllRequirementsForUser();
     this.getAllCommonData();
@@ -424,12 +425,12 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   updateCandidateWithSubmission(form: FormGroup, candidateId: any) {
 
     if (form.value.level1Date !== 'Invalid date' && form.value.level1Date !== '') {
-      this.level1Date = moment(form.value.level1Date).format('YYYY-MM-DD');
+      this.level1Date = moment(form.value.level1Date);
     } else {
       this.level1Date = '';
     }
     if (form.value.level2Date !== 'Invalid date' && form.value.level2Date !== '') {
-      this.level2Date = moment(form.value.level2Date).format('YYYY-MM-DD');
+      this.level2Date = moment(form.value.level2Date);
     } else {
       this.level2Date = '';
     }
@@ -444,6 +445,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       workLocation: form.value.workLocation,
       status: form.value.status,
       interviewStatus: form.value.interviewStatus,
+      interviewPhoneNumber: form.value.interviewConferenceNumber,
       currentStatus: form.value.currentStatus,
       dateOfLevel1: this.level1Date,
       dateOfLevel2: this.level2Date,

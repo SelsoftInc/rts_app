@@ -40,8 +40,8 @@ export class EditSubmissonComponent implements OnInit {
   private isSubmitToClient: boolean;
   private isNewCandidate: boolean;
   private technology: any[];
-  private level1Date: string;
-  private level2Date: string;
+  private level1Date: any;
+  private level2Date: any;
   private isEmployerDetails: boolean;
   private isC2c: boolean;
   private isOtherTechnology: boolean;
@@ -167,7 +167,8 @@ export class EditSubmissonComponent implements OnInit {
       currentCompany: [''],
       adminUser: [''],
       customMailBody: [''],
-      comments: ['']
+      comments: [''],
+      interviewConferenceNumber: ['']
     });
 
     this.isNewCandidate = false;
@@ -182,7 +183,10 @@ export class EditSubmissonComponent implements OnInit {
         { 'name': 'Approved', 'value': 'APPROVED' },
         { 'name': 'TL Rejeced', 'value': 'TL_REJECTED' },
         { 'name': 'Rejected', 'value': 'REJECTED' },
-        { 'name': 'Closed', 'value': 'CLOSED' }
+        { 'name': 'Closed', 'value': 'CLOSED' },
+        { 'name': 'Client Rejeced', 'value': 'CLIENT_REJECTED' },
+        { 'name': 'Candidate Selected', 'value': 'SELECTED' },
+        { 'name': 'Interview', 'value': 'INTERVIEWED' }
       ];
       this.getAllRequirements();
     } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
@@ -194,14 +198,20 @@ export class EditSubmissonComponent implements OnInit {
         { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
         { 'name': 'TL Approved', 'value': 'TL_APPROVED' },
         { 'name': 'TL Rejeced', 'value': 'TL_REJECTED' },
-        { 'name': 'Closed', 'value': 'CLOSED' }
+        { 'name': 'Closed', 'value': 'CLOSED' },
+        { 'name': 'Client Rejeced', 'value': 'CLIENT_REJECTED' },
+        { 'name': 'Candidate Selected', 'value': 'SELECTED' },
+        { 'name': 'Interview', 'value': 'INTERVIEWED' }
       ];
     } else if (this.userRole === 'ACC_MGR') {
       this.status = [
         { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
         { 'name': 'Approved', 'value': 'APPROVED' },
         { 'name': 'Rejected', 'value': 'REJECTED' },
-        { 'name': 'Closed', 'value': 'CLOSED' }
+        { 'name': 'Closed', 'value': 'CLOSED' },
+        { 'name': 'Client Rejeced', 'value': 'CLIENT_REJECTED' },
+        { 'name': 'Candidate Selected', 'value': 'SELECTED' },
+        { 'name': 'Interview', 'value': 'INTERVIEWED' }
       ];
     }
   }
@@ -592,12 +602,12 @@ export class EditSubmissonComponent implements OnInit {
   updateCandidateWithSubmission(form: FormGroup, candidateId: any) {
 
     if (form.value.level1Date !== 'Invalid date' && form.value.level1Date !== '') {
-      this.level1Date = moment(form.value.level1Date).format('YYYY-MM-DD');
+      this.level1Date = moment(form.value.level1Date);
     } else {
       this.level1Date = '';
     }
     if (form.value.level2Date !== 'Invalid date' && form.value.level2Date !== '') {
-      this.level2Date = moment(form.value.level2Date).format('YYYY-MM-DD');
+      this.level2Date = moment(form.value.level2Date);
     } else {
       this.level2Date = '';
     }
@@ -614,6 +624,7 @@ export class EditSubmissonComponent implements OnInit {
       workLocation: form.value.workLocation,
       reasonForRejection: form.value.reasonForRejection,
       interviewStatus: form.value.interviewStatus,
+      interviewPhoneNumber: form.value.interviewConferenceNumber,
       currentStatus: form.value.currentStatus,
       dateOfLevel1: this.level1Date,
       dateOfLevel2: this.level2Date,

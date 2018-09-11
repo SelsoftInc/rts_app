@@ -518,9 +518,13 @@
         <div class="col-sm-12">
           <h2 class="form-title">Interview Details</h2>
           <div class="row">
-            <div class="col-sm-12" *ngIf="selectedSubmission">
+            <div class="col-sm-6" *ngIf="selectedSubmission">
               <label for="interviewStatus" class="form-label">Interview Status:</label>
               <input type="text" class="form-input" name="interviewStatus" formControlName="interviewStatus" ngModel="{{selectedSubmission.interviewStatus}}">
+            </div>
+            <div class="col-sm-6" *ngIf="selectedSubmission">
+              <label for="interviewConferenceNumber" class="form-label">Interview Conference Number:</label>
+              <input type="text" class="form-input" name="interviewConferenceNumber" formControlName="interviewConferenceNumber" ngModel="{{selectedSubmission.interviewPhoneNumber}}">
             </div>
           </div>
 
@@ -528,12 +532,15 @@
             <div class="col-sm-6" *ngIf="selectedSubmission">
               <div class="mb-3">
                 <label for="level1Date" class="form-label">Level 1 Date:</label>
-              </div>
-              <mat-form-field>
+                <!-- <mat-form-field>
                 <input matInput [matDatepicker]="dateOfLevel1" formControlName="level1Date" ngModel="{{selectedSubmission.dateOfLevel1}}">
                 <mat-datepicker-toggle matSuffix [for]="dateOfLevel1"></mat-datepicker-toggle>
                 <mat-datepicker #dateOfLevel1></mat-datepicker>
-              </mat-form-field>
+              </mat-form-field> -->
+                <input [owlDateTime]="dateOfLevel1" [owlDateTimeTrigger]="dateOfLevel1" placeholder="Date Time" class="form-input"
+                  formControlName="level1Date" ngModel="{{selectedSubmission.dateOfLevel1}}">
+                <owl-date-time #dateOfLevel1></owl-date-time>
+              </div>
             </div>
 
             <div class="col-sm-6" *ngIf="selectedSubmission">
@@ -545,12 +552,15 @@
             <div class="col-sm-6" *ngIf="selectedSubmission">
               <div class="mb-3">
                 <label for="level2Date" class="form-label">Level 2 Date:</label>
-              </div>
-              <mat-form-field>
+                <!-- <mat-form-field>
                 <input matInput [matDatepicker]="dateOfLevel2" formControlName="level2Date" ngModel="{{selectedSubmission.dateOfLevel2}}">
                 <mat-datepicker-toggle matSuffix [for]="dateOfLevel2"></mat-datepicker-toggle>
                 <mat-datepicker #dateOfLevel2></mat-datepicker>
-              </mat-form-field>
+              </mat-form-field> -->
+                <input [owlDateTime]="dateOfLevel2" [owlDateTimeTrigger]="dateOfLevel2" placeholder="Date Time" class="form-input"
+                  formControlName="level2Date" ngModel="{{selectedSubmission.dateOfLevel2}}">
+                <owl-date-time #dateOfLevel2></owl-date-time>
+              </div>
             </div>
 
             <div class="col-sm-6" *ngIf="selectedSubmission">

@@ -74,6 +74,9 @@ export class AdminDashboardComponent implements OnInit {
   private clientOpenRequitements: any;
   private fromDate: any;
   private interviewReport: any;
+  private noSubmissionsRequirement: any;
+  private noSubmissionsRequirementLength: any;
+  private clientWiseSubmissionStatus: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -85,45 +88,45 @@ export class AdminDashboardComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.currentDate = new Date(Date.now());
     // Remove the following data after the chart implementation
-    this.clientWise = [
-      {
-        'name': 'TCS',
-        'series': [
-          { 'name': 'Submitted', 'value': 10 },
-          { 'name': 'In Progress','value': 4 },
-          { 'name': 'Client Rejection', 'value': 6 },
-          { 'name': 'Internal Rejection', 'value': 2 },
-          { 'name': 'Closed', 'value': 7 }
-        ]
-      },
-      {
-        'name': 'Virtusa',
-        'series': [
-          { 'name': 'Submitted', 'value': 12 },
-          { 'name': 'In Progress','value': 2 },
-          { 'name': 'Client Rejection', 'value': 6 },
-          { 'name': 'Internal Rejection', 'value': 4 },
-          { 'name': 'Closed', 'value': 9 }
-        ]
-      },
-      {
-        'name': 'HCL',
-        'series': [
-          { 'name': 'Submitted', 'value': 4 },
-          { 'name': 'In Progress','value': 2 },
-          { 'name': 'Client Rejection', 'value': 2 },
-          { 'name': 'Internal Rejection', 'value': 1 },
-          { 'name': 'Closed', 'value': 3 }
-        ]
-      }
-    ];
+    // this.clientWise = [
+    //   {
+    //     'name': 'TCS',
+    //     'series': [
+    //       { 'name': 'Submitted', 'value': 10 },
+    //       { 'name': 'In Progress', 'value': 4 },
+    //       { 'name': 'Client Rejection', 'value': 6 },
+    //       { 'name': 'Internal Rejection', 'value': 2 },
+    //       { 'name': 'Closed', 'value': 7 }
+    //     ]
+    //   },
+    //   {
+    //     'name': 'Virtusa',
+    //     'series': [
+    //       { 'name': 'Submitted', 'value': 12 },
+    //       { 'name': 'In Progress', 'value': 2 },
+    //       { 'name': 'Client Rejection', 'value': 6 },
+    //       { 'name': 'Internal Rejection', 'value': 4 },
+    //       { 'name': 'Closed', 'value': 9 }
+    //     ]
+    //   },
+    //   {
+    //     'name': 'HCL',
+    //     'series': [
+    //       { 'name': 'Submitted', 'value': 4 },
+    //       { 'name': 'In Progress', 'value': 2 },
+    //       { 'name': 'Client Rejection', 'value': 2 },
+    //       { 'name': 'Internal Rejection', 'value': 1 },
+    //       { 'name': 'Closed', 'value': 3 }
+    //     ]
+    //   }
+    // ];
 
     this.teamComparison = [
       {
         'name': 'TCS',
         'series': [
           { 'name': 'Submitted', 'value': 50 },
-          { 'name': 'Interviewed','value': 30 },
+          { 'name': 'Interviewed', 'value': 30 },
           { 'name': 'Rejections', 'value': 10 },
           { 'name': 'Candidate Selected', 'value': 7 }
         ]
@@ -132,7 +135,7 @@ export class AdminDashboardComponent implements OnInit {
         'name': 'Virtusa',
         'series': [
           { 'name': 'Submitted', 'value': 17 },
-          { 'name': 'Interviewed','value': 7 },
+          { 'name': 'Interviewed', 'value': 7 },
           { 'name': 'Rejections', 'value': 2 },
           { 'name': 'Candidate Selected', 'value': 2 }
         ]
@@ -141,7 +144,7 @@ export class AdminDashboardComponent implements OnInit {
         'name': 'HCL',
         'series': [
           { 'name': 'Submitted', 'value': 7 },
-          { 'name': 'Interviewed','value': 2 },
+          { 'name': 'Interviewed', 'value': 2 },
           { 'name': 'Rejections', 'value': 1 },
           { 'name': 'Candidate Selected', 'value': 1 }
         ]
@@ -153,7 +156,7 @@ export class AdminDashboardComponent implements OnInit {
         'name': 'Sugan',
         'series': [
           { 'name': 'Submitted', 'value': 10 },
-          { 'name': 'Interviewed','value': 4 },
+          { 'name': 'Interviewed', 'value': 4 },
           { 'name': 'Rejections', 'value': 6 },
           { 'name': 'Candidate Selected', 'value': 7 }
         ]
@@ -162,7 +165,7 @@ export class AdminDashboardComponent implements OnInit {
         'name': 'Ajikumar',
         'series': [
           { 'name': 'Submitted', 'value': 17 },
-          { 'name': 'Interviewed','value': 7 },
+          { 'name': 'Interviewed', 'value': 7 },
           { 'name': 'Rejections', 'value': 2 },
           { 'name': 'Candidate Selected', 'value': 2 }
         ]
@@ -171,7 +174,7 @@ export class AdminDashboardComponent implements OnInit {
         'name': 'Pavithran',
         'series': [
           { 'name': 'Submitted', 'value': 7 },
-          { 'name': 'Interviewed','value': 2 },
+          { 'name': 'Interviewed', 'value': 2 },
           { 'name': 'Rejections', 'value': 1 },
           { 'name': 'Candidate Selected', 'value': 1 }
         ]
@@ -186,11 +189,69 @@ export class AdminDashboardComponent implements OnInit {
     this.getTeamGraphDetails();
     this.getClientRequirementsDetails();
     this.getInterviewReport();
+    this.getNoSubmissionsRequirement();
+    this.getClientSubmissionStatus();
+  }
 
+  dateFilter() {
+    this.ngProgress.start();
+    this.getUserGraphDetails();
+    this.getTeamGraphDetails();
+    this.getClientRequirementsDetails();
+    this.getInterviewReport();
+    this.getNoSubmissionsRequirement();
+    this.getClientSubmissionStatus();
+  }
+
+  getClientSubmissionStatus() {
+    this.clientWiseSubmissionStatus = [];
+
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    const graph = {
+      userId: this.rtsUserId,
+      fromDate: fromDate,
+      toDate: toDate
+    };
+
+    this.graphService.clientSubmissionStatus(graph)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.clientWiseSubmissionStatus = data.clientSubmissions;
+            for (const client of this.clientWiseSubmissionStatus) {
+              for (const series of client.series) {
+                series.extra = {
+                  clientId: client.clientId
+                };
+              }
+            }
+            console.log(this.clientWiseSubmissionStatus);
+          }
+        });
+  }
+
+  getNoSubmissionsRequirement() {
+
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    const graph = {
+      userId: this.rtsUserId,
+      fromDate: fromDate,
+      toDate: toDate
+    };
+
+    this.graphService.noSubmissionsRequirement(graph)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.noSubmissionsRequirement = data.requirements;
+            this.noSubmissionsRequirementLength = this.noSubmissionsRequirement.length;
+          }
+        });
   }
 
   getInterviewReport() {
-    this.recruitersSubmissions = [];
 
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
@@ -284,16 +345,15 @@ export class AdminDashboardComponent implements OnInit {
                 teamId: count.teamId
               };
             }
+            for (const team of this.totalSubmissionByTeam) {
+              for (const series of team.series) {
+                series.extra = {
+                  teamId: team.teamId
+                };
+              }
+            }
           }
         });
-  }
-
-  dateFilter() {
-    this.ngProgress.start();
-    this.getUserGraphDetails();
-    this.getTeamGraphDetails();
-    this.getClientRequirementsDetails();
-    this.getInterviewReport();
   }
 
   onUserSelect(event) {
@@ -312,5 +372,18 @@ export class AdminDashboardComponent implements OnInit {
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
     this.router.navigate(['client-requirements', event.extra.clientId, fromDate, toDate]);
+  }
+
+  onTeamSubmissionStatus(event) {
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    this.router.navigate(['team-submissions-status', event.extra.teamId, event.name, fromDate, toDate]);
+  }
+
+  onClientSubmissionStatus(event) {
+    console.log(event);
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    this.router.navigate(['client-submissions-status', event.extra.clientId, event.name, fromDate, toDate]);
   }
 }

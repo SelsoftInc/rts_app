@@ -33,6 +33,8 @@ import { UserSubmissionsComponent } from './user-submissions/user-submissions.co
 import { TeamSubmissionsComponent } from './team-submissions/team-submissions.component';
 import { ClientRequirementsComponent } from './client-requirements/client-requirements.component';
 import { DeleteTeamComponent } from './delete-team/delete-team.component';
+import { TeamSubmissionStatusComponent } from './team-submission-status/team-submission-status.component';
+import { ClientSubmissionStatusComponent } from './client-submission-status/client-submission-status.component';
 
 
 export const appRoutes: Routes = [
@@ -69,6 +71,8 @@ export const appRoutes: Routes = [
   { path: 'user-submisson/:id/:fromDate/:toDate', component: UserSubmissionsComponent },
   { path: 'team-submisson/:id/:fromDate/:toDate', component: TeamSubmissionsComponent },
   { path: 'client-requirements/:id/:fromDate/:toDate', component: ClientRequirementsComponent },
+  { path: 'team-submissions-status/:id/:status/:fromDate/:toDate', component: TeamSubmissionStatusComponent },
+  { path: 'client-submissions-status/:id/:status/:fromDate/:toDate', component: ClientSubmissionStatusComponent },
   { path: 'delete-team/:id', component: DeleteTeamComponent },
 ];
 

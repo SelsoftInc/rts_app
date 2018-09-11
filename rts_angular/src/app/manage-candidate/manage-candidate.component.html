@@ -19,7 +19,7 @@
       </tr>
     </thead>
     <tbody *ngIf="candidateLength > 0 ; else noCandidate">
-      <tr *ngFor="let candidate of candidates | paginate: { itemsPerPage: 10, currentPage: p } | filter: searchString"
+      <tr *ngFor="let candidate of candidates | filter: searchString | paginate: { itemsPerPage: 15, currentPage: p }"
         [routerLink]="['/edit-candidate',candidate.candidateId]">
         <td>{{candidate.name}}</td>
         <td>{{candidate.email}}</td>
