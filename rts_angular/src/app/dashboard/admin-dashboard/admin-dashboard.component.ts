@@ -26,6 +26,11 @@ export class AdminDashboardComponent implements OnInit {
   showDataLabel = true;
   show = true;
 
+  // Remove this after implementing the chart.
+  clientWise: any[];
+  teamComparison: any[];
+  recruiterComparison: any[];
+
   // options
   showXAxis = true;
   showYAxis = true;
@@ -46,7 +51,19 @@ export class AdminDashboardComponent implements OnInit {
   };
 
   colorSchemeMultiBar1 = {
-    domain: ['#f5dd98', '#d2da66', '#b83330', '#a8385d', '#7aa3e5']
+    domain: ['#08B3E5', '#0FBED8', '#14C9CB', '#990A17', '#22E4AC']
+  };
+
+  colorSchemeMultiBar2 = {
+    domain: ['#9780A6', '#C4B7D0', '#990A17', '#E12926', '#E4DEEB']
+  };
+
+  colorSchemeMultiBar3 = {
+    domain: ['#6E6153', '#98A582', '#990A17', '#BDD9B5', '#EAF1D5']
+  };
+
+  colorSchemeMultiBar4 = {
+    domain: ['#5BB2A7', '#85C4BB', '#990A17', '#AFD5C6', '#E2EEE4']
   };
 
   colorSchemeMulti = {
@@ -67,6 +84,99 @@ export class AdminDashboardComponent implements OnInit {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
     this.currentDate = new Date(Date.now());
+    // Remove the following data after the chart implementation
+    this.clientWise = [
+      {
+        'name': 'TCS',
+        'series': [
+          { 'name': 'Submitted', 'value': 10 },
+          { 'name': 'In Progress','value': 4 },
+          { 'name': 'Client Rejection', 'value': 6 },
+          { 'name': 'Internal Rejection', 'value': 2 },
+          { 'name': 'Closed', 'value': 7 }
+        ]
+      },
+      {
+        'name': 'Virtusa',
+        'series': [
+          { 'name': 'Submitted', 'value': 12 },
+          { 'name': 'In Progress','value': 2 },
+          { 'name': 'Client Rejection', 'value': 6 },
+          { 'name': 'Internal Rejection', 'value': 4 },
+          { 'name': 'Closed', 'value': 9 }
+        ]
+      },
+      {
+        'name': 'HCL',
+        'series': [
+          { 'name': 'Submitted', 'value': 4 },
+          { 'name': 'In Progress','value': 2 },
+          { 'name': 'Client Rejection', 'value': 2 },
+          { 'name': 'Internal Rejection', 'value': 1 },
+          { 'name': 'Closed', 'value': 3 }
+        ]
+      }
+    ];
+
+    this.teamComparison = [
+      {
+        'name': 'TCS',
+        'series': [
+          { 'name': 'Submitted', 'value': 50 },
+          { 'name': 'Interviewed','value': 30 },
+          { 'name': 'Rejections', 'value': 10 },
+          { 'name': 'Candidate Selected', 'value': 7 }
+        ]
+      },
+      {
+        'name': 'Virtusa',
+        'series': [
+          { 'name': 'Submitted', 'value': 17 },
+          { 'name': 'Interviewed','value': 7 },
+          { 'name': 'Rejections', 'value': 2 },
+          { 'name': 'Candidate Selected', 'value': 2 }
+        ]
+      },
+      {
+        'name': 'HCL',
+        'series': [
+          { 'name': 'Submitted', 'value': 7 },
+          { 'name': 'Interviewed','value': 2 },
+          { 'name': 'Rejections', 'value': 1 },
+          { 'name': 'Candidate Selected', 'value': 1 }
+        ]
+      }
+    ];
+
+    this.recruiterComparison = [
+      {
+        'name': 'Sugan',
+        'series': [
+          { 'name': 'Submitted', 'value': 10 },
+          { 'name': 'Interviewed','value': 4 },
+          { 'name': 'Rejections', 'value': 6 },
+          { 'name': 'Candidate Selected', 'value': 7 }
+        ]
+      },
+      {
+        'name': 'Ajikumar',
+        'series': [
+          { 'name': 'Submitted', 'value': 17 },
+          { 'name': 'Interviewed','value': 7 },
+          { 'name': 'Rejections', 'value': 2 },
+          { 'name': 'Candidate Selected', 'value': 2 }
+        ]
+      },
+      {
+        'name': 'Pavithran',
+        'series': [
+          { 'name': 'Submitted', 'value': 7 },
+          { 'name': 'Interviewed','value': 2 },
+          { 'name': 'Rejections', 'value': 1 },
+          { 'name': 'Candidate Selected', 'value': 1 }
+        ]
+      }
+    ];
   }
 
   ngOnInit() {
@@ -76,6 +186,7 @@ export class AdminDashboardComponent implements OnInit {
     this.getTeamGraphDetails();
     this.getClientRequirementsDetails();
     this.getInterviewReport();
+
   }
 
   getInterviewReport() {

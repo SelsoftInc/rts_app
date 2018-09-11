@@ -28,7 +28,7 @@
 </div>
 <div class="dashboard-container mt-3">
   <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-6">
       <div class="col-block pt-5">
         <div class="chart-title-wrapper">
           <h2 class="chart-title">Recruiters Submission Status</h2>
@@ -41,7 +41,7 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
       <div class="col-block pt-5">
         <div class="chart-title-wrapper">
           <h2 class="chart-title">Team wise submission count</h2>
@@ -56,10 +56,45 @@
         </div>
       </div>
     </div>
+    <div class="col-sm-3">
+      <div class="col-block pt-5">
+        <div class="chart-title-wrapper">
+          <h2 class="chart-title">4 Reqs. with 0 submissions</h2>
+        </div>
+        <div class="chart-scroll-wrapper">
+          <table class="table table-sm table-bordered table-striped">
+            <thead class="table-header">
+              <tr>
+                <th>Position Name</th>
+                <th>Client</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Position name here</td>
+                <td>Client name here</td>
+              </tr>
+              <tr>
+                <td>Position name here</td>
+                <td>Client name here</td>
+              </tr>
+              <tr>
+                <td>Position name here</td>
+                <td>Client name here</td>
+              </tr>
+              <tr>
+                <td>Position name here</td>
+                <td>Client name here</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="row mt-4">
-    <div class="col-6 height-400">
+    <div class="col-4">
       <div class="col-block pt-5">
         <div class="chart-title-wrapper">
           <h2 class="chart-title">Client Open Requirements</h2>
@@ -72,57 +107,111 @@
         </div>
       </div>
     </div>
-    <div class="col-6 height-400">
+    <div class="col-4">
       <div class="col-block pt-5">
         <div class="chart-title-wrapper">
           <h2 class="chart-title">Team wise submission status</h2>
         </div>
-        <div class="chart-align-100-400">
+        <div class="chart-align-100-400 multi">
           <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorSchemeMultiBar1" [results]="totalSubmissionByTeam"
             [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
-            [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel"
-            [legend]="showDataLabel">
+            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel">
+          </ngx-charts-bar-vertical-2d>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="col-block pt-5">
+        <div class="chart-title-wrapper">
+          <h2 class="chart-title">Client wise submission status</h2>
+        </div>
+        <div class="chart-align-100-400 multi">
+          <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorSchemeMultiBar2" [results]="clientWise"
+                                      [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
+                                      [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel">
           </ngx-charts-bar-vertical-2d>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="interview-block pt-5 mb-5">
-    <div class="chart-title-wrapper">
-      <h2 class="chart-title">Interview Details</h2>
+  <div class="row mt-4">
+    <div class="col-6">
+      <div class="col-block pt-5">
+        <div class="chart-title-wrapper">
+          <h2 class="chart-title">Recruiter Comparison</h2>
+        </div>
+        <div class="chart-align-100-400">
+          <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorSchemeMultiBar3" [results]="recruiterComparison"
+                                      [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
+                                      [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel">
+          </ngx-charts-bar-vertical-2d>
+        </div>
+      </div>
     </div>
-    <table class="table table-hover table-sm table-bordered">
-      <thead class="table-header">
-        <tr>
-          <th>Candidate Name</th>
-          <th>Position Name</th>
-          <th>Client Name</th>
-          <th>Submission Date</th>
-          <th>Recruiter Name</th>
-          <th>Interview Status</th>
-          <th>L1</th>
-          <th>L2</th>
-          <th>Client Contact Name</th>
-          <th>Current Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let submission of interviewReport" [routerLink]="['/edit-submission', submission.submissionId]">
-          <td>{{submission.candidateName}}</td>
-          <td>{{submission.positionName}}</td>
-          <td>{{submission.clientName}}</td>
-          <td>{{submission.submissionDate | date: 'MMM d, y'}}</td>
-          <td>{{submission.recruiterName}}</td>
-          <td>{{submission.interviewStatus}}</td>
-          <td>{{submission.dateOfL1 | date: 'MMM d, y'}}</td>
-          <td>{{submission.dateOfL2 | date: 'MMM d, y'}}</td>
-          <td>{{submission.clientContactName}}</td>
-          <td>{{submission.currentStatus}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="col-6">
+      <div class="col-block pt-5">
+        <div class="chart-title-wrapper">
+          <h2 class="chart-title">Team Comparison</h2>
+        </div>
+        <div class="chart-align-100-400 multi">
+          <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorSchemeMultiBar4" [results]="teamComparison"
+                                      [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
+                                      [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel">
+          </ngx-charts-bar-vertical-2d>
+        </div>
+      </div>
+    </div>
   </div>
 
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="col-block pt-5">
+        <div class="chart-title-wrapper">
+          <h2 class="chart-title">Scheduled Interviews</h2>
+        </div>
+        <div class="chart-scroll-wrapper">
+          <table class="table table-hover table-sm table-bordered">
+            <thead class="table-header">
+            <tr>
+              <th>Position Name</th>
+              <th>Candidate Name</th>
+              <th>Client Name</th>
+              <th>Interview Date & Time</th>
+              <th>Recruiter Name</th>
+              <th>Interview Level</th>
+              <th>Skype</th>
+              <th>Phone Number</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>Position name</td>
+              <td>Candidate name</td>
+              <td>Client name</td>
+              <td>09/10/18</td>
+              <td>Recruiter name</td>
+              <td>L1</td>
+              <td>#skypeid</td>
+              <td>201-000-0123</td>
+            </tr>
+            <!--<tr *ngFor="let submission of interviewReport" [routerLink]="['/edit-submission', submission.submissionId]">-->
+            <!--<td>{{submission.positionName}}</td>-->
+            <!--<td>{{submission.candidateName}}</td>-->
+            <!--<td>{{submission.clientName}}</td>-->
+            <!--<td>{{submission.submissionDate | date: 'MMM d, y'}}</td>-->
+            <!--<td>{{submission.recruiterName}}</td>-->
+            <!--<td>{{submission.interviewStatus}}</td>-->
+            <!--<td>{{submission.dateOfL1 | date: 'MMM d, y'}}</td>-->
+            <!--<td>{{submission.dateOfL2 | date: 'MMM d, y'}}</td>-->
+            <!--<td>{{submission.clientContactName}}</td>-->
+            <!--<td>{{submission.currentStatus}}</td>-->
+            <!--</tr>-->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
