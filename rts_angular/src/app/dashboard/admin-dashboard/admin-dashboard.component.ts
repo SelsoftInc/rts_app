@@ -77,6 +77,7 @@ export class AdminDashboardComponent implements OnInit {
   private noSubmissionsRequirement: any;
   private noSubmissionsRequirementLength: any;
   private clientWiseSubmissionStatus: any;
+  private interviewReportLength: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -210,7 +211,12 @@ export class AdminDashboardComponent implements OnInit {
         data => {
           if (data.success) {
             this.noSubmissionsRequirement = data.requirements;
-            this.noSubmissionsRequirementLength = this.noSubmissionsRequirement.length;
+            if (this.noSubmissionsRequirement === undefined) {
+              this.noSubmissionsRequirement = [];
+              this.noSubmissionsRequirementLength = 0;
+            } else {
+              this.noSubmissionsRequirementLength = this.noSubmissionsRequirement.length;
+            }
           }
         });
   }
@@ -230,6 +236,7 @@ export class AdminDashboardComponent implements OnInit {
         data => {
           if (data.success) {
             this.interviewReport = data.submissionReport;
+            this.interviewReportLength = this.interviewReport.length;
           }
         });
   }

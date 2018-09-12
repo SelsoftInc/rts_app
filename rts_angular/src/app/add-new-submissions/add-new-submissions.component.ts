@@ -256,6 +256,7 @@ export class AddNewSubmissionsComponent implements OnInit {
     this.recruiterName = [];
     this.recruiterEmail = [];
     this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: event });
+    console.log(this.selectRequiement);
     for (const recruiter of this.selectRequiement.clientRecuriters) {
       this.recruiterName.push(recruiter.name + ' ');
       this.recruiterEmail.push(recruiter.email + ' ');
@@ -350,18 +351,6 @@ export class AddNewSubmissionsComponent implements OnInit {
         });
   }
 
-  // saveFormData(form: FormGroup) {
-
-
-  //   this.submissionService.saveSubmission(saveSubmission)
-  //     .subscribe(
-  //       data => {
-  //         console.log(data);
-  //         if (data.success) {
-  //         }
-  //       });
-  // }
-
   addTechnology(event) {
     if (event === 'other') {
       this.isOtherTechnology = true;
@@ -434,6 +423,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       clientRate: form.value.clientRate,
       buyingRate: form.value.buyingRate,
       sellingRate: form.value.sellingRate,
+      // status: form.value.status,
       clientContactname: form.value.clientContactname,
       clientContactEmail: form.value.clientContactEmail,
       workLocation: form.value.workLocation,

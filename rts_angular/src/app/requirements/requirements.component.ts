@@ -31,8 +31,6 @@ export class RequirementsComponent implements OnInit {
   private submittedRequirements: any;
 
   public myForm: FormGroup;
-  private fromDate: any;
-  private toDate: any;
   private isStatus: boolean;
   private isTeam: boolean;
   private isClient: boolean;
@@ -144,13 +142,8 @@ export class RequirementsComponent implements OnInit {
 
   }
 
-  filterByDate(form: FormGroup) {
+  filterByDate() {
 
-    if (form.value.fromDate !== 'Invalid date' && form.value.fromDate !== '') {
-      this.startDate = moment(form.value.fromDate).format('YYYY-MM-DD');
-    } else {
-      this.startDate = '';
-    }
     this.filterBy('');
     this.ngProgress.start();
 
@@ -225,13 +218,13 @@ export class RequirementsComponent implements OnInit {
   }
 
   getAllRequirements() {
-
-    this.toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    const fromDate = moment(this.startDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
 
     const userId = {
       companyId: this.rtsCompanyId,
-      fromDate: this.startDate,
-      toDate: this.toDate
+      fromDate: fromDate,
+      toDate: toDate
     };
 
     this.requirementService.requirementsDetails(userId)
@@ -244,13 +237,13 @@ export class RequirementsComponent implements OnInit {
   }
 
   getAllRequirementsForUser() {
-
-    this.toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    const fromDate = moment(this.startDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
 
     const userId = {
       userId: this.rtsUserId,
-      fromDate: this.startDate,
-      toDate: this.toDate
+      fromDate: fromDate,
+      toDate: toDate
     };
 
     this.requirementService.requirementsDetailsForUser(userId)
@@ -263,13 +256,13 @@ export class RequirementsComponent implements OnInit {
   }
 
   getAllRequirementsForTeam() {
-
-    this.toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    const fromDate = moment(this.startDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
 
     const userId = {
       userId: this.rtsUserId,
-      fromDate: this.startDate,
-      toDate: this.toDate
+      fromDate: fromDate,
+      toDate: toDate
     };
 
     this.requirementService.requirementsDetailsByTeam(userId)

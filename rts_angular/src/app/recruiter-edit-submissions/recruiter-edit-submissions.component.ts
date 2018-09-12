@@ -448,17 +448,6 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
 
   updateCandidateWithSubmission(form: FormGroup, candidateId: any) {
 
-    // if (form.value.level1Date !== 'Invalid date' && form.value.level1Date !== '') {
-    //   this.level1Date = moment(form.value.level1Date);
-    // } else {
-    //   this.level1Date = '';
-    // }
-    // if (form.value.level2Date !== 'Invalid date' && form.value.level2Date !== '') {
-    //   this.level2Date = moment(form.value.level2Date);
-    // } else {
-    //   this.level2Date = '';
-    // }
-
     const submission: any = {
       requirementId: form.value.requirements,
       accountName: form.value.accountName,
@@ -469,12 +458,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       workLocation: form.value.workLocation,
       status: form.value.status,
       interviewStatus: form.value.interviewStatus,
-      interviewPhoneNumber: form.value.interviewConferenceNumber,
       currentStatus: form.value.currentStatus,
-      // dateOfLevel1: this.level1Date,
-      // dateOfLevel2: this.level2Date,
-      // statusForLevel1: form.value.statusForLevel1,
-      // statusForLevel2: form.value.statusForLevel2,
       enteredBy: this.rtsUserId,
       submissionId: this.submissionId,
       candidateId: candidateId,

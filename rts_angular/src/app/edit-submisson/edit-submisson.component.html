@@ -84,9 +84,9 @@
 
             <div class="col-sm-4" *ngIf="isRejected">
               <label for="reasonForRejection" class="form-label">Reson For Rejection:</label>
-              <input *ngIf="selectedSubmission.status === 'REJECTED' || selectedSubmission.status === 'TL_REJECTED'"
+              <input *ngIf="selectedSubmission.status === 'REJECTED' || selectedSubmission.status === 'TL_REJECTED' || selectedSubmission.status === 'CLIENT_REJECTED'"
                 type="text" class="form-input" name="reasonForRejection" formControlName="reasonForRejection" value="{{selectedSubmission.reasonForRejection}}">
-              <input *ngIf="selectedSubmission.status !== 'REJECTED' && selectedSubmission.status !== 'TL_REJECTED'"
+              <input *ngIf="selectedSubmission.status !== 'REJECTED' && selectedSubmission.status !== 'TL_REJECTED' && selectedSubmission.status !== 'CLIENT_REJECTED'"
                 type="text" class="form-input" name="reasonForRejection" formControlName="reasonForRejection">
             </div>
 

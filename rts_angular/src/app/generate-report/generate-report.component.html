@@ -8,30 +8,26 @@
   <div class="filter-container">
     <div class="row">
       <div class="col-4 divider-right">
-        <form [formGroup]="myForm" (ngSubmit)="filterByDate(myForm)">
-          <div class="row mt-2">
-            <div class="col-4">
-              <mat-form-field>
-                <input matInput [matDatepicker]="fromDate" formControlName="fromDate" [(ngModel)]="startDate"
-                  placeholder="From Date">
-                <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
-                <mat-datepicker #fromDate></mat-datepicker>
-              </mat-form-field>
-            </div>
-
-            <div class="col-4">
-              <mat-form-field>
-                <input matInput [matDatepicker]="toDate" formControlName="toDate" [(ngModel)]="currentDate" placeholder="To Date">
-                <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
-                <mat-datepicker #toDate></mat-datepicker>
-              </mat-form-field>
-            </div>
-
-            <div class="col-4 mt-3">
-              <button class="btn btn-sm btn-primary" type="submit">Show Results</button>
-            </div>
+        <div class="row mt-2">
+          <div class="col-4">
+            <mat-form-field>
+              <input matInput [matDatepicker]="fromDate" [(ngModel)]="startDate" placeholder="From Date">
+              <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+              <mat-datepicker #fromDate></mat-datepicker>
+            </mat-form-field>
           </div>
-        </form>
+          <div class="col-4">
+            <mat-form-field>
+              <input matInput [matDatepicker]="toDate" [(ngModel)]="currentDate" placeholder="To Date">
+              <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+              <mat-datepicker #toDate></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="col-4 mt-3">
+            <button class="btn btn-sm btn-primary" (click)="filterByDate();">Show Results</button>
+          </div>
+        </div>
       </div>
 
       <div class="col-md-auto">
@@ -87,8 +83,8 @@
           <th mat-sort-header="submissionDate">Submission Date</th>
           <th mat-sort-header="recruiterName">Recruiter Name</th>
           <th mat-sort-header="interviewStatus">Interview Status</th>
-          <th mat-sort-header="interviewDate">Interview Date & Time</th>
-          <th mat-sort-header="interviewLevel">Interview Level</th>
+          <th mat-sort-header="l1">L1 Date</th>
+          <th mat-sort-header="l2">L2 Date</th>
           <th mat-sort-header="clientContactName">Client Contact Name</th>
           <th mat-sort-header="age">No.of Days Pending</th>
           <th mat-sort-header="currentStatus">Current Status</th>
@@ -102,8 +98,8 @@
           <td>{{submission.submissionDate | date: 'MMM d, y'}}</td>
           <td>{{submission.recruiterName}}</td>
           <td>{{submission.interviewStatus}}</td>
-          <td>{{submission.interviewDateStr | date: 'MMM d, y , hh:mm a'}}</td>
-          <td>{{submission.interviewLevel}}</td>
+          <td>{{submission.dateOfL1 | date: 'MMM d, y , hh:mm a'}}</td>
+          <td>{{submission.dateOfL2 | date: 'MMM d, y , hh:mm a'}}</td>
           <td>{{submission.clientContactName}}</td>
           <td>{{submission.age}}</td>
           <td>{{submission.currentStatus}}</td>

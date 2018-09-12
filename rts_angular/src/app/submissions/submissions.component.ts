@@ -36,9 +36,7 @@ export class SubmissionsComponent implements OnInit {
   private teamUsers: any;
   private selectedRequirements: any;
   private submissionStatus: any;
-  private toDate: any;
   private filteredRequirements: any;
-
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -62,7 +60,10 @@ export class SubmissionsComponent implements OnInit {
       { 'name': 'Rejected', 'value': 'REJECTED' },
       { 'name': 'TL Approved', 'value': 'TL_APPROVED' },
       { 'name': 'TL Rejeced', 'value': 'TL_REJECTED' },
-      { 'name': 'Closed', 'value': 'CLOSED' }
+      { 'name': 'Closed', 'value': 'CLOSED' },
+      { 'name': 'Client Rejeced', 'value': 'CLIENT_REJECTED' },
+      { 'name': 'Candidate Selected', 'value': 'SELECTED' },
+      { 'name': 'Interview', 'value': 'INTERVIEWED' }
     ];
     this.filter = '';
   }
@@ -82,13 +83,13 @@ export class SubmissionsComponent implements OnInit {
 
 
   getAllSubmissions() {
-
-    this.toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    const fromDate = moment(this.startDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
 
     const userId = {
       userId: this.rtsUserId,
-      fromDate: this.startDate,
-      toDate: this.toDate
+      fromDate: fromDate,
+      toDate: toDate
     };
 
     this.requirementService.getAllSubmissionsByDate(userId)
@@ -199,13 +200,7 @@ export class SubmissionsComponent implements OnInit {
     }
   }
 
-  filterByDate(form: FormGroup) {
-
-    if (form.value.fromDate !== 'Invalid date' && form.value.fromDate !== '') {
-      this.startDate = moment(form.value.fromDate).format('YYYY-MM-DD');
-    } else {
-      this.startDate = '';
-    }
+  filterByDate() {
     this.ngProgress.start();
     this.filterBy('');
     this.getAllSubmissions();
