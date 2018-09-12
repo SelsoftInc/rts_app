@@ -130,12 +130,12 @@
   </div>
 
   <div class="row mt-4">
-    <div class="col-8">
+    <div class="col-6">
       <div class="col-block pt-5">
         <div class="chart-title-wrapper">
           <h2 class="chart-title">Recruiter Comparison</h2>
         </div>
-        <div class="chart-align-100-400 multi">
+        <div class="chart-align-100-400">
           <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorSchemeMultiBar3" [results]="recruiterComparison"
             [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
             [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel" (select)="onRecruiterComparison($event)">
@@ -143,7 +143,7 @@
         </div>
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-6">
       <div class="col-block pt-5">
         <div class="chart-title-wrapper">
           <h2 class="chart-title">Team Comparison</h2>
