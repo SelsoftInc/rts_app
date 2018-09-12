@@ -270,7 +270,7 @@ export class GenerateReportComponent implements OnInit {
         case 'interviewStatus': return this.compare(a.interviewStatus, b.interviewStatus, isAsc);
         case 'l1': return this.compare(a.dateOfL1, b.dateOfL1, isAsc);
         case 'l2': return this.compare(a.dateOfL2, b.dateOfL2, isAsc);
-        case 'age': return this.compare(a.age, b.age, isAsc);
+        case 'age': return this.compare(a.submissionDate, b.submissionDate, isAsc);
         case 'currentStatus': return this.compare(a.currentStatus, b.currentStatus, isAsc);
         default: return 0;
       }

@@ -643,6 +643,7 @@ export class EditSubmissonComponent implements OnInit {
       submissionId: this.submissionId,
       candidateId: candidateId,
       approvalUserId: this.rtsUserId,
+      interviewDetails: form.value.units,
     };
 
     if (this.sendToClient) {
@@ -673,6 +674,7 @@ export class EditSubmissonComponent implements OnInit {
           positionClass: 'toast-top-center',
           timeOut: 3000,
         });
+        this.ngProgress.done();
         return false;
       }
 
@@ -681,6 +683,7 @@ export class EditSubmissonComponent implements OnInit {
           positionClass: 'toast-top-center',
           timeOut: 3000,
         });
+        this.ngProgress.done();
         return false;
       }
     }

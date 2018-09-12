@@ -341,7 +341,7 @@ export class RequirementsComponent implements OnInit {
         case 'submittedCount': return this.compare(a.clientSubmissionCount, b.clientSubmissionCount, isAsc);
         case 'allocationByTeam': return this.compare(a.team.name, b.team.name, isAsc);
         case 'client': return this.compare(a.client.name, b.client.name, isAsc);
-        case 'age': return this.compare(a.age, b.age, isAsc);
+        case 'age': return this.compare(a.createdOn, b.createdOn, isAsc);
         default: return 0;
       }
     });
