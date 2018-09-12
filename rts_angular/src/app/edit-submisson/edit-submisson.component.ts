@@ -3,7 +3,7 @@ import { LoggedUserService } from '../Services/logged-user.service';
 import { RequirementsService } from '../Services/requirements.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import * as _ from 'underscore';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { SubmissionService } from '../Services/submission.service';
 import { ToastrService } from 'ngx-toastr';
 import { CandidateService } from '../Services/candidate.service';
@@ -147,10 +147,6 @@ export class EditSubmissonComponent implements OnInit {
       linkedIn: [''],
       interviewStatus: [''],
       currentStatus: [''],
-      level1Date: [''],
-      level2Date: [''],
-      statusForLevel1: [''],
-      statusForLevel2: [''],
       totalExperience: [''],
       otherTechnology: [''],
       employerName: [''],
@@ -168,7 +164,9 @@ export class EditSubmissonComponent implements OnInit {
       adminUser: [''],
       customMailBody: [''],
       comments: [''],
-      interviewConferenceNumber: ['']
+      units: this.formBuilder.array([
+        this.initUnits()
+      ]),
     });
 
     this.isNewCandidate = false;
@@ -214,6 +212,25 @@ export class EditSubmissonComponent implements OnInit {
         { 'name': 'Interview', 'value': 'INTERVIEWED' }
       ];
     }
+  }
+
+  initUnits() {
+    return this.formBuilder.group({
+      dateStr: [''],
+      level: [''],
+      status: [''],
+      interviewPhoneNumber: ['']
+    });
+  }
+
+  addUnits() {
+    const control = <FormArray>this.myForm.controls['units'];
+    control.push(this.initUnits());
+  }
+
+  removeUnits(i: number) {
+    const control = <FormArray>this.myForm.controls['units'];
+    control.removeAt(i);
   }
 
   getAllUser() {
@@ -383,6 +400,13 @@ export class EditSubmissonComponent implements OnInit {
             const submission = _.findWhere(this.selectedRequirement.submissions, { submissionId: this.submissionId });
             if (submission !== undefined) {
               this.selectedSubmission = submission;
+            }
+            if (this.selectedSubmission.interviewDetails.length > 0) {
+              this.removeUnits(0);
+            }
+            const control = <FormArray>this.myForm.controls['units'];
+            for (const interviews of this.selectedSubmission.interviewDetails) {
+              control.push(this.formBuilder.group(interviews));
             }
             if (this.selectedSubmission.status === 'REJECTED' || this.selectedSubmission.status === 'TL_REJECTED') {
               this.isRejected = true;
@@ -601,17 +625,6 @@ export class EditSubmissonComponent implements OnInit {
 
   updateCandidateWithSubmission(form: FormGroup, candidateId: any) {
 
-    if (form.value.level1Date !== 'Invalid date' && form.value.level1Date !== '') {
-      this.level1Date = moment(form.value.level1Date);
-    } else {
-      this.level1Date = '';
-    }
-    if (form.value.level2Date !== 'Invalid date' && form.value.level2Date !== '') {
-      this.level2Date = moment(form.value.level2Date);
-    } else {
-      this.level2Date = '';
-    }
-
     const submission: any = {
       requirementId: form.value.requirements,
       location: form.value.location,
@@ -626,14 +639,11 @@ export class EditSubmissonComponent implements OnInit {
       interviewStatus: form.value.interviewStatus,
       interviewPhoneNumber: form.value.interviewConferenceNumber,
       currentStatus: form.value.currentStatus,
-      dateOfLevel1: this.level1Date,
-      dateOfLevel2: this.level2Date,
-      statusForLevel1: form.value.statusForLevel1,
-      statusForLevel2: form.value.statusForLevel2,
       enteredBy: this.rtsUserId,
       submissionId: this.submissionId,
       candidateId: candidateId,
       approvalUserId: this.rtsUserId,
+      interviewDetails: form.value.units,
     };
 
     if (this.sendToClient) {
@@ -675,6 +685,7 @@ export class EditSubmissonComponent implements OnInit {
         return false;
       }
     }
+    console.log(editSubmission);
 
     this.submissionService.editSubmission(editSubmission)
       .subscribe(

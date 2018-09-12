@@ -10,7 +10,6 @@ import { EditRequirementComponent } from './edit-requirement/edit-requirement.co
 import { AddNewSubmissionsComponent } from './add-new-submissions/add-new-submissions.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { AddUserComponent } from './add-user/add-user.component';
-import { RecruiterSubmissionsComponent } from './recruiter-submissions/recruiter-submissions.component';
 import { SubmissionByRequirementComponent } from './submission-by-requirement/submission-by-requirement.component';
 import { ManageClientComponent } from './manage-client/manage-client.component';
 import { AddClientComponent } from './add-client/add-client.component';
@@ -24,8 +23,6 @@ import { EditCandidateComponent } from './edit-candidate/edit-candidate.componen
 import { EditClientComponent } from './edit-client/edit-client.component';
 import { AddTeamComponent } from './add-team/add-team.component';
 import { ManageTeamComponent } from './manage-team/manage-team.component';
-import { EditRequirementForLeadUserComponent } from './edit-requirement-for-lead-user/edit-requirement-for-lead-user.component';
-import { EditRequirementForAccMgrComponent } from './edit-requirement-for-acc-mgr/edit-requirement-for-acc-mgr.component';
 import { EditTeamComponent } from './edit-team/edit-team.component';
 import { EditSubmissonComponent } from './edit-submisson/edit-submisson.component';
 import { AdminDashboardComponent } from './dashboard/admin-dashboard/admin-dashboard.component';
@@ -35,6 +32,8 @@ import { ClientRequirementsComponent } from './client-requirements/client-requir
 import { DeleteTeamComponent } from './delete-team/delete-team.component';
 import { TeamSubmissionStatusComponent } from './team-submission-status/team-submission-status.component';
 import { ClientSubmissionStatusComponent } from './client-submission-status/client-submission-status.component';
+import { RecruiterComparisonComponent } from './recruiter-comparison/recruiter-comparison.component';
+import { TeamComparisonComponent } from './team-comparison/team-comparison.component';
 
 
 export const appRoutes: Routes = [
@@ -50,7 +49,6 @@ export const appRoutes: Routes = [
   { path: 'add-new-submission/:id', component: AddNewSubmissionsComponent },
   { path: 'manage-users', component: ManageUsersComponent },
   { path: 'add-user', component: AddUserComponent },
-  // { path: 'recruiter-submissions', component: RecruiterSubmissionsComponent },
   { path: 'submission-by-requirement/:id', component: SubmissionByRequirementComponent },
   { path: 'manage-client', component: ManageClientComponent },
   { path: 'add-client', component: AddClientComponent },
@@ -65,14 +63,14 @@ export const appRoutes: Routes = [
   { path: 'manage-team', component: ManageTeamComponent },
   { path: 'add-team', component: AddTeamComponent },
   { path: 'edit-team/:id', component: EditTeamComponent },
-  // { path: 'leadUser-edit-requirement/:id', component: EditRequirementForLeadUserComponent },
-  // { path: 'acc_mgr-edit-requirement/:id', component: EditRequirementForAccMgrComponent },
   { path: 'edit-submission/:id', component: EditSubmissonComponent },
   { path: 'user-submisson/:id/:fromDate/:toDate', component: UserSubmissionsComponent },
   { path: 'team-submisson/:id/:fromDate/:toDate', component: TeamSubmissionsComponent },
   { path: 'client-requirements/:id/:fromDate/:toDate', component: ClientRequirementsComponent },
   { path: 'team-submissions-status/:id/:status/:fromDate/:toDate', component: TeamSubmissionStatusComponent },
   { path: 'client-submissions-status/:id/:status/:fromDate/:toDate', component: ClientSubmissionStatusComponent },
+  { path: 'recruiter-comparison/:id/:status/:fromDate/:toDate', component: RecruiterComparisonComponent },
+  { path: 'team-comparison/:id/:status/:fromDate/:toDate', component: TeamComparisonComponent },
   { path: 'delete-team/:id', component: DeleteTeamComponent },
 ];
 

@@ -87,8 +87,8 @@
           <th mat-sort-header="submissionDate">Submission Date</th>
           <th mat-sort-header="recruiterName">Recruiter Name</th>
           <th mat-sort-header="interviewStatus">Interview Status</th>
-          <th mat-sort-header="l1">L1</th>
-          <th mat-sort-header="l2">L2</th>
+          <th mat-sort-header="interviewDate">Interview Date & Time</th>
+          <th mat-sort-header="interviewLevel">Interview Level</th>
           <th mat-sort-header="clientContactName">Client Contact Name</th>
           <th mat-sort-header="age">No.of Days Pending</th>
           <th mat-sort-header="currentStatus">Current Status</th>
@@ -102,8 +102,8 @@
           <td>{{submission.submissionDate | date: 'MMM d, y'}}</td>
           <td>{{submission.recruiterName}}</td>
           <td>{{submission.interviewStatus}}</td>
-          <td>{{submission.dateOfL1 | date: 'MMM d, y'}}</td>
-          <td>{{submission.dateOfL2 | date: 'MMM d, y'}}</td>
+          <td>{{submission.interviewDateStr | date: 'MMM d, y , hh:mm a'}}</td>
+          <td>{{submission.interviewLevel}}</td>
           <td>{{submission.clientContactName}}</td>
           <td>{{submission.age}}</td>
           <td>{{submission.currentStatus}}</td>

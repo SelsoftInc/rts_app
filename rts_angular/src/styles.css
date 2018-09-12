@@ -622,3 +622,10 @@ td {
   overflow-y: auto;
   max-height: 290px;
 }
+
+.chart-pie-meta {
+  position: absolute;
+  top: 53px;
+  text-transform: uppercase;
+  font-size: .800em;
+}

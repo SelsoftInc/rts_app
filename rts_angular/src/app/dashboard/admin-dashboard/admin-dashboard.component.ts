@@ -87,99 +87,6 @@ export class AdminDashboardComponent implements OnInit {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
     this.currentDate = new Date(Date.now());
-    // Remove the following data after the chart implementation
-    // this.clientWise = [
-    //   {
-    //     'name': 'TCS',
-    //     'series': [
-    //       { 'name': 'Submitted', 'value': 10 },
-    //       { 'name': 'In Progress', 'value': 4 },
-    //       { 'name': 'Client Rejection', 'value': 6 },
-    //       { 'name': 'Internal Rejection', 'value': 2 },
-    //       { 'name': 'Closed', 'value': 7 }
-    //     ]
-    //   },
-    //   {
-    //     'name': 'Virtusa',
-    //     'series': [
-    //       { 'name': 'Submitted', 'value': 12 },
-    //       { 'name': 'In Progress', 'value': 2 },
-    //       { 'name': 'Client Rejection', 'value': 6 },
-    //       { 'name': 'Internal Rejection', 'value': 4 },
-    //       { 'name': 'Closed', 'value': 9 }
-    //     ]
-    //   },
-    //   {
-    //     'name': 'HCL',
-    //     'series': [
-    //       { 'name': 'Submitted', 'value': 4 },
-    //       { 'name': 'In Progress', 'value': 2 },
-    //       { 'name': 'Client Rejection', 'value': 2 },
-    //       { 'name': 'Internal Rejection', 'value': 1 },
-    //       { 'name': 'Closed', 'value': 3 }
-    //     ]
-    //   }
-    // ];
-
-    this.teamComparison = [
-      {
-        'name': 'TCS',
-        'series': [
-          { 'name': 'Submitted', 'value': 50 },
-          { 'name': 'Interviewed', 'value': 30 },
-          { 'name': 'Rejections', 'value': 10 },
-          { 'name': 'Candidate Selected', 'value': 7 }
-        ]
-      },
-      {
-        'name': 'Virtusa',
-        'series': [
-          { 'name': 'Submitted', 'value': 17 },
-          { 'name': 'Interviewed', 'value': 7 },
-          { 'name': 'Rejections', 'value': 2 },
-          { 'name': 'Candidate Selected', 'value': 2 }
-        ]
-      },
-      {
-        'name': 'HCL',
-        'series': [
-          { 'name': 'Submitted', 'value': 7 },
-          { 'name': 'Interviewed', 'value': 2 },
-          { 'name': 'Rejections', 'value': 1 },
-          { 'name': 'Candidate Selected', 'value': 1 }
-        ]
-      }
-    ];
-
-    this.recruiterComparison = [
-      {
-        'name': 'Sugan',
-        'series': [
-          { 'name': 'Submitted', 'value': 10 },
-          { 'name': 'Interviewed', 'value': 4 },
-          { 'name': 'Rejections', 'value': 6 },
-          { 'name': 'Candidate Selected', 'value': 7 }
-        ]
-      },
-      {
-        'name': 'Ajikumar',
-        'series': [
-          { 'name': 'Submitted', 'value': 17 },
-          { 'name': 'Interviewed', 'value': 7 },
-          { 'name': 'Rejections', 'value': 2 },
-          { 'name': 'Candidate Selected', 'value': 2 }
-        ]
-      },
-      {
-        'name': 'Pavithran',
-        'series': [
-          { 'name': 'Submitted', 'value': 7 },
-          { 'name': 'Interviewed', 'value': 2 },
-          { 'name': 'Rejections', 'value': 1 },
-          { 'name': 'Candidate Selected', 'value': 1 }
-        ]
-      }
-    ];
   }
 
   ngOnInit() {
@@ -191,6 +98,8 @@ export class AdminDashboardComponent implements OnInit {
     this.getInterviewReport();
     this.getNoSubmissionsRequirement();
     this.getClientSubmissionStatus();
+    this.getRecruiterComparisonChart();
+    this.getTeamComparisonChart();
   }
 
   dateFilter() {
@@ -201,6 +110,62 @@ export class AdminDashboardComponent implements OnInit {
     this.getInterviewReport();
     this.getNoSubmissionsRequirement();
     this.getClientSubmissionStatus();
+    this.getRecruiterComparisonChart();
+    this.getTeamComparisonChart();
+  }
+
+  getRecruiterComparisonChart() {
+    this.recruiterComparison = [];
+
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    const graph = {
+      userId: this.rtsUserId,
+      fromDate: fromDate,
+      toDate: toDate
+    };
+
+    this.graphService.recruiterComparsion(graph)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.recruiterComparison = data.recruiterSubmissions;
+            for (const recruiter of this.recruiterComparison) {
+              for (const series of recruiter.series) {
+                series.extra = {
+                  userId: recruiter.userId
+                };
+              }
+            }
+          }
+        });
+  }
+
+  getTeamComparisonChart() {
+    this.teamComparison = [];
+
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    const graph = {
+      userId: this.rtsUserId,
+      fromDate: fromDate,
+      toDate: toDate
+    };
+
+    this.graphService.teamComparsion(graph)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.teamComparison = data.teamSubmission;
+            for (const team of this.teamComparison) {
+              for (const series of team.series) {
+                series.extra = {
+                  teamId: team.teamId
+                };
+              }
+            }
+          }
+        });
   }
 
   getClientSubmissionStatus() {
@@ -226,7 +191,6 @@ export class AdminDashboardComponent implements OnInit {
                 };
               }
             }
-            console.log(this.clientWiseSubmissionStatus);
           }
         });
   }
@@ -381,9 +345,20 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   onClientSubmissionStatus(event) {
-    console.log(event);
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
     this.router.navigate(['client-submissions-status', event.extra.clientId, event.name, fromDate, toDate]);
+  }
+
+  onRecruiterComparison(event) {
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    this.router.navigate(['recruiter-comparison', event.extra.userId, event.name, fromDate, toDate]);
+  }
+
+  onTeamComparison(event) {
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    this.router.navigate(['team-comparison', event.extra.teamId, event.name, fromDate, toDate]);
   }
 }

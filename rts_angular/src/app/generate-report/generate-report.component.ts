@@ -183,6 +183,10 @@ export class GenerateReportComponent implements OnInit {
     this.selectedReport = [];
     for (const report of this.sortedData) {
       const submissionDate = moment(report.submissionDate).format('MM/DD/YYYY');
+      let interviewDate: any = '';
+      if (report.interviewDate !== undefined) {
+        interviewDate = moment(report.interviewDate).format('MM/DD/YYYY, hh:mm a');
+      }
       this.selectedReport.push({
         'Candidate Name': report.candidateName,
         'Position Name': report.positionName,
@@ -190,8 +194,8 @@ export class GenerateReportComponent implements OnInit {
         'Submission Date': submissionDate,
         'Recruiter Name': report.recruiterName,
         'Interview Status': report.interviewStatus,
-        'L1': report.dateOfL1,
-        'L2': report.dateOfL2,
+        'Interview Date & Time': interviewDate,
+        'Interview Level': report.interviewLevel,
         'Client Contact Name': report.clientContactName,
         'No of DaysPending': report.age,
         'Current Status': report.currentStatus
@@ -271,8 +275,8 @@ export class GenerateReportComponent implements OnInit {
         case 'submissionDate': return this.compare(a.submissionDate, b.submissionDate, isAsc);
         case 'recruiterName': return this.compare(a.recruiterName, b.recruiterName, isAsc);
         case 'interviewStatus': return this.compare(a.interviewStatus, b.interviewStatus, isAsc);
-        case 'l1': return this.compare(a.l1, b.l1, isAsc);
-        case 'l2': return this.compare(a.l2, b.l2, isAsc);
+        case 'interviewDate': return this.compare(a.interviewDateStr, b.interviewDateStr, isAsc);
+        case 'interviewLevel': return this.compare(a.interviewLevel, b.interviewLevel, isAsc);
         case 'age': return this.compare(a.age, b.age, isAsc);
         case 'currentStatus': return this.compare(a.currentStatus, b.currentStatus, isAsc);
         default: return 0;

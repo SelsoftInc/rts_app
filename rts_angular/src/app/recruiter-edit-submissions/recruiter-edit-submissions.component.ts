@@ -3,7 +3,7 @@ import { LoggedUserService } from '../Services/logged-user.service';
 import { RequirementsService } from '../Services/requirements.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import * as _ from 'underscore';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { SubmissionService } from '../Services/submission.service';
 import { ToastrService } from 'ngx-toastr';
 import { CandidateService } from '../Services/candidate.service';
@@ -109,10 +109,6 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       resonForChange: [''],
       interviewStatus: [''],
       currentStatus: [''],
-      level1Date: [''],
-      level2Date: [''],
-      statusForLevel1: [''],
-      statusForLevel2: [''],
       totalExperience: [''],
       editTotalExperience: [''],
       editCandidateImmigirationStatus: [''],
@@ -141,11 +137,32 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       vacationPlans: [''],
       currentCompany: [''],
       comments: [''],
-      interviewConferenceNumber: ['']
+      units: this.formBuilder.array([
+        this.initUnits()
+      ]),
     });
     this.getAllRequirementsForUser();
     this.getAllCommonData();
     this.isNewCandidate = false;
+  }
+
+  initUnits() {
+    return this.formBuilder.group({
+      dateStr: [''],
+      level: [''],
+      status: [''],
+      interviewPhoneNumber: ['']
+    });
+  }
+
+  addUnits() {
+    const control = <FormArray>this.myForm.controls['units'];
+    control.push(this.initUnits());
+  }
+
+  removeUnits(i: number) {
+    const control = <FormArray>this.myForm.controls['units'];
+    control.removeAt(i);
   }
 
   getAllCommonData() {
@@ -198,6 +215,13 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             const submission = _.findWhere(this.selectedRequirement.submissions, { submissionId: this.submissionId });
             if (submission !== undefined) {
               this.selectedSubmission = submission;
+            }
+            if (this.selectedSubmission.interviewDetails.length > 0) {
+              this.removeUnits(0);
+            }
+            const control = <FormArray>this.myForm.controls['units'];
+            for (const interviews of this.selectedSubmission.interviewDetails) {
+              control.push(this.formBuilder.group(interviews));
             }
             if (this.selectedSubmission.enteredBy === this.rtsUserId) {
               this.isUpdate = true;
@@ -424,16 +448,16 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
 
   updateCandidateWithSubmission(form: FormGroup, candidateId: any) {
 
-    if (form.value.level1Date !== 'Invalid date' && form.value.level1Date !== '') {
-      this.level1Date = moment(form.value.level1Date);
-    } else {
-      this.level1Date = '';
-    }
-    if (form.value.level2Date !== 'Invalid date' && form.value.level2Date !== '') {
-      this.level2Date = moment(form.value.level2Date);
-    } else {
-      this.level2Date = '';
-    }
+    // if (form.value.level1Date !== 'Invalid date' && form.value.level1Date !== '') {
+    //   this.level1Date = moment(form.value.level1Date);
+    // } else {
+    //   this.level1Date = '';
+    // }
+    // if (form.value.level2Date !== 'Invalid date' && form.value.level2Date !== '') {
+    //   this.level2Date = moment(form.value.level2Date);
+    // } else {
+    //   this.level2Date = '';
+    // }
 
     const submission: any = {
       requirementId: form.value.requirements,
@@ -447,13 +471,14 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       interviewStatus: form.value.interviewStatus,
       interviewPhoneNumber: form.value.interviewConferenceNumber,
       currentStatus: form.value.currentStatus,
-      dateOfLevel1: this.level1Date,
-      dateOfLevel2: this.level2Date,
-      statusForLevel1: form.value.statusForLevel1,
-      statusForLevel2: form.value.statusForLevel2,
+      // dateOfLevel1: this.level1Date,
+      // dateOfLevel2: this.level2Date,
+      // statusForLevel1: form.value.statusForLevel1,
+      // statusForLevel2: form.value.statusForLevel2,
       enteredBy: this.rtsUserId,
       submissionId: this.submissionId,
       candidateId: candidateId,
+      interviewDetails: form.value.units,
     };
 
     if (this.comment === '' || this.comment === undefined) {

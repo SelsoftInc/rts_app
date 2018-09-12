@@ -48,3 +48,44 @@
 .mail-button {
   display: block;
 }
+
+.unit-container {
+  padding-left: .2em;
+}
+
+.units {
+  position: relative;
+}
+
+.units .add-btn {
+  display: none;
+}
+
+.units:nth-child(n+2) .label {
+  display: none;
+}
+
+.units:last-child .add-btn {
+  display: inline-block;
+}
+
+.units:first-child .delete-btn {
+  display: none;
+}
+
+.delete-btn {
+  color: #dc3545 !important;
+}
+
+.unit-btn-container {
+  padding-top: 1em;
+}
+
+.mat-icon {
+  line-height: 34px;
+}
+
+.unit-container.ng-invalid,
+.units>.form-row.ng-invalid {
+  border-left: 0 !important;
+}

@@ -31,7 +31,6 @@ import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { UserService } from './Services/user.service';
 import { SubmissionService } from './Services/submission.service';
-import { RecruiterSubmissionsComponent } from './recruiter-submissions/recruiter-submissions.component';
 import { SubmissionByRequirementComponent } from './submission-by-requirement/submission-by-requirement.component';
 import { ClientService } from './Services/client.service';
 import { ManageClientComponent } from './manage-client/manage-client.component';
@@ -49,8 +48,6 @@ import { ManageTeamComponent } from './manage-team/manage-team.component';
 import { AddTeamComponent } from './add-team/add-team.component';
 import { TeamService } from './Services/team.service';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-import { EditRequirementForLeadUserComponent } from './edit-requirement-for-lead-user/edit-requirement-for-lead-user.component';
-import { EditRequirementForAccMgrComponent } from './edit-requirement-for-acc-mgr/edit-requirement-for-acc-mgr.component';
 import { EditTeamComponent } from './edit-team/edit-team.component';
 import { EditSubmissonComponent } from './edit-submisson/edit-submisson.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -72,6 +69,8 @@ import { PaginationModule } from 'ngx-bootstrap';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { TeamSubmissionStatusComponent } from './team-submission-status/team-submission-status.component';
 import { ClientSubmissionStatusComponent } from './client-submission-status/client-submission-status.component';
+import { RecruiterComparisonComponent } from './recruiter-comparison/recruiter-comparison.component';
+import { TeamComparisonComponent } from './team-comparison/team-comparison.component';
 
 
 @NgModule({
@@ -86,7 +85,6 @@ import { ClientSubmissionStatusComponent } from './client-submission-status/clie
     AddNewSubmissionsComponent,
     ManageUsersComponent,
     AddUserComponent,
-    RecruiterSubmissionsComponent,
     SubmissionByRequirementComponent,
     ManageClientComponent,
     AddClientComponent,
@@ -100,8 +98,6 @@ import { ClientSubmissionStatusComponent } from './client-submission-status/clie
     EditCandidateComponent,
     ManageTeamComponent,
     AddTeamComponent,
-    EditRequirementForLeadUserComponent,
-    EditRequirementForAccMgrComponent,
     EditTeamComponent,
     EditSubmissonComponent,
     RecruiterDashboardComponent,
@@ -113,6 +109,8 @@ import { ClientSubmissionStatusComponent } from './client-submission-status/clie
     DeleteTeamComponent,
     TeamSubmissionStatusComponent,
     ClientSubmissionStatusComponent,
+    RecruiterComparisonComponent,
+    TeamComparisonComponent,
   ],
   imports: [
     BrowserModule,

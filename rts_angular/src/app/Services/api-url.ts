@@ -54,4 +54,6 @@ export class ApiUrl {
     static InterViewReport = 'rtsSubmission/submission/interviewReport';
     static GetNoSubmissionsRequirement = 'rtsCommon/common/noSubmissionsRequirement';
     static GetClientSubmissionStatus = 'rtsCommon/common/clientSubmissionStatus';
+    static GetRecruiterComparison = 'rtsCommon/common/recruiterComparison';
+    static GetTeamComparison = 'rtsCommon/common/teamComparison';
 }
