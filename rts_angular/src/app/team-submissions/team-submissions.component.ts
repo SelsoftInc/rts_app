@@ -6,6 +6,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import * as _ from 'underscore';
 import { SubmissionService } from '../Services/submission.service';
 import { NgProgress } from 'ngx-progressbar';
+import { GraphService } from '../Services/graph.service';
 
 @Component({
   selector: 'app-team-submissions',
@@ -25,15 +26,21 @@ export class TeamSubmissionsComponent implements OnInit {
   private filteredRequirements: any;
   private fromDate: any;
   private toDate: any;
+  private userRole: any;
+  totalSubmissionStatus: any;
+  totalSubmissionByTeam: any;
+  selectedTeam: any;
 
   constructor(
     private loggedUser: LoggedUserService,
     private activatedRoute: ActivatedRoute,
     private submissionService: SubmissionService,
-    private ngProgress: NgProgress
+    private ngProgress: NgProgress,
+    private graphService: GraphService,
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
+    this.userRole = this.rtsUser.role;
   }
 
   ngOnInit() {
@@ -44,7 +51,12 @@ export class TeamSubmissionsComponent implements OnInit {
         this.fromDate = params['fromDate'];
         this.toDate = params['toDate'];
       });
-    this.getTeamSubmission();
+
+    if (this.userRole === 'RECRUITER') {
+      this.getRecruiterTeamSubmissions();
+    } else {
+      this.getTeamSubmission();
+    }
   }
 
   getTeamSubmission() {
@@ -65,6 +77,28 @@ export class TeamSubmissionsComponent implements OnInit {
             this.teamName = this.teamDetails.name;
             this.submissionsLength = this.submissionDetails.length;
 
+          }
+        });
+  }
+
+  getRecruiterTeamSubmissions() {
+    const graph = {
+      userId: this.rtsUserId,
+      fromDate: this.fromDate,
+      toDate: this.toDate
+    };
+
+    this.graphService.recruiterTeamSubmissions(graph)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.ngProgress.done();
+            this.totalSubmissionByTeam = data.userSubmissions;
+            this.selectedTeam = _.findWhere(this.totalSubmissionByTeam, { teamId: this.teamId });
+            this.submissionDetails = this.selectedTeam.requirements;
+            this.filteredRequirements = this.selectedTeam.requirements;
+            this.teamName = this.selectedTeam.name;
+            this.submissionsLength = this.submissionDetails.length;
           }
         });
   }

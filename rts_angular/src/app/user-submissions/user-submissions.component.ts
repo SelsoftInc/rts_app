@@ -25,6 +25,7 @@ export class UserSubmissionsComponent implements OnInit {
   private filteredRequirements: any;
   private fromDate: any;
   private toDate: any;
+  private userRole: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -34,6 +35,7 @@ export class UserSubmissionsComponent implements OnInit {
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
+    this.userRole = this.rtsUser.role;
   }
 
   ngOnInit() {

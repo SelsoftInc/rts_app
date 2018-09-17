@@ -26,7 +26,6 @@ export class AdminDashboardComponent implements OnInit {
   showDataLabel = true;
   show = true;
 
-  // Remove this after implementing the chart.
   clientWise: any[];
   teamComparison: any[];
   recruiterComparison: any[];
@@ -157,6 +156,7 @@ export class AdminDashboardComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.teamComparison = data.teamSubmission;
             for (const team of this.teamComparison) {
               for (const series of team.series) {
@@ -281,7 +281,6 @@ export class AdminDashboardComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
-            this.ngProgress.done();
             this.clientOpenRequitements = data.clientRequirements;
             for (const count of this.clientOpenRequitements) {
               count.extra = {

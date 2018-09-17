@@ -256,7 +256,6 @@ export class AddNewSubmissionsComponent implements OnInit {
     this.recruiterName = [];
     this.recruiterEmail = [];
     this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: event });
-    console.log(this.selectRequiement);
     for (const recruiter of this.selectRequiement.clientRecuriters) {
       this.recruiterName.push(recruiter.name + ' ');
       this.recruiterEmail.push(recruiter.email + ' ');

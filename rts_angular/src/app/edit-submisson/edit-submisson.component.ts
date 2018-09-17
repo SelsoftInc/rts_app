@@ -395,9 +395,9 @@ export class EditSubmissonComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
-            this.ngProgress.done();
             this.selectedRequirement = data.requirement;
             const submission = _.findWhere(this.selectedRequirement.submissions, { submissionId: this.submissionId });
+            this.ngProgress.done();
             if (submission !== undefined) {
               this.selectedSubmission = submission;
             }

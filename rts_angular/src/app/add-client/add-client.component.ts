@@ -20,6 +20,7 @@ export class AddClientComponent implements OnInit {
   private rtsCompanyId: any;
 
   public myForm: FormGroup;
+  private isCcEmpty: boolean;
   constructor(
     private loggedUser: LoggedUserService,
     private formBuilder: FormBuilder,
@@ -83,16 +84,38 @@ export class AddClientComponent implements OnInit {
   }
 
   addNewClient(form: FormGroup) {
+    for (const cc of form.value.ccUnits) {
+      if (cc.name === '' || cc.email === '') {
+        this.isCcEmpty = true;
+      } else {
+        this.isCcEmpty = false;
+      }
+    }
     this.ngProgress.start();
 
-    const client = {
+    const client: any = {
       name: form.value.name,
       email: form.value.email,
       phoneNumber: form.value.phoneNumber,
       enteredBy: this.rtsUserId,
       clientRecuriters: form.value.units,
-      ccRecuriters: form.value.ccUnits
     };
+
+    if (form.value.ccUnits[0].name === '' || form.value.ccUnits[0].email === '') {
+      client.ccRecuriters = [];
+      this.isCcEmpty = false;
+    } else {
+      client.ccRecuriters = form.value.ccUnits;
+    }
+
+    if (this.isCcEmpty) {
+      this.toastr.error('Please add valid cc details', '', {
+        positionClass: 'toast-top-center',
+        timeOut: 3000,
+      });
+      this.ngProgress.done();
+      return false;
+    }
 
     this.clientService.addClient(client)
       .subscribe(

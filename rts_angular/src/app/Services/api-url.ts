@@ -56,4 +56,6 @@ export class ApiUrl {
     static GetClientSubmissionStatus = 'rtsCommon/common/clientSubmissionStatus';
     static GetRecruiterComparison = 'rtsCommon/common/recruiterComparison';
     static GetTeamComparison = 'rtsCommon/common/teamComparison';
+    static GetRecruiterTeamStatus = 'rtsCommon/common/recruiterTeamStatus';
+    static GetRecruiterTeamSubmissions = 'rtsCommon/common/recruiterTeamSubmissions';
 }

@@ -31,6 +31,7 @@ export class EditClientComponent implements OnInit {
   private contactPersonName: any;
   private contactPersonNumber: any;
   private name: any;
+  isCcEmpty: boolean;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -132,17 +133,39 @@ export class EditClientComponent implements OnInit {
   }
 
   updateClient(form: FormGroup) {
+    for (const cc of form.value.ccUnits) {
+      if (cc.name === '' || cc.email === '') {
+        this.isCcEmpty = true;
+      } else {
+        this.isCcEmpty = false;
+      }
+    }
     this.ngProgress.start();
 
-    const editClient = {
+    const editClient: any = {
       name: form.value.name,
       email: form.value.email,
       phoneNumber: form.value.phoneNumber,
       enteredBy: this.rtsUserId,
       clientId: this.clientId,
       clientRecuriters: form.value.units,
-      ccRecuriters: form.value.ccUnits,
     };
+
+    if (form.value.ccUnits[0].name === '' || form.value.ccUnits[0].email === '') {
+      editClient.ccRecuriters = [];
+      this.isCcEmpty = false;
+    } else {
+      editClient.ccRecuriters = form.value.ccUnits;
+    }
+
+    if (this.isCcEmpty) {
+      this.toastr.error('Please add valid cc details', '', {
+        positionClass: 'toast-top-center',
+        timeOut: 3000,
+      });
+      this.ngProgress.done();
+      return false;
+    }
 
     this.clientService.editClient(editClient)
       .subscribe(

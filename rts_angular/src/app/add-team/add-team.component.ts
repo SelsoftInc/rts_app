@@ -100,7 +100,7 @@ export class AddTeamComponent implements OnInit {
         this.recruiters.push({ user: user.userId, firstName: user.firstName + ' ' + user.lastName });
       }
     }
-    this.deSelectAll();
+    // this.deSelectAll();
   }
 
   deSelectAll() {

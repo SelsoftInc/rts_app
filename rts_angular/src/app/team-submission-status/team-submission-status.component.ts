@@ -26,7 +26,9 @@ export class TeamSubmissionStatusComponent implements OnInit {
   private selectedTeam: any;
   private selectedStatus: any;
   private filteredRequirements: any;
-  teamName: any;
+  private teamName: any;
+  private userRole: any;
+  totalSubmissionStatus: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -37,6 +39,7 @@ export class TeamSubmissionStatusComponent implements OnInit {
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
+    this.userRole = this.rtsUser.role;
   }
 
   ngOnInit() {
@@ -48,7 +51,11 @@ export class TeamSubmissionStatusComponent implements OnInit {
         this.fromDate = params['fromDate'];
         this.toDate = params['toDate'];
       });
-    this.getTeamGraphDetails();
+    if (this.userRole === 'RECRUITER') {
+      this.getRecruiterTeamStatus();
+    } else {
+      this.getTeamGraphDetails();
+    }
   }
 
   getTeamGraphDetails() {
@@ -65,6 +72,32 @@ export class TeamSubmissionStatusComponent implements OnInit {
             this.ngProgress.done();
             this.totalSubmissionByTeam = data.teamSubmission;
             this.selectedTeam = _.findWhere(this.totalSubmissionByTeam, { teamId: this.teamId });
+            this.teamName = this.selectedTeam.name;
+            for (const series of this.selectedTeam.series) {
+              if (series.name === this.status) {
+                this.selectedStatus = series;
+              }
+            }
+            this.submissionDetails = this.selectedStatus.requirements;
+            this.filteredRequirements = this.selectedStatus.requirements;
+          }
+        });
+  }
+
+  getRecruiterTeamStatus() {
+    const graph = {
+      userId: this.rtsUserId,
+      fromDate: this.fromDate,
+      toDate: this.toDate
+    };
+
+    this.graphService.recruiterTeamStatus(graph)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.ngProgress.done();
+            this.totalSubmissionStatus = data.teamSubmission;
+            this.selectedTeam = _.findWhere(this.totalSubmissionStatus, { teamId: this.teamId });
             this.teamName = this.selectedTeam.name;
             for (const series of this.selectedTeam.series) {
               if (series.name === this.status) {

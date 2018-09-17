@@ -1,3 +1,67 @@
-<p>
-  recruiter-dashboard works!
-</p>
+<h2 class="main-title-dashboard">Dashboard</h2>
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
+<div class="dash-filter-container">
+  <div class="row">
+    <div class="col-8">
+      <div class="row mt-2">
+        <div class="col-3">
+          <mat-form-field>
+            <input matInput [matDatepicker]="fromDatePicker" [(ngModel)]="fromDate" placeholder="From Date">
+            <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #fromDatePicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field>
+            <input matInput [matDatepicker]="toDatePicker" [(ngModel)]="currentDate" placeholder="To Date">
+            <mat-datepicker-toggle matSuffix [for]="toDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #toDatePicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-1 mt-3">
+          <button class="btn btn-sm btn-primary" (click)="dateFilter();">Show Results</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="dashboard-container mt-3">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="col-block pt-5">
+        <div class="chart-title-wrapper">
+          <h2 class="chart-title">Team wise submission count</h2>
+        </div>
+        <div class="chart-align-100-400">
+          <ngx-charts-pie-chart [view]="view" [scheme]="colorSchemePie" [results]="totalSubmissionByTeam" [gradient]="gradient"
+            [labels]="show" [doughnut]="show" (select)="onTeamSelect($event)">
+          </ngx-charts-pie-chart>
+        </div>
+        <div class="chart-pie-meta">
+          <div *ngFor="let meta of totalSubmissionByTeam">
+            <span *ngIf="meta.value === 0; else metaTemplate"></span>
+            <ng-template #metaTemplate>{{meta.name}} : {{meta.value}}</ng-template>
+          </div>
+        </div>
+        <div>
+          <div class="chart-additional-item"><span class="chart-label">Total Submissions: </span><span class="chart-result">{{totalSubmission}}</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="col-block pt-5">
+        <div class="chart-title-wrapper">
+          <h2 class="chart-title">Team wise submission status</h2>
+        </div>
+        <div class="chart-align-100-400 multi">
+          <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorSchemeMultiBar1" [results]="totalSubmissionStatus"
+            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
+            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel" (select)="onTeamSubmissionStatus($event)">
+          </ngx-charts-bar-vertical-2d>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

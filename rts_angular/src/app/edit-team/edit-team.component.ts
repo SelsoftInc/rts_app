@@ -142,7 +142,7 @@ export class EditTeamComponent implements OnInit {
         this.recruiters.push({ user: user.userId, firstName: user.firstName + ' ' + user.lastName });
       }
     }
-    this.deSelectAll();
+    // this.deSelectAll();
   }
 
   deSelectAll() {
