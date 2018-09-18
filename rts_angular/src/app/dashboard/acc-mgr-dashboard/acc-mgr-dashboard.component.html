@@ -80,4 +80,43 @@
       </div>
     </div>
   </div>
+
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="col-block pt-5 mb-4">
+        <div class="chart-title-wrapper">
+          <h2 class="chart-title">Scheduled Interviews</h2>
+        </div>
+         <h2 class="chart-title"> Total {{interviewReportLength}} Results</h2>
+        <div class="chart-scroll-wrapper">
+          <table class="table table-hover table-sm table-bordered">
+            <thead class="table-header">
+              <tr>
+                <th>Position Name</th>
+                <th>Candidate Name</th>
+                <th>Client Name</th>
+                <th>Interview Date & Time</th>
+                <th>Interview Level</th>
+                <th>Recruiter Name</th>
+                <th>Skype</th>
+                <th>Phone Number</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let submission of interviewReport" [routerLink]="['/edit-submission', submission.submissionId]">
+                <td>{{submission.positionName}}</td>
+                <td>{{submission.candidateName}}</td>
+                <td>{{submission.clientName}}</td>
+                <td>{{submission.interviewDateStr | date: 'MMM d, y, hh:mm a'}}</td>
+                <td>{{submission.interviewLevel}}</td>
+                <td>{{submission.recruiterName}}</td>
+                <td>{{submission.skypeId}}</td>
+                <td>{{submission.phoneNumber}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

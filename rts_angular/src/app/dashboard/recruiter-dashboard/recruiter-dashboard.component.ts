@@ -50,6 +50,8 @@ export class RecruiterDashboardComponent implements OnInit {
   totalSubmissionByTeam: any;
   totalSubmission: any;
   totalSubmissionStatus: any;
+  interviewReport: any;
+  interviewReportLength: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -67,12 +69,14 @@ export class RecruiterDashboardComponent implements OnInit {
     this.fromDate = this.currentDate;
     this.getRecruiterTeamStatus();
     this.getRecruiterTeamSubmissions();
+    this.getInterviewReport();
   }
 
   dateFilter() {
     this.ngProgress.start();
     this.getRecruiterTeamStatus();
     this.getRecruiterTeamSubmissions();
+    this.getInterviewReport();
   }
 
   getRecruiterTeamStatus() {
@@ -118,7 +122,6 @@ export class RecruiterDashboardComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
-            this.ngProgress.done();
             this.totalSubmissionByTeam = data.userSubmissions;
             for (const count of this.totalSubmissionByTeam) {
               this.totalSubmission = this.totalSubmission + count.value;
@@ -129,6 +132,28 @@ export class RecruiterDashboardComponent implements OnInit {
           }
         });
   }
+
+  getInterviewReport() {
+
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    const graph = {
+      userId: this.rtsUserId,
+      fromDate: fromDate,
+      toDate: toDate
+    };
+
+    this.graphService.getInterviewDetails(graph)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.ngProgress.done();
+            this.interviewReport = data.submissionReport;
+            this.interviewReportLength = this.interviewReport.length;
+          }
+        });
+  }
+
 
   onTeamSelect(event) {
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');

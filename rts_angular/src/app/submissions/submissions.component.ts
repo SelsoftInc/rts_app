@@ -63,7 +63,8 @@ export class SubmissionsComponent implements OnInit {
       { 'name': 'Closed', 'value': 'CLOSED' },
       { 'name': 'Client Rejeced', 'value': 'CLIENT_REJECTED' },
       { 'name': 'Candidate Selected', 'value': 'SELECTED' },
-      { 'name': 'Interview', 'value': 'INTERVIEWED' }
+      { 'name': 'Interview', 'value': 'INTERVIEWED' },
+      { 'name': 'Hold', 'value': 'HOLD' }
     ];
     this.filter = '';
   }

@@ -69,7 +69,13 @@ export class LoginComponent implements OnInit, OnDestroy {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
-            this.router.navigate(['requirements']);
+            if (data.user.role === 'ADMIN') {
+              this.router.navigate(['admin-dashboard']);
+            } else if (data.user.role === 'ACC_MGR' || data.user.role === 'TL') {
+              this.router.navigate(['mgr-dashboard']);
+            } else if (data.user.role === 'RECRUITER') {
+              this.router.navigate(['recruiter-dashboard']);
+            }
           } else {
             this.toastr.error(data.message, '', {
               positionClass: 'toast-top-center',

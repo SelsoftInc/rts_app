@@ -184,7 +184,8 @@ export class EditSubmissonComponent implements OnInit {
         { 'name': 'Closed', 'value': 'CLOSED' },
         { 'name': 'Client Rejeced', 'value': 'CLIENT_REJECTED' },
         { 'name': 'Candidate Selected', 'value': 'SELECTED' },
-        { 'name': 'Interview', 'value': 'INTERVIEWED' }
+        { 'name': 'Interview', 'value': 'INTERVIEWED' },
+        { 'name': 'Hold', 'value': 'HOLD' }
       ];
       this.getAllRequirements();
     } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
@@ -199,7 +200,8 @@ export class EditSubmissonComponent implements OnInit {
         { 'name': 'Closed', 'value': 'CLOSED' },
         { 'name': 'Client Rejeced', 'value': 'CLIENT_REJECTED' },
         { 'name': 'Candidate Selected', 'value': 'SELECTED' },
-        { 'name': 'Interview', 'value': 'INTERVIEWED' }
+        { 'name': 'Interview', 'value': 'INTERVIEWED' },
+        { 'name': 'Hold', 'value': 'HOLD' }
       ];
     } else if (this.userRole === 'ACC_MGR') {
       this.status = [
@@ -209,7 +211,8 @@ export class EditSubmissonComponent implements OnInit {
         { 'name': 'Closed', 'value': 'CLOSED' },
         { 'name': 'Client Rejeced', 'value': 'CLIENT_REJECTED' },
         { 'name': 'Candidate Selected', 'value': 'SELECTED' },
-        { 'name': 'Interview', 'value': 'INTERVIEWED' }
+        { 'name': 'Interview', 'value': 'INTERVIEWED' },
+        { 'name': 'Hold', 'value': 'HOLD' }
       ];
     }
   }

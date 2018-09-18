@@ -49,6 +49,8 @@ export class AccMgrDashboardComponent implements OnInit {
   fromDate: any;
   totalSubmissionByTeam: any[];
   totalSubmission: number;
+  interviewReport: any;
+  interviewReportLength: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -66,12 +68,14 @@ export class AccMgrDashboardComponent implements OnInit {
     this.fromDate = this.currentDate;
     this.getTeamGraphDetails();
     this.getUserGraphDetails();
+    this.getInterviewReport();
   }
 
   dateFilter() {
     this.ngProgress.start();
     this.getTeamGraphDetails();
     this.getUserGraphDetails();
+    this.getInterviewReport();
   }
 
   getTeamGraphDetails() {
@@ -123,13 +127,33 @@ export class AccMgrDashboardComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
-            this.ngProgress.done();
             this.recruitersSubmissions = data.userSubmissions;
             for (const count of this.recruitersSubmissions) {
               count.extra = {
                 userId: count.userId
               };
             }
+          }
+        });
+  }
+
+  getInterviewReport() {
+
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    const graph = {
+      userId: this.rtsUserId,
+      fromDate: fromDate,
+      toDate: toDate
+    };
+
+    this.graphService.getInterviewDetails(graph)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.ngProgress.done();
+            this.interviewReport = data.submissionReport;
+            this.interviewReportLength = this.interviewReport.length;
           }
         });
   }

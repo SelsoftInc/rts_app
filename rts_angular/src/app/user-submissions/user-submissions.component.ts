@@ -6,6 +6,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import * as _ from 'underscore';
 import { SubmissionService } from '../Services/submission.service';
 import { NgProgress } from 'ngx-progressbar';
+import { GraphService } from '../Services/graph.service';
 
 @Component({
   selector: 'app-user-submissions',
@@ -26,12 +27,16 @@ export class UserSubmissionsComponent implements OnInit {
   private fromDate: any;
   private toDate: any;
   private userRole: any;
+  totalSubmissionByTeam: any;
+  selectedRecruiter: any;
+  recruitersSubmissions: any;
 
   constructor(
     private loggedUser: LoggedUserService,
     private activatedRoute: ActivatedRoute,
     private submissionService: SubmissionService,
-    private ngProgress: NgProgress
+    private ngProgress: NgProgress,
+    private graphService: GraphService,
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -46,7 +51,11 @@ export class UserSubmissionsComponent implements OnInit {
         this.fromDate = params['fromDate'];
         this.toDate = params['toDate'];
       });
-    this.getUserSubmission();
+    if (this.userRole === 'ADMIN') {
+      this.getUserSubmission();
+    } else if (this.userRole === 'ACC_MGR' || this.userRole === 'TL') {
+      this.getUserGraphDetails();
+    }
   }
 
   getUserSubmission() {
@@ -67,6 +76,28 @@ export class UserSubmissionsComponent implements OnInit {
             this.recruiterName = this.recruiterDetails.firstName + ' ' + this.recruiterDetails.lastName;
             this.submissionsLength = this.submissionDetails.length;
 
+          }
+        });
+  }
+
+  getUserGraphDetails() {
+    const graph = {
+      userId: this.rtsUserId,
+      fromDate: this.fromDate,
+      toDate: this.toDate
+    };
+
+    this.graphService.userGraphDetails(graph)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.ngProgress.done();
+            this.recruitersSubmissions = data.userSubmissions;
+            this.selectedRecruiter = _.findWhere(this.recruitersSubmissions, { userId: this.recruiterId });
+            this.submissionDetails = this.selectedRecruiter.requirements;
+            this.filteredRequirements = this.selectedRecruiter.requirements;
+            this.recruiterName = this.selectedRecruiter.name;
+            this.submissionsLength = this.submissionDetails.length;
           }
         });
   }
