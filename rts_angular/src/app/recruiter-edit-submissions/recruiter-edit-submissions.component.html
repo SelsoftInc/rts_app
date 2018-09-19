@@ -73,7 +73,7 @@
             <div class="col-sm-4" *ngIf="selectedSubmission && (selectedSubmission.status === 'REJECTED' || selectedSubmission.status === 'TL_REJECTED' || selectedSubmission.status === 'CLIENT_REJECTED')">
               <label for="reasonForRejection" class="form-label">Reson For Rejection:</label>
               <input type="text" class="form-input" name="reasonForRejection" formControlName="reasonForRejection"
-                value="{{selectedSubmission.reasonForRejection}}" readonly>
+                ngModel="{{selectedSubmission.reasonForRejection}}" readonly>
             </div>
           </div>
         </div>

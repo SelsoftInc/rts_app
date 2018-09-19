@@ -45,6 +45,9 @@ export class RequirementsComponent implements OnInit {
   private filter: any;
   private filteredRequirements: any;
   private sortedData: any;
+  private isClientStatus: boolean;
+  private selectedClientRequirements: any;
+  private clientStatus: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -105,11 +108,13 @@ export class RequirementsComponent implements OnInit {
   filterBy(value) {
 
     if (value === 'status') {
+      this.isClientStatus = false;
       this.isStatus = true;
       this.isClient = false;
       this.isTeam = false;
       this.isRecruiter = false;
     } else if (value === 'team') {
+      this.isClientStatus = false;
       this.isTeam = true;
       this.isStatus = false;
       this.isClient = false;
@@ -120,26 +125,20 @@ export class RequirementsComponent implements OnInit {
       this.isTeam = false;
       this.isRecruiter = false;
     } else if (value === 'recruiter') {
+      this.isClientStatus = false;
       this.isRecruiter = true;
       this.isTeam = false;
       this.isStatus = false;
       this.isClient = false;
     } else if (value === '') {
+      this.isClientStatus = false;
       this.filter = '';
       this.isRecruiter = false;
       this.isTeam = false;
       this.isStatus = false;
       this.isClient = false;
     }
-
-    if (this.userRole === 'ADMIN') {
-      this.getAllRequirements();
-    } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
-      this.getAllRequirementsForTeam();
-    } else if (this.userRole === 'RECRUITER' || this.userRole === 'TRAINEE') {
-      this.getAllRequirementsForUser();
-    }
-
+    this.selectedRequirementsDetails(this.requirements);
   }
 
   filterByDate() {
@@ -180,12 +179,26 @@ export class RequirementsComponent implements OnInit {
   }
 
   selectClient(event) {
+    this.clientStatus = '';
+    this.isClientStatus = true;
     if (event === 'selectAll') {
       this.selectedRequirements = this.requirements;
       this.selectedRequirementsDetails(this.selectedRequirements);
     } else {
       this.selectedRequirements = [];
       this.selectedRequirements = _.where(this.requirements, { clientId: event });
+      this.selectedClientRequirements = this.selectedRequirements;
+      this.selectedRequirementsDetails(this.selectedRequirements);
+    }
+  }
+
+  selectClientStatus(event) {
+    if (event === 'selectAll') {
+      this.selectedRequirements = this.selectedClientRequirements;
+      this.selectedRequirementsDetails(this.selectedRequirements);
+    } else {
+      this.selectedRequirements = [];
+      this.selectedRequirements = _.where(this.selectedClientRequirements, { status: event });
       this.selectedRequirementsDetails(this.selectedRequirements);
     }
   }

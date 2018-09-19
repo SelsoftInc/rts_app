@@ -457,6 +457,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       clientContactEmail: form.value.clientContactEmail,
       workLocation: form.value.workLocation,
       status: form.value.status,
+      reasonForRejection: form.value.reasonForRejection,
       interviewStatus: form.value.interviewStatus,
       currentStatus: form.value.currentStatus,
       enteredBy: this.rtsUserId,

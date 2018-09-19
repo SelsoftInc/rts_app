@@ -111,7 +111,8 @@ export class GenerateReportComponent implements OnInit {
       this.isTeam = false;
       this.isClient = false;
     }
-    this.getApprovedSubmissions();
+    // this.getApprovedSubmissions();
+    this.selectedSubmissionDetails(this.approvedsubmissions);
   }
 
   selectTeam(event) {

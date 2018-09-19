@@ -180,8 +180,8 @@ export class SubmissionsComponent implements OnInit {
       this.isStatus = false;
       this.isClient = false;
     }
-    this.getAllSubmissions();
-
+    // this.getAllSubmissions();
+    this.selectedRequirementsDetails(this.requirements);
   }
 
   filterItem(value) {

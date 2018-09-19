@@ -33,7 +33,7 @@
       </div>
       <div class="col-auto divider-right">
         <div class="row mt-3">
-          <div class="col-6">
+          <div class="col-auto">
             <select class="form-control width-200" (change)="filterBy($event.target.value)" [(ngModel)]="filter">
               <option value="" selected>Filter By</option>
               <option value="status">Status</option>
@@ -43,7 +43,7 @@
             </select>
           </div>
 
-          <div *ngIf="isStatus" class="col-6 width-200">
+          <div *ngIf="isStatus" class="col-4 width-200">
             <select class="form-control" (change)="selectStatus($event.target.value)">
               <option value="" selected>Select</option>
               <option value="selectAll">Select All</option>
@@ -51,7 +51,7 @@
             </select>
           </div>
 
-          <div *ngIf="isTeam" class="col-6 width-200">
+          <div *ngIf="isTeam" class="col-4 width-200">
             <select class="form-control" (change)="selectTeam($event.target.value)">
               <option value="" selected>Select</option>
               <option value="selectAll">Select All</option>
@@ -59,7 +59,7 @@
             </select>
           </div>
 
-          <div *ngIf="isClient" class="col-6 width-200">
+          <div *ngIf="isClient" class="col-4 width-200">
             <select class="form-control" (change)="selectClient($event.target.value)">
               <option value="" selected>Select</option>
               <option value="selectAll">Select All</option>
@@ -67,7 +67,15 @@
             </select>
           </div>
 
-          <div *ngIf="isRecruiter" class="col-6 width-200">
+          <div *ngIf="isClientStatus" class="col-3 width-200">
+            <select class="form-control" (change)="selectClientStatus($event.target.value)" [(ngModel)]="clientStatus">
+              <option value="" selected>Select</option>
+              <option value="selectAll">Select All</option>
+              <option *ngFor="let status of requirementStatus" value="{{status.value}}">{{status.name}}</option>
+            </select>
+          </div>
+
+          <div *ngIf="isRecruiter" class="col-4 width-200">
             <select class="form-control" (change)="selectRecruiter($event.target.value)">
               <option value="" selected>Select</option>
               <option value="selectAll">Select All</option>
@@ -76,7 +84,7 @@
           </div>
         </div>
       </div>
-      <div class="col-4 mt-3">
+      <div class="col-2 mt-3">
         <div class="search-container">
           <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString "
             [(ngModel)]="searchString" (input)="filterItem($event.target.value)">
