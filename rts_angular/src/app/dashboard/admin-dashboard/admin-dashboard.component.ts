@@ -5,6 +5,7 @@ import { LoggedUserService } from '../../Services/logged-user.service';
 import { GraphService } from '../../Services/graph.service';
 import { Router } from '@angular/router';
 import { NgProgress } from 'ngx-progressbar';
+import { Sort } from '@angular/material';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -77,6 +78,7 @@ export class AdminDashboardComponent implements OnInit {
   private noSubmissionsRequirementLength: any;
   private clientWiseSubmissionStatus: any;
   private interviewReportLength: any;
+  sortedData: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -237,6 +239,7 @@ export class AdminDashboardComponent implements OnInit {
           if (data.success) {
             this.interviewReport = data.submissionReport;
             this.interviewReportLength = this.interviewReport.length;
+            this.sortedData = this.interviewReport.slice();
           }
         });
   }
@@ -366,5 +369,32 @@ export class AdminDashboardComponent implements OnInit {
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
     this.router.navigate(['team-comparison', event.extra.teamId, event.name, fromDate, toDate]);
+  }
+
+  sortData(sort: Sort) {
+    const data = this.interviewReport.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = data;
+      return;
+    }
+
+    this.sortedData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'positionName': return this.compare(a.positionName, b.positionName, isAsc);
+        case 'candidateName': return this.compare(a.candidateName, b.candidateName, isAsc);
+        case 'clientName': return this.compare(a.clientName, b.clientName, isAsc);
+        case 'InterviewDateTime': return this.compare(a.interviewDateStr, b.interviewDateStr, isAsc);
+        case 'InterviewLevel': return this.compare(a.interviewLevel, b.interviewLevel, isAsc);
+        case 'recruiterName': return this.compare(a.recruiterName, b.recruiterName, isAsc);
+        case 'skype': return this.compare(a.skypeId, b.skypeId, isAsc);
+        case 'phoneNumber': return this.compare(a.phoneNumber, b.phoneNumber, isAsc);
+        default: return 0;
+      }
+    });
+  }
+
+  compare(a, b, isAsc) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 }

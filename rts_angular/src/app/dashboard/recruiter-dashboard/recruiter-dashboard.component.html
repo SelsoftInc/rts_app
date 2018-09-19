@@ -73,21 +73,21 @@
         </div>
         <h2 class="chart-title"> Total {{interviewReportLength}} Results</h2>
         <div class="chart-scroll-wrapper">
-          <table class="table table-hover table-sm table-bordered">
+          <table class="table table-hover table-sm" matSort (matSortChange)="sortData($event)">
             <thead class="table-header">
               <tr>
-                <th>Position Name</th>
-                <th>Candidate Name</th>
-                <th>Client Name</th>
-                <th>Interview Date & Time</th>
-                <th>Interview Level</th>
-                <th>Recruiter Name</th>
-                <th>Skype</th>
-                <th>Phone Number</th>
+                <th mat-sort-header="positionName">Position Name</th>
+                <th mat-sort-header="candidateName">Candidate Name</th>
+                <th mat-sort-header="clientName">Client Name</th>
+                <th mat-sort-header="InterviewDateTime">Interview Date & Time</th>
+                <th mat-sort-header="InterviewLevel">Interview level</th>
+                <th mat-sort-header="recruiterName">Recruiter Name</th>
+                <th mat-sort-header="skype">Skype</th>
+                <th mat-sort-header="phoneNumber">Phone Number</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let submission of interviewReport" [routerLink]="['/recruiter-edit-submissions', submission.submissionId]">
+              <tr *ngFor="let submission of sortedData" [routerLink]="['/recruiter-edit-submissions', submission.submissionId]">
                 <td>{{submission.positionName}}</td>
                 <td>{{submission.candidateName}}</td>
                 <td>{{submission.clientName}}</td>
