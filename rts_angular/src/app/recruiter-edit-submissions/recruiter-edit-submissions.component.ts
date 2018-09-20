@@ -268,6 +268,8 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
               this.myForm.controls.candidateImmigirationStatus.setValue('EAD');
             } else if (immigiration === 'H4AD') {
               this.myForm.controls.candidateImmigirationStatus.setValue('H4AD');
+            } else if (immigiration === 'TN') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('TN');
             }
           }
         });
@@ -327,6 +329,8 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
               this.myForm.controls.candidateImmigirationStatus.setValue('EAD');
             } else if (immigiration === 'H4AD') {
               this.myForm.controls.candidateImmigirationStatus.setValue('H4AD');
+            } else if (immigiration === 'TN') {
+              this.myForm.controls.candidateImmigirationStatus.setValue('TN');
             }
             this.addCandidate = false;
             this.isNewCandidate = false;

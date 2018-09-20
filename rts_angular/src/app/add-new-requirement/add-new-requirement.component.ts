@@ -67,7 +67,7 @@ export class AddNewRequirementComponent implements OnInit {
     this.recruitersArray = [];
     this.dropdownSettings = {};
     this.requirementType = ['C2C', 'C2H', 'FTE', 'TBD'];
-    this.immigration = ['GC', 'CITIZEN', 'H1B', 'W2/1099', 'OPT/CPT', 'EAD', 'H4AD'];
+    this.immigration = ['GC', 'CITIZEN', 'H1B', 'W2/1099', 'OPT/CPT', 'EAD', 'H4EAD', 'TN'];
     this.requirementStatus = [
       { 'name': 'Open', 'value': 'Open' },
       { 'name': 'In-Progress', 'value': 'In-Progress' },

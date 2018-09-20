@@ -71,6 +71,7 @@ import { TeamSubmissionStatusComponent } from './team-submission-status/team-sub
 import { ClientSubmissionStatusComponent } from './client-submission-status/client-submission-status.component';
 import { RecruiterComparisonComponent } from './recruiter-comparison/recruiter-comparison.component';
 import { TeamComparisonComponent } from './team-comparison/team-comparison.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 @NgModule({
@@ -111,6 +112,7 @@ import { TeamComparisonComponent } from './team-comparison/team-comparison.compo
     ClientSubmissionStatusComponent,
     RecruiterComparisonComponent,
     TeamComparisonComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,

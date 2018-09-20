@@ -259,6 +259,89 @@ export class SubmissionsComponent implements OnInit {
           this.selectedRequirements.push(require);
         }
       }
+
+      var chartData = [];
+      var APPROVED = 0, REJECTED = 0, IN_PROGRESS = 0, CLOSED = 0, SUBMITTED = 0, CLIENT_REJECTED = 0, SELECTED = 0, INTERVIEWED = 0, HOLD = 0;
+      for (const req of this.selectedRequirements) {
+        for (const sub of req.submissions) {
+
+          if (sub.status === 'APPROVED' || sub.status === 'TL_APPROVED') {
+            APPROVED++;
+          } else if (sub.status === 'REJECTED' || sub.status === 'TL_REJECTED') {
+            REJECTED++;
+          } else if (sub.status === 'IN-PROGRESS') {
+            IN_PROGRESS++;
+          } else if (sub.status === 'CLOSED') {
+            CLOSED++;
+          } else if (sub.status === 'SUBMITTED') {
+            SUBMITTED++;
+          } else if (sub.status === 'CLIENT_REJECTED') {
+            CLIENT_REJECTED++;
+          } else if (sub.status === 'SELECTED') {
+            SELECTED++;
+          } else if (sub.status === 'INTERVIEWED') {
+            INTERVIEWED++;
+          } else if (sub.status === 'HOLD') {
+            HOLD++;
+          }
+        }
+      }
+
+      var ApprovedObj = {
+        name: 'APPROVED',
+        value: APPROVED
+      }
+
+      var RejecedObj = {
+        name: 'REJECTED',
+        value: REJECTED
+      }
+
+      var InProgressObj = {
+        name: 'IN-PROGRESS',
+        value: IN_PROGRESS
+      }
+
+      var ClosedObj = {
+        name: 'CLOSED',
+        value: CLOSED
+      }
+
+      var SubmittedObj = {
+        name: 'SUBMITTED',
+        value: SUBMITTED
+      }
+
+      var ClientRejectedObj = {
+        name: 'CLIENT_REJECTED',
+        value: CLIENT_REJECTED
+      }
+
+      var SelectedObj = {
+        name: 'SELECTED',
+        value: SELECTED
+      }
+
+      var InterviewObj = {
+        name: 'INTERVIEWED',
+        value: INTERVIEWED
+      }
+
+      var HoldObj = {
+        name: 'HOLD',
+        value: HOLD
+      }
+
+      chartData.push(ApprovedObj);
+      chartData.push(RejecedObj);
+      chartData.push(InProgressObj);
+      chartData.push(ClosedObj);
+      chartData.push(SubmittedObj);
+      chartData.push(ClientRejectedObj);
+      chartData.push(InterviewObj);
+      chartData.push(HoldObj);
+
+      console.log(chartData);
       this.selectedRequirementsDetails(this.selectedRequirements);
     }
   }

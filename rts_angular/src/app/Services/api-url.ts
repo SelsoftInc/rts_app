@@ -58,4 +58,5 @@ export class ApiUrl {
     static GetTeamComparison = 'rtsCommon/common/teamComparison';
     static GetRecruiterTeamStatus = 'rtsCommon/common/recruiterTeamStatus';
     static GetRecruiterTeamSubmissions = 'rtsCommon/common/recruiterTeamSubmissions';
+    static ForgotPassword = 'rtsUser/user/forgotPassword';
 }

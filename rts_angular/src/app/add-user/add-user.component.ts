@@ -43,8 +43,8 @@ export class AddUserComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       phoneNumber: ['', [Validators.maxLength(15), Validators.pattern('^(1\s?)?((\([0-9]{3}\))|[0-9]{3})[\s\-]?[\0-9]{3}[\s\-]?[0-9]{4}$')]],
       role: [''],
-      userPassword: [''],
-      confirmPassword: ['']
+      // userPassword: [''],
+      // confirmPassword: ['']
     });
 
     if (this.userRole === 'ACC_MGR') {
@@ -66,13 +66,13 @@ export class AddUserComponent implements OnInit {
 
   addNewUser(form: FormGroup) {
 
-    if (form.value.userPassword !== form.value.confirmPassword) {
-      this.toastr.error('Password and confirmPassword does not match', '', {
-        positionClass: 'toast-top-center',
-        timeOut: 3000,
-      });
-      return false;
-    }
+    // if (form.value.userPassword !== form.value.confirmPassword) {
+    //   this.toastr.error('Password and confirmPassword does not match', '', {
+    //     positionClass: 'toast-top-center',
+    //     timeOut: 3000,
+    //   });
+    //   return false;
+    // }
     this.ngProgress.start();
 
     const user = {
@@ -81,7 +81,7 @@ export class AddUserComponent implements OnInit {
       email: form.value.email,
       role: form.value.role,
       phoneNumber: form.value.phoneNumber,
-      password: form.value.userPassword,
+      // password: form.value.userPassword,
       enteredBy: this.rtsUserId
     };
 

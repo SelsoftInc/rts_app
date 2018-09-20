@@ -114,7 +114,7 @@
           <div class="checkbox-wrapper">
             <span class="checkbox-container" *ngFor="let data of immigration" ng-checked="immigrationByUser.indexOf(data) != 1">
               <mat-checkbox color="primary" (change)="getCheckedImmigrationValue(data)" formControlName="{{data.id}}"
-                [value]="data.value">{{data.value}}</mat-checkbox>
+                [value]="data.value">{{data.name}}</mat-checkbox>
             </span>
           </div>
         </div>

@@ -36,6 +36,7 @@ import { RecruiterComparisonComponent } from './recruiter-comparison/recruiter-c
 import { TeamComparisonComponent } from './team-comparison/team-comparison.component';
 import { AccMgrDashboardComponent } from './dashboard/acc-mgr-dashboard/acc-mgr-dashboard.component';
 import { RecruiterDashboardComponent } from './dashboard/recruiter-dashboard/recruiter-dashboard.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 export const appRoutes: Routes = [
@@ -77,6 +78,7 @@ export const appRoutes: Routes = [
   { path: 'mgr-dashboard', component: AccMgrDashboardComponent },
   { path: 'tl-dashboard', component: AccMgrDashboardComponent },
   { path: 'recruiter-dashboard', component: RecruiterDashboardComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
 ];
 
 

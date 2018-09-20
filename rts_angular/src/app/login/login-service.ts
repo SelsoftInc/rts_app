@@ -34,4 +34,12 @@ export class LoginService {
         localStorage.removeItem('rts_user');
         this.router.navigate(['login']);
     }
+
+    forgotPassword(email) {
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(ApiUrl.BaseUrl + ApiUrl.ForgotPassword, email,
+            { headers: headers })
+            .map(res => res.json());
+    }
 }

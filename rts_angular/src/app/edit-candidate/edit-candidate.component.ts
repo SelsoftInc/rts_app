@@ -157,6 +157,8 @@ export class EditCandidateComponent implements OnInit {
               this.myForm.controls.immigirationStatus.setValue('EAD');
             } else if (immigiration === 'H4AD') {
               this.myForm.controls.immigirationStatus.setValue('H4AD');
+            } else if (immigiration === 'TN') {
+              this.myForm.controls.immigirationStatus.setValue('TN');
             }
           }
         });

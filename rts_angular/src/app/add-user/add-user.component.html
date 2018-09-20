@@ -1,6 +1,6 @@
 <h2 class="main-title">
   <a [routerLink]="['/manage-users']">Manage users</a> / Add New User</h2>
-  <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
   [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
 <div class="utility-container">
   <div class="container">
@@ -36,15 +36,6 @@
           </select>
         </div>
 
-        <div class="col-sm-4">
-          <label for="userPassword" class="form-label">Password:</label>
-          <input type="password" class="form-input" name="userPassword" formControlName="userPassword" required>
-        </div>
-
-        <div class="col-sm-4">
-          <label for="confirmPassword" class="form-label">Confim Password:</label>
-          <input type="password" class="form-input" name="confirmPassword" formControlName="confirmPassword" required>
-        </div>
       </div>
 
       <div class="form-btn-container mt-5">

@@ -4,6 +4,7 @@ import { RegisterService } from './user-register-service';
 import { Router } from '@angular/router';
 import { HideComponentService } from '../Services/hide-component.service';
 import { ToastrService } from 'ngx-toastr';
+import { NgProgress } from 'ngx-progressbar';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
     private registerService: RegisterService,
     private router: Router,
     private hideComponent: HideComponentService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private ngProgress: NgProgress
   ) {
     this.hideComponent.displayComponent = false;
   }
@@ -43,7 +45,7 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
       userEmail: ['', Validators.required],
-      userPhoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      userPhoneNumber: ['', [Validators.pattern('^[0-9]*$')]],
     });
   }
 
@@ -52,6 +54,16 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
   }
 
   register(form: FormGroup) {
+
+    if (form.value.password !== form.value.confirmPassword) {
+      this.toastr.error('Password and confirmPassword does not match', '', {
+        positionClass: 'toast-top-center',
+        timeOut: 3000,
+      });
+      return false;
+    }
+    this.ngProgress.start();
+
     const company = {
       name: form.value.companyName,
       address1: form.value.companyAddress1,
@@ -79,6 +91,7 @@ export class UserRegisterComponent implements OnInit, OnDestroy {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.toastr.success('You are now registered and can log in', '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,
