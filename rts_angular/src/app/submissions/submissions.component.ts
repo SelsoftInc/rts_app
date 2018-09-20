@@ -37,6 +37,7 @@ export class SubmissionsComponent implements OnInit {
   private selectedRequirements: any;
   private submissionStatus: any;
   private filteredRequirements: any;
+  private chartData: any[];
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -260,7 +261,7 @@ export class SubmissionsComponent implements OnInit {
         }
       }
 
-      var chartData = [];
+      this.chartData = [];
       var APPROVED = 0, REJECTED = 0, IN_PROGRESS = 0, CLOSED = 0, SUBMITTED = 0, CLIENT_REJECTED = 0, SELECTED = 0, INTERVIEWED = 0, HOLD = 0;
       for (const req of this.selectedRequirements) {
         for (const sub of req.submissions) {
@@ -332,16 +333,16 @@ export class SubmissionsComponent implements OnInit {
         value: HOLD
       }
 
-      chartData.push(ApprovedObj);
-      chartData.push(RejecedObj);
-      chartData.push(InProgressObj);
-      chartData.push(ClosedObj);
-      chartData.push(SubmittedObj);
-      chartData.push(ClientRejectedObj);
-      chartData.push(InterviewObj);
-      chartData.push(HoldObj);
+      this.chartData.push(ApprovedObj);
+      this.chartData.push(RejecedObj);
+      this.chartData.push(InProgressObj);
+      this.chartData.push(ClosedObj);
+      this.chartData.push(SubmittedObj);
+      this.chartData.push(ClientRejectedObj);
+      this.chartData.push(InterviewObj);
+      this.chartData.push(HoldObj);
 
-      console.log(chartData);
+      console.log(this.chartData);
       this.selectedRequirementsDetails(this.selectedRequirements);
     }
   }

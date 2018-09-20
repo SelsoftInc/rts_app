@@ -54,7 +54,9 @@
 
             <div class="col-sm-4" *ngIf="selectedSubmission">
               <label for="status" class="form-label">Status:</label>
-              <select name="status" class="form-input" formControlName="status" ngModel="{{selectedSubmission.status}}"
+              <input type="text" class="form-input" name="workLocation" formControlName="status" ngModel="{{selectedSubmission.status}}"
+                readonly>
+              <!-- <select name="status" class="form-input" formControlName="status" ngModel="{{selectedSubmission.status}}"
                 required>
                 <option *ngIf="selectedSubmission.status === 'SUBMITTED'" value="SUBMITTED">Submitted</option>
                 <option *ngIf="selectedSubmission.status === 'TL_APPROVED'" value="TL_APPROVED">TL Approved</option>
@@ -67,7 +69,7 @@
                 <option *ngIf="selectedSubmission.status === 'INTERVIEWED'" value="INTERVIEWED">Interviewed</option>
                 <option value="IN-PROGRESS">In-Progress</option>
                 <option value="HOLD">Hold</option>
-              </select>
+              </select> -->
             </div>
 
             <div class="col-sm-4" *ngIf="selectedSubmission && (selectedSubmission.status === 'REJECTED' || selectedSubmission.status === 'TL_REJECTED' || selectedSubmission.status === 'CLIENT_REJECTED')">
