@@ -186,6 +186,19 @@ td {
   position: relative;
 }
 
+.submissions.search-container {
+  padding-top: 0 !important;
+  padding-bottom: 1em !important;
+  width: 14em;
+  position: relative;
+}
+
+.submissions-tiny-chart {
+  position: relative;
+  left: -33px;
+  top: -6px;
+}
+
 .table-header {
   background: #e8e9ef !important;
   color: #000000;
@@ -489,6 +502,10 @@ td {
 
 .width-200 {
   width: 200px;
+}
+
+.height-50 {
+  height: 50px;
 }
 
 .filter-container a {

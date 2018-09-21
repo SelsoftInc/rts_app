@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import * as _ from 'underscore';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgProgress } from 'ngx-progressbar';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'app-submissions',
@@ -14,6 +15,22 @@ import { NgProgress } from 'ngx-progressbar';
   providers: [LoggedUserService]
 })
 export class SubmissionsComponent implements OnInit {
+
+  // options
+  view: any[] = undefined;
+  showXAxis = false;
+  showYAxis = false;
+  gradient = false;
+  showLegend = false;
+  showXAxisLabel = false;
+  xAxisLabel = 'Recruiters';
+  showYAxisLabel = false;
+  yAxisLabel = 'Submissions';
+  yAxisClientLabel = 'Requirements';
+  colorScheme = {
+    domain: ['#a8385d', '#7aa3e5', '#a27ea8', '#aae3f5', '#adcded', '#a95963', '#8796c0', '#7ed3ed']
+  };
+  searchBox: boolean;
 
   private rtsUser: any;
   private rtsUserId: any;
@@ -68,6 +85,7 @@ export class SubmissionsComponent implements OnInit {
       { 'name': 'Hold', 'value': 'HOLD' }
     ];
     this.filter = '';
+    this.searchBox = true;
   }
 
   ngOnInit() {
@@ -159,27 +177,32 @@ export class SubmissionsComponent implements OnInit {
       this.isClient = false;
       this.isTeam = false;
       this.isRecruiter = false;
+      this.searchBox = true;
     } else if (value === 'team') {
       this.isTeam = true;
       this.isStatus = false;
       this.isClient = false;
       this.isRecruiter = false;
+      this.searchBox = true;
     } else if (value === 'client') {
       this.isClient = true;
       this.isStatus = false;
       this.isTeam = false;
       this.isRecruiter = false;
+      this.searchBox = true;
     } else if (value === 'recruiter') {
       this.isRecruiter = true;
       this.isTeam = false;
       this.isStatus = false;
       this.isClient = false;
+      this.searchBox = true;
     } else if (value === '') {
       this.filter = '';
       this.isRecruiter = false;
       this.isTeam = false;
       this.isStatus = false;
       this.isClient = false;
+      this.searchBox = true;
     }
     // this.getAllSubmissions();
     this.selectedRequirementsDetails(this.requirements);
@@ -209,6 +232,7 @@ export class SubmissionsComponent implements OnInit {
   }
 
   selectStatus(event) {
+    this.searchBox = true;
     if (event === 'selectAll') {
       this.selectedRequirements = this.requirements;
       this.selectedRequirementsDetails(this.selectedRequirements);
@@ -249,9 +273,12 @@ export class SubmissionsComponent implements OnInit {
 
   selectRecruiter(event) {
     if (event === 'selectAll') {
+      this.chartData = [];
+      this.searchBox = true;
       this.selectedRequirements = this.requirements;
       this.selectedRequirementsDetails(this.selectedRequirements);
     } else {
+      this.searchBox = false;
       this.selectedRequirements = [];
       for (const require of this.requirements) {
         const selectedSubmissions = _.where(require.submissions, { enteredBy: event });
@@ -262,7 +289,7 @@ export class SubmissionsComponent implements OnInit {
       }
 
       this.chartData = [];
-      var APPROVED = 0, REJECTED = 0, IN_PROGRESS = 0, CLOSED = 0, SUBMITTED = 0, CLIENT_REJECTED = 0, SELECTED = 0, INTERVIEWED = 0, HOLD = 0;
+      let APPROVED = 0, REJECTED = 0, IN_PROGRESS = 0, CLOSED = 0, SUBMITTED = 0, CLIENT_REJECTED = 0, SELECTED = 0, INTERVIEWED = 0, HOLD = 0;
       for (const req of this.selectedRequirements) {
         for (const sub of req.submissions) {
 
@@ -288,50 +315,50 @@ export class SubmissionsComponent implements OnInit {
         }
       }
 
-      var ApprovedObj = {
+      let ApprovedObj = {
         name: 'APPROVED',
         value: APPROVED
-      }
+      };
 
-      var RejecedObj = {
+      let RejecedObj = {
         name: 'REJECTED',
         value: REJECTED
-      }
+      };
 
-      var InProgressObj = {
+      let InProgressObj = {
         name: 'IN-PROGRESS',
         value: IN_PROGRESS
-      }
+      };
 
-      var ClosedObj = {
+      let ClosedObj = {
         name: 'CLOSED',
         value: CLOSED
-      }
+      };
 
-      var SubmittedObj = {
+      let SubmittedObj = {
         name: 'SUBMITTED',
         value: SUBMITTED
-      }
+      };
 
-      var ClientRejectedObj = {
+      let ClientRejectedObj = {
         name: 'CLIENT_REJECTED',
         value: CLIENT_REJECTED
-      }
+      };
 
-      var SelectedObj = {
+      let SelectedObj = {
         name: 'SELECTED',
         value: SELECTED
-      }
+      };
 
-      var InterviewObj = {
+      let InterviewObj = {
         name: 'INTERVIEWED',
         value: INTERVIEWED
-      }
+      };
 
-      var HoldObj = {
+      let HoldObj = {
         name: 'HOLD',
         value: HOLD
-      }
+      };
 
       this.chartData.push(ApprovedObj);
       this.chartData.push(RejecedObj);
@@ -345,5 +372,9 @@ export class SubmissionsComponent implements OnInit {
       console.log(this.chartData);
       this.selectedRequirementsDetails(this.selectedRequirements);
     }
+  }
+
+  onUserSelect(event) {
+    console.log('TODO');
   }
 }

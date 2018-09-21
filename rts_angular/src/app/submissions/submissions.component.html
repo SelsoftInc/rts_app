@@ -80,12 +80,18 @@
         </div>
       </div>
       <div class="col-4 mt-3">
-        <div class="search-container">
+        <div *ngIf="!searchBox" class="col-6 width-200 height-50 submissions-tiny-chart">
+          <ngx-charts-bar-vertical [view]="view" [animations]="false" [scheme]="colorScheme" [results]="chartData" [gradient]="gradient"
+                                   [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                                   [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel" (select)="onUserSelect($event)">
+          </ngx-charts-bar-vertical>
+        </div>
+        <div class="submissions search-container" *ngIf="searchBox">
           <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString "
-            [(ngModel)]="searchString" (input)="filterItem($event.target.value)">
+                 [(ngModel)]="searchString" (input)="filterItem($event.target.value)">
           <span class="search-icon">
-            <i class="material-icons">search</i>
-          </span>
+          <i class="material-icons">search</i>
+        </span>
         </div>
       </div>
     </div>
