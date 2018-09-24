@@ -53,6 +53,8 @@ export class EditRequirementComponent implements OnInit {
   private dropdownSettings: any;
   private selectedrecruitersArray: any;
   private accountName: any;
+  selctedVisaStatus: any;
+  isOtherImmigration: boolean;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -73,20 +75,11 @@ export class EditRequirementComponent implements OnInit {
     this.selectedTeamUsers = [];
     this.selectedRecruites = [];
     this.selectedrecruitersArray = [];
+    this.selctedVisaStatus = [];
     this.recruitersArray = [];
     this.selectedRequirement = {};
     this.dropdownSettings = {};
     this.requirementType = ['C2C', 'C2H', 'FTE', 'TBD'];
-    this.immigration = [
-      { 'id': 'GC', 'value': 'GC', 'name': 'GC' },
-      { 'id': 'CITIZEN', 'value': 'CITIZEN', 'name': 'CITIZEN' },
-      { 'id': 'H1B', 'value': 'H1B', 'name': 'H1B' },
-      { 'id': 'W2_1099', 'value': 'W2/1099', 'name': 'W2/1099' },
-      { 'id': 'OPT_CPT', 'value': 'OPT/CPT', 'name': 'OPT/CPT' },
-      { 'id': 'EAD', 'value': 'EAD', 'name': 'EAD' },
-      { 'id': 'H4AD', 'value': 'H4AD', 'name': 'H4EAD' },
-      { 'id': 'TN', 'value': 'TN', 'name': 'TN' },
-    ];
     this.requirementStatus = [
       { 'name': 'Open', 'value': 'Open' },
       { 'name': 'In-Progress', 'value': 'In-Progress' },
@@ -126,16 +119,10 @@ export class EditRequirementComponent implements OnInit {
       C2H: [''],
       TBD: [''],
       FTE: [''],
-      GC: [''],
-      CITIZEN: [''],
-      H1B: [''],
-      W2_1099: [''],
-      OPT_CPT: [''],
-      EAD: [''],
-      H4AD: [''],
-      TN: [''],
+      immigrationStatus: [''],
       otherTechnology: [''],
-      recruitersName: ['']
+      recruitersName: [''],
+      otherImmigration: ['']
     });
     this.dropdownSettings = {
       singleSelection: false,
@@ -165,6 +152,10 @@ export class EditRequirementComponent implements OnInit {
             this.accounts = data.accounts;
             this.positions = data.positions;
             this.teams = data.teams;
+            this.immigration = data.visaStatus;
+            for (const immigration of this.immigration) {
+              immigration.isChecked = false;
+            }
             this.getAllRequirements();
           }
         });
@@ -187,19 +178,18 @@ export class EditRequirementComponent implements OnInit {
   getAllRequirements() {
 
     const userId = {
-      companyId: this.rtsCompanyId
+      requirementId: this.requirementId
     };
 
-    this.requirementService.requirementsDetails(userId)
+    this.requirementService.getRequirementsById(userId)
       .subscribe(
         data => {
           if (data.success) {
             this.ngProgress.done();
-            this.requirements = data.requirements;
-            this.selectedRequirement = _.findWhere(this.requirements, { requirementId: this.requirementId });
+            this.selectedRequirement = data.requirement;
             this.requirementCreatedDate = moment(this.selectedRequirement.createdOn).format('MMM D, Y');
             this.requirementByUser = this.selectedRequirement.requirementType;
-            this.immigrationByUser = this.selectedRequirement.immigrationRequirement;
+            this.selctedVisaStatus = this.selectedRequirement.visaStatus;
             if (this.selectedRequirement.team !== undefined) {
               this.selectedTeam = _.findWhere(this.teams, { teamId: this.selectedRequirement.teamId });
               this.selectedTeamUsers.push(this.selectedTeam.leadUser);
@@ -226,29 +216,19 @@ export class EditRequirementComponent implements OnInit {
                 this.myForm.controls.TBD.setValue('TBD');
               }
             }
-            for (const value of this.immigrationByUser) {
-              if (value === 'GC') {
-                this.myForm.controls.GC.setValue('GC');
-              } else if (value === 'CITIZEN') {
-                this.myForm.controls.CITIZEN.setValue('CITIZEN');
-              } else if (value === 'H1B') {
-                this.myForm.controls.H1B.setValue('H1B');
-              } else if (value === 'W2/1099') {
-                this.myForm.controls.W2_1099.setValue('W2/1099');
-              } else if (value === 'OPT/CPT') {
-                this.myForm.controls.OPT_CPT.setValue('OPT/CPT');
-              } else if (value === 'EAD') {
-                this.myForm.controls.EAD.setValue('EAD');
-              } else if (value === 'H4AD') {
-                this.myForm.controls.H4AD.setValue('H4AD');
-              } else if (value === 'TN') {
-                this.myForm.controls.TN.setValue('TN');
+            for (const visa of this.selctedVisaStatus) {
+              for (const immigration of this.immigration) {
+                if (_.isEqual(visa.visaId, immigration.visaId)) {
+                  immigration.isChecked = true;
+                }
               }
+            }
+            for (const ids of this.selctedVisaStatus) {
+              this.immigrationByUser.push(ids.visaId);
             }
           }
         });
   }
-
 
   getCheckedRequirementType(type) {
     if (this.requirementByUser.indexOf(type) === -1) {
@@ -259,10 +239,18 @@ export class EditRequirementComponent implements OnInit {
   }
 
   getCheckedImmigrationValue(data) {
-    if (this.immigrationByUser.indexOf(data.value) === -1) {
-      this.immigrationByUser.push(data.value);
+    if (this.immigrationByUser.indexOf(data) === -1) {
+      this.immigrationByUser.push(data);
     } else {
-      this.immigrationByUser.splice(this.immigrationByUser.indexOf(data.value), 1);
+      this.immigrationByUser.splice(this.immigrationByUser.indexOf(data), 1);
+    }
+  }
+
+  getOtherImmigration(data) {
+    if (data.checked) {
+      this.isOtherImmigration = true;
+    } else {
+      this.isOtherImmigration = false;
     }
   }
 
@@ -326,7 +314,13 @@ export class EditRequirementComponent implements OnInit {
 
   updateRequirement(form: FormGroup) {
     this.ngProgress.start();
-
+    const selectedImmigration = [];
+    for (const label of this.immigrationByUser) {
+      selectedImmigration.push({ visaId: label });
+    }
+    if (this.isOtherImmigration) {
+      selectedImmigration.push({ visaName: form.value.otherImmigration });
+    }
     this.selectedRecruites = [];
     for (const recruiter of this.selectedrecruitersArray) {
       this.selectedRecruites.push({ email: recruiter.user });
@@ -336,7 +330,7 @@ export class EditRequirementComponent implements OnInit {
       priority: form.value.priority,
       location: form.value.location,
       requirementType: this.requirementByUser,
-      immigrationRequirement: this.immigrationByUser,
+      visaStatus: selectedImmigration,
       positionCount: parseInt(form.value.positionsCount, 0),
       status: form.value.status,
       enteredBy: this.rtsUserId,

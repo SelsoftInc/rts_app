@@ -1,7 +1,7 @@
 <h2 class="main-title">
   <a [routerLink]="['/requirements']">Requirements</a> / Add New Requirement</h2>
-  <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
-[direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
 <div class="utility-container">
   <form [formGroup]="myForm" (ngSubmit)="addNewRequirement(myForm)">
     <div class="row">
@@ -68,19 +68,22 @@
 
       <div class="col-sm-2">
         <label for="positionsCount" class="form-label ">No.of Positions:</label>
-        <input type="text" maxlength="2" class="form-input" name="positionsCount" formControlName="positionsCount" required>
+        <input type="text" maxlength="2" class="form-input" name="positionsCount" formControlName="positionsCount"
+          required>
       </div>
     </div>
 
     <div class="row">
       <div class="col-sm-2">
         <label for="clientRate" class="form-label">Client Rate:</label>
-        <input type="text" class="form-input" placeholder="$" name="clientRate" maxlength="25" formControlName="clientRate" required>
+        <input type="text" class="form-input" placeholder="$" name="clientRate" maxlength="25" formControlName="clientRate"
+          required>
       </div>
 
       <div class="col-sm-2">
         <label for="sellingRate" class="form-label">Selling Rate:</label>
-        <input type="text" class="form-input" placeholder="$" name="sellingRate" maxlength="25" formControlName="sellingRate" required>
+        <input type="text" class="form-input" placeholder="$" name="sellingRate" maxlength="25" formControlName="sellingRate"
+          required>
       </div>
     </div>
 
@@ -89,7 +92,8 @@
         <label class="form-label">Requirement Type:</label>
         <div class="checkbox-wrapper">
           <span class="checkbox-container" *ngFor="let type of requirementType" ng-checked="requirementByUser.indexOf(type) != 1">
-            <mat-checkbox color="primary" (change)="getCheckedRequirementType(type)" formControlName="requirementType" [value]="type">{{type}}</mat-checkbox>
+            <mat-checkbox color="primary" (change)="getCheckedRequirementType(type)" formControlName="requirementType"
+              [value]="type">{{type}}</mat-checkbox>
           </span>
         </div>
       </div>
@@ -100,10 +104,18 @@
       <div class="col-sm-6">
         <label class="form-label">Immigration Requirement:</label>
         <div class="checkbox-wrapper">
-          <span class="checkbox-container" *ngFor="let data of immigration" ng-checked="immigrationByUser.indexOf(data) != 1">
-            <mat-checkbox color="primary" (change)="getCheckedImmigrationValue(data)" formControlName="immigrationRequirement" [value]="data">{{data}}</mat-checkbox>
+          <span class="checkbox-container" *ngFor="let data of immigration" ng-checked="selctedVisaStatus.indexOf(data.visaId) != 1">
+            <mat-checkbox color="primary" (change)="getCheckedImmigrationValue(data.visaId)" [value]="data.visaId">{{data.visaName}}</mat-checkbox>
           </span>
+          <mat-checkbox color="primary" value="other" (change)="getOtherImmigration($event)">OTHER</mat-checkbox>
         </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-sm-4" *ngIf="isOtherImmigration">
+        <label for="sellingRate" class="form-label">Other Immigration:</label>
+        <input type="text" class="form-input" name="otherImmigration" maxlength="25" formControlName="otherImmigration">
       </div>
     </div>
 
@@ -119,8 +131,8 @@
       <div class="col-sm-4" *ngIf="isRecruiters">
         <label for="clientName" class="form-label">Select Recruiters:</label>
         <div class="pt-4">
-          <ng-multiselect-dropdown [placeholder]="'Select Recruiters'" [data]="recruitersArray" formControlName="recruitersName" [settings]="dropdownSettings"
-            (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)">
+          <ng-multiselect-dropdown [placeholder]="'Select Recruiters'" [data]="recruitersArray" formControlName="recruitersName"
+            [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)">
           </ng-multiselect-dropdown>
         </div>
       </div>
@@ -146,7 +158,8 @@
     <div class="row">
       <div class="col-sm-4">
         <label for="team" class="form-label">Select Team:</label>
-        <select name="team" class="form-input" formControlName="team" (change)="selectTeam($event.target.value)" required>
+        <select name="team" class="form-input" formControlName="team" (change)="selectTeam($event.target.value)"
+          required>
           <option value="">Select</option>
           <option *ngFor="let team of teams" value="{{team.teamId}}">{{team.name}}</option>
         </select>
@@ -174,14 +187,16 @@
     <div class="row">
       <div class="col-sm-4">
         <label for="notes" class="form-label">Notes:</label>
-        <textarea rows="3" name="notes" class="form-textarea" formControlName="notes" placeholder="Type Your Notes.." ngModel></textarea>
+        <textarea rows="3" name="notes" class="form-textarea" formControlName="notes" placeholder="Type Your Notes.."
+          ngModel></textarea>
       </div>
     </div>
 
     <div class="row">
       <div class="col-sm-4">
         <label for="comments" class="form-label">Comments:</label>
-        <textarea rows="3" name="comments" class="form-textarea" formControlName="comments" placeholder="Type Your Comments.." ngModel></textarea>
+        <textarea rows="3" name="comments" class="form-textarea" formControlName="comments" placeholder="Type Your Comments.."
+          ngModel></textarea>
       </div>
     </div>
 

@@ -59,4 +59,5 @@ export class ApiUrl {
     static GetRecruiterTeamStatus = 'rtsCommon/common/recruiterTeamStatus';
     static GetRecruiterTeamSubmissions = 'rtsCommon/common/recruiterTeamSubmissions';
     static ForgotPassword = 'rtsUser/user/forgotPassword';
+    static GetRequirementById = 'rtsRequirement/requirement/getRequirementById';
 }

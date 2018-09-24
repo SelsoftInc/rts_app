@@ -44,6 +44,8 @@ export class AddNewRequirementComponent implements OnInit {
   private recruitersArray: any;
   private selectedRecruites: any;
   private selectedClient: any;
+  isOtherImmigration: boolean;
+  selctedVisaStatus: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -64,10 +66,10 @@ export class AddNewRequirementComponent implements OnInit {
     this.immigrationByUser = [];
     this.selectedTeamUsers = [];
     this.selectedRecruites = [];
+    this.selctedVisaStatus = [];
     this.recruitersArray = [];
     this.dropdownSettings = {};
     this.requirementType = ['C2C', 'C2H', 'FTE', 'TBD'];
-    this.immigration = ['GC', 'CITIZEN', 'H1B', 'W2/1099', 'OPT/CPT', 'EAD', 'H4EAD', 'TN'];
     this.requirementStatus = [
       { 'name': 'Open', 'value': 'Open' },
       { 'name': 'In-Progress', 'value': 'In-Progress' },
@@ -98,7 +100,8 @@ export class AddNewRequirementComponent implements OnInit {
       comments: [''],
       notes: [''],
       otherTechnology: [''],
-      recruitersName: ['']
+      recruitersName: [''],
+      otherImmigration: ['']
     });
     this.dropdownSettings = {
       singleSelection: false,
@@ -128,6 +131,7 @@ export class AddNewRequirementComponent implements OnInit {
             this.accounts = data.accounts;
             this.positions = data.positions;
             this.teams = data.teams;
+            this.immigration = data.visaStatus;
           }
         });
   }
@@ -248,10 +252,18 @@ export class AddNewRequirementComponent implements OnInit {
   }
 
   getCheckedImmigrationValue(data) {
-    if (this.immigrationByUser.indexOf(data) === -1) {
-      this.immigrationByUser.push(data);
+    if (this.selctedVisaStatus.indexOf(data) === -1) {
+      this.selctedVisaStatus.push(data);
     } else {
-      this.immigrationByUser.splice(this.immigrationByUser.indexOf(data), 1);
+      this.selctedVisaStatus.splice(this.selctedVisaStatus.indexOf(data), 1);
+    }
+  }
+
+  getOtherImmigration(data) {
+    if (data.checked) {
+      this.isOtherImmigration = true;
+    } else {
+      this.isOtherImmigration = false;
     }
   }
 
@@ -325,6 +337,13 @@ export class AddNewRequirementComponent implements OnInit {
   }
 
   addNewRequirement(form: FormGroup) {
+    this.immigrationByUser = [];
+    for (const label of this.selctedVisaStatus) {
+      this.immigrationByUser.push({ visaId: label });
+    }
+    if (this.isOtherImmigration) {
+      this.immigrationByUser.push({ visaName: form.value.otherImmigration });
+    }
 
     if (form.value.clientRate === '' || form.value.clientRate === null) {
       this.toastr.error('Client Rate should not be empty', '', {
@@ -341,12 +360,13 @@ export class AddNewRequirementComponent implements OnInit {
       });
       return false;
     }
+
     this.ngProgress.start();
     const requirement: any = {
       priority: form.value.priority,
       location: form.value.location,
       requirementType: this.requirementByUser,
-      immigrationRequirement: this.immigrationByUser,
+      visaStatus: this.immigrationByUser,
       positionCount: parseInt(form.value.positionsCount, 0),
       status: form.value.status,
       enteredBy: this.rtsUserId,

@@ -192,11 +192,8 @@ export class SubmissionsComponent implements OnInit {
   }
 
   filterBy(value) {
-    if (SubmissionsComponent.filterBy === undefined || SubmissionsComponent.filterBy === '') {
-      SubmissionsComponent.filterBy = value;
-    } else {
-      value = SubmissionsComponent.filterBy;
-    }
+
+    SubmissionsComponent.filterBy = value;
 
     if (value === 'status') {
       this.isStatus = true;
@@ -230,9 +227,8 @@ export class SubmissionsComponent implements OnInit {
       this.isClient = false;
       this.searchBox = true;
     }
-    // this.getAllSubmissions();
+    this.recruiter = '';
     this.selectedRequirementsDetails(this.requirements);
-
   }
 
   filterItem(value) {
@@ -255,7 +251,7 @@ export class SubmissionsComponent implements OnInit {
   filterByDate() {
     SubmissionsComponent.userDetails = undefined;
     SubmissionsComponent.recruiter = undefined;
-    SubmissionsComponent.filterBy = undefined;
+    // SubmissionsComponent.filterBy = undefined;
     this.recruiter = '';
     this.ngProgress.start();
     this.filterBy('');

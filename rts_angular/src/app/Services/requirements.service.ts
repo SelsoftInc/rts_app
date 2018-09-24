@@ -76,6 +76,26 @@ export class RequirementsService {
             });
     }
 
+    getRequirementsById(userId) {
+        const token = localStorage.getItem('id_token');
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', token);
+
+        return this.http.post(ApiUrl.BaseUrl + ApiUrl.GetRequirementById, userId,
+            { headers: headers })
+            .map(res => {
+                const responseToken = res.headers.get('refresh-token');
+                localStorage.setItem('id_token', responseToken);
+                return res.json();
+            }).catch(err => {
+                if (err.status === 401) {
+                    this.loginService.logout();
+                }
+                return '{}';
+            });
+    }
+
     requirementsDetailsForClient(userId) {
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
