@@ -37,6 +37,7 @@ import { TeamComparisonComponent } from './team-comparison/team-comparison.compo
 import { AccMgrDashboardComponent } from './dashboard/acc-mgr-dashboard/acc-mgr-dashboard.component';
 import { RecruiterDashboardComponent } from './dashboard/recruiter-dashboard/recruiter-dashboard.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { RecruiterSubmissionsStatusComponent } from './recruiter-submissions-status/recruiter-submissions-status.component';
 
 
 export const appRoutes: Routes = [
@@ -74,6 +75,7 @@ export const appRoutes: Routes = [
   { path: 'client-submissions-status/:id/:status/:fromDate/:toDate', component: ClientSubmissionStatusComponent },
   { path: 'recruiter-comparison/:id/:status/:fromDate/:toDate', component: RecruiterComparisonComponent },
   { path: 'team-comparison/:id/:status/:fromDate/:toDate', component: TeamComparisonComponent },
+  { path: 'recruiter-submissions-status/:id/:status/:fromDate/:toDate', component: RecruiterSubmissionsStatusComponent },
   { path: 'delete-team/:id', component: DeleteTeamComponent },
   { path: 'mgr-dashboard', component: AccMgrDashboardComponent },
   { path: 'tl-dashboard', component: AccMgrDashboardComponent },

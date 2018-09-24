@@ -7,6 +7,7 @@ import * as _ from 'underscore';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgProgress } from 'ngx-progressbar';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-submissions',
@@ -66,7 +67,8 @@ export class SubmissionsComponent implements OnInit {
     private requirementService: RequirementsService,
     private hideComponent: HideComponentService,
     private formBuilder: FormBuilder,
-    private ngProgress: NgProgress
+    private ngProgress: NgProgress,
+    private router: Router
   ) {
     this.hideComponent.displayComponent = true;
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
@@ -397,15 +399,16 @@ export class SubmissionsComponent implements OnInit {
       this.chartData.push(InterviewObj);
       this.chartData.push(ClosedObj);
       this.chartData.push(ClientRejectedObj);
-
+      for (const user of this.chartData) {
+        user.extra = { userId: event };
+      }
       this.selectedRequirementsDetails(this.selectedRequirements);
     }
   }
 
   onUserSelect(event) {
-    console.log(event);
-    // const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    // const fromDate = moment(this.startDate).format('YYYY-MM-DD');
     // const toDate = moment(this.currentDate).format('YYYY-MM-DD');
-    // this.router.navigate(['team-submisson', event.extra.teamId, fromDate, toDate]);
+    // this.router.navigate(['recruiter-submissions-status', event.extra.userId, event.name, fromDate, toDate]);
   }
 }
