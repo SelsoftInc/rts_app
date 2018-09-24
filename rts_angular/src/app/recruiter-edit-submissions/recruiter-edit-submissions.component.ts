@@ -52,6 +52,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   private clientRecruiterName: any;
   private clientRecruiterEmail: any;
   private comment: any;
+  immigration: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -174,6 +175,10 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       .subscribe(data => {
         if (data.success) {
           this.technology = data.technologies;
+          this.immigration = data.visaStatus;
+          for (const immigration of this.immigration) {
+            immigration.isChecked = false;
+          }
         }
       });
 
@@ -253,23 +258,11 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             }
             this.clientRecruiterName = this.recruiterName.join();
 
-            const immigiration = this.selectedSubmission.candidate.immigirationStatus;
-            if (immigiration === 'GC') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('GC');
-            } else if (immigiration === 'CITIZEN') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('CITIZEN');
-            } else if (immigiration === 'H1B') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('H1B');
-            } else if (immigiration === 'W2/1099') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('W2/1099');
-            } else if (immigiration === 'OPT/CPT') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('OPT/CPT');
-            } else if (immigiration === 'EAD') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('EAD');
-            } else if (immigiration === 'H4AD') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('H4AD');
-            } else if (immigiration === 'TN') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('TN');
+            const immigirationStatus = this.selectedSubmission.candidate.visaStatus;
+            for (const immigration of this.immigration) {
+              if (_.isEqual(immigirationStatus.visaId, immigration.visaId)) {
+                immigration.isChecked = true;
+              }
             }
           }
         });
@@ -314,23 +307,14 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
               this.myForm.controls.editWorkedWithClient.setValue('false');
               this.isWorkedWithClient = false;
             }
-            const immigiration = this.selectedSubmission.candidate.immigirationStatus;
-            if (immigiration === 'GC') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('GC');
-            } else if (immigiration === 'CITIZEN') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('CITIZEN');
-            } else if (immigiration === 'H1B') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('H1B');
-            } else if (immigiration === 'W2/1099') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('W2/1099');
-            } else if (immigiration === 'OPT/CPT') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('OPT/CPT');
-            } else if (immigiration === 'EAD') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('EAD');
-            } else if (immigiration === 'H4AD') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('H4AD');
-            } else if (immigiration === 'TN') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('TN');
+            for (const immigration of this.immigration) {
+              immigration.isChecked = false;
+            }
+            const immigirationStatus = this.selectedSubmission.candidate.visaStatus;
+            for (const immigration of this.immigration) {
+              if (_.isEqual(immigirationStatus.visaId, immigration.visaId)) {
+                immigration.isChecked = true;
+              }
             }
             this.addCandidate = false;
             this.isNewCandidate = false;
@@ -406,7 +390,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
 
   getImmigiration(event) {
     if (event !== undefined) {
-      this.immigirationStatus = event.value;
+      this.immigirationStatus = { visaId: event };
     }
   }
 
@@ -516,7 +500,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       location: form.value.editCandidateLocation,
       availability: form.value.editAvailability,
       phoneNumber: form.value.editCandidatePhone,
-      immigirationStatus: this.immigirationStatus,
+      visaStatus: this.immigirationStatus,
       skype: form.value.editSkype,
       linkedIn: form.value.editLinkedIn,
       relocate: this.isRelocate,

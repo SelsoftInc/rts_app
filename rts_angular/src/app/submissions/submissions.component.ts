@@ -389,14 +389,14 @@ export class SubmissionsComponent implements OnInit {
         value: HOLD
       };
 
-      this.chartData.push(ApprovedObj);
-      this.chartData.push(RejecedObj);
-      this.chartData.push(InProgressObj);
-      this.chartData.push(ClosedObj);
       this.chartData.push(SubmittedObj);
-      this.chartData.push(ClientRejectedObj);
-      this.chartData.push(InterviewObj);
+      this.chartData.push(ApprovedObj);
+      this.chartData.push(InProgressObj);
+      this.chartData.push(RejecedObj);
       this.chartData.push(HoldObj);
+      this.chartData.push(InterviewObj);
+      this.chartData.push(ClosedObj);
+      this.chartData.push(ClientRejectedObj);
 
       this.selectedRequirementsDetails(this.selectedRequirements);
     }

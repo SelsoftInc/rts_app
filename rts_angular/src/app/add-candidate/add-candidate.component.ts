@@ -29,6 +29,7 @@ export class AddCandidateComponent implements OnInit {
   private immigirationStatus: any;
   private isRelocate: boolean;
   private isWorkedWithClient: boolean;
+  immigration: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -91,6 +92,7 @@ export class AddCandidateComponent implements OnInit {
         data => {
           if (data.success) {
             this.technologies = data.technologies;
+            this.immigration = data.visaStatus;
           }
         });
   }
@@ -144,7 +146,7 @@ export class AddCandidateComponent implements OnInit {
 
   getImmigiration(event) {
     if (event !== undefined) {
-      this.immigirationStatus = event.value;
+      this.immigirationStatus = { visaId: event };
     }
   }
 
@@ -157,7 +159,7 @@ export class AddCandidateComponent implements OnInit {
       phoneNumber: form.value.phoneNumber,
       location: form.value.location,
       availability: form.value.availability,
-      immigirationStatus: this.immigirationStatus,
+      visaStatus: this.immigirationStatus,
       companyId: this.rtsCompanyId,
       skype: form.value.skype,
       linkedIn: form.value.linkedIn,

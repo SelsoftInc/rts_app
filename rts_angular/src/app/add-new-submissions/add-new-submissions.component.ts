@@ -49,6 +49,7 @@ export class AddNewSubmissionsComponent implements OnInit {
   private baseUrl: any;
   private isRelocate: any;
   isWorkedWithClient: boolean;
+  immigration: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -161,6 +162,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       .subscribe(data => {
         if (data.success) {
           this.technology = data.technologies;
+          this.immigration = data.visaStatus;
         }
       });
 
@@ -380,7 +382,7 @@ export class AddNewSubmissionsComponent implements OnInit {
 
   getImmigiration(event) {
     if (event !== undefined) {
-      this.immigirationStatus = event.value;
+      this.immigirationStatus = { visaId: event };
     }
   }
 
@@ -461,7 +463,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       location: form.value.editCandidateLocation,
       availability: form.value.editAvailability,
       phoneNumber: form.value.editCandidatePhone,
-      immigirationStatus: this.immigirationStatus,
+      visaStatus: this.immigirationStatus,
       skype: form.value.editSkype,
       linkedIn: form.value.editLinkedIn,
       relocate: this.isRelocate,

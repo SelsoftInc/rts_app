@@ -1,6 +1,6 @@
 <h2 class="main-title">
   <a [routerLink]="['/manage-candidate']">Manage Candidates</a> / Edit Candidate</h2>
-  <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
   [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
 <div class="utility-container">
   <form [formGroup]="myForm" (ngSubmit)="updateCandidate(myForm)">
@@ -42,15 +42,8 @@
           <div class="mb-3">
             <label for="immigirationStatus" class="form-label">Immigiration Status:</label>
           </div>
-          <mat-radio-group (change)="getImmigiration($event)" formControlName="immigirationStatus">
-            <mat-radio-button value="GC">GC</mat-radio-button>
-            <mat-radio-button value="CITIZEN">CITIZEN</mat-radio-button>
-            <mat-radio-button value="H1B">H1B</mat-radio-button>
-            <mat-radio-button value="W2/1099">W2/1099</mat-radio-button>
-            <mat-radio-button value="OPT/CPT">OPT/CPT</mat-radio-button>
-            <mat-radio-button value="EAD">EAD</mat-radio-button>
-            <mat-radio-button value="H4AD">H4EAD</mat-radio-button>
-            <mat-radio-button value="TN">TN</mat-radio-button>
+          <mat-radio-group (change)="getImmigiration($event.source.value)" formControlName="immigirationStatus">
+            <mat-radio-button *ngFor="let data of immigration" [value]="data.visaId" [checked]="data.isChecked">{{data.visaName}}</mat-radio-button>
           </mat-radio-group>
         </div>
 
@@ -138,7 +131,8 @@
 
         <div class="col-sm-4" *ngIf="selectedCandidate">
           <label for="anotherInterviewOffer" class="form-label">Any interview or Offer in hand?</label>
-          <input type="text" class="form-input" name="anotherInterviewOffer" formControlName="anotherInterviewOffer" ngModel="{{selectedCandidate.anyOffer}}">
+          <input type="text" class="form-input" name="anotherInterviewOffer" formControlName="anotherInterviewOffer"
+            ngModel="{{selectedCandidate.anyOffer}}">
         </div>
 
         <div class="col-sm-4" *ngIf="selectedCandidate">
@@ -171,7 +165,8 @@
 
             <div class="col-sm-4">
               <label for="employerContactName" class="form-label">Employer Contact Name:</label>
-              <input type="text" class="form-input" name="employerContactName" formControlName="employerContactName" ngModel="{{selectedCandidate.employeeContactName}}">
+              <input type="text" class="form-input" name="employerContactName" formControlName="employerContactName"
+                ngModel="{{selectedCandidate.employeeContactName}}">
             </div>
 
             <div class="col-sm-4">
@@ -208,7 +203,7 @@
               <label class="fileContainer">
                 <button class="btn btn-secondary">
                   Attach Files</button>
-                <input type="file" (change)="fileChangeEvent($event)" multiple/>
+                <input type="file" (change)="fileChangeEvent($event)" multiple />
               </label>
             </div>
             <div class="pb-2" *ngFor="let file of getFiles">

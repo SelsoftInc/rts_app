@@ -36,6 +36,7 @@ export class EditCandidateComponent implements OnInit {
   private baseUrl: any;
   private isRelocate: boolean;
   private isWorkedWithClient: boolean;
+  immigration: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -107,6 +108,10 @@ export class EditCandidateComponent implements OnInit {
         data => {
           if (data.success) {
             this.technologies = data.technologies;
+            this.immigration = data.visaStatus;
+            for (const immigration of this.immigration) {
+              immigration.isChecked = false;
+            }
           }
         });
   }
@@ -141,24 +146,11 @@ export class EditCandidateComponent implements OnInit {
               this.myForm.controls.workedWithClient.setValue('false');
               this.isWorkedWithClient = false;
             }
-            this.immigirationStatus = this.selectedCandidate.immigirationStatus;
-            const immigiration = this.selectedCandidate.immigirationStatus;
-            if (immigiration === 'GC') {
-              this.myForm.controls.immigirationStatus.setValue('GC');
-            } else if (immigiration === 'CITIZEN') {
-              this.myForm.controls.immigirationStatus.setValue('CITIZEN');
-            } else if (immigiration === 'H1B') {
-              this.myForm.controls.immigirationStatus.setValue('H1B');
-            } else if (immigiration === 'W2/1099') {
-              this.myForm.controls.immigirationStatus.setValue('W2/1099');
-            } else if (immigiration === 'OPT/CPT') {
-              this.myForm.controls.immigirationStatus.setValue('OPT/CPT');
-            } else if (immigiration === 'EAD') {
-              this.myForm.controls.immigirationStatus.setValue('EAD');
-            } else if (immigiration === 'H4AD') {
-              this.myForm.controls.immigirationStatus.setValue('H4AD');
-            } else if (immigiration === 'TN') {
-              this.myForm.controls.immigirationStatus.setValue('TN');
+            const immigirationStatus = this.selectedCandidate.visaStatus;
+            for (const immigration of this.immigration) {
+              if (_.isEqual(immigirationStatus.visaId, immigration.visaId)) {
+                immigration.isChecked = true;
+              }
             }
           }
         });
@@ -219,7 +211,7 @@ export class EditCandidateComponent implements OnInit {
 
   getImmigiration(event) {
     if (event !== undefined) {
-      this.immigirationStatus = event.value;
+      this.immigirationStatus = { visaId: event };
     }
   }
 
@@ -236,7 +228,7 @@ export class EditCandidateComponent implements OnInit {
       phoneNumber: form.value.phoneNumber,
       location: form.value.location,
       availability: form.value.availability,
-      immigirationStatus: this.immigirationStatus,
+      visaStatus: this.immigirationStatus,
       companyId: this.rtsCompanyId,
       skype: form.value.skype,
       linkedIn: form.value.linkedIn,
