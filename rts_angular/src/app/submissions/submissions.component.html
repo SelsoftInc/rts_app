@@ -71,7 +71,7 @@
           </div>
 
           <div *ngIf="isRecruiter" class="col-6 width-200">
-            <select class="form-control" (change)="selectRecruiter($event.target.value)">
+            <select class="form-control" (change)="selectRecruiter($event.target.value)"  [(ngModel)]="recruiter">
               <option value="" selected>Select</option>
               <option value="selectAll">Select All</option>
               <option *ngFor="let user of teamUsers" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>

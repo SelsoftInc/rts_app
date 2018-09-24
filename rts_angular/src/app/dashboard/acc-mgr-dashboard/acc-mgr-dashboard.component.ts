@@ -21,6 +21,8 @@ export class AccMgrDashboardComponent implements OnInit {
   private date: any;
   private recruitersSubmissions: any[];
 
+  public static graphData: any;
+
   view: any[] = undefined;
   showDataLabel = true;
   show = true;
@@ -74,6 +76,7 @@ export class AccMgrDashboardComponent implements OnInit {
   }
 
   dateFilter() {
+    AccMgrDashboardComponent.graphData = undefined;
     this.ngProgress.start();
     this.getTeamGraphDetails();
     this.getUserGraphDetails();
@@ -85,11 +88,20 @@ export class AccMgrDashboardComponent implements OnInit {
 
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
-    const graph = {
+    let graph = {
       userId: this.rtsUserId,
       fromDate: fromDate,
       toDate: toDate
     };
+
+    if (AccMgrDashboardComponent.graphData === undefined) {
+      AccMgrDashboardComponent.graphData = graph;
+    } else {
+      graph = AccMgrDashboardComponent.graphData;
+      this.fromDate = graph.fromDate;
+      this.currentDate = moment(graph.toDate, 'YYYY-MM-DD').toDate();
+    }
+
     this.totalSubmission = 0;
 
     this.graphService.teamGraphDetails(graph)
@@ -119,11 +131,19 @@ export class AccMgrDashboardComponent implements OnInit {
 
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
-    const graph = {
+    let graph = {
       userId: this.rtsUserId,
       fromDate: fromDate,
       toDate: toDate
     };
+
+    if (AccMgrDashboardComponent.graphData === undefined) {
+      AccMgrDashboardComponent.graphData = graph;
+    } else {
+      graph = AccMgrDashboardComponent.graphData;
+      this.fromDate = graph.fromDate;
+      this.currentDate = moment(graph.toDate, 'YYYY-MM-DD').toDate();
+    }
 
     this.graphService.userGraphDetails(graph)
       .subscribe(
@@ -143,11 +163,19 @@ export class AccMgrDashboardComponent implements OnInit {
 
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
-    const graph = {
+    let graph = {
       userId: this.rtsUserId,
       fromDate: fromDate,
       toDate: toDate
     };
+
+    if (AccMgrDashboardComponent.graphData === undefined) {
+      AccMgrDashboardComponent.graphData = graph;
+    } else {
+      graph = AccMgrDashboardComponent.graphData;
+      this.fromDate = graph.fromDate;
+      this.currentDate = moment(graph.toDate, 'YYYY-MM-DD').toDate();
+    }
 
     this.graphService.getInterviewDetails(graph)
       .subscribe(

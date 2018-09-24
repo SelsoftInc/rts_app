@@ -21,6 +21,8 @@ export class RecruiterDashboardComponent implements OnInit {
   private date: any;
   private recruitersSubmissions: any[];
 
+  public static graphData: any;
+
   view: any[] = undefined;
   showDataLabel = true;
   show = true;
@@ -75,6 +77,7 @@ export class RecruiterDashboardComponent implements OnInit {
   }
 
   dateFilter() {
+    RecruiterDashboardComponent.graphData = undefined;
     this.ngProgress.start();
     this.getRecruiterTeamStatus();
     this.getRecruiterTeamSubmissions();
@@ -86,11 +89,19 @@ export class RecruiterDashboardComponent implements OnInit {
 
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
-    const graph = {
+    let graph = {
       userId: this.rtsUserId,
       fromDate: fromDate,
       toDate: toDate
     };
+
+    if (RecruiterDashboardComponent.graphData === undefined) {
+      RecruiterDashboardComponent.graphData = graph;
+    } else {
+      graph = RecruiterDashboardComponent.graphData;
+      this.fromDate = graph.fromDate;
+      this.currentDate = moment(graph.toDate, 'YYYY-MM-DD').toDate();
+    }
 
     this.graphService.recruiterTeamStatus(graph)
       .subscribe(
@@ -113,11 +124,20 @@ export class RecruiterDashboardComponent implements OnInit {
 
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
-    const graph = {
+    let graph = {
       userId: this.rtsUserId,
       fromDate: fromDate,
       toDate: toDate
     };
+
+    if (RecruiterDashboardComponent.graphData === undefined) {
+      RecruiterDashboardComponent.graphData = graph;
+    } else {
+      graph = RecruiterDashboardComponent.graphData;
+      this.fromDate = graph.fromDate;
+      this.currentDate = moment(graph.toDate, 'YYYY-MM-DD').toDate();
+    }
+
     this.totalSubmission = 0;
 
     this.graphService.recruiterTeamSubmissions(graph)
@@ -139,11 +159,19 @@ export class RecruiterDashboardComponent implements OnInit {
 
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
-    const graph = {
+    let graph = {
       userId: this.rtsUserId,
       fromDate: fromDate,
       toDate: toDate
     };
+
+    if (RecruiterDashboardComponent.graphData === undefined) {
+      RecruiterDashboardComponent.graphData = graph;
+    } else {
+      graph = RecruiterDashboardComponent.graphData;
+      this.fromDate = graph.fromDate;
+      this.currentDate = moment(graph.toDate, 'YYYY-MM-DD').toDate();
+    }
 
     this.graphService.getInterviewDetails(graph)
       .subscribe(

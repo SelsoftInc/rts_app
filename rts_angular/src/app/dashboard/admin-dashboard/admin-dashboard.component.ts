@@ -23,6 +23,8 @@ export class AdminDashboardComponent implements OnInit {
   private currentDate: Date;
   private date: any;
 
+  public static graphData: any;
+
   view: any[] = undefined;
   showDataLabel = true;
   show = true;
@@ -105,6 +107,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   dateFilter() {
+    AdminDashboardComponent.graphData = undefined;
     this.ngProgress.start();
     this.getUserGraphDetails();
     this.getTeamGraphDetails();
@@ -121,11 +124,19 @@ export class AdminDashboardComponent implements OnInit {
 
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
-    const graph = {
+    let graph = {
       userId: this.rtsUserId,
       fromDate: fromDate,
       toDate: toDate
     };
+
+    if (AdminDashboardComponent.graphData === undefined) {
+      AdminDashboardComponent.graphData = graph;
+    } else {
+      graph = AdminDashboardComponent.graphData;
+      this.fromDate = graph.fromDate;
+      this.currentDate = moment(graph.toDate, 'YYYY-MM-DD').toDate();
+    }
 
     this.graphService.recruiterComparsion(graph)
       .subscribe(
@@ -148,11 +159,19 @@ export class AdminDashboardComponent implements OnInit {
 
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
-    const graph = {
+    let graph = {
       userId: this.rtsUserId,
       fromDate: fromDate,
       toDate: toDate
     };
+
+    if (AdminDashboardComponent.graphData === undefined) {
+      AdminDashboardComponent.graphData = graph;
+    } else {
+      graph = AdminDashboardComponent.graphData;
+      this.fromDate = graph.fromDate;
+      this.currentDate = moment(graph.toDate, 'YYYY-MM-DD').toDate();
+    }
 
     this.graphService.teamComparsion(graph)
       .subscribe(
@@ -176,11 +195,19 @@ export class AdminDashboardComponent implements OnInit {
 
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
-    const graph = {
+    let graph = {
       userId: this.rtsUserId,
       fromDate: fromDate,
       toDate: toDate
     };
+
+    if (AdminDashboardComponent.graphData === undefined) {
+      AdminDashboardComponent.graphData = graph;
+    } else {
+      graph = AdminDashboardComponent.graphData;
+      this.fromDate = graph.fromDate;
+      this.currentDate = moment(graph.toDate, 'YYYY-MM-DD').toDate();
+    }
 
     this.graphService.clientSubmissionStatus(graph)
       .subscribe(
@@ -202,11 +229,19 @@ export class AdminDashboardComponent implements OnInit {
 
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
-    const graph = {
+    let graph = {
       userId: this.rtsUserId,
       fromDate: fromDate,
       toDate: toDate
     };
+
+    if (AdminDashboardComponent.graphData === undefined) {
+      AdminDashboardComponent.graphData = graph;
+    } else {
+      graph = AdminDashboardComponent.graphData;
+      this.fromDate = graph.fromDate;
+      this.currentDate = moment(graph.toDate, 'YYYY-MM-DD').toDate();
+    }
 
     this.graphService.noSubmissionsRequirement(graph)
       .subscribe(
@@ -227,11 +262,19 @@ export class AdminDashboardComponent implements OnInit {
 
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
-    const graph = {
+    let graph = {
       userId: this.rtsUserId,
       fromDate: fromDate,
       toDate: toDate
     };
+
+    if (AdminDashboardComponent.graphData === undefined) {
+      AdminDashboardComponent.graphData = graph;
+    } else {
+      graph = AdminDashboardComponent.graphData;
+      this.fromDate = graph.fromDate;
+      this.currentDate = moment(graph.toDate, 'YYYY-MM-DD').toDate();
+    }
 
     this.graphService.getInterviewDetails(graph)
       .subscribe(
@@ -249,11 +292,19 @@ export class AdminDashboardComponent implements OnInit {
 
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
-    const graph = {
+    let graph = {
       userId: this.rtsUserId,
       fromDate: fromDate,
       toDate: toDate
     };
+
+    if (AdminDashboardComponent.graphData === undefined) {
+      AdminDashboardComponent.graphData = graph;
+    } else {
+      graph = AdminDashboardComponent.graphData;
+      this.fromDate = graph.fromDate;
+      this.currentDate = moment(graph.toDate, 'YYYY-MM-DD').toDate();
+    }
 
     this.graphService.userGraphDetails(graph)
       .subscribe(
@@ -274,11 +325,19 @@ export class AdminDashboardComponent implements OnInit {
 
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
-    const graph = {
+    let graph = {
       userId: this.rtsUserId,
       fromDate: fromDate,
       toDate: toDate
     };
+
+    if (AdminDashboardComponent.graphData === undefined) {
+      AdminDashboardComponent.graphData = graph;
+    } else {
+      graph = AdminDashboardComponent.graphData;
+      this.fromDate = graph.fromDate;
+      this.currentDate = moment(graph.toDate, 'YYYY-MM-DD').toDate();
+    }
 
     this.graphService.getClientOpenRequirements(graph)
       .subscribe(
@@ -300,11 +359,20 @@ export class AdminDashboardComponent implements OnInit {
 
     const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
-    const graph = {
+    let graph = {
       userId: this.rtsUserId,
       fromDate: fromDate,
       toDate: toDate
     };
+
+    if (AdminDashboardComponent.graphData === undefined) {
+      AdminDashboardComponent.graphData = graph;
+    } else {
+      graph = AdminDashboardComponent.graphData;
+      this.fromDate = graph.fromDate;
+      this.currentDate = moment(graph.toDate, 'YYYY-MM-DD').toDate();
+    }
+
     this.totalSubmission = 0;
 
     this.graphService.teamGraphDetails(graph)

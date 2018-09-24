@@ -4,6 +4,11 @@ import { HideComponentService } from './Services/hide-component.service';
 import { Router } from '@angular/router';
 import { LoginService } from './login/login-service';
 import { ToastrService } from 'ngx-toastr';
+import { SubmissionsComponent } from './submissions/submissions.component';
+import { RequirementsComponent } from './requirements/requirements.component';
+import { RecruiterDashboardComponent } from './dashboard/recruiter-dashboard/recruiter-dashboard.component';
+import { AdminDashboardComponent } from './dashboard/admin-dashboard/admin-dashboard.component';
+import { AccMgrDashboardComponent } from './dashboard/acc-mgr-dashboard/acc-mgr-dashboard.component';
 
 @Component({
   selector: 'app-root',
@@ -36,6 +41,13 @@ export class AppComponent implements DoCheck {
   }
 
   onLogout() {
+    SubmissionsComponent.filterBy = undefined;
+    SubmissionsComponent.userDetails = undefined;
+    SubmissionsComponent.recruiter = undefined;
+    RequirementsComponent.userDetails = undefined;
+    RecruiterDashboardComponent.graphData = undefined;
+    AdminDashboardComponent.graphData = undefined;
+    AccMgrDashboardComponent.graphData = undefined;
     this.loginService.logout();
     this.toastr.success('You are logged out', '', {
       positionClass: 'toast-top-center',

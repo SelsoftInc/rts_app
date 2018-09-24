@@ -55,6 +55,11 @@ export class SubmissionsComponent implements OnInit {
   private submissionStatus: any;
   private filteredRequirements: any;
   private chartData: any[];
+  recruiter: any;
+
+  public static userDetails: any;
+  public static filterBy: any;
+  public static recruiter: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -85,6 +90,7 @@ export class SubmissionsComponent implements OnInit {
       { 'name': 'Hold', 'value': 'HOLD' }
     ];
     this.filter = '';
+    this.recruiter = '';
     this.searchBox = true;
   }
 
@@ -106,11 +112,19 @@ export class SubmissionsComponent implements OnInit {
     const fromDate = moment(this.startDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
 
-    const userId = {
+    let userId = {
       userId: this.rtsUserId,
       fromDate: fromDate,
       toDate: toDate
     };
+
+    if (SubmissionsComponent.userDetails === undefined) {
+      SubmissionsComponent.userDetails = userId;
+    } else {
+      userId = SubmissionsComponent.userDetails;
+      this.startDate = userId.fromDate;
+      this.currentDate = moment(userId.toDate, 'YYYY-MM-DD').toDate();
+    }
 
     this.requirementService.getAllSubmissionsByDate(userId)
       .subscribe(
@@ -136,6 +150,13 @@ export class SubmissionsComponent implements OnInit {
     }
     for (const count of this.submissionDetails) {
       this.submissionsLength = this.submissionsLength + count.submissions.length;
+    }
+    if (SubmissionsComponent.filterBy !== undefined) {
+      this.filter = SubmissionsComponent.filterBy;
+      this.filterBy(SubmissionsComponent.filterBy);
+      if (SubmissionsComponent.filterBy === 'recruiter') {
+        this.selectRecruiter(SubmissionsComponent.recruiter);
+      }
     }
   }
 
@@ -171,6 +192,11 @@ export class SubmissionsComponent implements OnInit {
   }
 
   filterBy(value) {
+    if (SubmissionsComponent.filterBy === undefined || SubmissionsComponent.filterBy === '') {
+      SubmissionsComponent.filterBy = value;
+    } else {
+      value = SubmissionsComponent.filterBy;
+    }
 
     if (value === 'status') {
       this.isStatus = true;
@@ -206,6 +232,7 @@ export class SubmissionsComponent implements OnInit {
     }
     // this.getAllSubmissions();
     this.selectedRequirementsDetails(this.requirements);
+
   }
 
   filterItem(value) {
@@ -226,6 +253,10 @@ export class SubmissionsComponent implements OnInit {
   }
 
   filterByDate() {
+    SubmissionsComponent.userDetails = undefined;
+    SubmissionsComponent.recruiter = undefined;
+    SubmissionsComponent.filterBy = undefined;
+    this.recruiter = '';
     this.ngProgress.start();
     this.filterBy('');
     this.getAllSubmissions();
@@ -272,6 +303,8 @@ export class SubmissionsComponent implements OnInit {
   }
 
   selectRecruiter(event) {
+    SubmissionsComponent.recruiter = event;
+    this.recruiter = event;
     if (event === 'selectAll') {
       this.chartData = [];
       this.searchBox = true;
@@ -369,7 +402,6 @@ export class SubmissionsComponent implements OnInit {
       this.chartData.push(InterviewObj);
       this.chartData.push(HoldObj);
 
-      console.log(this.chartData);
       this.selectedRequirementsDetails(this.selectedRequirements);
     }
   }

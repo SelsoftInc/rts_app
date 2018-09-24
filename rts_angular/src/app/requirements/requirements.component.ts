@@ -49,6 +49,8 @@ export class RequirementsComponent implements OnInit {
   private selectedClientRequirements: any;
   private clientStatus: any;
 
+  public static userDetails: any;
+
   constructor(
     private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -143,6 +145,7 @@ export class RequirementsComponent implements OnInit {
 
   filterByDate() {
 
+    RequirementsComponent.userDetails = undefined;
     this.filterBy('');
     this.ngProgress.start();
 
@@ -234,11 +237,19 @@ export class RequirementsComponent implements OnInit {
     const fromDate = moment(this.startDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
 
-    const userId = {
+    let userId = {
       companyId: this.rtsCompanyId,
       fromDate: fromDate,
       toDate: toDate
     };
+
+    if (RequirementsComponent.userDetails === undefined) {
+      RequirementsComponent.userDetails = userId;
+    } else {
+      userId = RequirementsComponent.userDetails;
+      this.startDate = userId.fromDate;
+      this.currentDate = moment(userId.toDate, 'YYYY-MM-DD').toDate();
+    }
 
     this.requirementService.requirementsDetails(userId)
       .subscribe(
@@ -253,11 +264,19 @@ export class RequirementsComponent implements OnInit {
     const fromDate = moment(this.startDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
 
-    const userId = {
+    let userId = {
       userId: this.rtsUserId,
       fromDate: fromDate,
       toDate: toDate
     };
+
+    if (RequirementsComponent.userDetails === undefined) {
+      RequirementsComponent.userDetails = userId;
+    } else {
+      userId = RequirementsComponent.userDetails;
+      this.startDate = userId.fromDate;
+      this.currentDate = moment(userId.toDate, 'YYYY-MM-DD').toDate();
+    }
 
     this.requirementService.requirementsDetailsForUser(userId)
       .subscribe(
@@ -272,11 +291,19 @@ export class RequirementsComponent implements OnInit {
     const fromDate = moment(this.startDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
 
-    const userId = {
+    let userId = {
       userId: this.rtsUserId,
       fromDate: fromDate,
       toDate: toDate
     };
+
+    if (RequirementsComponent.userDetails === undefined) {
+      RequirementsComponent.userDetails = userId;
+    } else {
+      userId = RequirementsComponent.userDetails;
+      this.startDate = userId.fromDate;
+      this.currentDate = moment(userId.toDate, 'YYYY-MM-DD').toDate();
+    }
 
     this.requirementService.requirementsDetailsByTeam(userId)
       .subscribe(
