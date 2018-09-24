@@ -72,6 +72,7 @@ import { ClientSubmissionStatusComponent } from './client-submission-status/clie
 import { RecruiterComparisonComponent } from './recruiter-comparison/recruiter-comparison.component';
 import { TeamComparisonComponent } from './team-comparison/team-comparison.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { RecruiterSubmissionsStatusComponent } from './recruiter-submissions-status/recruiter-submissions-status.component';
 
 
 @NgModule({
@@ -113,6 +114,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     RecruiterComparisonComponent,
     TeamComparisonComponent,
     ForgotPasswordComponent,
+    RecruiterSubmissionsStatusComponent,
   ],
   imports: [
     BrowserModule,

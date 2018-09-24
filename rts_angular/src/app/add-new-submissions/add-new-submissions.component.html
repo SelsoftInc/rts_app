@@ -94,14 +94,7 @@
             <div><label for="candidateImmigirationStatus" class="form-label">Candidate Immigiration Status:</label></div>
             <div class="pt-3">
               <mat-radio-group formControlName="candidateImmigirationStatus" disabled>
-                <mat-radio-button value="GC">GC</mat-radio-button>
-                <mat-radio-button value="CITIZEN">CITIZEN</mat-radio-button>
-                <mat-radio-button value="H1B">H1B</mat-radio-button>
-                <mat-radio-button value="W2/1099">W2/1099</mat-radio-button>
-                <mat-radio-button value="OPT/CPT">OPT/CPT</mat-radio-button>
-                <mat-radio-button value="EAD">EAD</mat-radio-button>
-                <mat-radio-button value="H4AD">H4EAD</mat-radio-button>
-                <mat-radio-button value="TN">TN</mat-radio-button>
+                <mat-radio-button *ngFor="let data of immigration" [value]="data.visaId" [checked]="data.isChecked">{{data.visaName}}</mat-radio-button>
               </mat-radio-group>
             </div>
           </div>
@@ -291,16 +284,6 @@
           <div class="col-sm-8">
             <div><label for="editCandidateImmigirationStatus" class="form-label">Candidate Immigiration Status:</label></div>
             <div class="pt-3">
-              <!-- <mat-radio-group (change)="getImmigiration($event)" formControlName="editCandidateImmigirationStatus">
-                <mat-radio-button value="GC">GC</mat-radio-button>
-                <mat-radio-button value="CITIZEN">CITIZEN</mat-radio-button>
-                <mat-radio-button value="H1B">H1B</mat-radio-button>
-                <mat-radio-button value="W2/1099">W2/1099</mat-radio-button>
-                <mat-radio-button value="OPT/CPT">OPT/CPT</mat-radio-button>
-                <mat-radio-button value="EAD">EAD</mat-radio-button>
-                <mat-radio-button value="H4AD">H4EAD</mat-radio-button>
-                <mat-radio-button value="TN">TN</mat-radio-button>
-              </mat-radio-group> -->
               <mat-radio-group (change)="getImmigiration($event.source.value)" formControlName="editCandidateImmigirationStatus">
                 <mat-radio-button *ngFor="let data of immigration" [value]="data.visaId">{{data.visaName}}</mat-radio-button>
               </mat-radio-group>

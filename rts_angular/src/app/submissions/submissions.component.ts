@@ -403,6 +403,9 @@ export class SubmissionsComponent implements OnInit {
   }
 
   onUserSelect(event) {
-    console.log('TODO');
+    console.log(event);
+    // const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    // const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    // this.router.navigate(['team-submisson', event.extra.teamId, fromDate, toDate]);
   }
 }

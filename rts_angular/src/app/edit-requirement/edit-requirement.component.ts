@@ -134,7 +134,6 @@ export class EditRequirementComponent implements OnInit {
       itemsShowLimit: 3,
       allowSearchFilter: true
     };
-    this.getAllUsers();
     this.getCommonDetails();
   }
 
@@ -161,19 +160,19 @@ export class EditRequirementComponent implements OnInit {
         });
   }
 
-  getAllUsers() {
-    const userId = {
-      enteredBy: this.rtsUserId
-    };
+  // getAllUsers() {
+  //   const userId = {
+  //     enteredBy: this.rtsUserId
+  //   };
 
-    this.userService.allUsers(userId)
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.userDetails = data.users;
-          }
-        });
-  }
+  //   this.userService.allUsers(userId)
+  //     .subscribe(
+  //       data => {
+  //         if (data.success) {
+  //           this.userDetails = data.users;
+  //         }
+  //       });
+  // }
 
   getAllRequirements() {
 

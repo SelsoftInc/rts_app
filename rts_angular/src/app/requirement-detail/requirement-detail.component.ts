@@ -36,6 +36,7 @@ export class RequirementDetailComponent implements OnInit {
   private editRequirement: any;
   private selectedTeam: any;
   private selectedTeamUsers: any;
+  selectedImmigration: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -109,19 +110,20 @@ export class RequirementDetailComponent implements OnInit {
   getAllRequirements() {
 
     const userId = {
-      userId: this.rtsUserId
+      requirementId: this.requirementId
     };
 
-    this.requirementService.requirementsDetailsForUser(userId)
+    this.requirementService.getRequirementsById(userId)
       .subscribe(
         data => {
           if (data.success) {
             this.ngProgress.done();
-            this.requirements = data.requirements;
-            this.selectedRequirement = _.findWhere(this.requirements, { requirementId: this.requirementId });
+            this.selectedRequirement = data.requirement;
             this.requirementCreatedDate = moment(this.selectedRequirement.createdOn).format('MMM D, Y');
             this.requirementByUser = this.selectedRequirement.requirementType;
-            this.immigrationByUser = this.selectedRequirement.immigrationRequirement;
+            for (const immigration of this.selectedRequirement.visaStatus) {
+              this.immigrationByUser.push(immigration.visaName);
+            }
             this.selectedTeam = _.findWhere(this.teams, { teamId: this.selectedRequirement.teamId });
             this.selectedTeamUsers.push(this.selectedTeam.leadUser);
             for (const user of this.selectedTeam.otherUsers) {

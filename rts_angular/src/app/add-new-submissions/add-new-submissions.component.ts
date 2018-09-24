@@ -163,6 +163,9 @@ export class AddNewSubmissionsComponent implements OnInit {
         if (data.success) {
           this.technology = data.technologies;
           this.immigration = data.visaStatus;
+          for (const immigration of this.immigration) {
+            immigration.isChecked = false;
+          }
         }
       });
 
@@ -325,23 +328,14 @@ export class AddNewSubmissionsComponent implements OnInit {
             this.isEmployerDetails = false;
             this.isCandidate = true;
             this.isNewCandidate = false;
-            const immigiration = this.selectedCandidate.immigirationStatus;
-            if (immigiration === 'GC') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('GC');
-            } else if (immigiration === 'CITIZEN') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('CITIZEN');
-            } else if (immigiration === 'H1B') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('H1B');
-            } else if (immigiration === 'W2/1099') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('W2/1099');
-            } else if (immigiration === 'OPT/CPT') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('OPT/CPT');
-            } else if (immigiration === 'EAD') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('EAD');
-            } else if (immigiration === 'H4AD') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('H4AD');
-            } else if (immigiration === 'TN') {
-              this.myForm.controls.candidateImmigirationStatus.setValue('TN');
+            const immigirationStatus = this.selectedCandidate.visaStatus;
+            for (const immigration of this.immigration) {
+              immigration.isChecked = false;
+            }
+            for (const immigration of this.immigration) {
+              if (_.isEqual(immigirationStatus.visaId, immigration.visaId)) {
+                immigration.isChecked = true;
+              }
             }
           } else {
             this.isCandidate = false;
