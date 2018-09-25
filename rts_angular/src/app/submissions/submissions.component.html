@@ -71,7 +71,7 @@
           </div>
 
           <div *ngIf="isRecruiter" class="col-6 width-200">
-            <select class="form-control" (change)="selectRecruiter($event.target.value)"  [(ngModel)]="recruiter">
+            <select class="form-control" (change)="selectRecruiter($event.target.value)" [(ngModel)]="recruiter">
               <option value="" selected>Select</option>
               <option value="selectAll">Select All</option>
               <option *ngFor="let user of teamUsers" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
@@ -81,17 +81,18 @@
       </div>
       <div class="col-4 mt-3">
         <div *ngIf="!searchBox" class="col-6 width-200 height-50 submissions-tiny-chart">
-          <ngx-charts-bar-vertical [view]="view" [animations]="false" [scheme]="colorScheme" [results]="chartData" [gradient]="gradient"
-                                   [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-                                   [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel" (select)="onUserSelect($event)">
+          <ngx-charts-bar-vertical [view]="view" [animations]="false" [scheme]="colorScheme" [results]="chartData"
+            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel"
+            (select)="onUserSelect($event)">
           </ngx-charts-bar-vertical>
         </div>
         <div class="submissions search-container" *ngIf="searchBox">
           <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString "
-                 [(ngModel)]="searchString" (input)="filterItem($event.target.value)">
+            [(ngModel)]="searchString" (input)="filterItem($event.target.value)">
           <span class="search-icon">
-          <i class="material-icons">search</i>
-        </span>
+            <i class="material-icons">search</i>
+          </span>
         </div>
       </div>
     </div>
@@ -131,6 +132,7 @@
               <th>Availability</th>
               <th>Work Location</th>
               <th>Status</th>
+              <th>Submitted By</th>
             </tr>
           </thead>
           <tbody>
@@ -141,6 +143,7 @@
               <td>{{submission.candidate.availability}}</td>
               <td>{{sub.location}}</td>
               <td>{{submission.status}}</td>
+              <td>{{submission.submittedUser.firstName}} {{submission.submittedUser.lastName}}</td>
             </tr>
           </tbody>
         </table>
@@ -180,6 +183,7 @@
               <th>Availability</th>
               <th>Work Location</th>
               <th>Status</th>
+              <th>Submitted By</th>
             </tr>
           </thead>
           <tbody>
@@ -190,6 +194,7 @@
               <td>{{submission.candidate.availability}}</td>
               <td>{{sub.location}}</td>
               <td>{{submission.status}}</td>
+              <td>{{submission.submittedUser.firstName}} {{submission.submittedUser.lastName}}</td>
             </tr>
           </tbody>
         </table>

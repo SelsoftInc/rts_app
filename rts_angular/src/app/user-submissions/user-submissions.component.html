@@ -44,6 +44,7 @@
             <th>Availability</th>
             <th>Work Location</th>
             <th>Status</th>
+            <th>Submitted By</th>
           </tr>
         </thead>
         <tbody>
@@ -54,6 +55,7 @@
             <td>{{submission.candidate.availability}}</td>
             <td>{{sub.location}}</td>
             <td>{{submission.status}}</td>
+            <td>{{submission.submittedUser.firstName}} {{submission.submittedUser.lastName}}</td>
           </tr>
         </tbody>
       </table>

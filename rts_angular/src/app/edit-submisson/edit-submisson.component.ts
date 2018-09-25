@@ -446,7 +446,6 @@ export class EditSubmissonComponent implements OnInit {
             this.clientRecruiterEmail = this.recruiterEmail.join();
 
             const immigirationStatus = this.selectedSubmission.candidate.visaStatus;
-            console.log(immigirationStatus);
             for (const immigration of this.immigration) {
               if (_.isEqual(immigirationStatus.visaId, immigration.visaId)) {
                 immigration.isChecked = true;

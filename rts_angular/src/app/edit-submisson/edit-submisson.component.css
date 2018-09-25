@@ -89,3 +89,6 @@
 .units>.form-row.ng-invalid {
   border-left: 0 !important;
 }
+.form-text{
+  color: #383838;
+}

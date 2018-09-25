@@ -5,6 +5,11 @@ import { LoginService } from './login-service';
 import { HideComponentService } from '../Services/hide-component.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ToastrService } from 'ngx-toastr';
+import { SubmissionsComponent } from '../submissions/submissions.component';
+import { AdminDashboardComponent } from '../dashboard/admin-dashboard/admin-dashboard.component';
+import { AccMgrDashboardComponent } from '../dashboard/acc-mgr-dashboard/acc-mgr-dashboard.component';
+import { RecruiterDashboardComponent } from '../dashboard/recruiter-dashboard/recruiter-dashboard.component';
+import { RequirementsComponent } from '../requirements/requirements.component';
 
 
 @Component({
@@ -44,6 +49,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login(form: FormGroup) {
+    SubmissionsComponent.filterBy = undefined;
+    SubmissionsComponent.userDetails = undefined;
+    SubmissionsComponent.recruiter = undefined;
+    RequirementsComponent.userDetails = undefined;
+    RecruiterDashboardComponent.graphData = undefined;
+    AdminDashboardComponent.graphData = undefined;
+    AccMgrDashboardComponent.graphData = undefined;
     this.toastr.clear();
 
     const user = {
