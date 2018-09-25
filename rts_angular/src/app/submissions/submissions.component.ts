@@ -61,6 +61,12 @@ export class SubmissionsComponent implements OnInit {
   public static userDetails: any;
   public static filterBy: any;
   public static recruiter: any;
+  public static team: any;
+  public static status: any;
+  public static client: any;
+  team: string;
+  client: string;
+  status: string;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -93,6 +99,9 @@ export class SubmissionsComponent implements OnInit {
     ];
     this.filter = '';
     this.recruiter = '';
+    this.status = '';
+    this.client = '';
+    this.team = '';
     this.searchBox = true;
   }
 
@@ -158,6 +167,12 @@ export class SubmissionsComponent implements OnInit {
       this.filterBy(SubmissionsComponent.filterBy);
       if (SubmissionsComponent.filterBy === 'recruiter') {
         this.selectRecruiter(SubmissionsComponent.recruiter);
+      } else if (SubmissionsComponent.filterBy === 'status') {
+        this.selectStatus(SubmissionsComponent.status);
+      } else if (SubmissionsComponent.filterBy === 'team') {
+        this.selectTeam(SubmissionsComponent.team);
+      } else if (SubmissionsComponent.filterBy === 'client') {
+        this.selectClient(SubmissionsComponent.client);
       }
     }
   }
@@ -253,14 +268,22 @@ export class SubmissionsComponent implements OnInit {
   filterByDate() {
     SubmissionsComponent.userDetails = undefined;
     SubmissionsComponent.recruiter = undefined;
+    SubmissionsComponent.status = undefined;
+    SubmissionsComponent.client = undefined;
+    SubmissionsComponent.team = undefined;
     // SubmissionsComponent.filterBy = undefined;
     this.recruiter = '';
+    this.team = '';
+    this.client = '';
+    this.status = '';
     this.ngProgress.start();
     this.filterBy('');
     this.getAllSubmissions();
   }
 
   selectStatus(event) {
+    SubmissionsComponent.status = event;
+    this.status = event;
     this.searchBox = true;
     if (event === 'selectAll') {
       this.selectedRequirements = this.requirements;
@@ -279,6 +302,8 @@ export class SubmissionsComponent implements OnInit {
   }
 
   selectTeam(event) {
+    SubmissionsComponent.team = event;
+    this.team = event;
     if (event === 'selectAll') {
       this.selectedRequirements = this.requirements;
       this.selectedRequirementsDetails(this.selectedRequirements);
@@ -290,6 +315,8 @@ export class SubmissionsComponent implements OnInit {
   }
 
   selectClient(event) {
+    SubmissionsComponent.client = event;
+    this.client = event;
     if (event === 'selectAll') {
       this.selectedRequirements = this.requirements;
       this.selectedRequirementsDetails(this.selectedRequirements);
