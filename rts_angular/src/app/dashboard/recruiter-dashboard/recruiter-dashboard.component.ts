@@ -17,6 +17,7 @@ export class RecruiterDashboardComponent implements OnInit {
 
   private rtsUser: any;
   private rtsUserId: any;
+  private startDate: Date;
   private currentDate: Date;
   private date: any;
   private recruitersSubmissions: any[];
@@ -65,6 +66,7 @@ export class RecruiterDashboardComponent implements OnInit {
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
+    this.startDate = new Date(Date.now());
     this.currentDate = new Date(Date.now());
   }
 
@@ -87,7 +89,7 @@ export class RecruiterDashboardComponent implements OnInit {
   getRecruiterTeamStatus() {
     this.totalSubmissionStatus = [];
 
-    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const fromDate = moment(this.startDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
     let graph = {
       userId: this.rtsUserId,
@@ -99,7 +101,7 @@ export class RecruiterDashboardComponent implements OnInit {
       RecruiterDashboardComponent.graphData = graph;
     } else {
       graph = RecruiterDashboardComponent.graphData;
-      this.fromDate = graph.fromDate;
+      this.startDate = moment(graph.fromDate, 'YYYY-MM-DD').toDate();
       this.currentDate = moment(graph.toDate, 'YYYY-MM-DD').toDate();
     }
 
@@ -122,7 +124,7 @@ export class RecruiterDashboardComponent implements OnInit {
   getRecruiterTeamSubmissions() {
     this.totalSubmissionByTeam = [];
 
-    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const fromDate = moment(this.startDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
     let graph = {
       userId: this.rtsUserId,
@@ -134,7 +136,7 @@ export class RecruiterDashboardComponent implements OnInit {
       RecruiterDashboardComponent.graphData = graph;
     } else {
       graph = RecruiterDashboardComponent.graphData;
-      this.fromDate = graph.fromDate;
+      this.startDate = moment(graph.fromDate, 'YYYY-MM-DD').toDate();
       this.currentDate = moment(graph.toDate, 'YYYY-MM-DD').toDate();
     }
 
@@ -157,7 +159,7 @@ export class RecruiterDashboardComponent implements OnInit {
 
   getInterviewReport() {
 
-    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const fromDate = moment(this.startDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
     let graph = {
       userId: this.rtsUserId,
@@ -169,7 +171,7 @@ export class RecruiterDashboardComponent implements OnInit {
       RecruiterDashboardComponent.graphData = graph;
     } else {
       graph = RecruiterDashboardComponent.graphData;
-      this.fromDate = graph.fromDate;
+      this.startDate = moment(graph.fromDate, 'YYYY-MM-DD').toDate();
       this.currentDate = moment(graph.toDate, 'YYYY-MM-DD').toDate();
     }
 
@@ -187,13 +189,13 @@ export class RecruiterDashboardComponent implements OnInit {
 
 
   onTeamSelect(event) {
-    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const fromDate = moment(this.startDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
     this.router.navigate(['team-submisson', event.extra.teamId, fromDate, toDate]);
   }
 
   onTeamSubmissionStatus(event) {
-    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const fromDate = moment(this.startDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
     this.router.navigate(['team-submissions-status', event.extra.teamId, event.name, fromDate, toDate]);
   }

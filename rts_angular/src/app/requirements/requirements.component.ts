@@ -41,7 +41,6 @@ export class RequirementsComponent implements OnInit {
   private userDetails: any;
   private teamUsers: any;
   private selectedRequirements: any;
-  private startDate: any;
   private filter: any;
   private filteredRequirements: any;
   private sortedData: any;
@@ -50,6 +49,7 @@ export class RequirementsComponent implements OnInit {
   private clientStatus: any;
 
   public static userDetails: any;
+  private fromDate: Date;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -64,6 +64,7 @@ export class RequirementsComponent implements OnInit {
     this.rtsCompanyId = this.rtsUser.companyId;
     this.rtsUserId = this.rtsUser.userId;
     this.userRole = this.rtsUser.role;
+    this.fromDate = new Date(Date.now());
     this.currentDate = new Date(Date.now());
     this.submittedRequirements = [];
     this.selectedRequirements = [];
@@ -86,7 +87,7 @@ export class RequirementsComponent implements OnInit {
       toDate: ['']
     });
 
-    this.startDate = this.currentDate;
+    // this.startDate = this.currentDate;
     this.getCommonDetails();
     if (this.userRole === 'ADMIN') {
       this.getAllRequirements();
@@ -234,7 +235,7 @@ export class RequirementsComponent implements OnInit {
   }
 
   getAllRequirements() {
-    const fromDate = moment(this.startDate).format('YYYY-MM-DD');
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
 
     let userId = {
@@ -247,7 +248,7 @@ export class RequirementsComponent implements OnInit {
       RequirementsComponent.userDetails = userId;
     } else {
       userId = RequirementsComponent.userDetails;
-      this.startDate = userId.fromDate;
+      this.fromDate = moment(userId.fromDate, 'YYYY-MM-DD').toDate();
       this.currentDate = moment(userId.toDate, 'YYYY-MM-DD').toDate();
     }
 
@@ -261,7 +262,7 @@ export class RequirementsComponent implements OnInit {
   }
 
   getAllRequirementsForUser() {
-    const fromDate = moment(this.startDate).format('YYYY-MM-DD');
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
 
     let userId = {
@@ -274,7 +275,7 @@ export class RequirementsComponent implements OnInit {
       RequirementsComponent.userDetails = userId;
     } else {
       userId = RequirementsComponent.userDetails;
-      this.startDate = userId.fromDate;
+      this.fromDate = moment(userId.fromDate, 'YYYY-MM-DD').toDate();
       this.currentDate = moment(userId.toDate, 'YYYY-MM-DD').toDate();
     }
 
@@ -288,7 +289,7 @@ export class RequirementsComponent implements OnInit {
   }
 
   getAllRequirementsForTeam() {
-    const fromDate = moment(this.startDate).format('YYYY-MM-DD');
+    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
 
     let userId = {
@@ -301,7 +302,7 @@ export class RequirementsComponent implements OnInit {
       RequirementsComponent.userDetails = userId;
     } else {
       userId = RequirementsComponent.userDetails;
-      this.startDate = userId.fromDate;
+      this.fromDate = moment(userId.fromDate, 'YYYY-MM-DD').toDate();
       this.currentDate = moment(userId.toDate, 'YYYY-MM-DD').toDate();
     }
 

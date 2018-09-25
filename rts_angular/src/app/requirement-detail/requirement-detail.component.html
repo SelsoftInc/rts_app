@@ -87,7 +87,7 @@
         <label for="immigrationRequirement" class="col-form-label bold-text">Immigration Requirement:</label>
       </div>
       <div class="col-sm-4 shade-col-alt" *ngIf="selectedRequirement">
-        <input type="text" class="form-control read-only-text-input" name="immigrationType" formControlName="immigrationType" 
+        <input type="text" class="form-control read-only-text-input" name="immigrationType" formControlName="immigrationType"
           ngModel="{{immigrationByUser}}" disabled>
       </div>
     </div>
@@ -120,10 +120,17 @@
       <div class="col-sm-2 shade-col">
         <label for="allocation" class="col-form-label bold-text">Allocation:</label>
       </div>
-      <div class="col-sm-4 shade-col-alt" *ngIf="selectedRequirement">
+      <div class="col-sm-4 shade-col-alt" *ngIf="selectedRequirement.allocationUser">
+        <select name="role" class="form-control read-only-text-select" formControlName="allocation" ngModel="{{selectedRequirement.allocationUser.userId}}"
+          disabled>
+          <option value="">-</option>
+          <option *ngFor="let user of selectedTeamUsers" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
+        </select>
+      </div>
+      <div class="col-sm-4 shade-col-alt" *ngIf="!selectedRequirement.allocationUser">
         <select name="role" class="form-control read-only-text-select" formControlName="allocation" ngModel="{{selectedRequirement.allocationUserId}}"
           disabled>
-          <option value="">Select</option>
+          <option value="">-</option>
           <option *ngFor="let user of selectedTeamUsers" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
         </select>
       </div>

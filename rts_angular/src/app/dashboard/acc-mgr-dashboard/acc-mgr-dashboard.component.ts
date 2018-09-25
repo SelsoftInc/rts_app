@@ -17,6 +17,7 @@ export class AccMgrDashboardComponent implements OnInit {
 
   private rtsUser: any;
   private rtsUserId: any;
+  private startDate: Date;
   private currentDate: Date;
   private date: any;
   private recruitersSubmissions: any[];
@@ -64,12 +65,13 @@ export class AccMgrDashboardComponent implements OnInit {
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
+    this.startDate = new Date(Date.now());
     this.currentDate = new Date(Date.now());
   }
 
   ngOnInit() {
     this.ngProgress.start();
-    this.fromDate = this.currentDate;
+    // this.fromDate = this.currentDate;
     this.getTeamGraphDetails();
     this.getUserGraphDetails();
     this.getInterviewReport();
@@ -86,7 +88,7 @@ export class AccMgrDashboardComponent implements OnInit {
   getTeamGraphDetails() {
     this.totalSubmissionByTeam = [];
 
-    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const fromDate = moment(this.startDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
     let graph = {
       userId: this.rtsUserId,
@@ -98,7 +100,7 @@ export class AccMgrDashboardComponent implements OnInit {
       AccMgrDashboardComponent.graphData = graph;
     } else {
       graph = AccMgrDashboardComponent.graphData;
-      this.fromDate = graph.fromDate;
+      this.startDate = moment(graph.fromDate, 'YYYY-MM-DD').toDate();
       this.currentDate = moment(graph.toDate, 'YYYY-MM-DD').toDate();
     }
 
@@ -129,7 +131,7 @@ export class AccMgrDashboardComponent implements OnInit {
   getUserGraphDetails() {
     this.recruitersSubmissions = [];
 
-    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const fromDate = moment(this.startDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
     let graph = {
       userId: this.rtsUserId,
@@ -141,7 +143,7 @@ export class AccMgrDashboardComponent implements OnInit {
       AccMgrDashboardComponent.graphData = graph;
     } else {
       graph = AccMgrDashboardComponent.graphData;
-      this.fromDate = graph.fromDate;
+      this.startDate = moment(graph.fromDate, 'YYYY-MM-DD').toDate();
       this.currentDate = moment(graph.toDate, 'YYYY-MM-DD').toDate();
     }
 
@@ -161,7 +163,7 @@ export class AccMgrDashboardComponent implements OnInit {
 
   getInterviewReport() {
 
-    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const fromDate = moment(this.startDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
     let graph = {
       userId: this.rtsUserId,
@@ -173,7 +175,7 @@ export class AccMgrDashboardComponent implements OnInit {
       AccMgrDashboardComponent.graphData = graph;
     } else {
       graph = AccMgrDashboardComponent.graphData;
-      this.fromDate = graph.fromDate;
+      this.startDate = moment(graph.fromDate, 'YYYY-MM-DD').toDate();
       this.currentDate = moment(graph.toDate, 'YYYY-MM-DD').toDate();
     }
 
@@ -191,19 +193,19 @@ export class AccMgrDashboardComponent implements OnInit {
 
 
   onTeamSelect(event) {
-    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const fromDate = moment(this.startDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
     this.router.navigate(['team-submisson', event.extra.teamId, fromDate, toDate]);
   }
 
   onTeamSubmissionStatus(event) {
-    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const fromDate = moment(this.startDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
     this.router.navigate(['team-submissions-status', event.extra.teamId, event.name, fromDate, toDate]);
   }
 
   onUserSelect(event) {
-    const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+    const fromDate = moment(this.startDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
     this.router.navigate(['user-submisson', event.extra.userId, fromDate, toDate]);
   }

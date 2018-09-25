@@ -38,6 +38,7 @@ import { AccMgrDashboardComponent } from './dashboard/acc-mgr-dashboard/acc-mgr-
 import { RecruiterDashboardComponent } from './dashboard/recruiter-dashboard/recruiter-dashboard.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RecruiterSubmissionsStatusComponent } from './recruiter-submissions-status/recruiter-submissions-status.component';
+import { GraphExpansationComponent } from './graph-expansation/graph-expansation.component';
 
 
 export const appRoutes: Routes = [
@@ -81,6 +82,7 @@ export const appRoutes: Routes = [
   { path: 'tl-dashboard', component: AccMgrDashboardComponent },
   { path: 'recruiter-dashboard', component: RecruiterDashboardComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'graph-expand', component: GraphExpansationComponent },
 ];
 
 

@@ -17,9 +17,9 @@
         <div class="row mt-2">
           <div class="col-4">
             <mat-form-field>
-              <input matInput [matDatepicker]="fromDate" [(ngModel)]="startDate" placeholder="From Date">
-              <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
-              <mat-datepicker #fromDate></mat-datepicker>
+              <input matInput [matDatepicker]="fromDatePicker" [(ngModel)]="fromDate" placeholder="From Date">
+              <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #fromDatePicker></mat-datepicker>
             </mat-form-field>
           </div>
           <div class="col-4">
@@ -80,13 +80,17 @@
         </div>
       </div>
       <div class="col-4 mt-3">
-        <div *ngIf="!searchBox" class="col-6 width-200 height-50 submissions-tiny-chart">
-          <ngx-charts-bar-vertical [view]="view" [animations]="false" [scheme]="colorScheme" [results]="chartData"
-            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
-            [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel"
-            (select)="onUserSelect($event)">
-          </ngx-charts-bar-vertical>
+        <div class="row">
+          <div *ngIf="!searchBox" class="col-6 width-200 height-50 submissions-tiny-chart">
+            <ngx-charts-bar-vertical [view]="view" [animations]="false" [scheme]="colorScheme" [results]="chartData"
+              [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
+              [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel"
+              (select)="onUserSelect($event)">
+            </ngx-charts-bar-vertical>
+          </div>
+          <button *ngIf="!searchBox" class="btn btn-sm btn-primary mt-2" (click)="graphExpand();">Graph Expand</button>
         </div>
+
         <div class="submissions search-container" *ngIf="searchBox">
           <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString "
             [(ngModel)]="searchString" (input)="filterItem($event.target.value)">

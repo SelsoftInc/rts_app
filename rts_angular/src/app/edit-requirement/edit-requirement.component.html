@@ -173,7 +173,14 @@
           </select>
         </div>
 
-        <div class="col-sm-2" *ngIf="selectedRequirement">
+        <div class="col-sm-2" *ngIf="selectedRequirement.allocationUser">
+          <label for="allocation" class="form-label">Allocation </label>
+          <select name="role" class="form-input" formControlName="allocation" ngModel="{{selectedRequirement.allocationUser.userId}}">
+            <option value="">Select</option>
+            <option *ngFor="let user of selectedTeamUsers" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
+          </select>
+        </div>
+        <div class="col-sm-2" *ngIf="!selectedRequirement.allocationUser">
           <label for="allocation" class="form-label">Allocation </label>
           <select name="role" class="form-input" formControlName="allocation" ngModel="{{selectedRequirement.allocationUserId}}">
             <option value="">Select</option>

@@ -14,9 +14,9 @@
         <div class="row mt-2">
           <div class="col-4">
             <mat-form-field>
-              <input matInput [matDatepicker]="fromDate" [(ngModel)]="startDate" placeholder="From Date">
-              <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
-              <mat-datepicker #fromDate></mat-datepicker>
+              <input matInput [matDatepicker]="fromDatePicker" [(ngModel)]="fromDate" placeholder="From Date">
+              <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #fromDatePicker></mat-datepicker>
             </mat-form-field>
           </div>
           <div class="col-4">

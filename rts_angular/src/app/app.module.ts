@@ -73,6 +73,7 @@ import { RecruiterComparisonComponent } from './recruiter-comparison/recruiter-c
 import { TeamComparisonComponent } from './team-comparison/team-comparison.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RecruiterSubmissionsStatusComponent } from './recruiter-submissions-status/recruiter-submissions-status.component';
+import { GraphExpansationComponent } from './graph-expansation/graph-expansation.component';
 
 
 @NgModule({
@@ -115,6 +116,7 @@ import { RecruiterSubmissionsStatusComponent } from './recruiter-submissions-sta
     TeamComparisonComponent,
     ForgotPasswordComponent,
     RecruiterSubmissionsStatusComponent,
+    GraphExpansationComponent,
   ],
   imports: [
     BrowserModule,
