@@ -1,4 +1,4 @@
-import { Component, DoCheck } from '@angular/core';
+import { Component, DoCheck, OnDestroy } from '@angular/core';
 import { LoggedUserService } from './Services/logged-user.service';
 import { HideComponentService } from './Services/hide-component.service';
 import { Router } from '@angular/router';
@@ -9,6 +9,7 @@ import { RequirementsComponent } from './requirements/requirements.component';
 import { RecruiterDashboardComponent } from './dashboard/recruiter-dashboard/recruiter-dashboard.component';
 import { AdminDashboardComponent } from './dashboard/admin-dashboard/admin-dashboard.component';
 import { AccMgrDashboardComponent } from './dashboard/acc-mgr-dashboard/acc-mgr-dashboard.component';
+import { GenerateReportComponent } from './generate-report/generate-report.component';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,7 @@ import { AccMgrDashboardComponent } from './dashboard/acc-mgr-dashboard/acc-mgr-
   styleUrls: ['./app.component.css'],
   providers: [LoggedUserService]
 })
-export class AppComponent implements DoCheck {
+export class AppComponent implements DoCheck, OnDestroy {
   displayComponent: boolean;
   rtsUser: any;
   userRole: any;
@@ -37,7 +38,10 @@ export class AppComponent implements DoCheck {
     if (this.rtsUser) {
       this.userRole = this.rtsUser.role;
     }
+  }
 
+  ngOnDestroy() {
+    this.hideComponent.displayComponent = false;
   }
 
   onLogout() {
@@ -48,6 +52,7 @@ export class AppComponent implements DoCheck {
     RecruiterDashboardComponent.graphData = undefined;
     AdminDashboardComponent.graphData = undefined;
     AccMgrDashboardComponent.graphData = undefined;
+    GenerateReportComponent.userDetails = undefined;
     this.loginService.logout();
     this.toastr.success('You are logged out', '', {
       positionClass: 'toast-top-center',

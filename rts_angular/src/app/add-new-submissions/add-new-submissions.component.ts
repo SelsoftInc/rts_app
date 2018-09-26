@@ -50,6 +50,7 @@ export class AddNewSubmissionsComponent implements OnInit {
   private isRelocate: any;
   isWorkedWithClient: boolean;
   immigration: any;
+  isFileAttchements: boolean;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -515,20 +516,27 @@ export class AddNewSubmissionsComponent implements OnInit {
                     positionClass: 'toast-top-center',
                     timeOut: 3000,
                   });
+                  this.toastr.success('New Candidate Successfully added', '', {
+                    positionClass: 'toast-top-center',
+                    timeOut: 3000,
+                  });
+                  this.SubmissionWithCandidate(form, data.candidate.candidateId);
                 } else {
                   this.toastr.error(file.message, '', {
                     positionClass: 'toast-top-center',
                     timeOut: 3000,
                   });
+                  this.SubmissionWithCandidate(form, data.candidate.candidateId);
                 }
               });
+          } else {
+            this.toastr.success('New Candidate Successfully added', '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
+            this.SubmissionWithCandidate(form, data.candidate.candidateId);
           }
-          this.toastr.success('New Candidate Successfully added', '', {
-            positionClass: 'toast-top-center',
-            timeOut: 3000,
-          });
 
-          this.SubmissionWithCandidate(form, data.candidate.candidateId);
         } else {
           this.toastr.error(data.message, '', {
             positionClass: 'toast-top-center',

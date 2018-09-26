@@ -17,7 +17,6 @@
     <button class="btn btn-sm btn-primary" (click)="filterByDate();">Show Results</button>
   </div>
   <div class="col-4 width-200">
-    <label class="form-label">Recruiters:</label>
     <select class="form-input" (change)="selectRecruiter($event.target.value)" [(ngModel)]="recruiter">
       <option value="" selected>Select</option>
       <option value="selectAll">Select All</option>

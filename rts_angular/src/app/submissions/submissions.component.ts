@@ -260,6 +260,9 @@ export class SubmissionsComponent implements OnInit {
             this.searchBox = true;
         }
         this.recruiter = '';
+        for (const require of this.requirements) {
+            require.filteredSubmissions = require.submissions;
+        }
         this.selectedRequirementsDetails(this.requirements);
     }
 
@@ -330,6 +333,9 @@ export class SubmissionsComponent implements OnInit {
             this.selectedRequirementsDetails(this.selectedRequirements);
         } else {
             this.selectedRequirements = [];
+            for (const require of this.requirements) {
+                require.filteredSubmissions = require.submissions;
+            }
             this.selectedRequirements = _.where(this.requirements, { teamId: event });
             this.selectedRequirementsDetails(this.selectedRequirements);
         }
@@ -346,6 +352,9 @@ export class SubmissionsComponent implements OnInit {
             this.selectedRequirementsDetails(this.selectedRequirements);
         } else {
             this.selectedRequirements = [];
+            for (const require of this.requirements) {
+                require.filteredSubmissions = require.submissions;
+            }
             this.selectedRequirements = _.where(this.requirements, { clientId: event });
             this.selectedRequirementsDetails(this.selectedRequirements);
         }
