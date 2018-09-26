@@ -318,6 +318,11 @@ export class RequirementsComponent implements OnInit {
   requirementsDetails(data) {
     this.ngProgress.done();
     this.requirements = data.requirements;
+    for (const allocation of this.requirements) {
+      if (!allocation.allocationUser) {
+        allocation.allocationUser = { firstName: '-' };
+      }
+    }
     this.filteredRequirements = this.requirements;
     this.selectedRequirements = this.requirements;
     this.selectedRequirements.reverse();
@@ -381,6 +386,7 @@ export class RequirementsComponent implements OnInit {
         case 'positions': return this.compare(a.positionCount, b.positionCount, isAsc);
         case 'submittedCount': return this.compare(a.clientSubmissionCount, b.clientSubmissionCount, isAsc);
         case 'allocationByTeam': return this.compare(a.team.name, b.team.name, isAsc);
+        case 'allocationByUser': return this.compare(a.allocationUser.firstName, b.allocationUser.firstName, isAsc);
         case 'client': return this.compare(a.client.name, b.client.name, isAsc);
         case 'age': return this.compare(a.createdOn, b.createdOn, isAsc);
         default: return 0;

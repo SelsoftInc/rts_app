@@ -37,12 +37,12 @@ export class GraphExpansationComponent implements OnInit {
   colorScheme = {
     domain: ['#a8385d', '#7aa3e5', '#a27ea8', '#aae3f5', '#adcded', '#a95963', '#8796c0', '#7ed3ed']
   };
-  submissionDetails: any[];
   requirements: any;
   selctedChartData: any[];
   teamUsers: any;
   selectedRequirements: any;
   recruiter: void;
+  submissionsLength: any;
 
   constructor(
     public dialogRef: MatDialogRef<GraphExpansationComponent>,
@@ -101,8 +101,10 @@ export class GraphExpansationComponent implements OnInit {
         data => {
           if (data.success) {
             this.ngProgress.done();
-            this.submissionDetails = [];
             this.requirements = data.requirements;
+            for (const require of this.requirements) {
+              require.filteredSubmissions = require.submissions;
+            }
             this.selectedRequirements = this.requirements;
             this.getChartData(this.selectedRequirements);
             this.selectRecruiter(this.recruiter);
@@ -112,6 +114,9 @@ export class GraphExpansationComponent implements OnInit {
 
   selectRecruiter(event) {
     if (event === 'selectAll') {
+      for (const require of this.requirements) {
+        require.filteredSubmissions = require.submissions;
+      }
       this.selectedRequirements = this.requirements;
       this.getChartData(this.selectedRequirements);
     } else {
@@ -119,7 +124,7 @@ export class GraphExpansationComponent implements OnInit {
       for (const require of this.requirements) {
         const selectedSubmissions = _.where(require.submissions, { enteredBy: event });
         if (selectedSubmissions.length !== 0) {
-          require.submissions = selectedSubmissions;
+          require.filteredSubmissions = selectedSubmissions;
           this.selectedRequirements.push(require);
         }
       }
@@ -129,11 +134,14 @@ export class GraphExpansationComponent implements OnInit {
 
   getChartData(data) {
     this.selctedChartData = [];
-
+    this.submissionsLength = 0;
+    for (const req of data) {
+      this.submissionsLength = this.submissionsLength + req.filteredSubmissions.length;
+    }
     const chartData = [];
     let APPROVED = 0, REJECTED = 0, IN_PROGRESS = 0, CLOSED = 0, SUBMITTED = 0, CLIENT_REJECTED = 0, SELECTED = 0, INTERVIEWED = 0, HOLD = 0;
     for (const req of data) {
-      for (const sub of req.submissions) {
+      for (const sub of req.filteredSubmissions) {
 
         if (sub.status === 'APPROVED' || sub.status === 'TL_APPROVED') {
           APPROVED++;
@@ -208,6 +216,7 @@ export class GraphExpansationComponent implements OnInit {
     chartData.push(RejecedObj);
     chartData.push(HoldObj);
     chartData.push(InterviewObj);
+    chartData.push(SelectedObj);
     chartData.push(ClosedObj);
     chartData.push(ClientRejectedObj);
     this.selctedChartData = chartData;

@@ -88,7 +88,7 @@
               (select)="onUserSelect($event)">
             </ngx-charts-bar-vertical>
           </div>
-          <button *ngIf="!searchBox" class="btn btn-sm btn-primary mt-2" (click)="graphExpand();">Graph Expand</button>
+          <button *ngIf="!searchBox" class="btn btn-sm btn-primary mt-2" (click)="graphExpand();">Expand</button>
         </div>
 
         <div class="submissions search-container" *ngIf="searchBox">
@@ -140,7 +140,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let submission of sub.submissions" [routerLink]="['/edit-submission', submission.submissionId]">
+            <tr *ngFor="let submission of sub.filteredSubmissions" [routerLink]="['/edit-submission', submission.submissionId]">
               <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
               <td>{{submission.candidate.name}}</td>
               <td>{{submission.candidate.technology[0].technologyName}}</td>
@@ -191,7 +191,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let submission of sub.submissions" [routerLink]="['/recruiter-edit-submissions', submission.submissionId]">
+            <tr *ngFor="let submission of sub.filteredSubmissions" [routerLink]="['/recruiter-edit-submissions', submission.submissionId]">
               <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
               <td>{{submission.candidate.name}}</td>
               <td>{{submission.candidate.technology[0].technologyName}}</td>

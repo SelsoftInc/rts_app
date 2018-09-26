@@ -32,7 +32,7 @@ export class GenerateReportComponent implements OnInit {
   private userRole: any;
   private baseUrl: any;
   public myForm: FormGroup;
-  private startDate: any;
+  private startDate: Date;
   private isTeam: boolean;
   private isClient: boolean;
   private isRecruiter: boolean;
@@ -43,6 +43,8 @@ export class GenerateReportComponent implements OnInit {
   private selectedSubmissions: any;
   private selectedReport: any;
   private sortedData: any;
+  // tslint:disable-next-line:member-ordering
+  public static userDetails: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -57,13 +59,14 @@ export class GenerateReportComponent implements OnInit {
     this.userRole = this.rtsUser.role;
     this.rtsUserId = this.rtsUser.userId;
     this.currentDate = new Date();
+    this.startDate = new Date();
     this.filter = '';
     this.selectedReport = [];
   }
 
   ngOnInit() {
     this.ngProgress.start();
-    this.startDate = this.currentDate;
+    // this.startDate = this.currentDate;
     this.getCommonDetails();
     this.getApprovedSubmissions();
     this.baseUrl = ApiUrl.BaseUrl;
@@ -85,7 +88,8 @@ export class GenerateReportComponent implements OnInit {
         });
   }
 
-  filterByDate(form: FormGroup) {
+  filterByDate() {
+    GenerateReportComponent.userDetails = undefined;
     this.ngProgress.start();
     this.filterBy('');
     this.getApprovedSubmissions();
@@ -152,12 +156,19 @@ export class GenerateReportComponent implements OnInit {
     const fromDate = moment(this.startDate).format('YYYY-MM-DD');
     const toDate = moment(this.currentDate).format('YYYY-MM-DD');
 
-    const userId = {
+    let userId = {
       userId: this.rtsUserId,
       fromDate: fromDate,
       toDate: toDate
     };
 
+    if (GenerateReportComponent.userDetails === undefined) {
+      GenerateReportComponent.userDetails = userId;
+    } else {
+      userId = GenerateReportComponent.userDetails;
+      this.startDate = moment(userId.fromDate, 'YYYY-MM-DD').toDate();
+      this.currentDate = moment(userId.toDate, 'YYYY-MM-DD').toDate();
+    }
     this.submissonService.approvedSubmissionDetails(userId)
       .subscribe(
         data => {
@@ -174,12 +185,12 @@ export class GenerateReportComponent implements OnInit {
     for (const report of this.sortedData) {
       const submissionDate = moment(report.submissionDate).format('MM/DD/YYYY');
       let L1Date: any = '';
-      if (report.dateOfL1 !== undefined) {
+      if (report.dateOfL1 !== undefined && report.dateOfL1 !== '') {
         L1Date = moment(report.dateOfL1).format('MM/DD/YYYY, hh:mm a');
       }
       let L2Date: any = '';
-      if (report.dateOfL2 !== undefined) {
-        L2Date = moment(report.dateOfL1).format('MM/DD/YYYY, hh:mm a');
+      if (report.dateOfL2 !== undefined && report.dateOfL2 !== '') {
+        L2Date = moment(report.dateOfL2).format('MM/DD/YYYY, hh:mm a');
       }
       this.selectedReport.push({
         'Candidate Name': report.candidateName,
@@ -204,6 +215,14 @@ export class GenerateReportComponent implements OnInit {
 
   submissionDetails(data) {
     this.approvedsubmissions = data.submissionReport;
+    for (const date of this.approvedsubmissions) {
+      if (!date.dateOfL1) {
+        date.dateOfL1 = '';
+      }
+      if (!date.dateOfL2) {
+        date.dateOfL2 = '';
+      }
+    }
     const decendingOrder = _.sortBy(this.approvedsubmissions, 'submissionDate').reverse();
     this.selectedSubmissions = decendingOrder;
     this.selectedSubmissions = this.approvedsubmissions;

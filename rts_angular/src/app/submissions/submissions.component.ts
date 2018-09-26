@@ -164,6 +164,9 @@ export class SubmissionsComponent implements OnInit {
         this.submissionsLength = 0;
         this.submissionDetails = [];
         this.requirements = data.requirements;
+        for (const require of this.requirements) {
+            require.filteredSubmissions = require.submissions;
+        }
         this.filteredRequirements = this.requirements;
         this.selectedRequirements = this.requirements;
         for (const require of this.selectedRequirements) {
@@ -195,12 +198,12 @@ export class SubmissionsComponent implements OnInit {
         this.selectedRequirements = data;
         this.filteredRequirements = this.selectedRequirements;
         for (const require of this.selectedRequirements) {
-            if (require.submissions.length > 0) {
+            if (require.filteredSubmissions.length > 0) {
                 this.submissionDetails.push(require);
             }
         }
         for (const count of this.submissionDetails) {
-            this.submissionsLength = this.submissionsLength + count.submissions.length;
+            this.submissionsLength = this.submissionsLength + count.filteredSubmissions.length;
         }
     }
 
@@ -298,6 +301,9 @@ export class SubmissionsComponent implements OnInit {
         this.status = event;
         this.searchBox = true;
         if (event === 'selectAll') {
+            for (const require of this.requirements) {
+                require.filteredSubmissions = require.submissions;
+            }
             this.selectedRequirements = this.requirements;
             this.selectedRequirementsDetails(this.selectedRequirements);
         } else {
@@ -305,7 +311,7 @@ export class SubmissionsComponent implements OnInit {
             for (const require of this.requirements) {
                 const selectedSubmissions = _.where(require.submissions, { status: event });
                 if (selectedSubmissions.length !== 0) {
-                    require.submissions = selectedSubmissions;
+                    require.filteredSubmissions = selectedSubmissions;
                     this.selectedRequirements.push(require);
                 }
             }
@@ -317,6 +323,9 @@ export class SubmissionsComponent implements OnInit {
         SubmissionsComponent.team = event;
         this.team = event;
         if (event === 'selectAll') {
+            for (const require of this.requirements) {
+                require.filteredSubmissions = require.submissions;
+            }
             this.selectedRequirements = this.requirements;
             this.selectedRequirementsDetails(this.selectedRequirements);
         } else {
@@ -330,6 +339,9 @@ export class SubmissionsComponent implements OnInit {
         SubmissionsComponent.client = event;
         this.client = event;
         if (event === 'selectAll') {
+            for (const require of this.requirements) {
+                require.filteredSubmissions = require.submissions;
+            }
             this.selectedRequirements = this.requirements;
             this.selectedRequirementsDetails(this.selectedRequirements);
         } else {
@@ -345,6 +357,9 @@ export class SubmissionsComponent implements OnInit {
         if (event === 'selectAll') {
             this.chartData = [];
             this.searchBox = true;
+            for (const require of this.requirements) {
+                require.filteredSubmissions = require.submissions;
+            }
             this.selectedRequirements = this.requirements;
             this.selectedRequirementsDetails(this.selectedRequirements);
         } else {
@@ -353,7 +368,7 @@ export class SubmissionsComponent implements OnInit {
             for (const require of this.requirements) {
                 const selectedSubmissions = _.where(require.submissions, { enteredBy: event });
                 if (selectedSubmissions.length !== 0) {
-                    require.submissions = selectedSubmissions;
+                    require.filteredSubmissions = selectedSubmissions;
                     this.selectedRequirements.push(require);
                 }
             }
@@ -361,7 +376,7 @@ export class SubmissionsComponent implements OnInit {
             this.chartData = [];
             let APPROVED = 0, REJECTED = 0, IN_PROGRESS = 0, CLOSED = 0, SUBMITTED = 0, CLIENT_REJECTED = 0, SELECTED = 0, INTERVIEWED = 0, HOLD = 0;
             for (const req of this.selectedRequirements) {
-                for (const sub of req.submissions) {
+                for (const sub of req.filteredSubmissions) {
 
                     if (sub.status === 'APPROVED' || sub.status === 'TL_APPROVED') {
                         APPROVED++;
@@ -436,6 +451,7 @@ export class SubmissionsComponent implements OnInit {
             this.chartData.push(RejecedObj);
             this.chartData.push(HoldObj);
             this.chartData.push(InterviewObj);
+            this.chartData.push(SelectedObj);
             this.chartData.push(ClosedObj);
             this.chartData.push(ClientRejectedObj);
             for (const user of this.chartData) {
@@ -453,7 +469,7 @@ export class SubmissionsComponent implements OnInit {
 
     graphExpand() {
         const dialogRef = this.dialog.open(GraphExpansationComponent, {
-            height: '800px',
+            height: '850px',
             width: '1200px',
             data: { chartData: this.chartData, fromDate: this.fromDate, toDate: this.currentDate, recruiter: this.recruiter }
         });
