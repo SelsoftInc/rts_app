@@ -30,13 +30,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private toastr: ToastrService
   ) {
+    this.hideComponent.displayComponent = false;
     localStorage.removeItem('id_token');
     localStorage.removeItem('rts_user');
   }
 
   ngOnInit() {
-
-    this.hideComponent.displayComponent = false;
 
     this.myForm = this.formBuilder.group({
       userEmail: ['', Validators.required],

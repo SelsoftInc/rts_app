@@ -592,11 +592,18 @@
 
       <div *ngIf="userRole === 'ACC_MGR' && isSubmitted ">
 
-        <h2 class="form-title">Select CC For Admin</h2>
-        <div class="col-sm-4">
-          <ng-multiselect-dropdown [placeholder]="'Select Users'" [data]="adminUsers" formControlName="adminUser"
-            [(ngModel)]="adminUsersArray" [settings]="dropdownSettings">
-          </ng-multiselect-dropdown>
+        <h2 class="form-title">Select CC</h2>
+        <div class="row">
+          <div class="col-sm-4">
+            <ng-multiselect-dropdown [placeholder]="'Select Users'" [data]="adminUsers" formControlName="adminUser"
+              [(ngModel)]="adminUsersArray" [settings]="dropdownSettings">
+            </ng-multiselect-dropdown>
+          </div>
+          <div *ngIf="clientCC.length > 0" class="col-sm-4">
+            <ng-multiselect-dropdown [placeholder]="'Select Client CC'" [data]="clientCC" formControlName="clientCcRecruiters"
+              [(ngModel)]="clientCcArray" [settings]="dropdownSettings">
+            </ng-multiselect-dropdown>
+          </div>
         </div>
 
         <h2 class="form-title">Mail Format</h2>

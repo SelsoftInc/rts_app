@@ -83,6 +83,7 @@ export class AddNewSubmissionsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.ngProgress.start();
 
     this.activatedRoute.params
       .subscribe((params: Params) => {
@@ -182,6 +183,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.requirementsDetails = data.requirements;
             for (const require of this.requirementsDetails) {
               if (require.status !== 'Draft') {
@@ -211,6 +213,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.requirementsDetails = data.requirements;
             for (const require of this.requirementsDetails) {
               if (require.status !== 'Draft') {
@@ -239,6 +242,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.ngProgress.done();
             this.requirementsDetails = data.requirements;
             for (const require of this.requirementsDetails) {
               if (require.status !== 'Draft') {

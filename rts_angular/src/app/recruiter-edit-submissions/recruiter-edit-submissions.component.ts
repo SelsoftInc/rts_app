@@ -142,7 +142,6 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
         this.initUnits()
       ]),
     });
-    this.getAllRequirementsForUser();
     this.getAllCommonData();
     this.isNewCandidate = false;
   }
@@ -179,6 +178,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
           for (const immigration of this.immigration) {
             immigration.isChecked = false;
           }
+          this.getAllRequirementsForUser();
         }
       });
 
@@ -259,9 +259,9 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             this.clientRecruiterName = this.recruiterName.join();
 
             const immigirationStatus = this.selectedSubmission.candidate.visaStatus;
-            for (const immigration of this.immigration) {
-              if (_.isEqual(immigirationStatus.visaId, immigration.visaId)) {
-                immigration.isChecked = true;
+            for (const visaStatus of this.immigration) {
+              if (_.isEqual(immigirationStatus.visaId, visaStatus.visaId)) {
+                visaStatus.isChecked = true;
               }
             }
           }
