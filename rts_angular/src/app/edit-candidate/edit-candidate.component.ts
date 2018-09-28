@@ -95,7 +95,6 @@ export class EditCandidateComponent implements OnInit {
       workedWithClient: [''],
     });
     this.getCommonDetails();
-    this.getAllCandidates();
   }
 
   getCommonDetails() {
@@ -112,6 +111,7 @@ export class EditCandidateComponent implements OnInit {
             for (const immigration of this.immigration) {
               immigration.isChecked = false;
             }
+            this.getAllCandidates();
           }
         });
   }
@@ -152,6 +152,7 @@ export class EditCandidateComponent implements OnInit {
                 immigration.isChecked = true;
               }
             }
+            this.immigirationStatus = { visaId: immigirationStatus.visaId };
           }
         });
 
