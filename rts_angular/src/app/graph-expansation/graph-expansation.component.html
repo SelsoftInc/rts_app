@@ -32,6 +32,6 @@
 <div class="chart-align-100-400 mt-5">
   <ngx-charts-bar-vertical [view]="view" [animations]="false" [scheme]="colorScheme" [results]="selctedChartData"
     [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-    [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel">
+    [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel" (select)="onUserSelect($event)">
   </ngx-charts-bar-vertical>
 </div>

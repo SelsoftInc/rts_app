@@ -44,7 +44,7 @@
           </div>
 
           <div *ngIf="isStatus" class="col-4 width-200">
-            <select class="form-control" (change)="selectStatus($event.target.value)">
+            <select class="form-control" (change)="selectStatus($event.target.value)" [(ngModel)]="status">
               <option value="" selected>Select</option>
               <option value="selectAll">Select All</option>
               <option *ngFor="let status of requirementStatus" value="{{status.value}}">{{status.name}}</option>
@@ -52,7 +52,7 @@
           </div>
 
           <div *ngIf="isTeam" class="col-4 width-200">
-            <select class="form-control" (change)="selectTeam($event.target.value)">
+            <select class="form-control" (change)="selectTeam($event.target.value)" [(ngModel)]="team">
               <option value="" selected>Select</option>
               <option value="selectAll">Select All</option>
               <option *ngFor="let team of teams" value="{{team.teamId}}">{{team.name}}</option>
@@ -60,7 +60,7 @@
           </div>
 
           <div *ngIf="isClient" class="col-4 width-200">
-            <select class="form-control" (change)="selectClient($event.target.value)">
+            <select class="form-control" (change)="selectClient($event.target.value)" [(ngModel)]="client">
               <option value="" selected>Select</option>
               <option value="selectAll">Select All</option>
               <option *ngFor="let client of clients" value="{{client.clientId}}">{{client.name}}</option>
@@ -76,7 +76,7 @@
           </div>
 
           <div *ngIf="isRecruiter" class="col-4 width-200">
-            <select class="form-control" (change)="selectRecruiter($event.target.value)">
+            <select class="form-control" (change)="selectRecruiter($event.target.value)" [(ngModel)]="recruiter">
               <option value="" selected>Select</option>
               <option value="selectAll">Select All</option>
               <option *ngFor="let user of teamUsers" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>

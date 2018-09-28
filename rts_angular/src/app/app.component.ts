@@ -10,6 +10,7 @@ import { RecruiterDashboardComponent } from './dashboard/recruiter-dashboard/rec
 import { AdminDashboardComponent } from './dashboard/admin-dashboard/admin-dashboard.component';
 import { AccMgrDashboardComponent } from './dashboard/acc-mgr-dashboard/acc-mgr-dashboard.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
+import { GraphExpansationComponent } from './graph-expansation/graph-expansation.component';
 
 @Component({
   selector: 'app-root',
@@ -53,6 +54,12 @@ export class AppComponent implements DoCheck, OnDestroy {
     AdminDashboardComponent.graphData = undefined;
     AccMgrDashboardComponent.graphData = undefined;
     GenerateReportComponent.userDetails = undefined;
+    RequirementsComponent.recruiter = undefined;
+    RequirementsComponent.status = undefined;
+    RequirementsComponent.client = undefined;
+    RequirementsComponent.team = undefined;
+    RequirementsComponent.clientStatus = undefined;
+    GraphExpansationComponent.graphExpandDeatils = undefined;
     this.loginService.logout();
     this.toastr.success('You are logged out', '', {
       positionClass: 'toast-top-center',

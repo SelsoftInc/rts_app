@@ -6,6 +6,7 @@ import { GraphService } from '../../Services/graph.service';
 import { Router } from '@angular/router';
 import { NgProgress } from 'ngx-progressbar';
 import { Sort } from '@angular/material';
+import { GraphExpansationComponent } from '../../graph-expansation/graph-expansation.component';
 
 @Component({
   selector: 'app-acc-mgr-dashboard',
@@ -70,8 +71,8 @@ export class AccMgrDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    GraphExpansationComponent.graphExpandDeatils = undefined;
     this.ngProgress.start();
-    // this.fromDate = this.currentDate;
     this.getTeamGraphDetails();
     this.getUserGraphDetails();
     this.getInterviewReport();

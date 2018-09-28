@@ -6,6 +6,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { MatDialog } from '@angular/material';
 import { DeleteTeamComponent } from '../delete-team/delete-team.component';
 import { NgProgress } from 'ngx-progressbar';
+import { GraphExpansationComponent } from '../graph-expansation/graph-expansation.component';
 
 export interface DialogData {
   teamId: any;
@@ -41,6 +42,7 @@ export class ManageTeamComponent implements OnInit {
   }
 
   ngOnInit() {
+    GraphExpansationComponent.graphExpandDeatils = undefined;
     this.ngProgress.start();
     this.getCommonDetails();
   }

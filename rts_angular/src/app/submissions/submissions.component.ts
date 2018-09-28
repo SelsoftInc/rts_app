@@ -115,6 +115,14 @@ export class SubmissionsComponent implements OnInit {
         this.client = '';
         this.team = '';
         this.searchBox = true;
+        if (GraphExpansationComponent.graphExpandDeatils !== undefined) {
+            const dialogData = GraphExpansationComponent.graphExpandDeatils;
+            this.chartData = dialogData.chartData;
+            this.fromDate = dialogData.fromDate;
+            this.currentDate = dialogData.toDate;
+            this.recruiter = dialogData.recruiterId;
+            this.graphExpand();
+        }
     }
 
     ngOnInit() {
@@ -125,7 +133,6 @@ export class SubmissionsComponent implements OnInit {
             toDate: ['']
         });
 
-        // this.startDate = this.currentDate;
         this.getCommonDetails();
         this.getAllSubmissions();
     }
@@ -471,9 +478,9 @@ export class SubmissionsComponent implements OnInit {
     }
 
     onUserSelect(event) {
-        // const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
-        // const toDate = moment(this.currentDate).format('YYYY-MM-DD');
-        // this.router.navigate(['recruiter-submissions-status', event.extra.userId, event.name, fromDate, toDate]);
+        const fromDate = moment(this.fromDate).format('YYYY-MM-DD');
+        const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+        this.router.navigate(['recruiter-submissions-status', event.extra.userId, event.name, fromDate, toDate]);
     }
 
     graphExpand() {
@@ -484,7 +491,7 @@ export class SubmissionsComponent implements OnInit {
         });
 
         // dialogRef.afterClosed().subscribe(result => {
-        //   console.log('dialog closed');
+        //     GraphExpansationComponent.graphExpandDeatils = undefined;
         // });
 
     }

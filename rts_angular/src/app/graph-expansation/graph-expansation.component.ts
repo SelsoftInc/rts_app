@@ -21,6 +21,7 @@ export class GraphExpansationComponent implements OnInit {
   chartData: DialogData;
   private currentDate: Date;
   private startDate: any;
+  public static graphExpandDeatils: any;
 
   // options
   view: any[] = undefined;
@@ -55,6 +56,7 @@ export class GraphExpansationComponent implements OnInit {
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
+    this.requirements = [];
   }
 
   ngOnInit() {
@@ -113,6 +115,7 @@ export class GraphExpansationComponent implements OnInit {
   }
 
   selectRecruiter(event) {
+    this.recruiter = event;
     if (event === 'selectAll') {
       for (const require of this.requirements) {
         require.filteredSubmissions = require.submissions;
@@ -220,6 +223,20 @@ export class GraphExpansationComponent implements OnInit {
     chartData.push(ClosedObj);
     chartData.push(ClientRejectedObj);
     this.selctedChartData = chartData;
+  }
+
+  onUserSelect(event) {
+    const fromDate = moment(this.startDate).format('YYYY-MM-DD');
+    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+    GraphExpansationComponent.graphExpandDeatils = {
+      recruiterId: this.recruiter,
+      status: event.name,
+      fromDate: fromDate,
+      toDate: toDate,
+      chartData: this.selctedChartData
+    };
+    this.router.navigate(['recruiter-submissions-status', this.recruiter, event.name, fromDate, toDate]);
+    this.dialogRef.close();
   }
 
 }

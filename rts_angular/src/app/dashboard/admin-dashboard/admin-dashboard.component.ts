@@ -6,6 +6,7 @@ import { GraphService } from '../../Services/graph.service';
 import { Router } from '@angular/router';
 import { NgProgress } from 'ngx-progressbar';
 import { Sort } from '@angular/material';
+import { GraphExpansationComponent } from '../../graph-expansation/graph-expansation.component';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -95,8 +96,8 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    GraphExpansationComponent.graphExpandDeatils = undefined;
     this.ngProgress.start();
-    // this.fromDate = this.currentDate;
     this.getUserGraphDetails();
     this.getTeamGraphDetails();
     this.getClientRequirementsDetails();

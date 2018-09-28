@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoggedUserService } from '../Services/logged-user.service';
 import { CandidateService } from '../Services/candidate.service';
 import { NgProgress } from 'ngx-progressbar';
+import { GraphExpansationComponent } from '../graph-expansation/graph-expansation.component';
 
 @Component({
   selector: 'app-manage-candidate',
@@ -29,6 +30,7 @@ export class ManageCandidateComponent implements OnInit {
   }
 
   ngOnInit() {
+    GraphExpansationComponent.graphExpandDeatils = undefined;
     this.ngProgress.start();
     this.getAllCandidates();
   }

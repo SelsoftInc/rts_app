@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { ClientService } from '../Services/client.service';
 import { NgProgress } from 'ngx-progressbar';
+import { GraphExpansationComponent } from '../graph-expansation/graph-expansation.component';
 
 @Component({
   selector: 'app-manage-client',
@@ -32,6 +33,7 @@ export class ManageClientComponent implements OnInit {
   }
 
   ngOnInit() {
+    GraphExpansationComponent.graphExpandDeatils = undefined;
     this.ngProgress.start();
     this.getAllClients();
   }

@@ -3,6 +3,7 @@ import { LoggedUserService } from '../Services/logged-user.service';
 import { Router } from '@angular/router';
 import { UserService } from '../Services/user.service';
 import { NgProgress } from 'ngx-progressbar';
+import { GraphExpansationComponent } from '../graph-expansation/graph-expansation.component';
 
 @Component({
   selector: 'app-manage-users',
@@ -30,6 +31,7 @@ export class ManageUsersComponent implements OnInit {
   }
 
   ngOnInit() {
+    GraphExpansationComponent.graphExpandDeatils = undefined;
     this.ngProgress.start();
     this.getAllUser();
   }

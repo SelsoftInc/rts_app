@@ -66,7 +66,6 @@ export class RecruiterSubmissionsStatusComponent implements OnInit {
     this.submissionService.GetRecruiterSubmissionStatus(graph)
       .subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             this.ngProgress.done();
             this.requirements = data.requirements;
@@ -74,5 +73,13 @@ export class RecruiterSubmissionsStatusComponent implements OnInit {
             this.filteredRequirements = this.requirements;
           }
         });
+  }
+
+  filterItem(value) {
+    this.submissionDetails = [];
+    const filteredItems = Object.assign([], this.filteredRequirements).filter(
+      item => item.position.positionName.toLowerCase().indexOf(value.toLowerCase()) > -1
+    );
+    this.submissionDetails = filteredItems;
   }
 }
