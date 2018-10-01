@@ -160,19 +160,6 @@ export class EditRequirementComponent implements OnInit {
         });
   }
 
-  // getAllUsers() {
-  //   const userId = {
-  //     enteredBy: this.rtsUserId
-  //   };
-
-  //   this.userService.allUsers(userId)
-  //     .subscribe(
-  //       data => {
-  //         if (data.success) {
-  //           this.userDetails = data.users;
-  //         }
-  //       });
-  // }
 
   getAllRequirements() {
 
@@ -198,11 +185,11 @@ export class EditRequirementComponent implements OnInit {
             }
             this.isRecruiters = true;
             this.accountName = this.selectedRequirement.accountId;
-            for (const recruiter of this.selectedRequirement.client.clientRecuriters) {
-              this.recruitersArray.push({ user: recruiter.email, firstName: recruiter.name });
+            for (const recruiter of this.selectedRequirement.client.toClientRecuriters) {
+              this.recruitersArray.push({ user: recruiter.clientRecuriterId, firstName: recruiter.name });
             }
-            for (const value of this.selectedRequirement.clientRecuriters) {
-              this.selectedrecruitersArray.push({ user: value.email, firstName: value.name });
+            for (const value of this.selectedRequirement.toClientRecuriters) {
+              this.selectedrecruitersArray.push({ user: value.clientRecuriterId, firstName: value.name });
             }
             for (const value of this.requirementByUser) {
               if (value === 'C2C') {
@@ -300,8 +287,8 @@ export class EditRequirementComponent implements OnInit {
     if (event !== undefined) {
       this.isRecruiters = true;
       this.selectedClient = _.findWhere(this.clients, { clientId: event });
-      for (const recruiter of this.selectedClient.clientRecuriters) {
-        this.recruitersArray.push({ user: recruiter.email, firstName: recruiter.name });
+      for (const recruiter of this.selectedClient.toClientRecuriters) {
+        this.recruitersArray.push({ user: recruiter.clientRecuriterId, firstName: recruiter.name });
       }
     }
     this.deSelectAll();
@@ -313,16 +300,16 @@ export class EditRequirementComponent implements OnInit {
 
   updateRequirement(form: FormGroup) {
     this.ngProgress.start();
+    const selectedRecruitersId = [];
+    for (const clientRecruiters of this.selectedrecruitersArray) {
+      selectedRecruitersId.push({ clientRecuriterId: clientRecruiters.user });
+    }
     const selectedImmigration = [];
     for (const label of this.immigrationByUser) {
       selectedImmigration.push({ visaId: label });
     }
     if (this.isOtherImmigration) {
       selectedImmigration.push({ visaName: form.value.otherImmigration });
-    }
-    this.selectedRecruites = [];
-    for (const recruiter of this.selectedrecruitersArray) {
-      this.selectedRecruites.push({ email: recruiter.user });
     }
 
     const requirement: any = {
@@ -343,7 +330,7 @@ export class EditRequirementComponent implements OnInit {
       note: form.value.notes,
       client: {
         clientId: form.value.clientName,
-        clientRecuriters: this.selectedRecruites
+        toClientRecuriters: selectedRecruitersId
       }
     };
 

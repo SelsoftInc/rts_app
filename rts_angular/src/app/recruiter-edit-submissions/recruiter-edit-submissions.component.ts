@@ -253,7 +253,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
               this.myForm.controls.editWorkedWithClient.setValue('false');
               this.isWorkedWithClient = false;
             }
-            for (const recruiter of this.selectedRequirement.clientRecuriters) {
+            for (const recruiter of this.selectedRequirement.toClientRecuriters) {
               this.recruiterName.push(recruiter.name + ' ');
             }
             this.clientRecruiterName = this.recruiterName.join();
@@ -271,7 +271,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   getRequirement(event) {
     this.recruiterName = [];
     this.selectedRequirement = _.findWhere(this.allRequirements, { requirementId: event });
-    for (const recruiter of this.selectedRequirement.clientRecuriters) {
+    for (const recruiter of this.selectedRequirement.toClientRecuriters) {
       this.recruiterName.push(recruiter.name + ' ');
       this.recruiterEmail.push(recruiter.email + ' ');
     }

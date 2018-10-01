@@ -7,6 +7,7 @@ import * as _ from 'underscore';
 import { SubmissionService } from '../Services/submission.service';
 import { NgProgress } from 'ngx-progressbar';
 import { GraphService } from '../Services/graph.service';
+import { UserService } from '../Services/user.service';
 
 @Component({
   selector: 'app-recruiter-submissions-status',
@@ -30,6 +31,7 @@ export class RecruiterSubmissionsStatusComponent implements OnInit {
   private userRole: any;
   totalSubmissionStatus: any;
   requirements: any;
+  rtsCompanyId: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -37,10 +39,12 @@ export class RecruiterSubmissionsStatusComponent implements OnInit {
     private submissionService: SubmissionService,
     private ngProgress: NgProgress,
     private graphService: GraphService,
+    private userService: UserService
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
     this.userRole = this.rtsUser.role;
+    this.rtsCompanyId = this.rtsUser.companyId;
   }
 
   ngOnInit() {
@@ -52,7 +56,25 @@ export class RecruiterSubmissionsStatusComponent implements OnInit {
         this.fromDate = params['fromDate'];
         this.toDate = params['toDate'];
       });
+    this.getAllUser();
     this.GetRecruiterSubmissionStatus();
+  }
+
+  getAllUser() {
+    const userId = {
+      companyId: this.rtsCompanyId
+    };
+
+    this.userService.allUsers(userId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            const userDetails = data.users;
+            this.selectedUser = _.findWhere(userDetails, { userId: this.userId });
+            this.userName = this.selectedUser.firstName + ' ' + this.selectedUser.lastName;
+          }
+        });
+
   }
 
   GetRecruiterSubmissionStatus() {

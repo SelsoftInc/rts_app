@@ -114,7 +114,7 @@ export class EditClientComponent implements OnInit {
             this.clients = data.clients;
             this.selectedClient = _.findWhere(this.clients, { clientId: this.clientId });
             const control = <FormArray>this.myForm.controls['units'];
-            for (const recruiter of this.selectedClient.clientRecuriters) {
+            for (const recruiter of this.selectedClient.toClientRecuriters) {
               control.push(this.formBuilder.group(recruiter));
             }
             const CcControl = <FormArray>this.myForm.controls['ccUnits'];
@@ -148,7 +148,7 @@ export class EditClientComponent implements OnInit {
       phoneNumber: form.value.phoneNumber,
       enteredBy: this.rtsUserId,
       clientId: this.clientId,
-      clientRecuriters: form.value.units,
+      toClientRecuriters: form.value.units,
     };
 
     if (form.value.ccUnits[0].name === '' || form.value.ccUnits[0].email === '') {

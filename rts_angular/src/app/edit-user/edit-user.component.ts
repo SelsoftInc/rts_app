@@ -82,9 +82,7 @@ export class EditUserComponent implements OnInit {
           if (data.success) {
             this.ngProgress.done();
             this.userDetails = data.users;
-            for (const user of this.userDetails) {
-              this.selectedUser = _.findWhere(this.userDetails, { userId: this.userId });
-            }
+            this.selectedUser = _.findWhere(this.userDetails, { userId: this.userId });
             this.firstName = this.selectedUser.firstName;
             this.lastName = this.selectedUser.lastName;
             this.email = this.selectedUser.email;

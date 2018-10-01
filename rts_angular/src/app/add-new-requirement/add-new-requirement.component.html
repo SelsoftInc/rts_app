@@ -132,7 +132,7 @@
         <label for="clientName" class="form-label">Select Recruiters:</label>
         <div class="pt-4">
           <ng-multiselect-dropdown [placeholder]="'Select Recruiters'" [data]="recruitersArray" formControlName="recruitersName"
-            [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)">
+            [(ngModel)]="selectedRecruites" [settings]="dropdownSettings">
           </ng-multiselect-dropdown>
         </div>
       </div>

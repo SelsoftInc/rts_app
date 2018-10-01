@@ -314,29 +314,23 @@ export class AddNewRequirementComponent implements OnInit {
     if (event !== undefined) {
       this.isRecruiters = true;
       this.selectedClient = _.findWhere(this.clients, { clientId: event });
-      for (const recruiter of this.selectedClient.clientRecuriters) {
+      for (const recruiter of this.selectedClient.toClientRecuriters) {
         this.recruitersArray.push({ user: recruiter, firstName: recruiter.name });
       }
     }
     this.deSelectAll();
   }
 
-  onItemSelect(item: any) {
-    if (item !== undefined && item !== '') {
-      this.selectedRecruites.push({ email: item.user.email });
-    }
-  }
-
-  onItemDeSelect(items: any) {
-    const clear = this.selectedRecruites.indexOf(items);
-    this.selectedRecruites.splice(clear, 1);
-  }
 
   deSelectAll() {
     this.myForm.controls.recruitersName.setValue('');
   }
 
   addNewRequirement(form: FormGroup) {
+    const selectedRecruitersId = [];
+    for (const clientRecruiters of this.selectedRecruites) {
+      selectedRecruitersId.push({ clientRecuriterId: clientRecruiters.user.clientRecuriterId });
+    }
     this.immigrationByUser = [];
     for (const label of this.selctedVisaStatus) {
       this.immigrationByUser.push({ visaId: label });
@@ -379,7 +373,7 @@ export class AddNewRequirementComponent implements OnInit {
       note: form.value.notes,
       client: {
         clientId: form.value.clientName,
-        clientRecuriters: this.selectedRecruites
+        toClientRecuriters: selectedRecruitersId
       }
     };
 
