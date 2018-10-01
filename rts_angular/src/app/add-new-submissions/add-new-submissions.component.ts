@@ -192,7 +192,7 @@ export class AddNewSubmissionsComponent implements OnInit {
             }
             this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: this.requirementId });
             if (this.selectRequiement !== undefined) {
-              for (const recruiter of this.selectRequiement.clientRecuriters) {
+              for (const recruiter of this.selectRequiement.toClientRecuriters) {
                 this.recruiterName.push(recruiter.name + ' ');
                 this.recruiterEmail.push(recruiter.email + ' ');
               }
@@ -222,7 +222,7 @@ export class AddNewSubmissionsComponent implements OnInit {
             }
             this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: this.requirementId });
             if (this.selectRequiement !== undefined) {
-              for (const recruiter of this.selectRequiement.clientRecuriters) {
+              for (const recruiter of this.selectRequiement.toClientRecuriters) {
                 this.recruiterName.push(recruiter.name + ' ');
                 this.recruiterEmail.push(recruiter.email + ' ');
               }
@@ -251,7 +251,7 @@ export class AddNewSubmissionsComponent implements OnInit {
             }
             this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: this.requirementId });
             if (this.selectRequiement !== undefined) {
-              for (const recruiter of this.selectRequiement.clientRecuriters) {
+              for (const recruiter of this.selectRequiement.toClientRecuriters) {
                 this.recruiterName.push(recruiter.name + ' ');
                 this.recruiterEmail.push(recruiter.email + ' ');
               }
@@ -266,7 +266,7 @@ export class AddNewSubmissionsComponent implements OnInit {
     this.recruiterName = [];
     this.recruiterEmail = [];
     this.selectRequiement = _.findWhere(this.requirementsDetails, { requirementId: event });
-    for (const recruiter of this.selectRequiement.clientRecuriters) {
+    for (const recruiter of this.selectRequiement.toClientRecuriters) {
       this.recruiterName.push(recruiter.name + ' ');
       this.recruiterEmail.push(recruiter.email + ' ');
     }

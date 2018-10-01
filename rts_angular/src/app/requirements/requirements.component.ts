@@ -222,6 +222,7 @@ export class RequirementsComponent implements OnInit {
       this.selectedRequirements = this.requirements;
       this.selectedRequirementsDetails(this.selectedRequirements);
     } else {
+      this.clientStatus = '';
       this.selectedRequirements = [];
       this.selectedRequirements = _.where(this.requirements, { clientId: event });
       this.selectedClientRequirements = this.selectedRequirements;
