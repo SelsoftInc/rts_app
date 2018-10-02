@@ -369,7 +369,7 @@ export class RequirementsComponent implements OnInit {
     this.selectedRequirements.reverse();
     this.requirementsLength = this.requirements.length;
     for (const require of this.requirements) {
-      const diff = Math.floor(this.currentDate.getTime() - require.createdOn);
+      const diff = Math.floor(Date.now() - require.createdOn);
       const day = 1000 * 60 * 60 * 24;
       const days = Math.floor(diff / day);
       const weeks = Math.floor(days / 7);
@@ -406,7 +406,7 @@ export class RequirementsComponent implements OnInit {
     this.filteredRequirements = this.selectedRequirements;
     this.requirementsLength = this.selectedRequirements.length;
     for (const require of this.selectedRequirements) {
-      const diff = Math.floor(this.currentDate.getTime() - require.createdOn);
+      const diff = Math.floor(Date.now() - require.createdOn);
       const day = 1000 * 60 * 60 * 24;
       const days = Math.floor(diff / day);
       const weeks = Math.floor(days / 7);

@@ -32,6 +32,7 @@ export class EditClientComponent implements OnInit {
   private contactPersonNumber: any;
   private name: any;
   isCcEmpty: boolean;
+  deletedRecruiter: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -45,6 +46,7 @@ export class EditClientComponent implements OnInit {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
     this.rtsCompanyId = this.rtsUser.companyId;
+    this.deletedRecruiter = [];
   }
 
   ngOnInit() {
@@ -86,9 +88,10 @@ export class EditClientComponent implements OnInit {
     control.push(this.initUnits());
   }
 
-  removeUnits(i: number) {
+  removeUnits(i: number, event) {
     const control = <FormArray>this.myForm.controls['units'];
     control.removeAt(i);
+    this.deletedRecruiter.push(event.value.clientRecuriterId);
   }
 
   addCcUnits() {
@@ -167,7 +170,12 @@ export class EditClientComponent implements OnInit {
       return false;
     }
 
-    this.clientService.editClient(editClient)
+    const client = {
+      client: editClient,
+      deletedRecuriters: this.deletedRecruiter
+    };
+
+    this.clientService.editClient(client)
       .subscribe(
         data => {
           if (data.success) {

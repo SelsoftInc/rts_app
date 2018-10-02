@@ -228,7 +228,7 @@ export class GenerateReportComponent implements OnInit {
     this.selectedSubmissions = this.approvedsubmissions;
     this.approvedSubmissionsLength = this.selectedSubmissions.length;
     for (const submission of this.selectedSubmissions) {
-      const diff = Math.floor(this.currentDate.getTime() - submission.submissionDate);
+      const diff = Math.floor(Date.now() - submission.submissionDate);
       const day = 1000 * 60 * 60 * 24;
       const days = Math.floor(diff / day);
       const weeks = Math.floor(days / 7);
@@ -253,7 +253,7 @@ export class GenerateReportComponent implements OnInit {
     this.selectedSubmissions = data;
     this.approvedSubmissionsLength = this.selectedSubmissions.length;
     for (const submission of this.selectedSubmissions) {
-      const diff = Math.floor(this.currentDate.getTime() - submission.submissionDate);
+      const diff = Math.floor(Date.now() - submission.submissionDate);
       const day = 1000 * 60 * 60 * 24;
       const days = Math.floor(diff / day);
       const weeks = Math.floor(days / 7);
