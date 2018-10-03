@@ -55,15 +55,16 @@ export class AdminDashboardComponent implements OnInit {
   };
 
   colorSchemeMultiBar1 = {
-    domain: ['#08B3E5', '#0FBED8', '#14C9CB', '#990A17', '#22E4AC']
+    domain: ['#5BB2A7', '#0FBED8', '#f3a043', '#990A17', '#22E4AC']
   };
 
   colorSchemeMultiBar2 = {
-    domain: ['#9780A6', '#C4B7D0', '#990A17', '#E12926', '#E4DEEB']
+    domain: ['#5BB2A7', '#C4B7D0', '#990A17', '#E12926', '#E4DEEB']
   };
 
   colorSchemeMultiBar3 = {
-    domain: ['#6E6153', '#98A582', '#990A17', '#BDD9B5', '#EAF1D5']
+    domain: ['#5BB2A7', '#990A17']
+    // domain: ['#6E6153', '#98A582', '#990A17', '#BDD9B5', '#EAF1D5']
   };
 
   colorSchemeMultiBar4 = {
@@ -150,6 +151,17 @@ export class AdminDashboardComponent implements OnInit {
                 series.extra = {
                   userId: recruiter.userId
                 };
+              }
+            }
+            for (const recruiter of this.recruiterComparison) {
+              const totalSubmission = recruiter.value;
+              for (const series of recruiter.series) {
+                if (series.name === 'Rejections' && series.value !== 0) {
+                  const rejections = (series.value * 100) / totalSubmission;
+                  let percentage = rejections + '';
+                  percentage = percentage.substring(0, 4);
+                  recruiter.name = '(' + percentage + '% R) ' + recruiter.name;
+                }
               }
             }
           }
