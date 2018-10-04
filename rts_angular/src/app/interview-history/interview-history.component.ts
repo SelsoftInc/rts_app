@@ -108,6 +108,7 @@ export class InterviewHistoryComponent implements OnInit {
         case 'recruiterName': return this.compare(a.recruiterName, b.recruiterName, isAsc);
         case 'skype': return this.compare(a.skypeId, b.skypeId, isAsc);
         case 'phoneNumber': return this.compare(a.phoneNumber, b.phoneNumber, isAsc);
+        case 'currentStatus': return this.compare(a.currentStatus, b.currentStatus, isAsc);
         default: return 0;
       }
     });
