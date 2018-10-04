@@ -53,6 +53,11 @@
             </div>
 
             <div class="col-sm-4" *ngIf="selectedSubmission">
+              <label for="currentStatus" class="form-label">Current Status:</label>
+              <input type="text" class="form-input" name="currentStatus" formControlName="currentStatus" ngModel="{{selectedSubmission.currentStatus}}">
+            </div>
+
+            <div class="col-sm-4" *ngIf="selectedSubmission">
               <label for="status" class="form-label">Status:</label>
               <input type="text" class="form-input" name="workLocation" formControlName="status" ngModel="{{selectedSubmission.status}}"
                 readonly>

@@ -74,6 +74,7 @@ import { TeamComparisonComponent } from './team-comparison/team-comparison.compo
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RecruiterSubmissionsStatusComponent } from './recruiter-submissions-status/recruiter-submissions-status.component';
 import { GraphExpansationComponent } from './graph-expansation/graph-expansation.component';
+import { InterviewHistoryComponent } from './interview-history/interview-history.component';
 
 
 @NgModule({
@@ -117,6 +118,7 @@ import { GraphExpansationComponent } from './graph-expansation/graph-expansation
     ForgotPasswordComponent,
     RecruiterSubmissionsStatusComponent,
     GraphExpansationComponent,
+    InterviewHistoryComponent,
   ],
   imports: [
     BrowserModule,

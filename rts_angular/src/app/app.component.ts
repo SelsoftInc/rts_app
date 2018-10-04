@@ -11,6 +11,7 @@ import { AdminDashboardComponent } from './dashboard/admin-dashboard/admin-dashb
 import { AccMgrDashboardComponent } from './dashboard/acc-mgr-dashboard/acc-mgr-dashboard.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
 import { GraphExpansationComponent } from './graph-expansation/graph-expansation.component';
+import { InterviewHistoryComponent } from './interview-history/interview-history.component';
 
 @Component({
   selector: 'app-root',
@@ -60,6 +61,7 @@ export class AppComponent implements DoCheck, OnDestroy {
     RequirementsComponent.team = undefined;
     RequirementsComponent.clientStatus = undefined;
     GraphExpansationComponent.graphExpandDeatils = undefined;
+    InterviewHistoryComponent.userDetails = undefined;
     this.loginService.logout();
     this.toastr.success('You are logged out', '', {
       positionClass: 'toast-top-center',

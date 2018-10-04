@@ -66,7 +66,6 @@ export class GenerateReportComponent implements OnInit {
 
   ngOnInit() {
     this.ngProgress.start();
-    // this.startDate = this.currentDate;
     this.getCommonDetails();
     this.getApprovedSubmissions();
     this.baseUrl = ApiUrl.BaseUrl;

@@ -39,6 +39,7 @@ import { RecruiterDashboardComponent } from './dashboard/recruiter-dashboard/rec
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RecruiterSubmissionsStatusComponent } from './recruiter-submissions-status/recruiter-submissions-status.component';
 import { GraphExpansationComponent } from './graph-expansation/graph-expansation.component';
+import { InterviewHistoryComponent } from './interview-history/interview-history.component';
 
 
 export const appRoutes: Routes = [
@@ -83,6 +84,7 @@ export const appRoutes: Routes = [
   { path: 'recruiter-dashboard', component: RecruiterDashboardComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'graph-expand', component: GraphExpansationComponent },
+  { path: 'interview-history', component: InterviewHistoryComponent },
 ];
 
 
