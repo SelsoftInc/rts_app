@@ -4,7 +4,7 @@
 <div class="utility-container">
   <div class="filter-container">
     <div class="row">
-      <div class="col-4">
+      <div class="col-4 divider-right">
         <div class="row mt-2">
           <div class="col-4">
             <mat-form-field>
@@ -23,6 +23,42 @@
 
           <div class="col-4 mt-3">
             <button class="btn btn-sm btn-primary" (click)="filterByDate();">Show Results</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-auto">
+        <div class="row mt-3">
+          <div class="col-6">
+            <select class="form-control width-200" (change)="filterBy($event.target.value)" [(ngModel)]="filter">
+              <option value="" selected>Filter By</option>
+              <option value="team">Team</option>
+              <option value="client">Client</option>
+              <option value="recruiter">Recruiter</option>
+            </select>
+          </div>
+
+          <div *ngIf="isTeam" class="col-6 width-200">
+            <select class="form-control" (change)="selectTeam($event.target.value)" [(ngModel)]="team">
+              <option value="" selected>Select</option>
+              <option value="selectAll">Select All</option>
+              <option *ngFor="let team of teams" value="{{team.teamId}}">{{team.name}}</option>
+            </select>
+          </div>
+
+          <div *ngIf="isClient" class="col-6 width-200">
+            <select class="form-control" (change)="selectClient($event.target.value)" [(ngModel)]="client">
+              <option value="" selected>Select</option>
+              <option value="selectAll">Select All</option>
+              <option *ngFor="let client of clients" value="{{client.clientId}}">{{client.name}}</option>
+            </select>
+          </div>
+
+          <div *ngIf="isRecruiter" class="col-6 width-200">
+            <select class="form-control" (change)="selectRecruiter($event.target.value)" [(ngModel)]="recruiter">
+              <option value="" selected>Select</option>
+              <option value="selectAll">Select All</option>
+              <option *ngFor="let user of teamUsers" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
+            </select>
           </div>
         </div>
       </div>

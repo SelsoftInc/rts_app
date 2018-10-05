@@ -51,6 +51,7 @@ export class AppComponent implements DoCheck, OnDestroy {
     SubmissionsComponent.userDetails = undefined;
     SubmissionsComponent.recruiter = undefined;
     RequirementsComponent.userDetails = undefined;
+    RequirementsComponent.filterBy = undefined;
     RecruiterDashboardComponent.graphData = undefined;
     AdminDashboardComponent.graphData = undefined;
     AccMgrDashboardComponent.graphData = undefined;
@@ -62,6 +63,10 @@ export class AppComponent implements DoCheck, OnDestroy {
     RequirementsComponent.clientStatus = undefined;
     GraphExpansationComponent.graphExpandDeatils = undefined;
     InterviewHistoryComponent.userDetails = undefined;
+    InterviewHistoryComponent.recruiter = undefined;
+    InterviewHistoryComponent.client = undefined;
+    InterviewHistoryComponent.team = undefined;
+    InterviewHistoryComponent.filterBy = undefined;
     this.loginService.logout();
     this.toastr.success('You are logged out', '', {
       positionClass: 'toast-top-center',
