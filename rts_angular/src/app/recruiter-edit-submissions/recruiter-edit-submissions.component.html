@@ -83,7 +83,7 @@
                 ngModel="{{selectedSubmission.reasonForRejection}}" readonly>
             </div>
 
-            <div class="col-sm-4" *ngIf="selectedSubmission">
+            <div class="col-sm-4" *ngIf="selectedSubmission && selectedSubmission.submittedUser">
               <label for="submittedBy" class="form-label">SubmittedBy:</label>
               <span class="form-text mt-4">{{selectedSubmission.submittedUser.firstName}}
                 {{selectedSubmission.submittedUser.lastName}} ({{selectedSubmission.submittedUser.role}})</span>

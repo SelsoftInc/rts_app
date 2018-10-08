@@ -75,6 +75,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { RecruiterSubmissionsStatusComponent } from './recruiter-submissions-status/recruiter-submissions-status.component';
 import { GraphExpansationComponent } from './graph-expansation/graph-expansation.component';
 import { InterviewHistoryComponent } from './interview-history/interview-history.component';
+import { DeleteUserComponent } from './delete-user/delete-user.component';
 
 
 @NgModule({
@@ -119,6 +120,7 @@ import { InterviewHistoryComponent } from './interview-history/interview-history
     RecruiterSubmissionsStatusComponent,
     GraphExpansationComponent,
     InterviewHistoryComponent,
+    DeleteUserComponent,
   ],
   imports: [
     BrowserModule,

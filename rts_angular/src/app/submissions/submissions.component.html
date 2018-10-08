@@ -151,7 +151,8 @@
               <td>{{submission.candidate.availability}}</td>
               <td>{{sub.location}}</td>
               <td>{{submission.status}}</td>
-              <td>{{submission.submittedUser.firstName}} {{submission.submittedUser.lastName}}</td>
+              <td *ngIf="submission.submittedUser">{{submission.submittedUser.firstName}}
+                {{submission.submittedUser.lastName}}</td>
             </tr>
           </tbody>
         </table>
@@ -202,7 +203,8 @@
               <td>{{submission.candidate.availability}}</td>
               <td>{{sub.location}}</td>
               <td>{{submission.status}}</td>
-              <td>{{submission.submittedUser.firstName}} {{submission.submittedUser.lastName}}</td>
+              <td *ngIf="submission.submittedUser">{{submission.submittedUser.firstName}}
+                {{submission.submittedUser.lastName}}</td>
             </tr>
           </tbody>
         </table>

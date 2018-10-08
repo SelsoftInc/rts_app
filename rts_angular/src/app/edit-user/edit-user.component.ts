@@ -6,6 +6,12 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import * as _ from 'underscore';
 import { NgProgress } from 'ngx-progressbar';
+import { MatDialog } from '@angular/material';
+import { DeleteUserComponent } from '../delete-user/delete-user.component';
+
+export interface DialogData {
+  userId: any;
+}
 
 @Component({
   selector: 'app-edit-user',
@@ -38,6 +44,7 @@ export class EditUserComponent implements OnInit {
     private userService: UserService,
     private toastr: ToastrService,
     private router: Router,
+    private dialog: MatDialog,
     private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
@@ -91,6 +98,17 @@ export class EditUserComponent implements OnInit {
           }
         });
 
+  }
+
+  deleteUser() {
+
+    const dialogRef = this.dialog.open(DeleteUserComponent, {
+      width: '500px',
+      data: { userId: this.userId }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 
   updateUser(form: FormGroup) {

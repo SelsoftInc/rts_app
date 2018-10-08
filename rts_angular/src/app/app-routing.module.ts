@@ -40,6 +40,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { RecruiterSubmissionsStatusComponent } from './recruiter-submissions-status/recruiter-submissions-status.component';
 import { GraphExpansationComponent } from './graph-expansation/graph-expansation.component';
 import { InterviewHistoryComponent } from './interview-history/interview-history.component';
+import { DeleteUserComponent } from './delete-user/delete-user.component';
 
 
 export const appRoutes: Routes = [
@@ -79,6 +80,7 @@ export const appRoutes: Routes = [
   { path: 'team-comparison/:id/:status/:fromDate/:toDate', component: TeamComparisonComponent },
   { path: 'recruiter-submissions-status/:id/:status/:fromDate/:toDate', component: RecruiterSubmissionsStatusComponent },
   { path: 'delete-team/:id', component: DeleteTeamComponent },
+  { path: 'delete-user/:id', component: DeleteUserComponent },
   { path: 'mgr-dashboard', component: AccMgrDashboardComponent },
   { path: 'tl-dashboard', component: AccMgrDashboardComponent },
   { path: 'recruiter-dashboard', component: RecruiterDashboardComponent },

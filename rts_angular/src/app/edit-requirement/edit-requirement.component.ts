@@ -178,7 +178,9 @@ export class EditRequirementComponent implements OnInit {
             this.selctedVisaStatus = this.selectedRequirement.visaStatus;
             if (this.selectedRequirement.team !== undefined) {
               this.selectedTeam = _.findWhere(this.teams, { teamId: this.selectedRequirement.teamId });
-              this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+              if (this.selectedTeam.leadUser !== undefined) {
+                this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+              }
               for (const user of this.selectedTeam.otherUsers) {
                 this.selectedTeamUsers.push(user);
               }

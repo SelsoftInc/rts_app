@@ -1,6 +1,6 @@
 <h2 class="main-title">
   <a [routerLink]="['/manage-users']">Manage User</a> / Edit User</h2>
-  <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
   [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
 <div class="utility-container">
   <div class="container">
@@ -41,6 +41,7 @@
 
       <div class="form-btn-container mt-5">
         <button class="btn btn-forms btn-space" type="submit" [disabled]="!myForm.valid">Update User</button>
+        <button class="btn btn-forms btn-space" *ngIf="userRole === 'ADMIN'" type="button" (click)="deleteUser();">Delete User</button>
         <button [routerLink]="[ '/manage-users']" class="btn btn-forms">Cancel</button>
       </div>
     </form>

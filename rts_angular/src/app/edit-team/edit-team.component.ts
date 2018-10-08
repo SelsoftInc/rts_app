@@ -101,8 +101,12 @@ export class EditTeamComponent implements OnInit {
             this.teams = data.teams;
             this.selectedTeam = _.findWhere(this.teams, { teamId: this.teamId });
             this.teamName = this.selectedTeam.name;
-            this.accountManagerName = this.selectedTeam.accountManager.userId;
-            this.teamLeadName = this.selectedTeam.leadUser.userId;
+            if (this.selectedTeam.leadUser !== undefined) {
+              this.teamLeadName = this.selectedTeam.leadUser.userId;
+            }
+            if (this.selectedTeam.accountManager !== undefined) {
+              this.accountManagerName = this.selectedTeam.accountManager.userId;
+            }
             this.selectTeamLead();
             this.recruitersArray = [];
             for (const recruiter of this.selectedTeam.otherUsers) {
