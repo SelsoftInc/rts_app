@@ -2,7 +2,7 @@
   <a class="sub-nav-link" [routerLink]="['/add-user']">Add New User</a>
 </div>
 <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
-[direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
 <h2 class="main-title">Manage users</h2>
 <div class="utility-container">
   <div class="search-container">
@@ -15,6 +15,7 @@
         <th>Last Name</th>
         <th>Email</th>
         <th>Role</th>
+        <th>Status</th>
       </tr>
     </thead>
     <tbody *ngIf="userLength > 0 ; else noUser">
@@ -26,6 +27,7 @@
         <ng-template #Others>
           <td>{{user.role}}</td>
         </ng-template>
+        <td>{{user.userStatus}}</td>
       </tr>
     </tbody>
     <ng-template #noUser>

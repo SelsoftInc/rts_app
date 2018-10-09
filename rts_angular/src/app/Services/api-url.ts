@@ -15,6 +15,7 @@ export class ApiUrl {
     static AddNewRequirement = 'rtsRequirement/requirement/insertRequirement';
     static SaveRequirement = 'rtsRequirement/requirement/saveRequirement';
     static GetAllUsersForAdmin = 'rtsUser/user/getAllUserForCompany';
+    static ManageUsers = 'rtsUser/user/manageUser';
     static AddUser = 'rtsUser/user/addUser';
     static GetAllRequiementsForUser = 'rtsRequirement/requirement/getAllAllocationRequirementForUser';
     static AddNewSubmission = 'rtsSubmission/submission/newSubmission';

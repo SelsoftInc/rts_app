@@ -40,8 +40,8 @@
       </div>
 
       <div class="form-btn-container mt-5">
-        <button class="btn btn-forms btn-space" type="submit" [disabled]="!myForm.valid">Update User</button>
-        <button class="btn btn-forms btn-space" *ngIf="userRole === 'ADMIN'" type="button" (click)="deleteUser();">Delete User</button>
+        <button class="btn btn-forms btn-space" *ngIf="userStatus === 'Active'" type="submit" [disabled]="!myForm.valid">Update User</button>
+        <button class="btn btn-forms btn-space" *ngIf="userRole === 'ADMIN' && userStatus === 'Active'" type="button" (click)="deleteUser();">Delete User</button>
         <button [routerLink]="[ '/manage-users']" class="btn btn-forms">Cancel</button>
       </div>
     </form>

@@ -18,6 +18,7 @@ export class ManageUsersComponent implements OnInit {
   private userDetails: any;
   private userLength: any;
   private rtsCompanyId: any;
+  private userRole: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -28,12 +29,17 @@ export class ManageUsersComponent implements OnInit {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
     this.rtsCompanyId = this.rtsUser.companyId;
+    this.userRole = this.rtsUser.role;
   }
 
   ngOnInit() {
     GraphExpansationComponent.graphExpandDeatils = undefined;
     this.ngProgress.start();
-    this.getAllUser();
+    if (this.userRole === 'ADMIN') {
+      this.getManageUser();
+    } else {
+      this.getAllUser();
+    }
   }
 
   getAllUser() {
@@ -42,6 +48,23 @@ export class ManageUsersComponent implements OnInit {
     };
 
     this.userService.allUsers(userId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.ngProgress.done();
+            this.userDetails = data.users;
+            this.userLength = this.userDetails.length;
+          }
+        });
+
+  }
+
+  getManageUser() {
+    const userId = {
+      userId: this.rtsUserId
+    };
+
+    this.userService.manageUsers(userId)
       .subscribe(
         data => {
           if (data.success) {

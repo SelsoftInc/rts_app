@@ -36,6 +36,7 @@ export class EditUserComponent implements OnInit {
   private userRole: string;
   private rtsCompanyId: any;
   private phoneNumber: any;
+  userStatus: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -75,7 +76,34 @@ export class EditUserComponent implements OnInit {
       phoneNumber: ['', [Validators.maxLength(15), Validators.pattern('^(1\s?)?((\([0-9]{3}\))|[0-9]{3})[\s\-]?[\0-9]{3}[\s\-]?[0-9]{4}$')]],
     });
 
-    this.getAllUser();
+    if (this.userRole === 'ADMIN') {
+      this.getManageUser();
+    } else {
+      this.getAllUser();
+    }
+  }
+
+  getManageUser() {
+    const userId = {
+      userId: this.rtsUserId
+    };
+
+    this.userService.manageUsers(userId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.ngProgress.done();
+            this.userDetails = data.users;
+            this.selectedUser = _.findWhere(this.userDetails, { userId: this.userId });
+            this.userStatus = this.selectedUser.userStatus;
+            this.firstName = this.selectedUser.firstName;
+            this.lastName = this.selectedUser.lastName;
+            this.email = this.selectedUser.email;
+            this.role = this.selectedUser.role;
+            this.phoneNumber = this.selectedUser.phoneNumber;
+          }
+        });
+
   }
 
   getAllUser() {
@@ -90,6 +118,7 @@ export class EditUserComponent implements OnInit {
             this.ngProgress.done();
             this.userDetails = data.users;
             this.selectedUser = _.findWhere(this.userDetails, { userId: this.userId });
+            this.userStatus = this.selectedUser.userStatus;
             this.firstName = this.selectedUser.firstName;
             this.lastName = this.selectedUser.lastName;
             this.email = this.selectedUser.email;
