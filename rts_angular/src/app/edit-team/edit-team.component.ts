@@ -59,6 +59,7 @@ export class EditTeamComponent implements OnInit {
     this.recruitersArray = [];
     this.accountManager = [];
     this.dropdownSettings = {};
+    this.users = [];
   }
 
   ngOnInit() {
