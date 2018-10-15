@@ -63,8 +63,7 @@ export class AdminDashboardComponent implements OnInit {
   };
 
   colorSchemeMultiBar3 = {
-    domain: ['#5BB2A7', '#990A17', '#a95963']
-    // domain: ['#6E6153', '#98A582', '#990A17', '#BDD9B5', '#EAF1D5']
+    domain: ['#5BB2A7', '#a95963', '#990A17']
   };
 
   colorSchemeMultiBar4 = {
@@ -116,7 +115,6 @@ export class AdminDashboardComponent implements OnInit {
     this.getTeamGraphDetails();
     this.getClientRequirementsDetails();
     this.getInterviewReport();
-    this.getNoSubmissionsRequirement();
     this.getClientSubmissionStatus();
     this.getRecruiterComparisonChart();
     this.getTeamComparisonChart();
@@ -153,17 +151,17 @@ export class AdminDashboardComponent implements OnInit {
                 };
               }
             }
-            for (const recruiter of this.recruiterComparison) {
-              const totalSubmission = recruiter.value;
-              for (const series of recruiter.series) {
-                if (series.name === 'Rejections' && series.value !== 0) {
-                  const rejections = (series.value * 100) / totalSubmission;
-                  let percentage = rejections + '';
-                  percentage = percentage.substring(0, 4);
-                  recruiter.name = '(' + percentage + '% R) ' + recruiter.name;
-                }
-              }
-            }
+            // for (const recruiter of this.recruiterComparison) {
+            //   const totalSubmission = recruiter.value;
+            //   for (const series of recruiter.series) {
+            //     if (series.name === 'Rejections' && series.value !== 0) {
+            //       const rejections = (series.value * 100) / totalSubmission;
+            //       let percentage = rejections + '';
+            //       percentage = percentage.substring(0, 4);
+            //       recruiter.name = '(' + percentage + '% R) ' + recruiter.name;
+            //     }
+            //   }
+            // }
           }
         });
   }
@@ -262,6 +260,7 @@ export class AdminDashboardComponent implements OnInit {
         data => {
           if (data.success) {
             this.noSubmissionsRequirement = data.requirements;
+            this.noSubmissionsRequirement.reverse();
             if (this.noSubmissionsRequirement === undefined) {
               this.noSubmissionsRequirement = [];
               this.noSubmissionsRequirementLength = 0;

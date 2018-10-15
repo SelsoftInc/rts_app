@@ -28,7 +28,7 @@
 </div>
 <div class="dashboard-container mt-3">
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-8">
       <div class="col-block pt-5">
         <div class="chart-title-wrapper">
           <h2 class="chart-title">Recruiters Submission Status</h2>
@@ -41,7 +41,8 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-3">
+
+    <div class="col-4">
       <div class="col-block pt-5">
         <div class="chart-title-wrapper">
           <h2 class="chart-title">Team wise submission count</h2>
@@ -62,7 +63,10 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-3">
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-4">
       <div class="col-block pt-5">
         <div class="chart-title-wrapper">
           <h2 class="chart-title">{{noSubmissionsRequirementLength}} Reqs. with 0 submissions</h2>
@@ -71,12 +75,14 @@
           <table class="table table-sm table-bordered table-striped">
             <thead class="table-header">
               <tr>
+                <th>Created On</th>
                 <th>Position Name</th>
                 <th>Client</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let require of noSubmissionsRequirement" [routerLink]="['/edit-requirement',require.requirementId]">
+                <td style="width:110px">{{require.createdOn | date: 'MMM d, y,'}}</td>
                 <td>{{require.position.positionName}}</td>
                 <td>{{require.client.name}}</td>
               </tr>
@@ -85,9 +91,6 @@
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="row mt-4">
     <div class="col-4">
       <div class="col-block pt-5">
         <div class="chart-title-wrapper">
@@ -98,19 +101,6 @@
             [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
             [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisClientLabel" [showDataLabel]="showDataLabel" (select)="onClientSelect($event)">
           </ngx-charts-bar-vertical>
-        </div>
-      </div>
-    </div>
-    <div class="col-4">
-      <div class="col-block pt-5">
-        <div class="chart-title-wrapper">
-          <h2 class="chart-title">Team wise submission status</h2>
-        </div>
-        <div class="chart-align-100-400 multi">
-          <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorSchemeMultiBar1" [results]="totalSubmissionByTeam"
-            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
-            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel" (select)="onTeamSubmissionStatus($event)">
-          </ngx-charts-bar-vertical-2d>
         </div>
       </div>
     </div>
@@ -133,13 +123,13 @@
     <div class="col-6">
       <div class="col-block pt-5">
         <div class="chart-title-wrapper">
-          <h2 class="chart-title">Recruiter Comparison</h2>
+          <h2 class="chart-title">Team wise submission status</h2>
         </div>
-        <div class="chart-align-100-400">
-          <ngx-charts-bar-vertical-stacked [view]="view" [scheme]="colorSchemeMultiBar3" [results]="recruiterComparison"
+        <div class="chart-align-100-400 multi">
+          <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorSchemeMultiBar1" [results]="totalSubmissionByTeam"
             [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
-            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel" (select)="onRecruiterComparison($event)">
-          </ngx-charts-bar-vertical-stacked>
+            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel" (select)="onTeamSubmissionStatus($event)">
+          </ngx-charts-bar-vertical-2d>
         </div>
       </div>
     </div>
@@ -152,6 +142,22 @@
           <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorSchemeMultiBar4" [results]="teamComparison"
             [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
             [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel" (select)="onTeamComparison($event)">
+          </ngx-charts-bar-vertical-2d>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="col-block pt-5">
+        <div class="chart-title-wrapper">
+          <h2 class="chart-title">Recruiter Comparison</h2>
+        </div>
+        <div class="chart-align-100-400 multi">
+          <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorSchemeMultiBar3" [results]="recruiterComparison"
+            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
+            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel" (select)="onRecruiterComparison($event)">
           </ngx-charts-bar-vertical-2d>
         </div>
       </div>
