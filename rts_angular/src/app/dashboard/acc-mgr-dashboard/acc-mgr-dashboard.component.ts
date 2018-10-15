@@ -48,7 +48,7 @@ export class AccMgrDashboardComponent implements OnInit {
   };
 
   colorSchemeMultiBar1 = {
-    domain: ['#08B3E5', '#0FBED8', '#14C9CB', '#990A17', '#22E4AC']
+    domain: ['#5BB2A7', '#0FBED8', '#f3a043', '#990A17', '#22E4AC']
   };
 
   fromDate: any;

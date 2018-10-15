@@ -77,7 +77,7 @@
               </select> -->
             </div>
 
-            <div class="col-sm-4" *ngIf="selectedSubmission && (selectedSubmission.status === 'REJECTED' || selectedSubmission.status === 'TL_REJECTED' || selectedSubmission.status === 'CLIENT_REJECTED')">
+            <div class="col-sm-4" *ngIf="selectedSubmission && (selectedSubmission.status === 'REJECTED' || selectedSubmission.status === 'TL_REJECTED' || selectedSubmission.status === 'CLIENT_REJECTED' || selectedSubmission.status === 'INTERVIEWED_REJECTED')">
               <label for="reasonForRejection" class="form-label">Reson For Rejection:</label>
               <input type="text" class="form-input" name="reasonForRejection" formControlName="reasonForRejection"
                 ngModel="{{selectedSubmission.reasonForRejection}}" readonly>
@@ -586,7 +586,7 @@
 
       <div class="form-btn-container">
         <button class="btn btn-forms btn-space" type="submit">Update Submission</button>
-        <button [routerLink]="[ '/recruiter-submissions']" class="btn btn-forms">Cancel</button>
+        <button [routerLink]="[ '/submissions']" class="btn btn-forms">Cancel</button>
       </div>
 
     </div>

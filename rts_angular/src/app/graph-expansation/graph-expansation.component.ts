@@ -36,7 +36,7 @@ export class GraphExpansationComponent implements OnInit {
   yAxisLabel = 'Submissions';
 
   colorScheme = {
-    domain: ['#a8385d', '#7aa3e5', '#a27ea8', '#aae3f5', '#adcded', '#a95963', '#8796c0', '#7ed3ed']
+    domain: ['#a8385d', '#7aa3e5', '#a27ea8', '#aae3f5', '#adcded', '#f3a043', '#8796c0', '#7ed3ed', '#990A17', '#a95963']
   };
   requirements: any;
   selctedChartData: any[];
@@ -142,7 +142,7 @@ export class GraphExpansationComponent implements OnInit {
       this.submissionsLength = this.submissionsLength + req.filteredSubmissions.length;
     }
     const chartData = [];
-    let APPROVED = 0, REJECTED = 0, IN_PROGRESS = 0, CLOSED = 0, SUBMITTED = 0, CLIENT_REJECTED = 0, SELECTED = 0, INTERVIEWED = 0, HOLD = 0;
+    let APPROVED = 0, REJECTED = 0, IN_PROGRESS = 0, CLOSED = 0, SUBMITTED = 0, CLIENT_REJECTED = 0, SELECTED = 0, INTERVIEWED = 0, HOLD = 0, INTERVIEWED_REJECTED = 0;
     for (const req of data) {
       for (const sub of req.filteredSubmissions) {
 
@@ -164,6 +164,8 @@ export class GraphExpansationComponent implements OnInit {
           INTERVIEWED++;
         } else if (sub.status === 'HOLD') {
           HOLD++;
+        } else if (sub.status === 'INTERVIEWED_REJECTED') {
+          INTERVIEWED_REJECTED++;
         }
       }
     }
@@ -213,6 +215,11 @@ export class GraphExpansationComponent implements OnInit {
       value: HOLD
     };
 
+    let InterviewedRejectedObj = {
+      name: 'INTERVIEWED_REJECTED',
+      value: INTERVIEWED_REJECTED
+    };
+
     chartData.push(SubmittedObj);
     chartData.push(ApprovedObj);
     chartData.push(InProgressObj);
@@ -222,6 +229,7 @@ export class GraphExpansationComponent implements OnInit {
     chartData.push(SelectedObj);
     chartData.push(ClosedObj);
     chartData.push(ClientRejectedObj);
+    chartData.push(InterviewedRejectedObj);
     this.selctedChartData = chartData;
   }
 
