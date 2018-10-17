@@ -28,20 +28,6 @@
 </div>
 <div class="dashboard-container mt-3">
   <div class="row">
-    <div class="col-sm-8">
-      <div class="col-block pt-5">
-        <div class="chart-title-wrapper">
-          <h2 class="chart-title">Recruiters Submission Status</h2>
-        </div>
-        <div class="chart-align-100-400">
-          <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="recruitersSubmissions" [gradient]="gradient"
-            [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel" (select)="onUserSelect($event)">
-          </ngx-charts-bar-vertical>
-        </div>
-      </div>
-    </div>
-
     <div class="col-4">
       <div class="col-block pt-5">
         <div class="chart-title-wrapper">
@@ -60,6 +46,35 @@
         </div>
         <div>
           <div class="chart-additional-item"><span class="chart-label">Total Submissions: </span><span class="chart-result">{{totalSubmission}}</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="col-block pt-5">
+        <div class="chart-title-wrapper">
+          <h2 class="chart-title">Recruiters Submission Status</h2>
+        </div>
+        <div class="chart-align-100-400">
+          <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="recruitersSubmissions" [gradient]="gradient"
+            [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel" (select)="onUserSelect($event)">
+          </ngx-charts-bar-vertical>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="col-block pt-5">
+        <div class="chart-title-wrapper">
+          <h2 class="chart-title">Recruiter Comparison</h2>
+        </div>
+        <div class="chart-align-100-400 multi">
+          <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorSchemeMultiBar3" [results]="recruiterComparison"
+            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
+            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel" (select)="onRecruiterComparison($event)">
+          </ngx-charts-bar-vertical-2d>
         </div>
       </div>
     </div>
@@ -148,21 +163,6 @@
     </div>
   </div>
 
-  <div class="row mt-4">
-    <div class="col-12">
-      <div class="col-block pt-5">
-        <div class="chart-title-wrapper">
-          <h2 class="chart-title">Recruiter Comparison</h2>
-        </div>
-        <div class="chart-align-100-400 multi">
-          <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorSchemeMultiBar3" [results]="recruiterComparison"
-            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
-            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel" (select)="onRecruiterComparison($event)">
-          </ngx-charts-bar-vertical-2d>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <div class="row mt-4">
     <div class="col-12">
