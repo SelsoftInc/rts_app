@@ -18,6 +18,13 @@
   position: relative;
 }
 
+::ng-deep .snackbar .mat-simple-snackbar {
+  color: white;
+}
+::ng-deep .action .mat-simple-snackbar-action  {
+  color: whitesmoke;
+}
+
 .active-link:before {
   font-family: "Material Icons";
   content: '\e5c7';

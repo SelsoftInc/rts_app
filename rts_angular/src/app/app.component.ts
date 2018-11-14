@@ -12,6 +12,7 @@ import { AccMgrDashboardComponent } from './dashboard/acc-mgr-dashboard/acc-mgr-
 import { GenerateReportComponent } from './generate-report/generate-report.component';
 import { GraphExpansationComponent } from './graph-expansation/graph-expansation.component';
 import { InterviewHistoryComponent } from './interview-history/interview-history.component';
+import { CandidateReportComponent } from './candidate-report/candidate-report.component';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +29,7 @@ export class AppComponent implements DoCheck, OnDestroy {
     private hideComponent: HideComponentService,
     private router: Router,
     private loginService: LoginService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {
     this.displayComponent = this.hideComponent.displayComponent;
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
@@ -67,6 +68,8 @@ export class AppComponent implements DoCheck, OnDestroy {
     InterviewHistoryComponent.client = undefined;
     InterviewHistoryComponent.team = undefined;
     InterviewHistoryComponent.filterBy = undefined;
+    CandidateReportComponent.userDetails = undefined;
+    CandidateReportComponent.client = undefined;
     this.loginService.logout();
     this.toastr.success('You are logged out', '', {
       positionClass: 'toast-top-center',

@@ -41,6 +41,7 @@ import { RecruiterSubmissionsStatusComponent } from './recruiter-submissions-sta
 import { GraphExpansationComponent } from './graph-expansation/graph-expansation.component';
 import { InterviewHistoryComponent } from './interview-history/interview-history.component';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
+import { CandidateReportComponent } from './candidate-report/candidate-report.component';
 
 
 export const appRoutes: Routes = [
@@ -87,6 +88,7 @@ export const appRoutes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'graph-expand', component: GraphExpansationComponent },
   { path: 'interview-history', component: InterviewHistoryComponent },
+  { path: 'candidate-report', component: CandidateReportComponent },
 ];
 
 

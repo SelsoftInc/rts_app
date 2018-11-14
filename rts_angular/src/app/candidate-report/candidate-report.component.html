@@ -1,0 +1,114 @@
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
+<h2 class="main-title">Candidate Report</h2>
+<div class="utility-container">
+  <div class="filter-container">
+    <div class="row">
+      <div class="col-4 divider-right">
+        <div class="row mt-2">
+          <div class="col-4">
+            <mat-form-field>
+              <input matInput [matDatepicker]="fromDatePicker" [(ngModel)]="fromDate" placeholder="From Date">
+              <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #fromDatePicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-4">
+            <mat-form-field>
+              <input matInput [matDatepicker]="toDate" [(ngModel)]="currentDate" placeholder="To Date">
+              <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+              <mat-datepicker #toDate></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-4 mt-3">
+            <button class="btn btn-sm btn-primary" (click)="filterByDate();">Show Results</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="row mt-3">
+          <div class="col-6">
+            <select class="form-control width-200" (change)="filterBy($event.target.value)" [(ngModel)]="filter">
+              <option value="" selected>Filter By</option>
+              <!-- <option value="status">Status</option>
+              <option value="team">Team</option> -->
+              <option value="client">Client</option>
+            </select>
+          </div>
+
+          <div *ngIf="isClient" class="col-6 width-200">
+            <select class="form-control" (change)="selectClient($event.target.value)" [(ngModel)]="client">
+              <option value="" selected>Select</option>
+              <option value="selectAll">Select All</option>
+              <option *ngFor="let client of clients" value="{{client.clientId}}">{{client.name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-4 mt-3">
+      <button class="btn btn-sm btn-primary" *ngIf="submissionsLength > 0" (click)="downloadReport();">Download</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-5 pt-5">
+    <h6>Total {{submissionsLength}} Results</h6>
+  </div>
+
+  <div class="pt-2">
+
+    <div class="table-wrapper mt-4" *ngIf="submissionsLength > 0 ; else noSummissions">
+      <div class="block-wrapper" *ngFor="let sub of submissionDetails">
+
+        <div class="meta-info-wrapper">
+          <span class="block-header-label">Position Name: </span>
+          <span class="meta-info-content">{{sub.position.positionName}},</span>
+          <span class="block-header-label">Client Name: </span>
+          <span class="meta-info-content">{{sub.client.name}},</span>
+          <span *ngIf="sub.allocationUser">
+            <span class="block-header-label">Allocated to: </span>
+            <span class="meta-info-content">{{sub.allocationUser.firstName}} {{sub.allocationUser.lastName}}
+            </span>
+          </span>
+          <span *ngIf="!sub.allocationUser && sub.team !== undefined">
+            <span class="block-header-label">Allocated Team: </span>
+            <span class="meta-info-content" *ngIf="(sub.allocationUserId === '' || sub.allocationUserId === undefined) && (sub.team !== undefined)">{{sub.team.name}}</span>
+          </span>
+        </div>
+
+        <table class="table table-bordered table-sm table-hover">
+          <thead class="table-header">
+            <tr>
+              <th>Candidate Name</th>
+              <th>Work Authorization</th>
+              <th>Availability</th>
+              <th>Rate</th>
+              <th>Current Location</th>
+              <th>Contact</th>
+              <th>Email</th>
+              <th>Skype</th>
+              <th>Submitted By</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let submission of sub.filteredSubmissions" [routerLink]="['/edit-submission', submission.submissionId]">
+              <td>{{submission.candidate.name}}</td>
+              <td>{{submission.candidate.visaStatus.visaName}}</td>
+              <td>{{submission.candidate.availability}}</td>
+              <td>{{submission.sellingRate}}</td>
+              <td>{{submission.candidate.location}}</td>
+              <td>{{submission.candidate.phoneNumber}}</td>
+              <td>{{submission.candidate.email}}</td>
+              <td>{{submission.candidate.skype}}</td>
+              <td *ngIf="submission.submittedUser">{{submission.submittedUser.firstName}}
+                {{submission.submittedUser.lastName}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <ng-template #noSummissions>
+      <p class="message">No Submissions yet, Please click Add Submission to add a new submission.</p>
+    </ng-template>
+  </div>
+</div>

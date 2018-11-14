@@ -10,6 +10,7 @@ import { AdminDashboardComponent } from '../dashboard/admin-dashboard/admin-dash
 import { AccMgrDashboardComponent } from '../dashboard/acc-mgr-dashboard/acc-mgr-dashboard.component';
 import { RecruiterDashboardComponent } from '../dashboard/recruiter-dashboard/recruiter-dashboard.component';
 import { RequirementsComponent } from '../requirements/requirements.component';
+import { MessagingService } from '../messaging.service';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   public myForm: FormGroup;
   hide = true;
+  message;
 
   constructor(
     private router: Router,
@@ -28,7 +30,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private loginService: LoginService,
     private hideComponent: HideComponentService,
     private snackBar: MatSnackBar,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private messagingService: MessagingService
   ) {
     this.hideComponent.displayComponent = false;
     localStorage.removeItem('id_token');
@@ -87,6 +90,11 @@ export class LoginComponent implements OnInit, OnDestroy {
             } else if (data.user.role === 'RECRUITER') {
               this.router.navigate(['recruiter-dashboard']);
             }
+
+            const userId = data.user.userId;
+            this.messagingService.requestPermission(userId);
+            this.messagingService.receiveMessage();
+            this.message = this.messagingService.currentMessage;
           } else {
             this.toastr.error(data.message, '', {
               positionClass: 'toast-top-center',

@@ -76,6 +76,14 @@ import { RecruiterSubmissionsStatusComponent } from './recruiter-submissions-sta
 import { GraphExpansationComponent } from './graph-expansation/graph-expansation.component';
 import { InterviewHistoryComponent } from './interview-history/interview-history.component';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
+import { CandidateReportComponent } from './candidate-report/candidate-report.component';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire';
+import { MessagingService } from './messaging.service';
+import { environment } from '../environments/environment';
+import { AsyncPipe } from '../../node_modules/@angular/common';
 
 
 @NgModule({
@@ -121,6 +129,7 @@ import { DeleteUserComponent } from './delete-user/delete-user.component';
     GraphExpansationComponent,
     InterviewHistoryComponent,
     DeleteUserComponent,
+    CandidateReportComponent,
   ],
   imports: [
     BrowserModule,
@@ -150,7 +159,11 @@ import { DeleteUserComponent } from './delete-user/delete-user.component';
     NgxPaginationModule,
     PaginationModule,
     OwlDateTimeModule,
-    OwlNativeDateTimeModule
+    OwlNativeDateTimeModule,
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebase),
   ],
   providers: [
     RegisterService,
@@ -165,6 +178,8 @@ import { DeleteUserComponent } from './delete-user/delete-user.component';
     TeamService,
     ToastrService,
     GraphService,
+    MessagingService,
+    AsyncPipe,
     DatePipe],
 
   bootstrap: [AppComponent]

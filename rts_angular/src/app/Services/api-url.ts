@@ -64,4 +64,5 @@ export class ApiUrl {
     static GetRequirementById = 'rtsRequirement/requirement/getRequirementById';
     static GetRecruiterSubmissionStatus = 'rtsCommon/common/recruiterSubmissionStatus';
     static GetAllInterviewDetails = 'rtsSubmission/submission/interviewHistory';
+    static UpdateFcmToken = 'rtsUser/user/updateFcmToken';
 }
