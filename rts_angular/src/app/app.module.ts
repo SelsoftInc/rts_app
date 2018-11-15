@@ -84,6 +84,7 @@ import { AngularFireModule } from '@angular/fire';
 import { MessagingService } from './messaging.service';
 import { environment } from '../environments/environment';
 import { AsyncPipe } from '../../node_modules/@angular/common';
+import { SnackbarComponentComponent } from './snackbar-component/snackbar-component.component';
 
 
 @NgModule({
@@ -130,6 +131,7 @@ import { AsyncPipe } from '../../node_modules/@angular/common';
     InterviewHistoryComponent,
     DeleteUserComponent,
     CandidateReportComponent,
+    SnackbarComponentComponent,
   ],
   imports: [
     BrowserModule,
@@ -181,6 +183,10 @@ import { AsyncPipe } from '../../node_modules/@angular/common';
     MessagingService,
     AsyncPipe,
     DatePipe],
+
+  entryComponents: [
+    SnackbarComponentComponent,
+  ],
 
   bootstrap: [AppComponent]
 })

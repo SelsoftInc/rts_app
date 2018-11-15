@@ -10,10 +10,12 @@ import { Http, Headers } from '@angular/http';
 import { MatSnackBar } from '@angular/material';
 import { Action } from 'rxjs/internal/scheduler/Action';
 import { Router } from '@angular/router';
+import { SnackbarComponentComponent } from './snackbar-component/snackbar-component.component';
 
 @Injectable()
 export class MessagingService {
     payload;
+    private snackBarRef: any;
 
     currentMessage = new BehaviorSubject(null);
 
@@ -73,20 +75,13 @@ export class MessagingService {
             (payload) => {
                 this.payload = payload;
                 this.currentMessage.next(this.payload);
-                const snackBarRef = this.snackBar.open(this.payload.notification.body, 'Open', {
+                this.snackBarRef = this.snackBar.openFromComponent(SnackbarComponentComponent, {
                     verticalPosition: 'bottom',
                     horizontalPosition: 'end',
-                    duration: 6000,
-                    panelClass: ['action']
+                    duration: 10000,
+                    data: { payload: this.payload }
                 });
-                snackBarRef.onAction().subscribe(() => {
-                    if (this.payload.notification.title === 'Submission Added') {
-                        this.router.navigate(['/submissions']);
-                    } else {
-                        this.router.navigate(['/requirements']);
-                    }
-
-                });
+                this.snackBarRef.instance.snackBarRefSnackbarComponent = this.snackBarRef;
             });
     }
 
