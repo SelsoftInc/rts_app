@@ -590,7 +590,7 @@
         </div>
       </div>
 
-      <div *ngIf="userRole === 'ACC_MGR' && isSubmitted ">
+      <div *ngIf="userRole === 'ACC_MGR' || userRole === 'ADMIN' && isSubmitted ">
 
         <h2 class="form-title">Select CC</h2>
         <div class="row">
@@ -624,7 +624,8 @@
 
       <div class="form-btn-container">
         <button class="btn btn-forms btn-space" type="submit">Update Submission</button>
-        <button type="button" *ngIf="userRole === 'ACC_MGR' && isSubmitted " class="btn btn-forms btn-space" (click)="approveSubmission(myForm);">Approve
+        <button type="button" *ngIf="userRole === 'ACC_MGR' || userRole === 'ADMIN' && isSubmitted " class="btn btn-forms btn-space"
+          (click)="approveSubmission(myForm);">Approve
           and Submit to Client</button>
         <button [routerLink]="[ '/submissions']" class="btn btn-forms">Cancel</button>
       </div>
