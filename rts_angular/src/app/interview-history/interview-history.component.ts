@@ -32,6 +32,7 @@ export class InterviewHistoryComponent implements OnInit {
     public static recruiter: any;
     public static team: any;
     public static client: any;
+    public static interviewStatus: any;
     public static filterBy: any;
     private filter: any;
     clients: any;
@@ -40,10 +41,12 @@ export class InterviewHistoryComponent implements OnInit {
     isTeam: boolean;
     isClient: boolean;
     isRecruiter: boolean;
+    isInterviewStatus: boolean;
     selectedInterviews: any;
     team: any;
     client: any;
     recruiter: any;
+    interviewStatus: any;
 
     constructor(
         private loggedUser: LoggedUserService,
@@ -135,6 +138,7 @@ export class InterviewHistoryComponent implements OnInit {
         InterviewHistoryComponent.recruiter = undefined;
         InterviewHistoryComponent.client = undefined;
         InterviewHistoryComponent.team = undefined;
+        InterviewHistoryComponent.interviewStatus = undefined;
         this.ngProgress.start();
         this.filterBy('');
         this.getInterviewDetails();
@@ -147,23 +151,33 @@ export class InterviewHistoryComponent implements OnInit {
             this.isTeam = true;
             this.isClient = false;
             this.isRecruiter = false;
+            this.isInterviewStatus = false;
         } else if (value === 'client') {
             this.isClient = true;
             this.isTeam = false;
             this.isRecruiter = false;
+            this.isInterviewStatus = false;
         } else if (value === 'recruiter') {
             this.isRecruiter = true;
             this.isTeam = false;
             this.isClient = false;
+            this.isInterviewStatus = false;
+        } else if (value === 'interviewStatus') {
+            this.isRecruiter = false;
+            this.isTeam = false;
+            this.isClient = false;
+            this.isInterviewStatus = true;
         } else if (value === '') {
             this.filter = '';
             this.isRecruiter = false;
             this.isTeam = false;
             this.isClient = false;
+            this.isInterviewStatus = false;
         }
         this.recruiter = '';
         this.team = '';
         this.client = '';
+        this.interviewStatus = '';
         this.selectedInterviewDetails(this.interviewReport);
 
     }
@@ -208,6 +222,19 @@ export class InterviewHistoryComponent implements OnInit {
         }
     }
 
+    selectInterviewStatus(event) {
+        InterviewHistoryComponent.interviewStatus = event;
+        this.interviewStatus = event;
+        if (event === 'selectAll') {
+            this.selectedInterviews = this.interviewReport;
+            this.selectedInterviewDetails(this.selectedInterviews);
+        } else {
+            this.selectedInterviews = [];
+            this.selectedInterviews = _.where(this.interviewReport, { interviewDetailStatus: event });
+            this.selectedInterviewDetails(this.selectedInterviews);
+        }
+    }
+
     sortData(sort: Sort) {
         const data = this.selectedInterviews.slice();
         if (!sort.active || sort.direction === '') {
@@ -227,6 +254,7 @@ export class InterviewHistoryComponent implements OnInit {
                 case 'skype': return this.compare(a.skypeId, b.skypeId, isAsc);
                 case 'phoneNumber': return this.compare(a.phoneNumber, b.phoneNumber, isAsc);
                 case 'currentStatus': return this.compare(a.currentStatus, b.currentStatus, isAsc);
+                case 'interviewStatus': return this.compare(a.interviewDetailStatus, b.interviewDetailStatus, isAsc);
                 default: return 0;
             }
         });

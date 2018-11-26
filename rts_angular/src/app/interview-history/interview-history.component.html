@@ -34,6 +34,7 @@
               <option value="team">Team</option>
               <option value="client">Client</option>
               <option value="recruiter">Recruiter</option>
+              <option value="interviewStatus">Interview Status</option>
             </select>
           </div>
 
@@ -60,6 +61,16 @@
               <option *ngFor="let user of teamUsers" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
             </select>
           </div>
+
+          <div *ngIf="isInterviewStatus" class="col-6 width-200">
+            <select class="form-control" (change)="selectInterviewStatus($event.target.value)" [(ngModel)]="interviewStatus">
+              <option value="" selected>Select</option>
+              <option value="selectAll">Select All</option>
+              <option value="IN-PROGRESS">In-Progress</option>
+              <option value="HOLD">Hold</option>
+              <option value="CLOSED">Closed</option>
+            </select>
+          </div>
         </div>
       </div>
 
@@ -82,7 +93,8 @@
           <th mat-sort-header="recruiterName">Recruiter Name</th>
           <th mat-sort-header="skype">Skype</th>
           <th mat-sort-header="phoneNumber">Phone Number</th>
-          <th mat-sort-header="currentStatus">Current Startus</th>
+          <th mat-sort-header="currentStatus">Current Status</th>
+          <th mat-sort-header="interviewStatus">Interview Status</th>
         </tr>
       </thead>
       <tbody>
@@ -96,6 +108,7 @@
           <td>{{submission.skypeId}}</td>
           <td>{{submission.phoneNumber}}</td>
           <td>{{submission.currentStatus}}</td>
+          <td>{{submission.interviewDetailStatus}}</td>
         </tr>
       </tbody>
     </table>
@@ -113,7 +126,8 @@
           <th mat-sort-header="recruiterName">Recruiter Name</th>
           <th mat-sort-header="skype">Skype</th>
           <th mat-sort-header="phoneNumber">Phone Number</th>
-          <th mat-sort-header="currentStatus">Current Startus</th>
+          <th mat-sort-header="currentStatus">Current Status</th>
+          <th mat-sort-header="interviewStatus">Interview Status</th>
         </tr>
       </thead>
       <tbody>
@@ -127,6 +141,7 @@
           <td>{{submission.skypeId}}</td>
           <td>{{submission.phoneNumber}}</td>
           <td>{{submission.currentStatus}}</td>
+          <td>{{submission.interviewDetailStatus}}</td>
         </tr>
       </tbody>
     </table>
