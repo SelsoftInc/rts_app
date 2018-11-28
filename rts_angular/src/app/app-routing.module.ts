@@ -42,6 +42,7 @@ import { GraphExpansationComponent } from './graph-expansation/graph-expansation
 import { InterviewHistoryComponent } from './interview-history/interview-history.component';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { CandidateReportComponent } from './candidate-report/candidate-report.component';
+import { InProgressInterviewsComponent } from './in-progress-interviews/in-progress-interviews.component';
 
 
 export const appRoutes: Routes = [
@@ -89,6 +90,7 @@ export const appRoutes: Routes = [
   { path: 'graph-expand', component: GraphExpansationComponent },
   { path: 'interview-history', component: InterviewHistoryComponent },
   { path: 'candidate-report', component: CandidateReportComponent },
+  { path: 'in-progress-interviews', component: InProgressInterviewsComponent },
 ];
 
 

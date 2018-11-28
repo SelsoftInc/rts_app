@@ -508,12 +508,8 @@
           <div class="row">
             <div class="col-sm-4" *ngIf="selectedSubmission">
               <label for="interviewStatus" class="form-label">Interview Status:</label>
-              <select name="interviewStatus" class="form-input" formControlName="interviewStatus" ngModel="{{selectedSubmission.interviewDetailStatus}}">
-                <option value="">Select</option>
-                <option value="IN-PROGRESS">In-Progress</option>
-                <option value="HOLD">Hold</option>
-                <option value="CLOSED">Closed</option>
-              </select>
+              <input type="text" class="form-input" name="interviewStatus" formControlName="interviewStatus" ngModel="{{selectedSubmission.interviewDetailStatus}}"
+                disabled>
             </div>
             <div class="col-sm-8" *ngIf="selectedSubmission">
               <label for="interviewComments" class="form-label">Interview Comments:</label>

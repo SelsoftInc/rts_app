@@ -1,0 +1,42 @@
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
+<h2 class="main-title"><a [routerLink]="['/submissions']">Submissions</a> / In-Progress Interviews</h2>
+<div class="utility-container">
+
+  <div>
+    <h6>Total {{interviewsLength}} Results</h6>
+  </div>
+
+  <div>
+    <table class="table table-hover table-bordered table-sm" matSort (matSortChange)="sortData($event)">
+      <thead class="table-header">
+        <tr>
+          <th mat-sort-header="positionName">Position Name</th>
+          <th mat-sort-header="candidateName">Candidate Name</th>
+          <th mat-sort-header="clientName">Client Name</th>
+          <th mat-sort-header="InterviewDateTime">Interview Date & Time</th>
+          <th mat-sort-header="InterviewLevel">Interview level</th>
+          <th mat-sort-header="recruiterName">Recruiter Name</th>
+          <th mat-sort-header="skype">Skype</th>
+          <th mat-sort-header="phoneNumber">Phone Number</th>
+          <th mat-sort-header="currentStatus">Current Status</th>
+          <th mat-sort-header="interviewStatus">Interview Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let submission of sortedData" [routerLink]="['/edit-submission', submission.submissionId]">
+          <td>{{submission.positionName}}</td>
+          <td>{{submission.candidateName}}</td>
+          <td>{{submission.clientName}}</td>
+          <td>{{submission.interviewDateStr | date: 'MMM d, y, hh:mm a'}}</td>
+          <td>{{submission.interviewLevel}}</td>
+          <td>{{submission.recruiterName}}</td>
+          <td>{{submission.skypeId}}</td>
+          <td>{{submission.phoneNumber}}</td>
+          <td>{{submission.currentStatus}}</td>
+          <td>{{submission.interviewDetailStatus}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
