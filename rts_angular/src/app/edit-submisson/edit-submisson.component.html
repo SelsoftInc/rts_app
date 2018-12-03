@@ -262,12 +262,12 @@
               </div>
 
               <div class="col-sm-4" *ngIf="selectedSubmission && selectedSubmission.candidate.enteredBy">
-                <label for="enteredUser" class="form-label">Entered By:</label>
+                <label for="enteredUser" class="form-label">Uploaded By:</label>
                 <input type="text" class="form-input" name="enteredUser" formControlName="enteredUser" ngModel="{{selectedSubmission.candidate.enteredBy.firstName}} {{selectedSubmission.candidate.enteredBy.lastName}}" disabled>
               </div>
       
               <div class="col-sm-4" *ngIf="selectedSubmission && selectedSubmission.candidate.enteredOn">
-                <label for="createdDate" class="form-label">Entered On:</label>
+                <label for="createdDate" class="form-label">Uploaded On:</label>
                 <input type="text" class="form-input" name="createdDate" formControlName="createdDate" ngModel="{{selectedSubmission.candidate.enteredOn | date: 'MMM d, y'}}" disabled>
               </div>
 
