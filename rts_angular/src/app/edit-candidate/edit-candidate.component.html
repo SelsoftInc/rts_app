@@ -150,6 +150,16 @@
           </mat-radio-group>
         </div>
 
+        <div class="col-sm-4" *ngIf="selectedCandidate && selectedCandidate.enteredBy">
+          <label for="enteredUser" class="form-label">Entered By:</label>
+          <input type="text" class="form-input" name="enteredUser" formControlName="enteredUser" ngModel="{{selectedCandidate.enteredBy.firstName}} {{selectedCandidate.enteredBy.lastName}}" disabled>
+        </div>
+
+        <div class="col-sm-4" *ngIf="selectedCandidate && selectedCandidate.enteredOn">
+          <label for="createdDate" class="form-label">Entered On:</label>
+          <input type="text" class="form-input" name="createdDate" formControlName="createdDate" ngModel="{{selectedCandidate.enteredOn | date: 'MMM d, y'}}" disabled>
+        </div>
+
       </div>
 
       <div class="row">

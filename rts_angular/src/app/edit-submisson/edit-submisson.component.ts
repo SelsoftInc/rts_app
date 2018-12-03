@@ -171,6 +171,8 @@ export class EditSubmissonComponent implements OnInit {
             customMailBody: [''],
             comments: [''],
             clientCcRecruiters: [''],
+            enteredUser: [''],
+            createdDate: [''],
             units: this.formBuilder.array([
                 this.initUnits()
             ]),

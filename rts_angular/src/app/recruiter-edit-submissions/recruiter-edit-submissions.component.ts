@@ -139,6 +139,8 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       vacationPlans: [''],
       currentCompany: [''],
       comments: [''],
+      enteredUser: [''],
+      createdDate: [''],
       units: this.formBuilder.array([
         this.initUnits()
       ]),

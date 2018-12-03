@@ -142,6 +142,8 @@ export class AddNewSubmissionsComponent implements OnInit {
       anotherInterviewOffer: [''],
       vacationPlans: [''],
       currentCompany: [''],
+      enteredUser: [''],
+      createdDate: ['']
     });
     if (this.userRole === 'ADMIN') {
       this.getAllRequirements();
@@ -474,7 +476,10 @@ export class AddNewSubmissionsComponent implements OnInit {
       epNumber: form.value.epNumber,
       authorizedWorkInUS: form.value.authorizedWorkInUs,
       anyOffer: form.value.anotherInterviewOffer,
-      vacationPlan: form.value.vacationPlans
+      vacationPlan: form.value.vacationPlans,
+      enteredBy: {
+        userId: this.rtsUserId
+      }
     };
 
     if (this.isWorkedWithClient) {

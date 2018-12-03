@@ -16,6 +16,7 @@
         <th>Phone Number</th>
         <th>Location</th>
         <th>Availability</th>
+        <th>Entered By</th>
       </tr>
     </thead>
     <tbody *ngIf="candidateLength > 0 ; else noCandidate">
@@ -26,6 +27,11 @@
         <td>{{candidate.phoneNumber}}</td>
         <td>{{candidate.location}}</td>
         <td>{{candidate.availability}}</td>
+        <td *ngIf="candidate.enteredBy ; else noEnteredBy">{{candidate.enteredBy.firstName}}
+          {{candidate.enteredBy.lastName}}</td>
+        <ng-template #noEnteredBy>
+          <td></td>
+        </ng-template>
       </tr>
     </tbody>
     <ng-template #noCandidate>

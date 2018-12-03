@@ -172,7 +172,10 @@ export class AddCandidateComponent implements OnInit {
       epNumber: form.value.epNumber,
       authorizedWorkInUS: form.value.authorizedWorkInUs,
       anyOffer: form.value.anotherInterviewOffer,
-      vacationPlan: form.value.vacationPlans
+      vacationPlan: form.value.vacationPlans,
+      enteredBy: {
+        userId: this.rtsUserId
+      }
     };
 
     if (this.isWorkedWithClient) {

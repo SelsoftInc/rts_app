@@ -93,6 +93,8 @@ export class EditCandidateComponent implements OnInit {
       vacationPlans: [''],
       currentCompany: [''],
       workedWithClient: [''],
+      enteredUser: [''],
+      createdDate: ['']
     });
     this.getCommonDetails();
   }
