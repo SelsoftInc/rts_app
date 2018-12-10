@@ -263,12 +263,14 @@
 
               <div class="col-sm-4" *ngIf="selectedSubmission && selectedSubmission.candidate.enteredBy">
                 <label for="enteredUser" class="form-label">Uploaded By:</label>
-                <input type="text" class="form-input" name="enteredUser" formControlName="enteredUser" ngModel="{{selectedSubmission.candidate.enteredBy.firstName}} {{selectedSubmission.candidate.enteredBy.lastName}}" disabled>
+                <input type="text" class="form-input" name="enteredUser" formControlName="enteredUser" ngModel="{{selectedSubmission.candidate.enteredBy.firstName}} {{selectedSubmission.candidate.enteredBy.lastName}}"
+                  disabled>
               </div>
-      
+
               <div class="col-sm-4" *ngIf="selectedSubmission && selectedSubmission.candidate.enteredOn">
                 <label for="createdDate" class="form-label">Uploaded On:</label>
-                <input type="text" class="form-input" name="createdDate" formControlName="createdDate" ngModel="{{selectedSubmission.candidate.enteredOn | date: 'MMM d, y'}}" disabled>
+                <input type="text" class="form-input" name="createdDate" formControlName="createdDate" ngModel="{{selectedSubmission.candidate.enteredOn | date: 'MMM d, y'}}"
+                  disabled>
               </div>
 
             </div>
@@ -533,7 +535,8 @@
             </div>
             <div class="col-sm-4" *ngIf="selectedSubmission && userRole !== 'ADMIN'">
               <label for="interviewStatus" class="form-label">Interview Status:</label>
-              <input type="text" class="form-input" name="interviewStatus" formControlName="interviewStatus" ngModel="{{selectedSubmission.interviewDetailStatus}}" disabled>
+              <input type="text" class="form-input" name="interviewStatus" formControlName="interviewStatus" ngModel="{{selectedSubmission.interviewDetailStatus}}"
+                disabled>
             </div>
             <div class="col-sm-8" *ngIf="selectedSubmission">
               <label for="interviewComments" class="form-label">Interview Comments:</label>
@@ -648,7 +651,7 @@
 
       <div class="form-btn-container">
         <button class="btn btn-forms btn-space" type="submit">Update Submission</button>
-        <button type="button" *ngIf="userRole === 'ACC_MGR' || userRole === 'ADMIN' && isSubmitted " class="btn btn-forms btn-space"
+        <button type="button" *ngIf="(userRole === 'ACC_MGR' || userRole === 'ADMIN') && isSubmitted " class="btn btn-forms btn-space"
           (click)="approveSubmission(myForm);">Approve
           and Submit to Client</button>
         <button [routerLink]="[ '/submissions']" class="btn btn-forms">Cancel</button>
