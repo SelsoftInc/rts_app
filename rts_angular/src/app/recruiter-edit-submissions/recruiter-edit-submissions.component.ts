@@ -182,6 +182,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             immigration.isChecked = false;
           }
           this.getAllRequirementsForUser();
+          this.editSubmission();
         }
       });
 
@@ -203,7 +204,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
                 this.allRequirements.push(require);
               }
             }
-            this.editSubmission();
+            // this.editSubmission();
           }
         });
   }
@@ -220,6 +221,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
           if (data.success) {
             this.ngProgress.done();
             this.selectedRequirement = data.requirement;
+            this.allRequirements.push(this.selectedRequirement);
             const submission = _.findWhere(this.selectedRequirement.submissions, { submissionId: this.submissionId });
             if (submission !== undefined) {
               this.selectedSubmission = submission;

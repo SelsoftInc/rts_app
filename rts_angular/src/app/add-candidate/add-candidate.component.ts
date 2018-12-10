@@ -78,8 +78,8 @@ export class AddCandidateComponent implements OnInit {
       currentCompany: [''],
     });
     this.getCommonDetails();
-    this.myForm.controls.immigirationStatus.setValue('GC');
-    this.immigirationStatus = 'GC';
+    // this.myForm.controls.immigirationStatus.setValue('GC');
+    // this.immigirationStatus = 'GC';
   }
 
   getCommonDetails() {

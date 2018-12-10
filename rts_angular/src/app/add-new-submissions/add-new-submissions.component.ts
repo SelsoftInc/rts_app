@@ -153,8 +153,8 @@ export class AddNewSubmissionsComponent implements OnInit {
       this.getAllRequirementsForUser();
     }
     this.getAllCommonData();
-    this.myForm.controls.editCandidateImmigirationStatus.setValue('GC');
-    this.immigirationStatus = 'GC';
+    // this.myForm.controls.editCandidateImmigirationStatus.setValue('GC');
+    // this.immigirationStatus = 'GC';
   }
 
   getAllCommonData() {
@@ -551,6 +551,7 @@ export class AddNewSubmissionsComponent implements OnInit {
             positionClass: 'toast-top-center',
             timeOut: 3000,
           });
+          this.ngProgress.done();
         }
       });
 

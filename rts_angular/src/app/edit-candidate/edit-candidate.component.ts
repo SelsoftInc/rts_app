@@ -113,23 +113,22 @@ export class EditCandidateComponent implements OnInit {
             for (const immigration of this.immigration) {
               immigration.isChecked = false;
             }
-            this.getAllCandidates();
+            this.getCandidateById();
           }
         });
   }
 
-  getAllCandidates() {
-    const companyId = {
-      companyId: this.rtsCompanyId
+  getCandidateById() {
+    const candidateId = {
+      candidateId: this.candidateId
     };
 
-    this.candidateService.allCandidate(companyId)
+    this.candidateService.getCandidateById(candidateId)
       .subscribe(
         data => {
           if (data.success) {
             this.ngProgress.done();
-            this.candidates = data.candidates;
-            this.selectedCandidate = _.findWhere(this.candidates, { candidateId: this.candidateId });
+            this.selectedCandidate = data.candidate;
             if (this.selectedCandidate.c2C) {
               this.myForm.controls.c2c.setValue('Yes');
               this.isEmployerDetails = true;

@@ -283,6 +283,7 @@ export class EditSubmissonComponent implements OnInit {
                     } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
                         this.getAllRequirementsForLeadUserAndAccountManager();
                     }
+                    this.editSubmission();
                 }
             });
 
@@ -304,7 +305,7 @@ export class EditSubmissonComponent implements OnInit {
                                 this.allRequirements.push(require);
                             }
                         }
-                        this.editSubmission();
+                        // this.editSubmission();
                     }
                 });
     }
@@ -325,7 +326,7 @@ export class EditSubmissonComponent implements OnInit {
                                 this.allRequirements.push(require);
                             }
                         }
-                        this.editSubmission();
+                        // this.editSubmission();
                     }
                 });
     }
@@ -410,6 +411,7 @@ export class EditSubmissonComponent implements OnInit {
                 data => {
                     if (data.success) {
                         this.selectedRequirement = data.requirement;
+                        this.allRequirements.push(this.selectedRequirement);
                         const submission = _.findWhere(this.selectedRequirement.submissions, { submissionId: this.submissionId });
                         this.ngProgress.done();
                         if (submission !== undefined) {
