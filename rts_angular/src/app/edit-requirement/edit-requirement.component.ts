@@ -53,8 +53,11 @@ export class EditRequirementComponent implements OnInit {
   private dropdownSettings: any;
   private selectedrecruitersArray: any;
   private accountName: any;
-  selctedVisaStatus: any;
-  isOtherImmigration: boolean;
+  private selctedVisaStatus: any;
+  private isOtherImmigration: boolean;
+  private dropdownSettingsForAllocationUsers: any;
+  private multiSelectUsers: any[];
+  private selectedAllocationUsers: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -74,7 +77,9 @@ export class EditRequirementComponent implements OnInit {
     this.immigrationByUser = [];
     this.selectedTeamUsers = [];
     this.selectedRecruites = [];
+    this.multiSelectUsers = [];
     this.selectedrecruitersArray = [];
+    this.selectedAllocationUsers = [];
     this.selctedVisaStatus = [];
     this.recruitersArray = [];
     this.selectedRequirement = {};
@@ -134,6 +139,16 @@ export class EditRequirementComponent implements OnInit {
       itemsShowLimit: 3,
       allowSearchFilter: true
     };
+    this.dropdownSettingsForAllocationUsers = {
+      singleSelection: false,
+      idField: 'userId',
+      textField: 'firstName',
+      enableCheckAll: false,
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
     this.getCommonDetails();
   }
 
@@ -171,6 +186,8 @@ export class EditRequirementComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
+            this.multiSelectUsers = [];
+            this.selectedAllocationUsers = [];
             this.ngProgress.done();
             this.selectedRequirement = data.requirement;
             this.requirementCreatedDate = moment(this.selectedRequirement.createdOn).format('MMM D, Y');
@@ -213,6 +230,13 @@ export class EditRequirementComponent implements OnInit {
             }
             for (const ids of this.selctedVisaStatus) {
               this.immigrationByUser.push(ids.visaId);
+            }
+
+            for (const user of this.selectedTeamUsers) {
+              this.multiSelectUsers.push({ userId: user.userId, firstName: user.firstName + ' ' + user.lastName });
+            }
+            for (const user of this.selectedRequirement.allocationUsers) {
+              this.selectedAllocationUsers.push({ userId: user.userId, firstName: user.firstName + ' ' + user.lastName });
             }
           }
         });
@@ -275,11 +299,16 @@ export class EditRequirementComponent implements OnInit {
   selectTeam(event) {
     if (event !== '') {
       this.selectedTeamUsers = [];
+      this.multiSelectUsers = [];
       this.selectedTeam = _.findWhere(this.teams, { teamId: event });
       this.selectedTeamUsers.push(this.selectedTeam.leadUser);
       for (const user of this.selectedTeam.otherUsers) {
         this.selectedTeamUsers.push(user);
       }
+      for (const user of this.selectedTeamUsers) {
+        this.multiSelectUsers.push({ userId: user.userId, firstName: user.firstName + ' ' + user.lastName });
+      }
+      console.log(this.multiSelectUsers);
     }
   }
 
@@ -301,6 +330,7 @@ export class EditRequirementComponent implements OnInit {
   }
 
   updateRequirement(form: FormGroup) {
+
     this.ngProgress.start();
     const selectedRecruitersId = [];
     for (const clientRecruiters of this.selectedrecruitersArray) {
@@ -323,7 +353,7 @@ export class EditRequirementComponent implements OnInit {
       status: form.value.status,
       enteredBy: this.rtsUserId,
       clientId: form.value.clientName,
-      allocationUserId: form.value.allocation,
+      allocationUsers: this.selectedAllocationUsers,
       clientRate: form.value.clientRate,
       sellingRate: form.value.sellingRate,
       jobDescription: form.value.jobDescription,

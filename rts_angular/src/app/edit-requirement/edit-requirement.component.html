@@ -113,7 +113,8 @@
           <label for="immigrationRequirement" class="form-label">Immigration Requirement:</label>
           <div class="checkbox-wrapper">
             <span class="checkbox-container" *ngFor="let data of immigration" ng-checked="immigrationByUser.indexOf(data) != 1">
-              <mat-checkbox color="primary" (change)="getCheckedImmigrationValue(data.visaId)" [value]="data.visaId" [checked]="data.isChecked">{{data.visaName}}</mat-checkbox>
+              <mat-checkbox color="primary" (change)="getCheckedImmigrationValue(data.visaId)" [value]="data.visaId"
+                [checked]="data.isChecked">{{data.visaName}}</mat-checkbox>
             </span>
             <mat-checkbox color="primary" value="other" (change)="getOtherImmigration($event)">OTHER</mat-checkbox>
           </div>
@@ -164,7 +165,7 @@
       </div>
 
       <div class="row" *ngIf="selectedRequirement">
-        <div class="col-sm-2">
+        <div class="col-sm-4">
           <label for="team" class="form-label">Select Team:</label>
           <select name="team" class="form-input" formControlName="team" ngModel="{{selectedRequirement.teamId}}"
             (change)="selectTeam($event.target.value)" required>
@@ -172,22 +173,26 @@
             <option *ngFor="let team of teams" value="{{team.teamId}}">{{team.name}}</option>
           </select>
         </div>
-
-        <div class="col-sm-2" *ngIf="selectedRequirement.allocationUser">
-          <label for="allocation" class="form-label">Allocation </label>
-          <select name="role" class="form-input" formControlName="allocation" ngModel="{{selectedRequirement.allocationUser.userId}}">
-            <option value="">Select</option>
-            <option *ngFor="let user of selectedTeamUsers" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
-          </select>
+      </div>
+      <div class="row" *ngIf="selectedRequirement">
+        <div class="col-sm-4" *ngIf="selectedRequirement.allocationUser">
+          <label for="allocation" class="form-label">Allocation: </label>
+          <div class="pt-4">
+            <ng-multiselect-dropdown [placeholder]="'Select Users'" [data]="multiSelectUsers" formControlName="allocation"
+              [(ngModel)]="selectedAllocationUsers" [settings]="dropdownSettingsForAllocationUsers">
+            </ng-multiselect-dropdown>
+          </div>
         </div>
-        <div class="col-sm-2" *ngIf="!selectedRequirement.allocationUser">
-          <label for="allocation" class="form-label">Allocation </label>
-          <select name="role" class="form-input" formControlName="allocation" ngModel="{{selectedRequirement.allocationUserId}}">
-            <option value="">Select</option>
-            <option *ngFor="let user of selectedTeamUsers" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
-          </select>
+        <div class="col-sm-4" *ngIf="!selectedRequirement.allocationUser">
+          <label for="allocation" class="form-label">Allocation: </label>
+          <div class="pt-4">
+            <ng-multiselect-dropdown [placeholder]="'Select Users'" [data]="multiSelectUsers" formControlName="allocation"
+              [(ngModel)]="selectedAllocationUsers" [settings]="dropdownSettingsForAllocationUsers">
+            </ng-multiselect-dropdown>
+          </div>
         </div>
       </div>
+
 
       <div class="row" *ngIf="selectedRequirement">
         <div class="col-sm-4">

@@ -8,18 +8,19 @@
   <div class="search-container">
     <input type="text" class="form-control mr-sm-2" placeholder="Search by First Name" name="searchString " [(ngModel)]="searchString">
   </div>
-  <table class="table table-hover">
+
+  <table class="table table-hover" matSort (matSortChange)="sortData($event)">
     <thead class="table-header">
       <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th>Role</th>
-        <th>Status</th>
+        <th mat-sort-header="firstName">First Name</th>
+        <th mat-sort-header="lastName">Last Name</th>
+        <th mat-sort-header="email">Email</th>
+        <th mat-sort-header="role">Role</th>
+        <th mat-sort-header="status">Status</th>
       </tr>
     </thead>
     <tbody *ngIf="userLength > 0 ; else noUser">
-      <tr *ngFor="let user of userDetails | filter:searchString" [routerLink]="['/edit-user',user.userId]">
+      <tr *ngFor="let user of sortedData | filter:searchString" [routerLink]="['/edit-user',user.userId]">
         <td>{{user.firstName}}</td>
         <td>{{user.lastName}}</td>
         <td>{{user.email}}</td>

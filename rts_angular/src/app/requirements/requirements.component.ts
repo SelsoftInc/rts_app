@@ -61,6 +61,7 @@ export class RequirementsComponent implements OnInit {
   team: string;
   client: string;
   status: string;
+  allocationUsers: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -79,6 +80,7 @@ export class RequirementsComponent implements OnInit {
     this.currentDate = new Date(Date.now());
     this.submittedRequirements = [];
     this.selectedRequirements = [];
+    this.allocationUsers = [];
     this.teamUsers = [];
     this.requirementStatus = [
       { 'name': 'Open', 'value': 'Open' },
@@ -359,13 +361,21 @@ export class RequirementsComponent implements OnInit {
   requirementsDetails(data) {
     this.ngProgress.done();
     this.requirements = data.requirements;
-    for (const allocation of this.requirements) {
-      if (!allocation.allocationUser) {
-        allocation.allocationUser = { firstName: '-' };
-      }
-    }
     this.filteredRequirements = this.requirements;
     this.selectedRequirements = this.requirements;
+
+    for (const requirement of this.selectedRequirements) {
+      this.allocationUsers = [];
+      for (const user of requirement.allocationUsers) {
+        this.allocationUsers.push(user.firstName + ' ');
+      }
+      if (this.allocationUsers.length === 0) {
+        requirement.allocationUsersName = '-';
+      } else {
+        requirement.allocationUsersName = this.allocationUsers.join().substring(0, 10);
+      }
+
+    }
     this.selectedRequirements.reverse();
     this.requirementsLength = this.requirements.length;
     for (const require of this.requirements) {
@@ -440,7 +450,7 @@ export class RequirementsComponent implements OnInit {
         case 'positions': return this.compare(a.positionCount, b.positionCount, isAsc);
         case 'submittedCount': return this.compare(a.clientSubmissionCount, b.clientSubmissionCount, isAsc);
         case 'allocationByTeam': return this.compare(a.team.name, b.team.name, isAsc);
-        case 'allocationByUser': return this.compare(a.allocationUser.firstName, b.allocationUser.firstName, isAsc);
+        case 'allocationByUser': return this.compare(a.allocationUsersName, b.allocationUsersName, isAsc);
         case 'client': return this.compare(a.client.name, b.client.name, isAsc);
         case 'age': return this.compare(a.createdOn, b.createdOn, isAsc);
         default: return 0;

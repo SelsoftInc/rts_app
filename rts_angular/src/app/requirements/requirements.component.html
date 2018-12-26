@@ -126,10 +126,9 @@
           <ng-template #noTeam>
             <td>-</td>
           </ng-template>
-          <td *ngIf="require.allocationUser ; else noAlloction">{{require.allocationUser.firstName}}
-            {{require.allocationUser.lastName}}</td>
+          <td *ngIf="require.allocationUsersName.length < 10 ; else noAlloction">{{require.allocationUsersName}}</td>
           <ng-template #noAlloction>
-            <td>-</td>
+            <td>{{require.allocationUsersName}}....</td>
           </ng-template>
           <td>{{require.client.name}}</td>
           <td>{{require.age}}</td>
@@ -170,10 +169,9 @@
           <ng-template #noTeam>
             <td>-</td>
           </ng-template>
-          <td *ngIf="require.allocationUser ; else noAlloction">{{require.allocationUser.firstName}}
-            {{require.allocationUser.lastName}}</td>
+          <td *ngIf="require.allocationUsersName.length < 10 ; else noAlloction">{{require.allocationUsersName}}</td>
           <ng-template #noAlloction>
-            <td>-</td>
+            <td>{{require.allocationUsersName}}....</td>
           </ng-template>
           <td>{{require.client.name}}</td>
           <td>{{require.age}}</td>
@@ -214,10 +212,9 @@
           <ng-template #noTeam>
             <td>-</td>
           </ng-template>
-          <td *ngIf="require.allocationUser ; else noAlloction">{{require.allocationUser.firstName}}
-            {{require.allocationUser.lastName}}</td>
+          <td *ngIf="require.allocationUsersName.length < 10 ; else noAlloction">{{require.allocationUsersName}}</td>
           <ng-template #noAlloction>
-            <td>-</td>
+            <td>{{require.allocationUsersName}}....</td>
           </ng-template>
           <td>{{require.client.name}}</td>
           <td>{{require.age}}</td>
@@ -258,10 +255,9 @@
           <ng-template #noTeam>
             <td>-</td>
           </ng-template>
-          <td *ngIf="require.allocationUser ; else noAlloction">{{require.allocationUser.firstName}}
-            {{require.allocationUser.lastName}}</td>
+          <td *ngIf="require.allocationUsersName.length < 10 ; else noAlloction">{{require.allocationUsersName}}</td>
           <ng-template #noAlloction>
-            <td>-</td>
+            <td>{{require.allocationUsersName}}....</td>
           </ng-template>
           <td>{{require.client.name}}</td>
           <td>{{require.age}}</td>

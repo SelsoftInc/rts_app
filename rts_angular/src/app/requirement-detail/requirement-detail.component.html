@@ -121,18 +121,12 @@
         <label for="allocation" class="col-form-label bold-text">Allocation:</label>
       </div>
       <div class="col-sm-4 shade-col-alt" *ngIf="selectedRequirement.allocationUser">
-        <select name="role" class="form-control read-only-text-select" formControlName="allocation" ngModel="{{selectedRequirement.allocationUser.userId}}"
-          disabled>
-          <option value="">-</option>
-          <option *ngFor="let user of selectedTeamUsers" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
-        </select>
+        <input type="text" class="form-control read-only-text-select" name="allocation" formControlName="allocation"
+          ngModel="{{allocationUsersName}}" readonly>
       </div>
       <div class="col-sm-4 shade-col-alt" *ngIf="!selectedRequirement.allocationUser">
-        <select name="role" class="form-control read-only-text-select" formControlName="allocation" ngModel="{{selectedRequirement.allocationUserId}}"
-          disabled>
-          <option value="">-</option>
-          <option *ngFor="let user of selectedTeamUsers" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
-        </select>
+        <input type="text" class="form-control read-only-text-select" name="allocation" formControlName="allocation"
+          ngModel="{{allocationUsersName}}" readonly>
       </div>
     </div>
 

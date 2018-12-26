@@ -37,6 +37,8 @@ export class RequirementDetailComponent implements OnInit {
   private selectedTeam: any;
   private selectedTeamUsers: any;
   selectedImmigration: any;
+  allocationUsers: any;
+  allocationUsersName: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -55,6 +57,7 @@ export class RequirementDetailComponent implements OnInit {
     this.requirementByUser = [];
     this.immigrationByUser = [];
     this.selectedTeamUsers = [];
+    this.allocationUsers = [];
     this.selectedRequirement = {};
   }
 
@@ -119,6 +122,7 @@ export class RequirementDetailComponent implements OnInit {
           if (data.success) {
             this.ngProgress.done();
             this.selectedRequirement = data.requirement;
+            console.log(this.selectedRequirement);
             this.requirementCreatedDate = moment(this.selectedRequirement.createdOn).format('MMM D, Y');
             this.requirementByUser = this.selectedRequirement.requirementType;
             for (const immigration of this.selectedRequirement.visaStatus) {
@@ -131,6 +135,11 @@ export class RequirementDetailComponent implements OnInit {
             for (const user of this.selectedTeam.otherUsers) {
               this.selectedTeamUsers.push(user);
             }
+            for (const user of this.selectedRequirement.allocationUsers) {
+              this.allocationUsers.push(user.firstName + ' ');
+
+            }
+            this.allocationUsersName = this.allocationUsers.join();
           }
         });
   }

@@ -46,6 +46,9 @@ export class AddNewRequirementComponent implements OnInit {
   private selectedClient: any;
   isOtherImmigration: boolean;
   selctedVisaStatus: any;
+  selectedAllocationUsers: any;
+  multiselectUsers: any[];
+  dropdownSettingsForAllocationUers: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -67,8 +70,10 @@ export class AddNewRequirementComponent implements OnInit {
     this.selectedTeamUsers = [];
     this.selectedRecruites = [];
     this.selctedVisaStatus = [];
+    this.selectedAllocationUsers = [];
     this.recruitersArray = [];
     this.dropdownSettings = {};
+    this.dropdownSettingsForAllocationUers = {};
     this.requirementType = ['C2C', 'C2H', 'FTE', 'TBD'];
     this.requirementStatus = [
       { 'name': 'Open', 'value': 'Open' },
@@ -106,6 +111,16 @@ export class AddNewRequirementComponent implements OnInit {
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'user',
+      textField: 'firstName',
+      enableCheckAll: false,
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
+    this.dropdownSettingsForAllocationUers = {
+      singleSelection: false,
+      idField: 'userId',
       textField: 'firstName',
       enableCheckAll: false,
       selectAllText: 'Select All',
@@ -299,6 +314,7 @@ export class AddNewRequirementComponent implements OnInit {
 
   selectTeam(event) {
     this.selectedTeamUsers = [];
+    this.multiselectUsers = [];
     if (event !== '') {
       this.selectedTeam = _.findWhere(this.teams, { teamId: event });
       if (this.selectedTeam.leadUser !== undefined) {
@@ -306,6 +322,9 @@ export class AddNewRequirementComponent implements OnInit {
       }
       for (const user of this.selectedTeam.otherUsers) {
         this.selectedTeamUsers.push(user);
+      }
+      for (const user of this.selectedTeamUsers) {
+        this.multiselectUsers.push({ userId: user.userId, firstName: user.firstName + ' ' + user.lastName });
       }
     }
   }
@@ -329,6 +348,7 @@ export class AddNewRequirementComponent implements OnInit {
   }
 
   addNewRequirement(form: FormGroup) {
+
     const selectedRecruitersId = [];
     for (const clientRecruiters of this.selectedRecruites) {
       selectedRecruitersId.push({ clientRecuriterId: clientRecruiters.user.clientRecuriterId });
@@ -367,7 +387,6 @@ export class AddNewRequirementComponent implements OnInit {
       status: form.value.status,
       enteredBy: this.rtsUserId,
       clientId: form.value.clientName,
-      allocationUserId: form.value.allocation,
       clientRate: form.value.clientRate,
       sellingRate: form.value.sellingRate,
       jobDescription: form.value.jobDescription,
@@ -376,7 +395,8 @@ export class AddNewRequirementComponent implements OnInit {
       client: {
         clientId: form.value.clientName,
         toClientRecuriters: selectedRecruitersId
-      }
+      },
+      allocationUsers: this.selectedAllocationUsers
     };
 
     if (form.value.positionName === 'other') {
