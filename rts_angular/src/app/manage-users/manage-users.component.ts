@@ -56,6 +56,7 @@ export class ManageUsersComponent implements OnInit {
             this.ngProgress.done();
             this.userDetails = data.users;
             this.userLength = this.userDetails.length;
+            this.sortedData = this.userDetails;
           }
         });
 

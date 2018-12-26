@@ -138,7 +138,12 @@ export class RequirementDetailComponent implements OnInit {
               this.allocationUsers.push(user.firstName + ' ');
 
             }
-            this.allocationUsersName = this.allocationUsers.join();
+            if (this.allocationUsers.length === 0) {
+              this.allocationUsersName = '-'
+            } else {
+              this.allocationUsersName = this.allocationUsers.join();
+            }
+
           }
         });
   }
