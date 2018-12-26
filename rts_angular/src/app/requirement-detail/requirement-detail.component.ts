@@ -122,7 +122,6 @@ export class RequirementDetailComponent implements OnInit {
           if (data.success) {
             this.ngProgress.done();
             this.selectedRequirement = data.requirement;
-            console.log(this.selectedRequirement);
             this.requirementCreatedDate = moment(this.selectedRequirement.createdOn).format('MMM D, Y');
             this.requirementByUser = this.selectedRequirement.requirementType;
             for (const immigration of this.selectedRequirement.visaStatus) {

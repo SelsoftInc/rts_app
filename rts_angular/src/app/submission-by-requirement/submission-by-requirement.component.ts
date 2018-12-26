@@ -40,68 +40,27 @@ export class SubmissionByRequirementComponent implements OnInit {
       .subscribe((params: Params) => {
         this.requirementId = params['id'];
       });
-    if (this.userRole === 'ADMIN') {
-      this.getAllRequirements();
-    } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
-      this.getAllRequirementsForTeam();
-    } else if (this.userRole === 'RECRUITER' || this.userRole === 'TRAINEE') {
-      this.getAllRequirementsForUser();
-    }
+    this.getAllRequirements();
   }
 
   getAllRequirements() {
 
     const userId = {
-      companyId: this.rtsCompanyId
+      requirementId: this.requirementId
     };
 
-    this.requirementService.requirementsDetails(userId)
+    this.requirementService.getRequirementsById(userId)
       .subscribe(
         data => {
           if (data.success) {
             this.ngProgress.done();
-            this.requirements = data.requirements;
-            this.selectedRequirement = _.findWhere(this.requirements, { requirementId: this.requirementId });
+            // this.requirements = data.requirements;
+            this.selectedRequirement = data.requirement;
             this.submissionsLength = this.selectedRequirement.submissions.length;
           }
         });
   }
 
-  getAllRequirementsForTeam() {
-
-    const userId = {
-      userId: this.rtsUserId
-    };
-
-    this.requirementService.requirementsDetailsByTeam(userId)
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.ngProgress.done();
-            this.requirements = data.requirements;
-            this.selectedRequirement = _.findWhere(this.requirements, { requirementId: this.requirementId });
-            this.submissionsLength = this.selectedRequirement.submissions.length;
-          }
-        });
-  }
-
-  getAllRequirementsForUser() {
-
-    const userId = {
-      userId: this.rtsUserId
-    };
-
-    this.requirementService.requirementsDetailsForUser(userId)
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.ngProgress.done();
-            this.requirements = data.requirements;
-            this.selectedRequirement = _.findWhere(this.requirements, { requirementId: this.requirementId });
-            this.submissionsLength = this.selectedRequirement.submissions.length;
-          }
-        });
-  }
 
 }
 
