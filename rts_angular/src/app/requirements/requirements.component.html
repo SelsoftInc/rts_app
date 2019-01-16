@@ -107,18 +107,21 @@
       <thead class="table-header">
         <tr>
           <th mat-sort-header="positionName">Position Name</th>
+          <th mat-sort-header="location">Location</th>
           <th mat-sort-header="status">Status</th>
           <th mat-sort-header="positions">Positions</th>
           <th mat-sort-header="submittedCount">Submitted Count</th>
           <th mat-sort-header="allocationByTeam">Allocation By Team</th>
           <th mat-sort-header="allocationByUser">Allocation By User</th>
           <th mat-sort-header="client">Client</th>
+          <th mat-sort-header="accountName">Account Name</th>
           <th mat-sort-header="age">Age</th>
         </tr>
       </thead>
       <tbody *ngIf="requirementsLength > 0 ; else noRequirements">
         <tr *ngFor="let require of sortedData" [routerLink]="['/edit-requirement',require.requirementId]">
           <td>{{require.position.positionName }}</td>
+          <td>{{require.location}}</td>
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>
           <td>{{require.clientSubmissionCount}}</td>
@@ -131,6 +134,7 @@
             <td>{{require.allocationUsersName}}....</td>
           </ng-template>
           <td>{{require.client.name}}</td>
+          <td>{{require.account.accountName}}</td>
           <td>{{require.age}}</td>
         </tr>
       </tbody>
@@ -150,18 +154,21 @@
       <thead class="table-header">
         <tr>
           <th mat-sort-header="positionName">Position Name</th>
+          <th mat-sort-header="location">Location</th>
           <th mat-sort-header="status">Status</th>
           <th mat-sort-header="positions">Positions</th>
           <th mat-sort-header="submittedCount">Submitted Count</th>
           <th mat-sort-header="allocationByTeam">Allocation By Team</th>
           <th mat-sort-header="allocationByUser">Allocation By User</th>
           <th mat-sort-header="client">Client</th>
+          <th mat-sort-header="accountName">Account Name</th>
           <th mat-sort-header="age">Age</th>
         </tr>
       </thead>
       <tbody *ngIf="requirementsLength > 0 ; else noRequirements">
         <tr *ngFor="let require of sortedData" [routerLink]="['/edit-requirement',require.requirementId]">
           <td>{{require.position.positionName}}</td>
+          <td>{{require.location}}</td>
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>
           <td>{{require.clientSubmissionCount}}</td>
@@ -174,6 +181,7 @@
             <td>{{require.allocationUsersName}}....</td>
           </ng-template>
           <td>{{require.client.name}}</td>
+          <td>{{require.account.accountName}}</td>
           <td>{{require.age}}</td>
         </tr>
       </tbody>
@@ -193,18 +201,21 @@
       <thead class="table-header">
         <tr>
           <th mat-sort-header="positionName">Position Name</th>
+          <th mat-sort-header="location">Location</th>
           <th mat-sort-header="status">Status</th>
           <th mat-sort-header="positions">Positions</th>
           <th mat-sort-header="submittedCount">Submitted Count</th>
           <th mat-sort-header="allocationByTeam">Allocation By Team</th>
           <th mat-sort-header="allocationByUser">Allocation By User</th>
           <th mat-sort-header="client">Client</th>
+          <th mat-sort-header="accountName">Account Name</th>
           <th mat-sort-header="age">Age</th>
         </tr>
       </thead>
       <tbody *ngIf="requirementsLength > 0 ; else noRequirements">
         <tr *ngFor="let require of sortedData" [routerLink]="['/edit-requirement',require.requirementId]">
           <td>{{require.position.positionName}}</td>
+          <td>{{require.location}}</td>
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>
           <td>{{require.clientSubmissionCount}}</td>
@@ -217,6 +228,7 @@
             <td>{{require.allocationUsersName}}....</td>
           </ng-template>
           <td>{{require.client.name}}</td>
+          <td>{{require.account.accountName}}</td>
           <td>{{require.age}}</td>
         </tr>
       </tbody>
@@ -236,18 +248,21 @@
       <thead class="table-header">
         <tr>
           <th mat-sort-header="positionName">Position Name</th>
+          <th mat-sort-header="location">Location</th>
           <th mat-sort-header="status">Status</th>
           <th mat-sort-header="positions">Positions</th>
           <th mat-sort-header="submittedCount">Submitted Count</th>
           <th mat-sort-header="allocationByTeam">Allocation By Team</th>
           <th mat-sort-header="allocationByUser">Allocation By User</th>
           <th mat-sort-header="client">Client</th>
+          <th mat-sort-header="accountName">Account Name</th>
           <th mat-sort-header="age">Age</th>
         </tr>
       </thead>
       <tbody *ngIf="requirementsLength > 0 ; else noRequirements">
         <tr *ngFor="let require of sortedData" [routerLink]="['/requirement-detail',require.requirementId]">
           <td>{{require.position.positionName}}</td>
+          <td>{{require.location}}</td>
           <td>{{require.status}}</td>
           <td>{{require.positionCount}}</td>
           <td>{{require.clientSubmissionCount}}</td>
@@ -260,6 +275,7 @@
             <td>{{require.allocationUsersName}}....</td>
           </ng-template>
           <td>{{require.client.name}}</td>
+          <td>{{require.account.accountName}}</td>
           <td>{{require.age}}</td>
         </tr>
       </tbody>

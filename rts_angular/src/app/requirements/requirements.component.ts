@@ -446,12 +446,14 @@ export class RequirementsComponent implements OnInit {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'positionName': return this.compare(a.position.positionName, b.position.positionName, isAsc);
+        case 'location': return this.compare(a.location, b.location, isAsc);
         case 'status': return this.compare(a.status, b.status, isAsc);
         case 'positions': return this.compare(a.positionCount, b.positionCount, isAsc);
         case 'submittedCount': return this.compare(a.clientSubmissionCount, b.clientSubmissionCount, isAsc);
         case 'allocationByTeam': return this.compare(a.team.name, b.team.name, isAsc);
         case 'allocationByUser': return this.compare(a.allocationUsersName, b.allocationUsersName, isAsc);
         case 'client': return this.compare(a.client.name, b.client.name, isAsc);
+        case 'accountName': return this.compare(a.account.accountName, b.account.accountName, isAsc);
         case 'age': return this.compare(a.createdOn, b.createdOn, isAsc);
         default: return 0;
       }
