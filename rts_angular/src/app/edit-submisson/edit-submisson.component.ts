@@ -72,6 +72,8 @@ export class EditSubmissonComponent implements OnInit {
     private immigration: any;
     private clientCC: any;
     private clientCcArray: any;
+    isSelected: boolean;
+    joinDate: Date;
 
     constructor(
         private loggedUser: LoggedUserService,
@@ -90,6 +92,7 @@ export class EditSubmissonComponent implements OnInit {
         this.userRole = this.rtsUser.role;
         this.rtsCompanyId = this.rtsUser.companyId;
         this.sendToClient = false;
+        this.isSelected = false;
         this.recruiterName = [];
         this.adminUsersArray = [];
         this.clientCcArray = [];
@@ -173,6 +176,7 @@ export class EditSubmissonComponent implements OnInit {
             clientCcRecruiters: [''],
             enteredUser: [''],
             createdDate: [''],
+            joiningDate: [''],
             units: this.formBuilder.array([
                 this.initUnits()
             ]),
@@ -437,6 +441,12 @@ export class EditSubmissonComponent implements OnInit {
                         } else {
                             this.isSubmitted = false;
                         }
+                        if (this.selectedSubmission.interviewDetailStatus === 'SELECTED') {
+                            this.isSelected = true;
+                            this.joinDate = moment(this.selectedSubmission.joiningDateStr, 'YYYY-MM-DD').toDate();
+                        } else {
+                            this.isSelected = false;
+                        }
                         if (this.selectedSubmission.candidate.c2C) {
                             this.myForm.controls.c2c.setValue('Yes');
                             this.isC2c = true;
@@ -564,6 +574,14 @@ export class EditSubmissonComponent implements OnInit {
         }
     }
 
+    changeInterviewStatus(event) {
+        if (event === 'SELECTED') {
+            this.isSelected = true;
+        } else {
+            this.isSelected = false;
+        }
+    }
+
     addTechnology(event) {
         if (event === 'other') {
             this.isOtherTechnology = true;
@@ -657,6 +675,7 @@ export class EditSubmissonComponent implements OnInit {
             candidateId: candidateId,
             approvalUserId: this.rtsUserId,
             interviewDetails: form.value.units,
+            joiningDateStr: form.value.joiningDate
         };
 
         if (this.sendToClient) {
