@@ -1,0 +1,59 @@
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
+<h2 class="main-title"><a [routerLink]="['/submissions']">Submissions</a> / OnBoard Reminder</h2>
+<div class="utility-container">
+
+  <div>
+    <h6>Total {{interviewsLength}} Results</h6>
+  </div>
+
+  <div *ngIf="userRole === 'ADMIN' || userRole === 'TL' || userRole === 'ACC_MGR'">
+    <table class="table table-hover table-bordered table-sm" matSort (matSortChange)="sortData($event)">
+      <thead class="table-header">
+        <tr>
+          <th mat-sort-header="positionName">Position Name</th>
+          <th mat-sort-header="candidateName">Candidate Name</th>
+          <th mat-sort-header="clientName">Client Name</th>
+          <th mat-sort-header="joiningDate">Joining Date</th>
+          <th mat-sort-header="recruiterName">Recruiter Name</th>
+          <th mat-sort-header="status">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let submission of sortedData" [routerLink]="['/edit-submission', submission.submissionId]">
+          <td>{{submission.positionName}}</td>
+          <td>{{submission.candidateName}}</td>
+          <td>{{submission.clientName}}</td>
+          <td>{{submission.joiningDateStr | date: 'MMM d, y'}}</td>
+          <td>{{submission.recruiterName}}</td>
+          <td>{{submission.interviewDetailStatus}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="userRole === 'RECRUITER'">
+    <table class=" table table-hover table-bordered table-sm" matSort (matSortChange)="sortData($event)">
+      <thead class="table-header">
+        <tr>
+          <th mat-sort-header="positionName">Position Name</th>
+          <th mat-sort-header="candidateName">Candidate Name</th>
+          <th mat-sort-header="clientName">Client Name</th>
+          <th mat-sort-header="joiningDate">Joining Date</th>
+          <th mat-sort-header="recruiterName">Recruiter Name</th>
+          <th mat-sort-header="status">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let submission of sortedData" [routerLink]="['/recruiter-edit-submissions', submission.submissionId]">
+          <td>{{submission.positionName}}</td>
+          <td>{{submission.candidateName}}</td>
+          <td>{{submission.clientName}}</td>
+          <td>{{submission.joiningDateStr | date: 'MMM d, y'}}</td>
+          <td>{{submission.recruiterName}}</td>
+          <td>{{submission.interviewDetailStatus}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

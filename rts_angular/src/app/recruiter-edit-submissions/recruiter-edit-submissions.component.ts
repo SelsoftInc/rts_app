@@ -53,6 +53,8 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   private clientRecruiterEmail: any;
   private comment: any;
   immigration: any;
+  isSelected: boolean;
+  joinDate: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -141,6 +143,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       comments: [''],
       enteredUser: [''],
       createdDate: [''],
+      joiningDate: [''],
       units: this.formBuilder.array([
         this.initUnits()
       ]),
@@ -237,6 +240,12 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
               this.isUpdate = true;
             } else {
               this.isUpdate = false;
+            }
+            if (this.selectedSubmission.interviewDetailStatus === 'SELECTED') {
+              this.isSelected = true;
+              this.joinDate = moment(this.selectedSubmission.joiningDateStr).format('DD/MM/YYYY');
+            } else {
+              this.isSelected = false;
             }
             if (this.selectedSubmission.candidate.c2C) {
               this.myForm.controls.c2c.setValue('Yes');
