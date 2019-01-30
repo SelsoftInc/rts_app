@@ -79,6 +79,7 @@ export class JoiningDateComponent implements OnInit {
         case 'clientName': return this.compare(a.clientName, b.clientName, isAsc);
         case 'joiningDate': return this.compare(a.joiningDateStr, b.joiningDateStr, isAsc);
         case 'recruiterName': return this.compare(a.recruiterName, b.recruiterName, isAsc);
+        case 'interviewStatus': return this.compare(a.interviewDetailStatus, b.interviewDetailStatus, isAsc);
         default: return 0;
       }
     });
