@@ -1,13 +1,14 @@
 <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
   [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
-<h2 class="main-title"><a [routerLink]="['/submissions']">Submissions</a> / Achievements</h2>
+<h2 *ngIf="userRole !== 'HR_MANAGER'" class="main-title"><a [routerLink]="['/submissions']">Submissions</a> / Achievements</h2>
+<h2 *ngIf="userRole === 'HR_MANAGER'" class="main-title">Achievements</h2>
 <div class="utility-container">
 
   <div>
     <h6>Total {{interviewsLength}} Results</h6>
   </div>
 
-  <div *ngIf="userRole === 'ADMIN' || userRole === 'TL' || userRole === 'ACC_MGR'">
+  <div *ngIf="userRole === 'ADMIN' || userRole === 'TL' || userRole === 'ACC_MGR' || userRole === 'HR_MANAGER'">
     <table class="table table-hover table-bordered table-sm" matSort (matSortChange)="sortData($event)">
       <thead class="table-header">
         <tr>

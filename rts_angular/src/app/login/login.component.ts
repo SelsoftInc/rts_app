@@ -89,6 +89,8 @@ export class LoginComponent implements OnInit, OnDestroy {
               this.router.navigate(['mgr-dashboard']);
             } else if (data.user.role === 'RECRUITER') {
               this.router.navigate(['recruiter-dashboard']);
+            } else if (data.user.role === 'HR_MANAGER') {
+              this.router.navigate(['joining-date']);
             }
 
             const userId = data.user.userId;

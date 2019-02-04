@@ -55,6 +55,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   immigration: any;
   isSelected: boolean;
   joinDate: any;
+  isRejected: boolean;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -241,6 +242,9 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             } else {
               this.isUpdate = false;
             }
+            if (this.selectedSubmission.status === 'REJECTED' || this.selectedSubmission.status === 'TL_REJECTED' || this.selectedSubmission.status === 'CLIENT_REJECTED' || this.selectedSubmission.status === 'OTHER_REJECTION') {
+              this.isRejected = true;
+            }
             if (this.selectedSubmission.interviewDetailStatus === 'SELECTED') {
               this.isSelected = true;
               this.joinDate = moment(this.selectedSubmission.joiningDateStr).format('DD/MM/YYYY');
@@ -349,6 +353,13 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
         });
   }
 
+  changeStatus(event) {
+    if (event === 'OTHER_REJECTION') {
+      this.isRejected = true;
+    } else {
+      this.isRejected = false;
+    }
+  }
 
   candidateFileEvent(event: any) {
     this.candidateFiles = event.target.files;
@@ -467,6 +478,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       submissionId: this.submissionId,
       candidateId: candidateId,
       interviewDetails: form.value.units,
+      joiningDateStr: this.selectedSubmission.joiningDateStr
     };
 
     if (this.comment === '' || this.comment === undefined) {

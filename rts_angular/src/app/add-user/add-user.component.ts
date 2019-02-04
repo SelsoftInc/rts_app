@@ -59,6 +59,7 @@ export class AddUserComponent implements OnInit {
         { 'name': 'Account Manager', 'value': 'ACC_MGR' },
         { 'name': 'Team Leader', 'value': 'TL' },
         { 'name': 'Recruiter', 'value': 'RECRUITER' },
+        { 'name': 'HR Manager', 'value': 'HR_MANAGER' },
         // { 'name': 'Trainee', 'value': 'TRAINEE' },
       ];
     }
@@ -66,13 +67,6 @@ export class AddUserComponent implements OnInit {
 
   addNewUser(form: FormGroup) {
 
-    // if (form.value.userPassword !== form.value.confirmPassword) {
-    //   this.toastr.error('Password and confirmPassword does not match', '', {
-    //     positionClass: 'toast-top-center',
-    //     timeOut: 3000,
-    //   });
-    //   return false;
-    // }
     this.ngProgress.start();
 
     const user = {

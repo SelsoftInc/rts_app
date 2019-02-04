@@ -196,10 +196,15 @@ export class EditSubmissonComponent implements OnInit {
                 { 'name': 'Rejected', 'value': 'REJECTED' },
                 { 'name': 'Closed', 'value': 'CLOSED' },
                 { 'name': 'Client Rejeced', 'value': 'CLIENT_REJECTED' },
-                { 'name': 'Candidate Selected', 'value': 'SELECTED' },
+                { 'name': 'Selected', 'value': 'SELECTED' },
+                { 'name': 'Interview Selected', 'value': 'INTERVIEW_SELECTED' },
                 { 'name': 'Interview', 'value': 'INTERVIEWED' },
+                { 'name': 'Interview Scheduled', 'value': 'INTERVIEW_SCHEDULED' },
+                { 'name': 'Rescheduled', 'value': 'RESCHEDULED' },
                 { 'name': 'Interview Rejected', 'value': 'INTERVIEWED_REJECTED' },
-                { 'name': 'Hold', 'value': 'HOLD' }
+                { 'name': 'Awaiting For Feedback', 'value': 'AWAITING_FOR_FEEDBACK' },
+                { 'name': 'Hold', 'value': 'HOLD' },
+                { 'name': 'Other Rejection', 'value': 'OTHER_REJECTION' },
             ];
         }
 
@@ -210,10 +215,15 @@ export class EditSubmissonComponent implements OnInit {
                 { 'name': 'TL Rejeced', 'value': 'TL_REJECTED' },
                 { 'name': 'Closed', 'value': 'CLOSED' },
                 { 'name': 'Client Rejeced', 'value': 'CLIENT_REJECTED' },
-                { 'name': 'Candidate Selected', 'value': 'SELECTED' },
+                { 'name': 'Selected', 'value': 'SELECTED' },
+                { 'name': 'Interview Selected', 'value': 'INTERVIEW_SELECTED' },
                 { 'name': 'Interview', 'value': 'INTERVIEWED' },
+                { 'name': 'Interview Scheduled', 'value': 'INTERVIEW_SCHEDULED' },
+                { 'name': 'Rescheduled', 'value': 'RESCHEDULED' },
                 { 'name': 'Interview Rejected', 'value': 'INTERVIEWED_REJECTED' },
-                { 'name': 'Hold', 'value': 'HOLD' }
+                { 'name': 'Awaiting For Feedback', 'value': 'AWAITING_FOR_FEEDBACK' },
+                { 'name': 'Hold', 'value': 'HOLD' },
+                { 'name': 'Other Rejection', 'value': 'OTHER_REJECTION' },
             ];
         } else if (this.userRole === 'ACC_MGR') {
             this.status = [
@@ -222,10 +232,15 @@ export class EditSubmissonComponent implements OnInit {
                 { 'name': 'Rejected', 'value': 'REJECTED' },
                 { 'name': 'Closed', 'value': 'CLOSED' },
                 { 'name': 'Client Rejeced', 'value': 'CLIENT_REJECTED' },
-                { 'name': 'Candidate Selected', 'value': 'SELECTED' },
+                { 'name': 'Selected', 'value': 'SELECTED' },
+                { 'name': 'Interview Selected', 'value': 'INTERVIEW_SELECTED' },
                 { 'name': 'Interview', 'value': 'INTERVIEWED' },
+                { 'name': 'Interview Scheduled', 'value': 'INTERVIEW_SCHEDULED' },
+                { 'name': 'Rescheduled', 'value': 'RESCHEDULED' },
                 { 'name': 'Interview Rejected', 'value': 'INTERVIEWED_REJECTED' },
-                { 'name': 'Hold', 'value': 'HOLD' }
+                { 'name': 'Awaiting For Feedback', 'value': 'AWAITING_FOR_FEEDBACK' },
+                { 'name': 'Hold', 'value': 'HOLD' },
+                { 'name': 'Other Rejection', 'value': 'OTHER_REJECTION' },
             ];
         }
     }
@@ -433,7 +448,7 @@ export class EditSubmissonComponent implements OnInit {
                             control.push(this.formBuilder.group(interviews));
                         }
                         // tslint:disable-next-line:max-line-length
-                        if (this.selectedSubmission.status === 'REJECTED' || this.selectedSubmission.status === 'TL_REJECTED' || this.selectedSubmission.status === 'CLIENT_REJECTED' || this.selectedSubmission.status === 'INTERVIEWED_REJECTED') {
+                        if (this.selectedSubmission.status === 'REJECTED' || this.selectedSubmission.status === 'TL_REJECTED' || this.selectedSubmission.status === 'CLIENT_REJECTED' || this.selectedSubmission.status === 'INTERVIEWED_REJECTED' || this.selectedSubmission.status === 'OTHER_REJECTION') {
                             this.isRejected = true;
                         }
                         if (this.selectedSubmission.status === 'TL_APPROVED' || this.selectedSubmission.status === 'APPROVED') {
@@ -567,7 +582,7 @@ export class EditSubmissonComponent implements OnInit {
     }
 
     changeStatus(event) {
-        if (event === 'REJECTED' || event === 'TL_REJECTED' || event === 'CLIENT_REJECTED' || event === 'INTERVIEWED_REJECTED') {
+        if (event === 'REJECTED' || event === 'TL_REJECTED' || event === 'CLIENT_REJECTED' || event === 'INTERVIEWED_REJECTED' || event === 'OTHER_REJECTION') {
             this.isRejected = true;
         } else {
             this.isRejected = false;
