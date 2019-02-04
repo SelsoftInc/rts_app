@@ -115,6 +115,21 @@
       </li>
     </ul>
   </div>
+
+  <div *ngIf="userRole ==='HR_MANAGER'">
+    <ul class="nav nav-taps">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/joining-date']" [routerLinkActive]="['active-link']">OnBoard Reminder</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/selected-submissions']" [routerLinkActive]="['active-link']">Achievements</a>
+      </li>
+      <li class="nav-item-logout">
+        <a class="nav-link" href="" (click)="onLogout();">Logout</a>
+      </li>
+    </ul>
+  </div>
+
 </div>
 
 <router-outlet></router-outlet>

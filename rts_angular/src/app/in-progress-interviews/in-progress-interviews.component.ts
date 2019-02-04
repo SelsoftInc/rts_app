@@ -19,6 +19,7 @@ export class InProgressInterviewsComponent implements OnInit {
   interviewReport: any[];
   sortedData: any[];
   interviewsLength: any;
+  userRole: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -29,6 +30,7 @@ export class InProgressInterviewsComponent implements OnInit {
     this.hideComponent.displayComponent = true;
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
+    this.userRole = this.rtsUser.role;
     this.interviewReport = [];
     this.selectedInterviews = [];
   }

@@ -84,9 +84,9 @@
 
             <div class="col-sm-4" *ngIf="isRejected">
               <label for="reasonForRejection" class="form-label">Reson For Rejection:</label>
-              <input *ngIf="selectedSubmission.status === 'REJECTED' || selectedSubmission.status === 'TL_REJECTED' || selectedSubmission.status === 'CLIENT_REJECTED' || selectedSubmission.status === 'INTERVIEWED_REJECTED'"
+              <input *ngIf="selectedSubmission.status === 'REJECTED' || selectedSubmission.status === 'TL_REJECTED' || selectedSubmission.status === 'CLIENT_REJECTED' || selectedSubmission.status === 'INTERVIEWED_REJECTED' || selectedSubmission.status === 'OTHER_REJECTION'"
                 type="text" class="form-input" name="reasonForRejection" formControlName="reasonForRejection" ngModel="{{selectedSubmission.reasonForRejection}}">
-              <input *ngIf="selectedSubmission.status !== 'REJECTED' && selectedSubmission.status !== 'TL_REJECTED' && selectedSubmission.status !== 'CLIENT_REJECTED' && selectedSubmission.status !== 'INTERVIEWED_REJECTED'"
+              <input *ngIf="selectedSubmission.status !== 'REJECTED' && selectedSubmission.status !== 'TL_REJECTED' && selectedSubmission.status !== 'CLIENT_REJECTED' && selectedSubmission.status !== 'INTERVIEWED_REJECTED' && selectedSubmission.status !== 'OTHER_REJECTION'"
                 type="text" class="form-input" name="reasonForRejection" formControlName="reasonForRejection">
             </div>
 
@@ -657,11 +657,11 @@
       </div>
 
       <div class="form-btn-container">
-        <button class="btn btn-forms btn-space" type="submit">Update Submission</button>
+        <button *ngIf="userRole !== 'HR_MANAGER'" class="btn btn-forms btn-space" type="submit">Update Submission</button>
         <button type="button" *ngIf="(userRole === 'ACC_MGR' || userRole === 'ADMIN') && isSubmitted " class="btn btn-forms btn-space"
           (click)="approveSubmission(myForm);">Approve
           and Submit to Client</button>
-        <button [routerLink]="[ '/submissions']" class="btn btn-forms">Cancel</button>
+        <button *ngIf="userRole !== 'HR_MANAGER'" [routerLink]="[ '/submissions']" class="btn btn-forms">Cancel</button>
       </div>
 
     </div>
