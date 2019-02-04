@@ -1,5 +1,6 @@
-<h2 class="main-title">
+<h2 *ngIf="userRole !== 'HR_MANAGER'" class="main-title">
   <a [routerLink]="['/submissions']">Submissions</a> / Edit Submission</h2>
+<h2 *ngIf="userRole === 'HR_MANAGER'" class="main-title"> Edit Submission</h2>
 <div class="utility-container">
 
   <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
