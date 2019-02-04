@@ -76,7 +76,7 @@ export class InProgressInterviewsComponent implements OnInit {
         case 'skype': return this.compare(a.skypeId, b.skypeId, isAsc);
         case 'phoneNumber': return this.compare(a.phoneNumber, b.phoneNumber, isAsc);
         case 'currentStatus': return this.compare(a.currentStatus, b.currentStatus, isAsc);
-        case 'interviewStatus': return this.compare(a.interviewDetailStatus, b.interviewDetailStatus, isAsc);
+        case 'submissionStatus': return this.compare(a.interviewStatus, b.interviewStatus, isAsc);
         default: return 0;
       }
     });

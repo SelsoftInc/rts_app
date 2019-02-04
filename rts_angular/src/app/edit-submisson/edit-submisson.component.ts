@@ -207,6 +207,26 @@ export class EditSubmissonComponent implements OnInit {
                 { 'name': 'Other Rejection', 'value': 'OTHER_REJECTION' },
             ];
         }
+        if (this.userRole === 'HR_MANAGER') {
+            this.status = [
+                { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
+                { 'name': 'TL Approved', 'value': 'TL_APPROVED' },
+                { 'name': 'Approved', 'value': 'APPROVED' },
+                { 'name': 'TL Rejeced', 'value': 'TL_REJECTED' },
+                { 'name': 'Rejected', 'value': 'REJECTED' },
+                { 'name': 'Closed', 'value': 'CLOSED' },
+                { 'name': 'Client Rejeced', 'value': 'CLIENT_REJECTED' },
+                { 'name': 'Selected', 'value': 'SELECTED' },
+                { 'name': 'Interview Selected', 'value': 'INTERVIEW_SELECTED' },
+                { 'name': 'Interview', 'value': 'INTERVIEWED' },
+                { 'name': 'Interview Scheduled', 'value': 'INTERVIEW_SCHEDULED' },
+                { 'name': 'Rescheduled', 'value': 'RESCHEDULED' },
+                { 'name': 'Interview Rejected', 'value': 'INTERVIEWED_REJECTED' },
+                { 'name': 'Awaiting For Feedback', 'value': 'AWAITING_FOR_FEEDBACK' },
+                { 'name': 'Hold', 'value': 'HOLD' },
+                { 'name': 'Other Rejection', 'value': 'OTHER_REJECTION' },
+            ];
+        }
 
         if (this.userRole === 'TL') {
             this.status = [
