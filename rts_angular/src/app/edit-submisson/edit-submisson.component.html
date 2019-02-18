@@ -1,6 +1,6 @@
 <h2 *ngIf="userRole !== 'HR_MANAGER'" class="main-title">
   <a [routerLink]="['/submissions']">Submissions</a> / Edit Submission</h2>
-<h2 *ngIf="userRole === 'HR_MANAGER'" class="main-title"> Edit Submission</h2>
+<h2 *ngIf="userRole === 'HR_MANAGER'" class="main-title"> View Submission</h2>
 <div class="utility-container">
 
   <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
@@ -22,9 +22,9 @@
               </select>
             </div>
 
-            <div class="col-sm-4" *ngIf="selectedSubmission">
+            <div class="col-sm-4" *ngIf="selectedRequirement">
               <label for="clientRate" class="form-label">Client Rate:</label>
-              <input type="text" class="form-input" name="clientRate" formControlName="clientRate" ngModel="{{selectedSubmission.clientRate}}"
+              <input type="text" class="form-input" name="clientRate" formControlName="clientRate" ngModel="{{selectedRequirement.clientRate}}"
                 readonly>
             </div>
 
