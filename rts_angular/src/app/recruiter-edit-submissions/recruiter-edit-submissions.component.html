@@ -64,16 +64,29 @@
                 required>
                 <option value="IN-PROGRESS">In-Progress</option>
                 <option value="OTHER_REJECTION">Other Rejection</option>
+                <option *ngIf="selectedSubmission.status === 'TL_APPROVED'" value="TL_APPROVED">TL Approved</option>
+                <option *ngIf="selectedSubmission.status === 'TL_REJECTED'" value="TL_REJECTED">TL Rejected</option>
+                <option *ngIf="selectedSubmission.status === 'APPROVED'" value="APPROVED">Approved</option>
+                <option *ngIf="selectedSubmission.status === 'REJECTED'" value="REJECTED">Rejected</option>
               </select>
               <select *ngIf="selectedSubmission.clientSubmissionOn > 0" name="status" class="form-input"
-                formControlName="status" ngModel="{{selectedSubmission.status}}" required>
+                formControlName="status" (change)="changeStatus($event.target.value);" ngModel="{{selectedSubmission.status}}" required>
                 <option *ngIf="selectedSubmission.status === 'SUBMITTED'" value="SUBMITTED">Submitted</option>
+                <option *ngIf="selectedSubmission.status === 'TL_APPROVED'" value="TL_APPROVED">TL Approved</option>
+                <option *ngIf="selectedSubmission.status === 'TL_REJECTED'" value="TL_REJECTED">TL Rejected</option>
+                <option *ngIf="selectedSubmission.status === 'APPROVED'" value="APPROVED">Approved</option>
+                <option *ngIf="selectedSubmission.status === 'REJECTED'" value="REJECTED">Rejected</option>
+                <option *ngIf="selectedSubmission.status === 'CLOSED'" value="CLOSED">Closed</option>
+                <option *ngIf="selectedSubmission.status === 'CLIENT_REJECTED'" value="CLIENT_REJECTED">Client Rejected</option>
+                <option *ngIf="selectedSubmission.status === 'SELECTED'" value="SELECTED">Selected</option>
+                <option *ngIf="selectedSubmission.status === 'INTERVIEWED'" value="INTERVIEWED">Interviewed</option>
                 <option value="INTERVIEW_SCHEDULED">Interview Scheduled</option>
                 <option value="INTERVIEWED_REJECTED">Interview Rejected</option>
                 <option value="INTERVIEW_SELECTED">Interview Selected</option>
                 <option value="RESCHEDULED">Rescheduled</option>
                 <option value="AWAITING_FOR_FEEDBACK">Awaiting For Feedback</option>
                 <option value="HOLD">Hold</option>
+                <option value="OTHER_REJECTION">Other Rejection</option>
               </select>
             </div>
 
