@@ -76,6 +76,14 @@ export class AddCandidateComponent implements OnInit {
       anotherInterviewOffer: [''],
       vacationPlans: [''],
       currentCompany: [''],
+      locationPreferences:[''],
+      workedAsFullTime:[''],
+      graduationYear:[''],
+      educationCredentials:[''],
+      dateOfBirth:[''],
+      currentProject:[''],
+      totalUsExperience:[''],
+
     });
     this.getCommonDetails();
     // this.myForm.controls.immigirationStatus.setValue('GC');
@@ -173,6 +181,13 @@ export class AddCandidateComponent implements OnInit {
       authorizedWorkInUS: form.value.authorizedWorkInUs,
       anyOffer: form.value.anotherInterviewOffer,
       vacationPlan: form.value.vacationPlans,
+      locationPreferences: form.value.locationPreferences,
+      workedAsFullTime: form.value.workedAsFullTime,
+      graduationYear: form.value.graduationYear,
+      educationCredentials: form.value.educationCredentials,
+      dateOfBirth: form.value.dateOfBirth,
+      currentProject: form.value.currentProject,
+      totalUsExperience: form.value.totalUsExperience,
       enteredBy: {
         userId: this.rtsUserId
       }

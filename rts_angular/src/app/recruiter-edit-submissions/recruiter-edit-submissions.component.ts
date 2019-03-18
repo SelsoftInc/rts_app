@@ -185,7 +185,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
           for (const immigration of this.immigration) {
             immigration.isChecked = false;
           }
-          this.getAllRequirementsForUser();
+          // this.getAllRequirementsForUser();
           this.editSubmission();
         }
       });

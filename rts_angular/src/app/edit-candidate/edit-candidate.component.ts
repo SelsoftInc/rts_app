@@ -94,7 +94,14 @@ export class EditCandidateComponent implements OnInit {
       currentCompany: [''],
       workedWithClient: [''],
       enteredUser: [''],
-      createdDate: ['']
+      createdDate: [''],
+      locationPreferences:[''],
+      workedAsFullTime:[''],
+      graduationYear:[''],
+      educationCredentials:[''],
+      dateOfBirth:[''],
+      currentProject:[''],
+      totalUsExperience:[''],
     });
     this.getCommonDetails();
   }
@@ -246,6 +253,13 @@ export class EditCandidateComponent implements OnInit {
       vacationPlan: form.value.vacationPlans,
       enteredBy: this.rtsUserId,
       candidateId: this.candidateId,
+      locationPreferences: form.value.locationPreferences,
+      workedAsFullTime: form.value.workedAsFullTime,
+      graduationYear: form.value.graduationYear,
+      educationCredentials: form.value.educationCredentials,
+      dateOfBirth: form.value.dateOfBirth,
+      currentProject: form.value.currentProject,
+      totalUsExperience: form.value.totalUsExperience,
     };
 
     if (this.isWorkedWithClient) {
