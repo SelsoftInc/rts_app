@@ -145,6 +145,13 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       enteredUser: [''],
       createdDate: [''],
       joiningDate: [''],
+      locationPreferences: [''],
+      workedAsFullTime: [''],
+      graduationYear: [''],
+      educationCredentials: [''],
+      dateOfBirth: [''],
+      currentProject: [''],
+      totalUsExperience: [''],
       units: this.formBuilder.array([
         this.initUnits()
       ]),
@@ -539,7 +546,14 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       epNumber: form.value.epNumber,
       authorizedWorkInUS: form.value.authorizedWorkInUs,
       anyOffer: form.value.anotherInterviewOffer,
-      vacationPlan: form.value.vacationPlans
+      vacationPlan: form.value.vacationPlans,
+      locationPreferences: form.value.locationPreferences,
+      workedAsFullTime: form.value.workedAsFullTime,
+      graduationYear: form.value.graduationYear,
+      educationCredentials: form.value.educationCredentials,
+      dateOfBirth: form.value.dateOfBirth,
+      currentProject: form.value.currentProject,
+      totalUsExperience: form.value.totalUsExperience,
     };
 
     if (this.isWorkedWithClient) {
