@@ -57,7 +57,7 @@ export class EditSubmissonComponent implements OnInit {
     private isRelocate: boolean;
     private isWorkedWithClient: boolean;
     private isSubmitted: boolean;
-    private plainFormat: boolean;
+    private mailFormat: any;
     private adminUsers: any;
     private dropdownSettings: any;
     private users: any;
@@ -177,6 +177,13 @@ export class EditSubmissonComponent implements OnInit {
             enteredUser: [''],
             createdDate: [''],
             joiningDate: [''],
+            locationPreferences: [''],
+            workedAsFullTime: [''],
+            graduationYear: [''],
+            educationCredentials: [''],
+            dateOfBirth: [''],
+            currentProject: [''],
+            totalUsExperience: [''],
             units: this.formBuilder.array([
                 this.initUnits()
             ]),
@@ -317,11 +324,11 @@ export class EditSubmissonComponent implements OnInit {
                     for (const immigration of this.immigration) {
                         immigration.isChecked = false;
                     }
-                    if (this.userRole === 'ADMIN') {
-                        this.getAllRequirements();
-                    } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
-                        this.getAllRequirementsForLeadUserAndAccountManager();
-                    }
+                    // if (this.userRole === 'ADMIN') {
+                    //     this.getAllRequirements();
+                    // } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
+                    //     this.getAllRequirementsForLeadUserAndAccountManager();
+                    // }
                     this.editSubmission();
                 }
             });
@@ -539,7 +546,7 @@ export class EditSubmissonComponent implements OnInit {
         const submit = {
             submissionId: this.submissionId,
             submittedBy: this.rtsUserId,
-            isPlainFormat: this.plainFormat,
+            mailFormat: this.mailFormat,
             isCustomBody: this.isCustomBody,
             bodyText: this.customMailBody,
             adminCC: this.selectedAdmins
@@ -566,10 +573,12 @@ export class EditSubmissonComponent implements OnInit {
 
 
     getMailFormat(event) {
-        if (event.value === 'Yes') {
-            this.plainFormat = true;
-        } else {
-            this.plainFormat = false;
+        if (event.value === '1') {
+            this.mailFormat = 1;
+        } else if (event.value === '2') {
+            this.mailFormat = 2;
+        } else if (event.value === '3') {
+            this.mailFormat = 3;
         }
     }
 
@@ -737,7 +746,7 @@ export class EditSubmissonComponent implements OnInit {
         };
 
         if (this.sendToClient) {
-            if (this.plainFormat === undefined) {
+            if (this.mailFormat === undefined) {
                 this.toastr.error('Please Select the Mail Format', '', {
                     positionClass: 'toast-top-center',
                     timeOut: 3000,
@@ -802,7 +811,14 @@ export class EditSubmissonComponent implements OnInit {
             epNumber: form.value.epNumber,
             authorizedWorkInUS: form.value.authorizedWorkInUs,
             anyOffer: form.value.anotherInterviewOffer,
-            vacationPlan: form.value.vacationPlans
+            vacationPlan: form.value.vacationPlans,
+            locationPreferences: form.value.locationPreferences,
+            workedAsFullTime: form.value.workedAsFullTime,
+            graduationYear: form.value.graduationYear,
+            educationCredentials: form.value.educationCredentials,
+            dateOfBirth: form.value.dateOfBirth,
+            currentProject: form.value.currentProject,
+            totalUsExperience: form.value.totalUsExperience,
         };
 
         if (this.isWorkedWithClient) {

@@ -220,6 +220,48 @@
             <input type="text" class="form-input" name="vacationPlans" formControlName="vacationPlans" readonly ngModel="{{selectedCandidate.vacationPlan}}">
           </div>
 
+          <div class="col-sm-4" *ngIf="selectedCandidate">
+            <label for="locationPreferences" class="form-label">Location Preferences:</label>
+            <input type="text" class="form-input" name="locationPreferences" formControlName="locationPreferences"
+              ngModel="{{selectedCandidate.locationPreferences}}">
+          </div>
+  
+          <div class="col-sm-4" *ngIf="selectedCandidate">
+            <label for="workedAsFullTime" class="form-label">WorkedAs FullTime:</label>
+            <input type="text" class="form-input" name="workedAsFullTime" formControlName="workedAsFullTime"
+              ngModel="{{selectedCandidate.workedAsFullTime}}">
+          </div>
+  
+          <div class="col-sm-4" *ngIf="selectedCandidate">
+            <label for="graduationYear" class="form-label">Graduation Year:</label>
+            <input type="text" class="form-input" name="graduationYear" formControlName="graduationYear"
+              ngModel="{{selectedCandidate.graduationYear}}">
+          </div>
+  
+          <div class="col-sm-4" *ngIf="selectedCandidate">
+            <label for="educationCredentials" class="form-label">Education Credentials:</label>
+            <input type="text" class="form-input" name="educationCredentials" formControlName="educationCredentials"
+              ngModel="{{selectedCandidate.educationCredentials}}">
+          </div>
+  
+          <div class="col-sm-4" *ngIf="selectedCandidate">
+            <label for="dateOfBirth" class="form-label">Date Of Birth:</label>
+            <input type="text" class="form-input" name="dateOfBirth" formControlName="dateOfBirth"
+              ngModel="{{selectedCandidate.dateOfBirth}}">
+          </div>
+  
+          <div class="col-sm-4" *ngIf="selectedCandidate">
+            <label for="currentProject" class="form-label">Current Project:</label>
+            <input type="text" class="form-input" name="currentProject" formControlName="currentProject"
+              ngModel="{{selectedCandidate.currentProject}}">
+          </div>
+  
+          <div class="col-sm-4" *ngIf="selectedCandidate">
+            <label for="totalUsExperience" class="form-label">Total Us Experience:</label>
+            <input type="text" class="form-input" name="totalUsExperience" formControlName="totalUsExperience"
+              ngModel="{{selectedCandidate.totalUsExperience}}">
+          </div>
+
           <div class="col-sm-4">
             <div class="mb-3">
               <label for="c2c" class="form-label">C2C:</label>
@@ -417,6 +459,41 @@
           <div class="col-sm-4">
             <label for="vacationPlans" class="form-label">Vacation plans, if any:</label>
             <input type="text" class="form-input" name="vacationPlans" ngModel formControlName="vacationPlans">
+          </div>
+
+          <div class="col-sm-4">
+            <label for="locationPreferences" class="form-label">Location Preferences:</label>
+            <input type="text" class="form-input" name="locationPreferences" ngModel formControlName="locationPreferences">
+          </div>
+  
+          <div class="col-sm-4">
+            <label for="workedAsFullTime" class="form-label">WorkedAs FullTime:</label>
+            <input type="text" class="form-input" name="workedAsFullTime" ngModel formControlName="workedAsFullTime">
+          </div>
+  
+          <div class="col-sm-4">
+            <label for="graduationYear" class="form-label">Graduation Year:</label>
+            <input type="text" class="form-input" name="graduationYear" formControlName="graduationYear">
+          </div>
+  
+          <div class="col-sm-4">
+            <label for="educationCredentials" class="form-label">Education Credentials:</label>
+            <input type="text" class="form-input" name="educationCredentials" ngModel formControlName="educationCredentials">
+          </div>
+  
+          <div class="col-sm-4">
+            <label for="dateOfBirth" class="form-label">Date Of Birth:</label>
+            <input type="text" class="form-input" name="dateOfBirth" ngModel formControlName="dateOfBirth">
+          </div>
+  
+          <div class="col-sm-4">
+            <label for="currentProject" class="form-label">Current Project:</label>
+            <input type="text" class="form-input" name="currentProject" ngModel formControlName="currentProject">
+          </div>
+  
+          <div class="col-sm-4">
+            <label for="totalUsExperience" class="form-label">Total Us Experience:</label>
+            <input type="text" class="form-input" name="totalUsExperience" ngModel formControlName="totalUsExperience">
           </div>
 
           <div class="col-sm-4">
