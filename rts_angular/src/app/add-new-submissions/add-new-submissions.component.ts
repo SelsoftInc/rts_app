@@ -144,21 +144,22 @@ export class AddNewSubmissionsComponent implements OnInit {
       currentCompany: [''],
       enteredUser: [''],
       createdDate: [''],
-      locationPreferences:[''],
-      workedAsFullTime:[''],
-      graduationYear:[''],
-      educationCredentials:[''],
-      dateOfBirth:[''],
-      currentProject:[''],
-      totalUsExperience:[''],
+      locationPreferences: [''],
+      workedAsFullTime: [''],
+      graduationYear: [''],
+      educationCredentials: [''],
+      dateOfBirth: [''],
+      currentProject: [''],
+      totalUsExperience: [''],
     });
-    if (this.userRole === 'ADMIN') {
-      this.getAllRequirements();
-    } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
-      this.getAllRequirementsForTeam();
-    } else if (this.userRole === 'RECRUITER' || this.userRole === 'TRAINEE') {
-      this.getAllRequirementsForUser();
-    }
+    this.getRequirementById();
+    // if (this.userRole === 'ADMIN') {
+    //   this.getAllRequirements();
+    // } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
+    //   this.getAllRequirementsForTeam();
+    // } else if (this.userRole === 'RECRUITER' || this.userRole === 'TRAINEE') {
+    //   this.getAllRequirementsForUser();
+    // }
     this.getAllCommonData();
     // this.myForm.controls.editCandidateImmigirationStatus.setValue('GC');
     // this.immigirationStatus = 'GC';
@@ -180,6 +181,30 @@ export class AddNewSubmissionsComponent implements OnInit {
         }
       });
 
+  }
+
+  getRequirementById() {
+    const userId = {
+      requirementId: this.requirementId
+    };
+
+    this.requirementService.getRequirementsById(userId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.ngProgress.done();
+            this.selectRequiement = data.requirement;
+            if (this.selectRequiement !== undefined) {
+              this.allRequirements.push(this.selectRequiement);
+              for (const recruiter of this.selectRequiement.toClientRecuriters) {
+                this.recruiterName.push(recruiter.name + ' ');
+                this.recruiterEmail.push(recruiter.email + ' ');
+              }
+              this.clientRecruiterName = this.recruiterName.join();
+              this.clientRecruiterEmail = this.recruiterEmail.join();
+            }
+          }
+        })
   }
 
   getAllRequirementsForTeam() {

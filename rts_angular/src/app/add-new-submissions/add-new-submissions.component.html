@@ -12,7 +12,7 @@
           <label for="requirements" class="form-label">Requirements:</label>
           <select name="requirements" class="form-input" formControlName="requirements" (change)="getRequirement($event.target.value);"
             ngModel="{{requirementId}}" required>
-            <option value="">Select</option>
+            <!-- <option value="">Select</option> -->
             <option *ngFor="let require of allRequirements" value="{{require.requirementId}}">{{require.position.positionName}}
               ({{require.client.name}})</option>
           </select>
