@@ -151,17 +151,15 @@ export class AdminDashboardComponent implements OnInit {
                 };
               }
             }
-            // for (const recruiter of this.recruiterComparison) {
-            //   const totalSubmission = recruiter.value;
-            //   for (const series of recruiter.series) {
-            //     if (series.name === 'Rejections' && series.value !== 0) {
-            //       const rejections = (series.value * 100) / totalSubmission;
-            //       let percentage = rejections + '';
-            //       percentage = percentage.substring(0, 4);
-            //       recruiter.name = '(' + percentage + '% R) ' + recruiter.name;
-            //     }
-            //   }
-            // }
+            for (const recruiter of this.recruiterComparison) {
+              const totalSubmission = recruiter.value;
+              for (const series of recruiter.series) {
+                if (series.name === 'Submitted' && series.value !== 0) {
+                  const submissions = (series.value * 100) / totalSubmission;
+                  recruiter.submittedPercentage = submissions;
+                }
+              }
+            }
           }
         });
   }
