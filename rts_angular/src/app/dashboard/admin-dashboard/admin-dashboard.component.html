@@ -124,7 +124,7 @@
           <h2 class="chart-title">Team wise submission status</h2>
         </div>
         <div class="chart-scroll-wrapper">
-          <table class="table table-hover table-bordered table-sm">
+          <table class="table table-hover table-bordered table-sm" matSort (matSortChange)="sortTeam($event)">
             <thead class="table-header">
               <tr>
                 <th>Team Name</th>
@@ -133,10 +133,10 @@
                 <th>IN-Progress</th>
                 <th>Rejected</th>
                 <th>Closed</th>
-                <th>Total</th>
+                <th mat-sort-header="total">Total</th>
               </tr>
             </thead>
-            <tbody *ngFor="let team of totalSubmissionByTeam">
+            <tbody *ngFor="let team of sortTeamData">
               <tr>
                 <td>{{team.name}}</td>
                 <td *ngFor="let series of team.series">{{series.value}}</td>
@@ -153,7 +153,7 @@
           <h2 class="chart-title">Team Comparison</h2>
         </div>
         <div class="chart-scroll-wrapper">
-          <table class="table table-hover table-bordered table-sm">
+          <table class="table table-hover table-bordered table-sm" matSort (matSortChange)="sortTeamComparison($event)">
             <thead class="table-header">
               <tr>
                 <th>Team Name</th>
@@ -161,10 +161,10 @@
                 <th>Interviewed</th>
                 <th>Rejections</th>
                 <th>Closed</th>
-                <th>Total</th>
+                <th  mat-sort-header="total">Total</th>
               </tr>
             </thead>
-            <tbody *ngFor="let team of teamComparison">
+            <tbody *ngFor="let team of sortTeamComparisonData">
               <tr>
                 <td>{{team.name}}</td>
                 <td *ngFor="let series of team.series">{{series.value}}</td>
@@ -238,17 +238,17 @@
           <h2 class="chart-title">Recruiter Comparison Table</h2>
         </div>
         <div class="chart-scroll-wrapper">
-          <table class="table table-hover table-bordered table-sm">
+          <table class="table table-hover table-bordered table-sm" matSort (matSortChange)="sortRecruiterComparation($event)">
             <thead class="table-header">
               <tr>
-                <th>Recruiter Name</th>
-                <th>Submitted</th>
+                <th mat-sort-header="recruiterName">Recruiter Name</th>
+                <th mat-sort-header="submitted">Submitted</th>
                 <th>Interview Rejections</th>
                 <th>Rejections</th>
-                <th>Submitted Percentage</th>
+                <th mat-sort-header="submittedPercentage">Submitted Percentage</th>
               </tr>
             </thead>
-            <tbody *ngFor="let recruiter of recruiterComparison">
+            <tbody *ngFor="let recruiter of sortedRecruiterComparationData">
               <tr>
                 <td>{{recruiter.name}}</td>
                 <td *ngFor="let series of recruiter.series">{{series.value}}</td>
@@ -302,37 +302,6 @@
       </div>
     </div>
   </div>
-
-  <!-- <div class="row mt-4">
-    <div class="col-6">
-      <div class="col-block pt-5">
-        <div class="chart-title-wrapper">
-          <h2 class="chart-title">Recruiter Comparison</h2>
-        </div>
-        <div class="chart-scroll-wrapper">
-          <table class="table table-hover table-bordered table-sm">
-            <thead class="table-header">
-              <tr>
-                <th>Recruiter Name</th>
-                <th>Submitted</th>
-                <th>Interview Rejections</th>
-                <th>Rejections</th>
-                <th>Submitted Percentage</th>
-              </tr>
-            </thead>
-            <tbody *ngFor="let recruiter of recruiterComparison">
-              <tr>
-                <td>{{recruiter.name}}</td>
-                <td *ngFor="let series of recruiter.series">{{series.value}}</td>
-                <td>{{recruiter.submittedPercentage | number:'1.0-0'}} %</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
 
 
 </div>
