@@ -82,6 +82,9 @@ export class AdminDashboardComponent implements OnInit {
   private clientWiseSubmissionStatus: any;
   private interviewReportLength: any;
   sortedData: any;
+  sortedRecruiterComparationData: any[];
+  sortTeamData: any;
+  sortTeamComparisonData: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -160,6 +163,7 @@ export class AdminDashboardComponent implements OnInit {
                 }
               }
             }
+            this.sortedRecruiterComparationData = this.recruiterComparison.slice();
           }
         });
   }
@@ -196,6 +200,7 @@ export class AdminDashboardComponent implements OnInit {
                 };
               }
             }
+            this.sortTeamComparisonData = this.teamComparison.slice();
           }
         });
   }
@@ -404,6 +409,7 @@ export class AdminDashboardComponent implements OnInit {
                 };
               }
             }
+            this.sortTeamData = this.totalSubmissionByTeam.slice();
           }
         });
   }
@@ -472,6 +478,61 @@ export class AdminDashboardComponent implements OnInit {
       }
     });
   }
+
+  sortRecruiterComparation(sort: Sort) {
+    const data = this.recruiterComparison.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedRecruiterComparationData = data;
+      return;
+    }
+
+    this.sortedRecruiterComparationData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'recruiterName': return this.compare(a.name, b.name, isAsc);
+        case 'submitted': return this.compare(a.value, b.value, isAsc);
+        case 'submittedPercentage': return this.compare(a.submittedPercentage, b.submittedPercentage, isAsc);
+        default: return 0;
+      }
+    });
+  }
+
+  sortTeam(sort: Sort) {
+    const data = this.sortTeamData.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortTeamData = data;
+      return;
+    }
+
+    this.sortTeamData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        // case 'recruiterName': return this.compare(a.name, b.name, isAsc);
+        // case 'submitted': return this.compare(a.value, b.value, isAsc);
+        case 'total': return this.compare(a.value, b.value, isAsc);
+        default: return 0;
+      }
+    });
+  }
+
+  sortTeamComparison(sort: Sort) {
+    const data = this.sortTeamComparisonData.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortTeamComparisonData = data;
+      return;
+    }
+
+    this.sortTeamComparisonData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        // case 'recruiterName': return this.compare(a.name, b.name, isAsc);
+        // case 'submitted': return this.compare(a.value, b.value, isAsc);
+        case 'total': return this.compare(a.value, b.value, isAsc);
+        default: return 0;
+      }
+    });
+  }
+
 
   compare(a, b, isAsc) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
