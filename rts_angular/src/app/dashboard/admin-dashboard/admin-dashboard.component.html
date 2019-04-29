@@ -1,6 +1,7 @@
 <h2 class="main-title-dashboard">Dashboard</h2>
 <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
-  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
+</ng-progress>
 <div class="dash-filter-container">
   <div class="row">
     <div class="col-8">
@@ -44,7 +45,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let require of noSubmissionsRequirement" [routerLink]="['/edit-requirement',require.requirementId]">
+              <tr *ngFor="let require of noSubmissionsRequirement"
+                [routerLink]="['/edit-requirement',require.requirementId]">
                 <td style="width:110px">{{require.createdOn | date: 'MMM d, y,'}}</td>
                 <td>{{require.position.positionName}}</td>
                 <td>{{require.client.name}}</td>
@@ -60,9 +62,10 @@
           <h2 class="chart-title">Client Open Requirements</h2>
         </div>
         <div class="chart-align-100-400">
-          <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="clientOpenRequitements" [gradient]="gradient"
-            [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisClientLabel" [showDataLabel]="showDataLabel" (select)="onClientSelect($event)">
+          <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="clientOpenRequitements"
+            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisClientLabel"
+            [showDataLabel]="showDataLabel" (select)="onClientSelect($event)">
           </ngx-charts-bar-vertical>
         </div>
       </div>
@@ -73,26 +76,28 @@
           <h2 class="chart-title">Client wise submission status</h2>
         </div>
         <div class="chart-align-100-400">
-          <ngx-charts-bar-vertical-stacked [view]="view" [scheme]="colorSchemeMultiBar2" [results]="clientWiseSubmissionStatus"
-            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
-            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel" (select)="onClientSubmissionStatus($event)">
+          <ngx-charts-bar-vertical-stacked [view]="view" [scheme]="colorSchemeMultiBar2"
+            [results]="clientWiseSubmissionStatus" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+            [showXAxisLabel]="showXAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+            [showDataLabel]="showDataLabel" (select)="onClientSubmissionStatus($event)">
           </ngx-charts-bar-vertical-stacked>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="row mt-4">
+  <!-- <div class="row mt-4">
     <div class="col-6">
       <div class="col-block pt-5">
         <div class="chart-title-wrapper">
           <h2 class="chart-title">Team wise submission status</h2>
         </div>
         <div class="chart-align-100-400 multi">
-          <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorSchemeMultiBar1" [results]="totalSubmissionByTeam"
-            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
-            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel" (select)="onTeamSubmissionStatus($event)">
-          </ngx-charts-bar-vertical-2d>
+          <ngx-charts-bar-vertical-stacked [view]="view" [scheme]="colorSchemeMultiBar1"
+            [results]="totalSubmissionByTeam" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+            [showXAxisLabel]="showXAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+            [showDataLabel]="showDataLabel" (select)="onTeamSubmissionStatus($event)">
+          </ngx-charts-bar-vertical-stacked>
         </div>
       </div>
     </div>
@@ -102,13 +107,75 @@
           <h2 class="chart-title">Team Comparison</h2>
         </div>
         <div class="chart-align-100-400 multi">
-          <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorSchemeMultiBar4" [results]="teamComparison"
+          <ngx-charts-bar-vertical-stacked [view]="view" [scheme]="colorSchemeMultiBar4" [results]="teamComparison"
             [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
-            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel" (select)="onTeamComparison($event)">
-          </ngx-charts-bar-vertical-2d>
+            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel"
+            (select)="onTeamComparison($event)">
+          </ngx-charts-bar-vertical-stacked>
         </div>
       </div>
     </div>
+  </div> -->
+
+  <div class="row mt-4">
+    <div class="col-6">
+      <div class="col-block pt-5">
+        <div class="chart-title-wrapper">
+          <h2 class="chart-title">Team wise submission status</h2>
+        </div>
+        <div class="chart-scroll-wrapper">
+          <table class="table table-hover table-bordered table-sm">
+            <thead class="table-header">
+              <tr>
+                <th>Team Name</th>
+                <th>Submitted</th>
+                <th>Approved</th>
+                <th>IN-Progress</th>
+                <th>Rejected</th>
+                <th>Closed</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let team of totalSubmissionByTeam">
+              <tr>
+                <td>{{team.name}}</td>
+                <td *ngFor="let series of team.series">{{series.value}}</td>
+                <td>{{team.value}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="col-block pt-5">
+        <div class="chart-title-wrapper">
+          <h2 class="chart-title">Team Comparison</h2>
+        </div>
+        <div class="chart-scroll-wrapper">
+          <table class="table table-hover table-bordered table-sm">
+            <thead class="table-header">
+              <tr>
+                <th>Team Name</th>
+                <th>Submitted</th>
+                <th>Interviewed</th>
+                <th>Rejections</th>
+                <th>Closed</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let team of teamComparison">
+              <tr>
+                <td>{{team.name}}</td>
+                <td *ngFor="let series of team.series">{{series.value}}</td>
+                <td>{{team.value}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <div class="row mt-4">
@@ -118,8 +185,8 @@
           <h2 class="chart-title">Team wise submission count</h2>
         </div>
         <div class="chart-align-100-400">
-          <ngx-charts-pie-chart [view]="view" [scheme]="colorSchemePie" [results]="totalSubmissionByTeam" [gradient]="gradient"
-            [labels]="show" [doughnut]="show" (select)="onTeamSelect($event)">
+          <ngx-charts-pie-chart [view]="view" [scheme]="colorSchemePie" [results]="totalSubmissionByTeam"
+            [gradient]="gradient" [labels]="show" [doughnut]="show" (select)="onTeamSelect($event)">
           </ngx-charts-pie-chart>
         </div>
         <div class="chart-pie-meta">
@@ -129,7 +196,8 @@
           </div>
         </div>
         <div>
-          <div class="chart-additional-item"><span class="chart-label">Total Submissions: </span><span class="chart-result">{{totalSubmission}}</span></div>
+          <div class="chart-additional-item"><span class="chart-label">Total Submissions: </span><span
+              class="chart-result">{{totalSubmission}}</span></div>
         </div>
       </div>
     </div>
@@ -139,9 +207,10 @@
           <h2 class="chart-title">Recruiters Submission Status</h2>
         </div>
         <div class="chart-align-100-400">
-          <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="recruitersSubmissions" [gradient]="gradient"
-            [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel" (select)="onUserSelect($event)">
+          <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="recruitersSubmissions"
+            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+            [showDataLabel]="showDataLabel" (select)="onUserSelect($event)">
           </ngx-charts-bar-vertical>
         </div>
       </div>
@@ -149,7 +218,7 @@
   </div>
 
   <div class="row mt-4">
-    <div class="col-12">
+    <div class="col-8">
       <div class="col-block pt-5">
         <div class="chart-title-wrapper">
           <h2 class="chart-title">Recruiter Comparison</h2>
@@ -157,8 +226,36 @@
         <div class="chart-align-100-400 multi">
           <ngx-charts-bar-vertical-stacked [view]="view" [scheme]="colorSchemeMultiBar3" [results]="recruiterComparison"
             [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
-            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel" (select)="onRecruiterComparison($event)">
+            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel"
+            (select)="onRecruiterComparison($event)">
           </ngx-charts-bar-vertical-stacked>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="col-block pt-5">
+        <div class="chart-title-wrapper">
+          <h2 class="chart-title">Recruiter Comparison Table</h2>
+        </div>
+        <div class="chart-scroll-wrapper">
+          <table class="table table-hover table-bordered table-sm">
+            <thead class="table-header">
+              <tr>
+                <th>Recruiter Name</th>
+                <th>Submitted</th>
+                <th>Interview Rejections</th>
+                <th>Rejections</th>
+                <th>Submitted Percentage</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let recruiter of recruiterComparison">
+              <tr>
+                <td>{{recruiter.name}}</td>
+                <td *ngFor="let series of recruiter.series">{{series.value}}</td>
+                <td>{{recruiter.submittedPercentage | number:'1.0-0'}} %</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -169,7 +266,8 @@
       <div class="col-block pt-5 mb-4">
         <div class="chart-title-wrapper">
           <h2 class="chart-title">Scheduled Interviews</h2>
-          <p class="pull-right mr-2"> <a class="chart-button" [routerLink]="['/in-progress-interviews']"><b>View all</b></a>
+          <p class="pull-right mr-2"> <a class="chart-button" [routerLink]="['/in-progress-interviews']"><b>View
+                all</b></a>
             IN-Progress Interviews</p>
         </div>
         <h2 class="chart-title"> Total {{interviewReportLength}} Results</h2>
@@ -204,5 +302,37 @@
       </div>
     </div>
   </div>
+
+  <!-- <div class="row mt-4">
+    <div class="col-6">
+      <div class="col-block pt-5">
+        <div class="chart-title-wrapper">
+          <h2 class="chart-title">Recruiter Comparison</h2>
+        </div>
+        <div class="chart-scroll-wrapper">
+          <table class="table table-hover table-bordered table-sm">
+            <thead class="table-header">
+              <tr>
+                <th>Recruiter Name</th>
+                <th>Submitted</th>
+                <th>Interview Rejections</th>
+                <th>Rejections</th>
+                <th>Submitted Percentage</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let recruiter of recruiterComparison">
+              <tr>
+                <td>{{recruiter.name}}</td>
+                <td *ngFor="let series of recruiter.series">{{series.value}}</td>
+                <td>{{recruiter.submittedPercentage | number:'1.0-0'}} %</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+
 
 </div>
