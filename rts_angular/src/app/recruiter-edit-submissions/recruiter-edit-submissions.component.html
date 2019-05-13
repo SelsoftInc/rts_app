@@ -71,6 +71,7 @@
                 <option *ngIf="selectedSubmission.status === 'TL_REJECTED'" value="TL_REJECTED">TL Rejected</option>
                 <option *ngIf="selectedSubmission.status === 'APPROVED'" value="APPROVED">Approved</option>
                 <option *ngIf="selectedSubmission.status === 'REJECTED'" value="REJECTED">Rejected</option>
+                <option *ngIf="selectedSubmission.status === 'HOLD'" value="HOLD">Hold</option>
               </select>
               <select *ngIf="selectedSubmission.clientSubmissionOn > 0" name="status" class="form-input"
                 formControlName="status" (change)="changeStatus($event.target.value);"

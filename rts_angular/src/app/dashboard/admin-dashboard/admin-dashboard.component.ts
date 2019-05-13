@@ -152,6 +152,9 @@ export class AdminDashboardComponent implements OnInit {
                 series.extra = {
                   userId: recruiter.userId
                 };
+                if (series.name === 'Submitted') {
+                  recruiter.submittedCount = series.value
+                }
               }
             }
             for (const recruiter of this.recruiterComparison) {
@@ -490,7 +493,7 @@ export class AdminDashboardComponent implements OnInit {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'recruiterName': return this.compare(a.name, b.name, isAsc);
-        case 'submitted': return this.compare(a.value, b.value, isAsc);
+        case 'submitted': return this.compare(a.submittedCount, b.submittedCount, isAsc);
         case 'submittedPercentage': return this.compare(a.submittedPercentage, b.submittedPercentage, isAsc);
         default: return 0;
       }

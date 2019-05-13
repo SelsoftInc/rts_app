@@ -648,3 +648,7 @@ td {
   text-transform: uppercase;
   font-size: .800em;
 }
+
+.mat-sort-header-button{
+  text-transform: uppercase;
+}
