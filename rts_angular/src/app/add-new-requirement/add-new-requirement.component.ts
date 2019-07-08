@@ -46,7 +46,7 @@ export class AddNewRequirementComponent implements OnInit {
   private selectedClient: any;
   isOtherImmigration: boolean;
   selctedVisaStatus: any;
-  selectedAllocationUsers: any;
+  selectedAllocationUsers: any[];
   multiselectUsers: any[];
   dropdownSettingsForAllocationUers: any;
 
@@ -167,96 +167,96 @@ export class AddNewRequirementComponent implements OnInit {
 
   }
 
-  saveFormData(form: FormGroup) {
+  // saveFormData(form: FormGroup) {
 
-    if (form.value.positionName === '' || form.value.positionName === null) {
-      this.toastr.error('Position Name should not be empty', '', {
-        positionClass: 'toast-top-center',
-        timeOut: 3000,
-      });
-      return false;
-    }
+  //   if (form.value.positionName === '' || form.value.positionName === null) {
+  //     this.toastr.error('Position Name should not be empty', '', {
+  //       positionClass: 'toast-top-center',
+  //       timeOut: 3000,
+  //     });
+  //     return false;
+  //   }
 
-    if (form.value.clientName === '' || form.value.clientName === null) {
-      this.toastr.error('Client Name should not be empty', '', {
-        positionClass: 'toast-top-center',
-        timeOut: 3000,
-      });
-      return false;
-    }
+  //   if (form.value.clientName === '' || form.value.clientName === null) {
+  //     this.toastr.error('Client Name should not be empty', '', {
+  //       positionClass: 'toast-top-center',
+  //       timeOut: 3000,
+  //     });
+  //     return false;
+  //   }
 
-    if (form.value.team === '' || form.value.team === null) {
-      this.toastr.error('Team should not be empty', '', {
-        positionClass: 'toast-top-center',
-        timeOut: 3000,
-      });
-      return false;
-    }
-    if (form.value.technologies === '' || form.value.technologies === null) {
-      this.toastr.error('Technologies should not be empty', '', {
-        positionClass: 'toast-top-center',
-        timeOut: 3000,
-      });
-      return false;
-    }
+  //   if (form.value.team === '' || form.value.team === null) {
+  //     this.toastr.error('Team should not be empty', '', {
+  //       positionClass: 'toast-top-center',
+  //       timeOut: 3000,
+  //     });
+  //     return false;
+  //   }
+  //   if (form.value.technologies === '' || form.value.technologies === null) {
+  //     this.toastr.error('Technologies should not be empty', '', {
+  //       positionClass: 'toast-top-center',
+  //       timeOut: 3000,
+  //     });
+  //     return false;
+  //   }
 
 
-    const saveRequirement: any = {
-      priority: form.value.priority,
-      location: form.value.location,
-      requirementType: this.requirementByUser,
-      immigrationRequirement: this.immigrationByUser,
-      positionCount: form.value.positionsCount,
-      status: form.value.status,
-      enteredBy: this.rtsUserId,
-      clientId: form.value.clientName,
-      allocationUserId: form.value.allocation,
-      clientRate: form.value.clientRate,
-      sellingRate: form.value.sellingRate,
-      jobDescription: form.value.jobDescription,
-      teamId: form.value.team,
-      note: form.value.notes,
-      client: {
-        clientId: form.value.clientName,
-        clientRecuriters: this.selectedRecruites
-      }
-    };
+  //   const saveRequirement: any = {
+  //     priority: form.value.priority,
+  //     location: form.value.location,
+  //     requirementType: this.requirementByUser,
+  //     immigrationRequirement: this.immigrationByUser,
+  //     positionCount: form.value.positionsCount,
+  //     status: form.value.status,
+  //     enteredBy: this.rtsUserId,
+  //     clientId: form.value.clientName,
+  //     allocationUserId: form.value.allocation,
+  //     clientRate: form.value.clientRate,
+  //     sellingRate: form.value.sellingRate,
+  //     jobDescription: form.value.jobDescription,
+  //     teamId: form.value.team,
+  //     note: form.value.notes,
+  //     client: {
+  //       clientId: form.value.clientName,
+  //       clientRecuriters: this.selectedRecruites
+  //     }
+  //   };
 
-    if (form.value.positionName === 'other') {
-      saveRequirement.position = {
-        positionName: form.value.otherPositionName
-      };
-    } else {
-      saveRequirement.positionId = form.value.positionName;
-    }
+  //   if (form.value.positionName === 'other') {
+  //     saveRequirement.position = {
+  //       positionName: form.value.otherPositionName
+  //     };
+  //   } else {
+  //     saveRequirement.positionId = form.value.positionName;
+  //   }
 
-    if (form.value.accountName === 'other') {
-      saveRequirement.account = {
-        accountName: form.value.otherAccountName
-      };
-    } else {
-      saveRequirement.accountId = form.value.accountName;
-    }
+  //   if (form.value.accountName === 'other') {
+  //     saveRequirement.account = {
+  //       accountName: form.value.otherAccountName
+  //     };
+  //   } else {
+  //     saveRequirement.accountId = form.value.accountName;
+  //   }
 
-    if (form.value.technologies === 'other') {
-      saveRequirement.technology = [{
-        technologyName: form.value.otherTechnology
-      }];
-    } else {
-      saveRequirement.technology = [{
-        technologyId: form.value.technologies
-      }];
-    }
+  //   if (form.value.technologies === 'other') {
+  //     saveRequirement.technology = [{
+  //       technologyName: form.value.otherTechnology
+  //     }];
+  //   } else {
+  //     saveRequirement.technology = [{
+  //       technologyId: form.value.technologies
+  //     }];
+  //   }
 
-    this.requirementService.saveRequirement(saveRequirement)
-      .subscribe(
-        data => {
-          if (data.success) {
-            this.router.navigate(['requirements']);
-          }
-        });
-    return false;
-  }
+  //   this.requirementService.saveRequirement(saveRequirement)
+  //     .subscribe(
+  //       data => {
+  //         if (data.success) {
+  //           this.router.navigate(['requirements']);
+  //         }
+  //       });
+  //   return false;
+  // }
 
   getCheckedRequirementType(type) {
     if (this.requirementByUser.indexOf(type) === -1) {
@@ -316,7 +316,7 @@ export class AddNewRequirementComponent implements OnInit {
     this.selectedTeamUsers = [];
     this.multiselectUsers = [];
     if (event !== '') {
-      this.selectedTeam = _.findWhere(this.teams, { teamId: event });
+      this.selectedTeam = _.findWhere(this.teams, { teamId: parseInt(event) });
       if (this.selectedTeam.leadUser !== undefined) {
         this.selectedTeamUsers.push(this.selectedTeam.leadUser);
       }
@@ -327,6 +327,11 @@ export class AddNewRequirementComponent implements OnInit {
         this.multiselectUsers.push({ userId: user.userId, firstName: user.firstName + ' ' + user.lastName });
       }
     }
+    this.deSelectAllAllocationUsers();
+  }
+
+  deSelectAllAllocationUsers() {
+    this.myForm.controls.allocation.setValue([]);
   }
 
   getClientRecruiters(event) {
@@ -334,9 +339,9 @@ export class AddNewRequirementComponent implements OnInit {
     this.selectedRecruites = [];
     if (event !== undefined) {
       this.isRecruiters = true;
-      this.selectedClient = _.findWhere(this.clients, { clientId: event });
-      for (const recruiter of this.selectedClient.toClientRecuriters) {
-        this.recruitersArray.push({ user: recruiter, firstName: recruiter.name });
+      this.selectedClient = _.findWhere(this.clients, { clientId: parseInt(event) });
+      for (const recruiter of this.selectedClient.clientRecruiters) {
+        this.recruitersArray.push({ user: recruiter.clientRecruiterId, firstName: recruiter.name });
       }
     }
     this.deSelectAll();
@@ -348,14 +353,13 @@ export class AddNewRequirementComponent implements OnInit {
   }
 
   addNewRequirement(form: FormGroup) {
-
     const selectedRecruitersId = [];
     for (const clientRecruiters of this.selectedRecruites) {
-      selectedRecruitersId.push({ clientRecuriterId: clientRecruiters.user.clientRecuriterId });
+      selectedRecruitersId.push({ clientRecruiterId: clientRecruiters.user });
     }
     this.immigrationByUser = [];
     for (const label of this.selctedVisaStatus) {
-      this.immigrationByUser.push({ visaId: label });
+      this.immigrationByUser.push({ visaStatusId: label });
     }
     if (this.isOtherImmigration) {
       this.immigrationByUser.push({ visaName: form.value.otherImmigration });
@@ -381,21 +385,18 @@ export class AddNewRequirementComponent implements OnInit {
     const requirement: any = {
       priority: form.value.priority,
       location: form.value.location,
-      requirementType: this.requirementByUser,
+      requirementTypes: this.requirementByUser,
       visaStatus: this.immigrationByUser,
       positionCount: parseInt(form.value.positionsCount, 0),
       status: form.value.status,
       enteredBy: this.rtsUserId,
-      clientId: form.value.clientName,
+      clientId: parseInt(form.value.clientName),
       clientRate: form.value.clientRate,
       sellingRate: form.value.sellingRate,
       jobDescription: form.value.jobDescription,
-      teamId: form.value.team,
+      teamId: parseInt(form.value.team),
       note: form.value.notes,
-      client: {
-        clientId: form.value.clientName,
-        toClientRecuriters: selectedRecruitersId
-      },
+      toClientRecruiters: selectedRecruitersId,
       allocationUsers: this.selectedAllocationUsers
     };
 
@@ -404,7 +405,7 @@ export class AddNewRequirementComponent implements OnInit {
         positionName: form.value.otherPositionName
       };
     } else {
-      requirement.positionId = form.value.positionName;
+      requirement.positionId = parseInt(form.value.positionName);
     }
 
     if (form.value.accountName === 'other') {
@@ -412,7 +413,7 @@ export class AddNewRequirementComponent implements OnInit {
         accountName: form.value.otherAccountName
       };
     } else {
-      requirement.accountId = form.value.accountName;
+      requirement.accountId = parseInt(form.value.accountName);
     }
 
     if (form.value.technologies === 'other') {
@@ -421,7 +422,7 @@ export class AddNewRequirementComponent implements OnInit {
       }];
     } else {
       requirement.technology = [{
-        technologyId: form.value.technologies
+        technologyId: parseInt(form.value.technologies)
       }];
     }
 

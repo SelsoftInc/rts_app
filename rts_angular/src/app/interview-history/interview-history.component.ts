@@ -112,8 +112,8 @@ export class InterviewHistoryComponent implements OnInit {
         this.submissonService.getAllInterviewDetails(userId)
             .subscribe(
                 data => {
-                    if (data.success) {
                         this.ngProgress.done();
+                        if (data.success) {
                         this.interviewReport = data.submissionReport;
                         this.selectedInterviews = this.interviewReport;
                         this.interviewReportLength = this.interviewReport.length;
@@ -162,12 +162,14 @@ export class InterviewHistoryComponent implements OnInit {
             this.isTeam = false;
             this.isClient = false;
             this.isInterviewStatus = false;
-        } else if (value === 'interviewStatus') {
-            this.isRecruiter = false;
-            this.isTeam = false;
-            this.isClient = false;
-            this.isInterviewStatus = true;
-        } else if (value === '') {
+        }
+        // if (value === 'interviewStatus') {
+        //     this.isRecruiter = false;
+        //     this.isTeam = false;
+        //     this.isClient = false;
+        //     this.isInterviewStatus = true;
+        // }
+        else if (value === '') {
             this.filter = '';
             this.isRecruiter = false;
             this.isTeam = false;
@@ -191,7 +193,7 @@ export class InterviewHistoryComponent implements OnInit {
             this.selectedInterviewDetails(this.selectedInterviews);
         } else {
             this.selectedInterviews = [];
-            this.selectedInterviews = _.where(this.interviewReport, { teamId: event });
+            this.selectedInterviews = _.where(this.interviewReport, { teamId: parseInt(event) });
             this.selectedInterviewDetails(this.selectedInterviews);
         }
     }
@@ -204,7 +206,7 @@ export class InterviewHistoryComponent implements OnInit {
             this.selectedInterviewDetails(this.selectedInterviews);
         } else {
             this.selectedInterviews = [];
-            this.selectedInterviews = _.where(this.interviewReport, { clientId: event });
+            this.selectedInterviews = _.where(this.interviewReport, { clientId: parseInt(event) });
             this.selectedInterviewDetails(this.selectedInterviews);
         }
     }
@@ -217,23 +219,23 @@ export class InterviewHistoryComponent implements OnInit {
             this.selectedInterviewDetails(this.selectedInterviews);
         } else {
             this.selectedInterviews = [];
-            this.selectedInterviews = _.where(this.interviewReport, { recruiterId: event });
+            this.selectedInterviews = _.where(this.interviewReport, { recruiterId: parseInt(event) });
             this.selectedInterviewDetails(this.selectedInterviews);
         }
     }
 
-    selectInterviewStatus(event) {
-        InterviewHistoryComponent.interviewStatus = event;
-        this.interviewStatus = event;
-        if (event === 'selectAll') {
-            this.selectedInterviews = this.interviewReport;
-            this.selectedInterviewDetails(this.selectedInterviews);
-        } else {
-            this.selectedInterviews = [];
-            this.selectedInterviews = _.where(this.interviewReport, { interviewDetailStatus: event });
-            this.selectedInterviewDetails(this.selectedInterviews);
-        }
-    }
+    // selectInterviewStatus(event) {
+    //     InterviewHistoryComponent.interviewStatus = event;
+    //     this.interviewStatus = event;
+    //     if (event === 'selectAll') {
+    //         this.selectedInterviews = this.interviewReport;
+    //         this.selectedInterviewDetails(this.selectedInterviews);
+    //     } else {
+    //         this.selectedInterviews = [];
+    //         this.selectedInterviews = _.where(this.interviewReport, { interviewStatus: event });
+    //         this.selectedInterviewDetails(this.selectedInterviews);
+    //     }
+    // }
 
     sortData(sort: Sort) {
         const data = this.selectedInterviews.slice();
@@ -246,15 +248,15 @@ export class InterviewHistoryComponent implements OnInit {
             const isAsc = sort.direction === 'asc';
             switch (sort.active) {
                 case 'positionName': return this.compare(a.positionName, b.positionName, isAsc);
-                case 'candidateName': return this.compare(a.candidateName, b.candidateName, isAsc);
-                case 'clientName': return this.compare(a.clientName, b.clientName, isAsc);
+                case 'candidateName': return this.compare(a.name, b.name, isAsc);
+                case 'clientName': return this.compare(a.name, b.name, isAsc);
                 case 'InterviewDateTime': return this.compare(a.interviewDateStr, b.interviewDateStr, isAsc);
-                case 'InterviewLevel': return this.compare(a.interviewLevel, b.interviewLevel, isAsc);
-                case 'recruiterName': return this.compare(a.recruiterName, b.recruiterName, isAsc);
-                case 'skype': return this.compare(a.skypeId, b.skypeId, isAsc);
+                // case 'InterviewLevel': return this.compare(a.interviewLevel, b.interviewLevel, isAsc);
+                case 'InterviewStatus': return this.compare(a.interviewStatus, b.interviewStatus, isAsc);
+                case 'recruiterName': return this.compare(a.firstName, b.firstName, isAsc);
+                case 'skype': return this.compare(a.skype, b.skype, isAsc);
                 case 'phoneNumber': return this.compare(a.phoneNumber, b.phoneNumber, isAsc);
-                case 'currentStatus': return this.compare(a.currentStatus, b.currentStatus, isAsc);
-                case 'submissionStatus': return this.compare(a.interviewStatus, b.interviewStatus, isAsc);
+                case 'currentStatus': return this.compare(a.currentStatus, b.currentStatus, isAsc);             
                 default: return 0;
             }
         });

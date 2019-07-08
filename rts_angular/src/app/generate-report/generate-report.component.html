@@ -1,6 +1,6 @@
-<div class="sub-nav-wrapper">
+<!-- <div class="sub-nav-wrapper">
   <a class="sub-nav-link" [routerLink]="['/add-new-submission']">Add New Submissions</a>
-</div>
+</div> -->
 <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
   [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
 <h2 class="main-title"><a [routerLink]="['/submissions']">Submissions</a> / Generate Report</h2>
@@ -92,11 +92,11 @@
       </thead>
       <tbody>
         <tr *ngFor="let submission of sortedData" [routerLink]="['/edit-submission', submission.submissionId]">
-          <td>{{submission.candidateName}}</td>
-          <td>{{submission.positionName}}</td>
-          <td>{{submission.clientName}}</td>
+          <td>{{submission.candidate.name}}</td>
+          <td>{{submission.position.positionName}}</td>
+          <td>{{submission.client.name}}</td>
           <td>{{submission.submissionDate | date: 'MMM d, y'}}</td>
-          <td>{{submission.recruiterName}}</td>
+          <td>{{submission.recruiter.firstName}} {{submission.recruiter.lastName}}</td>
           <td>{{submission.interviewStatus}}</td>
           <td>{{submission.dateOfL1 | date: 'MMM d, y , hh:mm a'}}</td>
           <td>{{submission.dateOfL2 | date: 'MMM d, y , hh:mm a'}}</td>

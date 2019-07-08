@@ -94,7 +94,7 @@
             <div><label for="candidateImmigirationStatus" class="form-label">Candidate Immigiration Status:</label></div>
             <div class="pt-3">
               <mat-radio-group formControlName="candidateImmigirationStatus" disabled>
-                <mat-radio-button *ngFor="let data of immigration" [value]="data.visaId" [checked]="data.isChecked">{{data.visaName}}</mat-radio-button>
+                <mat-radio-button *ngFor="let data of immigration" [value]="data.visaStatusId" [checked]="data.isChecked">{{data.visaName}}</mat-radio-button>
               </mat-radio-group>
             </div>
           </div>
@@ -103,7 +103,7 @@
             <div class="mb-3">
               <label for="editRelocate" class="form-label">Willing To Relocate:</label>
             </div>
-            <mat-radio-group formControlName="editRelocate" disabled>
+            <mat-radio-group formControlName="editRelocate" disabled ngModel="{{isRelocate}}">
               <mat-radio-button value="true">Yes</mat-radio-button>
               <mat-radio-button value="false">No</mat-radio-button>
             </mat-radio-group>
@@ -137,7 +137,8 @@
             <label for="technology" class="form-label">Technology:</label>
             <select name="technology" class="form-input" formControlName="technology" ngModel="{{selectedCandidate.technology[0].technologyId}}"
               disabled>
-              <option *ngFor="let tech of selectedCandidate.technology" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
+              <!-- <option *ngFor="let tech of selectedCandidate.technology" value="{{tech.technologyId}}">{{tech.technologyName}}</option> -->
+              <option *ngFor="let tech of technology" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
             </select>
           </div>
 
@@ -197,7 +198,7 @@
             <div class="mb-3">
               <label class="form-label">Have you ever worked with Client:</label>
             </div>
-            <mat-radio-group formControlName="editWorkedWithClient" disabled>
+            <mat-radio-group formControlName="editWorkedWithClient" disabled ngModel="{{isWorkedWithClient}}">
               <mat-radio-button value="true">Yes</mat-radio-button>
               <mat-radio-button value="false">No</mat-radio-button>
             </mat-radio-group>
@@ -266,9 +267,9 @@
             <div class="mb-3">
               <label for="c2c" class="form-label">C2C:</label>
             </div>
-            <mat-radio-group formControlName="c2c" disabled>
-              <mat-radio-button value="Yes">Yes</mat-radio-button>
-              <mat-radio-button value="No">No</mat-radio-button>
+            <mat-radio-group formControlName="c2c" disabled ngModel="{{isC2c}}">
+              <mat-radio-button value="true">Yes</mat-radio-button>
+              <mat-radio-button value="false">No</mat-radio-button>
             </mat-radio-group>
           </div>
 
@@ -337,7 +338,7 @@
             <div><label for="editCandidateImmigirationStatus" class="form-label">Candidate Immigiration Status:</label></div>
             <div class="pt-3">
               <mat-radio-group (change)="getImmigiration($event.source.value)" formControlName="editCandidateImmigirationStatus">
-                <mat-radio-button *ngFor="let data of immigration" [value]="data.visaId">{{data.visaName}}</mat-radio-button>
+                <mat-radio-button *ngFor="let data of immigration" [value]="data.visaStatusId">{{data.visaName}}</mat-radio-button>
               </mat-radio-group>
             </div>
           </div>

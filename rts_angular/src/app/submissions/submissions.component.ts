@@ -96,20 +96,20 @@ export class SubmissionsComponent implements OnInit {
         this.submissionDetails = [];
         this.fromDate = new Date(Date.now());
         this.currentDate = new Date(Date.now());
-        this.submissionStatus = [
-            { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
-            { 'name': 'Submitted', 'value': 'SUBMITTED' },
-            { 'name': 'Approved', 'value': 'APPROVED' },
-            { 'name': 'Rejected', 'value': 'REJECTED' },
-            { 'name': 'TL Approved', 'value': 'TL_APPROVED' },
-            { 'name': 'TL Rejeced', 'value': 'TL_REJECTED' },
-            { 'name': 'Closed', 'value': 'CLOSED' },
-            { 'name': 'Client Rejeced', 'value': 'CLIENT_REJECTED' },
-            { 'name': 'Candidate Selected', 'value': 'SELECTED' },
-            { 'name': 'Interview', 'value': 'INTERVIEWED' },
-            { 'name': 'Interview Rejected', 'value': 'INTERVIEWED_REJECTED' },
-            { 'name': 'Hold', 'value': 'HOLD' }
-        ];
+        // this.submissionStatus = [
+        //     { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
+        //     { 'name': 'Submitted', 'value': 'SUBMITTED' },
+        //     { 'name': 'Approved', 'value': 'APPROVED' },
+        //     { 'name': 'Rejected', 'value': 'REJECTED' },
+        //     { 'name': 'TL Approved', 'value': 'TL_APPROVED' },
+        //     { 'name': 'TL Rejeced', 'value': 'TL_REJECTED' },
+        //     { 'name': 'Closed', 'value': 'CLOSED' },
+        //     { 'name': 'Client Rejeced', 'value': 'CLIENT_REJECTED' },
+        //     { 'name': 'Candidate Selected', 'value': 'SELECTED' },
+        //     { 'name': 'Interview', 'value': 'INTERVIEWED' },
+        //     { 'name': 'Interview Rejected', 'value': 'INTERVIEWED_REJECTED' },
+        //     { 'name': 'Hold', 'value': 'HOLD' }
+        // ];
         this.filter = '';
         this.recruiter = '';
         this.status = '';
@@ -210,6 +210,7 @@ export class SubmissionsComponent implements OnInit {
                 this.submissionDetails.push(require);
             }
         }
+       
         for (const count of this.submissionDetails) {
             this.submissionsLength = this.submissionsLength + count.filteredSubmissions.length;
         }
@@ -227,6 +228,7 @@ export class SubmissionsComponent implements OnInit {
                         this.clients = data.clients;
                         this.teams = data.teams;
                         this.teamUsers = data.myTeamUser;
+                        this.submissionStatus = data.submissionStatus;
                     }
                 });
     }
@@ -320,7 +322,7 @@ export class SubmissionsComponent implements OnInit {
         } else {
             this.selectedRequirements = [];
             for (const require of this.requirements) {
-                const selectedSubmissions = _.where(require.submissions, { status: event });
+                const selectedSubmissions = _.where(require.submissions, { statusId: parseInt(event) });
                 if (selectedSubmissions.length !== 0) {
                     require.filteredSubmissions = selectedSubmissions;
                     this.selectedRequirements.push(require);
@@ -344,7 +346,7 @@ export class SubmissionsComponent implements OnInit {
             for (const require of this.requirements) {
                 require.filteredSubmissions = require.submissions;
             }
-            this.selectedRequirements = _.where(this.requirements, { teamId: event });
+            this.selectedRequirements = _.where(this.requirements, { teamId: parseInt(event) });
             this.selectedRequirementsDetails(this.selectedRequirements);
         }
     }
@@ -363,7 +365,7 @@ export class SubmissionsComponent implements OnInit {
             for (const require of this.requirements) {
                 require.filteredSubmissions = require.submissions;
             }
-            this.selectedRequirements = _.where(this.requirements, { clientId: event });
+            this.selectedRequirements = _.where(this.requirements, { clientId: parseInt(event) });
             this.selectedRequirementsDetails(this.selectedRequirements);
         }
     }
@@ -383,105 +385,105 @@ export class SubmissionsComponent implements OnInit {
             this.searchBox = false;
             this.selectedRequirements = [];
             for (const require of this.requirements) {
-                const selectedSubmissions = _.where(require.submissions, { enteredBy: event });
+                const selectedSubmissions = _.where(require.submissions, { enteredBy: parseInt(event) });
                 if (selectedSubmissions.length !== 0) {
                     require.filteredSubmissions = selectedSubmissions;
                     this.selectedRequirements.push(require);
                 }
             }
 
-            this.chartData = [];
-            let APPROVED = 0, REJECTED = 0, IN_PROGRESS = 0, CLOSED = 0, SUBMITTED = 0, CLIENT_REJECTED = 0, SELECTED = 0, INTERVIEWED = 0, HOLD = 0, INTERVIEWED_REJECTED = 0;
-            for (const req of this.selectedRequirements) {
-                for (const sub of req.filteredSubmissions) {
+            // this.chartData = [];
+            // let APPROVED = 0, REJECTED = 0, IN_PROGRESS = 0, CLOSED = 0, SUBMITTED = 0, CLIENT_REJECTED = 0, SELECTED = 0, INTERVIEWED = 0, HOLD = 0, INTERVIEWED_REJECTED = 0;
+            // for (const req of this.selectedRequirements) {
+            //     for (const sub of req.filteredSubmissions) {
 
-                    if (sub.status === 'APPROVED' || sub.status === 'TL_APPROVED') {
-                        APPROVED++;
-                    } else if (sub.status === 'REJECTED' || sub.status === 'TL_REJECTED') {
-                        REJECTED++;
-                    } else if (sub.status === 'IN-PROGRESS') {
-                        IN_PROGRESS++;
-                    } else if (sub.status === 'CLOSED') {
-                        CLOSED++;
-                    } else if (sub.status === 'SUBMITTED') {
-                        SUBMITTED++;
-                    } else if (sub.status === 'CLIENT_REJECTED') {
-                        CLIENT_REJECTED++;
-                    } else if (sub.status === 'SELECTED') {
-                        SELECTED++;
-                    } else if (sub.status === 'INTERVIEWED') {
-                        INTERVIEWED++;
-                    } else if (sub.status === 'HOLD') {
-                        HOLD++;
-                    } else if (sub.status === 'INTERVIEWED_REJECTED') {
-                        INTERVIEWED_REJECTED++;
-                    }
-                }
-            }
+            //         if (sub.status === 'APPROVED' || sub.status === 'TL_APPROVED') {
+            //             APPROVED++;
+            //         } else if (sub.status === 'REJECTED' || sub.status === 'TL_REJECTED') {
+            //             REJECTED++;
+            //         } else if (sub.status === 'IN-PROGRESS') {
+            //             IN_PROGRESS++;
+            //         } else if (sub.status === 'CLOSED') {
+            //             CLOSED++;
+            //         } else if (sub.status === 'SUBMITTED') {
+            //             SUBMITTED++;
+            //         } else if (sub.status === 'CLIENT_REJECTED') {
+            //             CLIENT_REJECTED++;
+            //         } else if (sub.status === 'SELECTED') {
+            //             SELECTED++;
+            //         } else if (sub.status === 'INTERVIEWED') {
+            //             INTERVIEWED++;
+            //         } else if (sub.status === 'HOLD') {
+            //             HOLD++;
+            //         } else if (sub.status === 'INTERVIEWED_REJECTED') {
+            //             INTERVIEWED_REJECTED++;
+            //         }
+            //     }
+            // }
 
-            let ApprovedObj = {
-                name: 'APPROVED',
-                value: APPROVED
-            };
+            // let ApprovedObj = {
+            //     name: 'APPROVED',
+            //     value: APPROVED
+            // };
 
-            let RejecedObj = {
-                name: 'REJECTED',
-                value: REJECTED
-            };
+            // let RejecedObj = {
+            //     name: 'REJECTED',
+            //     value: REJECTED
+            // };
 
-            let InProgressObj = {
-                name: 'IN-PROGRESS',
-                value: IN_PROGRESS
-            };
+            // let InProgressObj = {
+            //     name: 'IN-PROGRESS',
+            //     value: IN_PROGRESS
+            // };
 
-            let ClosedObj = {
-                name: 'CLOSED',
-                value: CLOSED
-            };
+            // let ClosedObj = {
+            //     name: 'CLOSED',
+            //     value: CLOSED
+            // };
 
-            let SubmittedObj = {
-                name: 'SUBMITTED',
-                value: SUBMITTED
-            };
+            // let SubmittedObj = {
+            //     name: 'SUBMITTED',
+            //     value: SUBMITTED
+            // };
 
-            let ClientRejectedObj = {
-                name: 'CLIENT_REJECTED',
-                value: CLIENT_REJECTED
-            };
+            // let ClientRejectedObj = {
+            //     name: 'CLIENT_REJECTED',
+            //     value: CLIENT_REJECTED
+            // };
 
-            let SelectedObj = {
-                name: 'SELECTED',
-                value: SELECTED
-            };
+            // let SelectedObj = {
+            //     name: 'SELECTED',
+            //     value: SELECTED
+            // };
 
-            let InterviewObj = {
-                name: 'INTERVIEWED',
-                value: INTERVIEWED
-            };
+            // let InterviewObj = {
+            //     name: 'INTERVIEWED',
+            //     value: INTERVIEWED
+            // };
 
-            let HoldObj = {
-                name: 'HOLD',
-                value: HOLD
-            };
+            // let HoldObj = {
+            //     name: 'HOLD',
+            //     value: HOLD
+            // };
 
-            let InterviewedRejectedObj = {
-                name: 'INTERVIEWED_REJECTED',
-                value: INTERVIEWED_REJECTED
-            };
+            // let InterviewedRejectedObj = {
+            //     name: 'INTERVIEWED_REJECTED',
+            //     value: INTERVIEWED_REJECTED
+            // };
 
-            this.chartData.push(SubmittedObj);
-            this.chartData.push(ApprovedObj);
-            this.chartData.push(InProgressObj);
-            this.chartData.push(RejecedObj);
-            this.chartData.push(HoldObj);
-            this.chartData.push(InterviewObj);
-            this.chartData.push(SelectedObj);
-            this.chartData.push(ClosedObj);
-            this.chartData.push(ClientRejectedObj);
-            this.chartData.push(InterviewedRejectedObj);
-            for (const user of this.chartData) {
-                user.extra = { userId: event };
-            }
+            // this.chartData.push(SubmittedObj);
+            // this.chartData.push(ApprovedObj);
+            // this.chartData.push(InProgressObj);
+            // this.chartData.push(RejecedObj);
+            // this.chartData.push(HoldObj);
+            // this.chartData.push(InterviewObj);
+            // this.chartData.push(SelectedObj);
+            // this.chartData.push(ClosedObj);
+            // this.chartData.push(ClientRejectedObj);
+            // this.chartData.push(InterviewedRejectedObj);
+            // for (const user of this.chartData) {
+            //     user.extra = { userId: event };
+            // }
             this.selectedRequirementsDetails(this.selectedRequirements);
         }
     }

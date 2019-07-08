@@ -56,6 +56,10 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   isSelected: boolean;
   joinDate: any;
   isRejected: boolean;
+  submissionStatus: any;
+  status: any;
+  statusObj: any;
+  // submissionComment: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -76,6 +80,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
     this.allRequirements = [];
     this.recruiterName = [];
     this.recruiterEmail = [];
+    this.submissionStatus = [];
   }
 
   ngOnInit() {
@@ -189,6 +194,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
         if (data.success) {
           this.technology = data.technologies;
           this.immigration = data.visaStatus;
+          this.submissionStatus = data.userSubmissionStatus;
           for (const immigration of this.immigration) {
             immigration.isChecked = false;
           }
@@ -223,7 +229,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   editSubmission() {
 
     const submit = {
-      submissionId: this.submissionId,
+      submissionId: parseInt(this.submissionId),
     };
 
     this.submissionService.getRequirementBySubmission(submit)
@@ -233,9 +239,19 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             this.ngProgress.done();
             this.selectedRequirement = data.requirement;
             this.allRequirements.push(this.selectedRequirement);
-            const submission = _.findWhere(this.selectedRequirement.submissions, { submissionId: this.submissionId });
+            const submission = _.findWhere(this.selectedRequirement.submissions, { submissionId: parseInt(this.submissionId) });
             if (submission !== undefined) {
               this.selectedSubmission = submission;
+            }
+            // console.log(this.selectedSubmission)
+            this.status = this.selectedSubmission.submissionStatus.statusId;
+            this.statusObj = this.selectedSubmission.submissionStatus;
+            this.isC2c = this.selectedSubmission.candidate.c2C;
+            this.isRelocate = this.selectedSubmission.candidate.relocate;
+            this.isWorkedWithClient = this.selectedSubmission.candidate.workedWithClient;
+            const isStatusExiting = _.findIndex(this.submissionStatus, this.statusObj)
+            if (isStatusExiting === -1) {
+              this.submissionStatus.push(this.statusObj);
             }
             if (this.selectedSubmission.interviewDetails.length > 0) {
               this.removeUnits(0);
@@ -244,12 +260,12 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             for (const interviews of this.selectedSubmission.interviewDetails) {
               control.push(this.formBuilder.group(interviews));
             }
-            if (this.selectedSubmission.enteredBy === this.rtsUserId) {
+            if (this.selectedSubmission.submittedUser.userId === parseInt(this.rtsUserId)) {
               this.isUpdate = true;
             } else {
               this.isUpdate = false;
             }
-            if (this.selectedSubmission.status === 'REJECTED' || this.selectedSubmission.status === 'TL_REJECTED' || this.selectedSubmission.status === 'CLIENT_REJECTED' || this.selectedSubmission.status === 'OTHER_REJECTION') {
+            if (this.status === 5 || this.status === 4 || this.status === 7 || this.status === 14) {
               this.isRejected = true;
             }
             if (this.selectedSubmission.interviewDetailStatus === 'SELECTED') {
@@ -258,34 +274,34 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             } else {
               this.isSelected = false;
             }
-            if (this.selectedSubmission.candidate.c2C) {
-              this.myForm.controls.c2c.setValue('Yes');
-              this.isC2c = true;
-            } else {
-              this.myForm.controls.c2c.setValue('No');
-            }
-            if (this.selectedSubmission.candidate.relocate) {
-              this.myForm.controls.editRelocate.setValue('true');
-              this.isRelocate = true;
-            } else {
-              this.myForm.controls.editRelocate.setValue('false');
-              this.isRelocate = false;
-            }
-            if (this.selectedSubmission.candidate.workedWithClient) {
-              this.myForm.controls.editWorkedWithClient.setValue('true');
-              this.isWorkedWithClient = true;
-            } else {
-              this.myForm.controls.editWorkedWithClient.setValue('false');
-              this.isWorkedWithClient = false;
-            }
-            for (const recruiter of this.selectedRequirement.toClientRecuriters) {
+            // if (this.selectedSubmission.candidate.c2C) {
+            //   this.myForm.controls.c2c.setValue('Yes');
+            //   this.isC2c = true;
+            // } else {
+            //   this.myForm.controls.c2c.setValue('No');
+            // }
+            // if (this.selectedSubmission.candidate.relocate) {
+            //   this.myForm.controls.editRelocate.setValue('true');
+            //   this.isRelocate = true;
+            // } else {
+            //   this.myForm.controls.editRelocate.setValue('false');
+            //   this.isRelocate = false;
+            // }
+            // if (this.selectedSubmission.candidate.workedWithClient) {
+            //   this.myForm.controls.editWorkedWithClient.setValue('true');
+            //   this.isWorkedWithClient = true;
+            // } else {
+            //   this.myForm.controls.editWorkedWithClient.setValue('false');
+            //   this.isWorkedWithClient = false;
+            // }
+            for (const recruiter of this.selectedRequirement.toClientRecruiters) {
               this.recruiterName.push(recruiter.name + ' ');
             }
             this.clientRecruiterName = this.recruiterName.join();
 
             const immigirationStatus = this.selectedSubmission.candidate.visaStatus;
             for (const visaStatus of this.immigration) {
-              if (_.isEqual(immigirationStatus.visaId, visaStatus.visaId)) {
+              if (_.isEqual(immigirationStatus.visaStatusId, visaStatus.visaStatusId)) {
                 visaStatus.isChecked = true;
               }
             }
@@ -293,10 +309,14 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
         });
   }
 
+  // statusExiting(status){
+  //   this.submissionStatus.splice(this.submissionStatus.indexOf(status), 1)
+  // }
+
   getRequirement(event) {
     this.recruiterName = [];
     this.selectedRequirement = _.findWhere(this.allRequirements, { requirementId: event });
-    for (const recruiter of this.selectedRequirement.toClientRecuriters) {
+    for (const recruiter of this.selectedRequirement.toClientRecruiters) {
       this.recruiterName.push(recruiter.name + ' ');
       this.recruiterEmail.push(recruiter.email + ' ');
     }
@@ -314,30 +334,33 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.selectedSubmission.candidate = data.candidate;
-            if (this.selectedSubmission.candidate.c2C) {
-              this.myForm.controls.c2c.setValue('Yes');
-              this.isC2c = true;
-            } else {
-              this.myForm.controls.c2c.setValue('No');
-            }
-            if (this.selectedSubmission.candidate.relocate) {
-              this.myForm.controls.editRelocate.setValue('true');
-            } else {
-              this.myForm.controls.editRelocate.setValue('false');
-            }
-            if (this.selectedSubmission.candidate.workedWithClient) {
-              this.myForm.controls.editWorkedWithClient.setValue('true');
-              this.isWorkedWithClient = true;
-            } else {
-              this.myForm.controls.editWorkedWithClient.setValue('false');
-              this.isWorkedWithClient = false;
-            }
+            this.isC2c = this.selectedSubmission.candidate.c2C;
+            this.isRelocate = this.selectedSubmission.candidate.relocate;
+            this.isWorkedWithClient = this.selectedSubmission.candidate.workedWithClient;
+            // if (this.selectedSubmission.candidate.c2C) {
+            //   this.myForm.controls.c2c.setValue('Yes');
+            //   this.isC2c = true;
+            // } else {
+            //   this.myForm.controls.c2c.setValue('No');
+            // }
+            // if (this.selectedSubmission.candidate.relocate) {
+            //   this.myForm.controls.editRelocate.setValue('true');
+            // } else {
+            //   this.myForm.controls.editRelocate.setValue('false');
+            // }
+            // if (this.selectedSubmission.candidate.workedWithClient) {
+            //   this.myForm.controls.editWorkedWithClient.setValue('true');
+            //   this.isWorkedWithClient = true;
+            // } else {
+            //   this.myForm.controls.editWorkedWithClient.setValue('false');
+            //   this.isWorkedWithClient = false;
+            // }
             for (const immigration of this.immigration) {
               immigration.isChecked = false;
             }
             const immigirationStatus = this.selectedSubmission.candidate.visaStatus;
             for (const immigration of this.immigration) {
-              if (_.isEqual(immigirationStatus.visaId, immigration.visaId)) {
+              if (_.isEqual(immigirationStatus.visaStatusId, immigration.visaStatusId)) {
                 immigration.isChecked = true;
               }
             }
@@ -361,7 +384,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   }
 
   changeStatus(event) {
-    if (event === 'OTHER_REJECTION') {
+    if (event === '14') {
       this.isRejected = true;
     } else {
       this.isRejected = false;
@@ -381,7 +404,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   }
 
   removeUploadedFile(media) {
-    this.deletedMediaFiles.push(media.mediaId);
+    this.deletedMediaFiles.push(media.mediaFileId);
     const clear = this.selectedSubmission.mediaFiles.indexOf(media);
     this.selectedSubmission.mediaFiles.splice(clear, 1);
   }
@@ -422,7 +445,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
 
   getImmigiration(event) {
     if (event !== undefined) {
-      this.immigirationStatus = { visaId: event };
+      this.immigirationStatus = { visaStatusId: event };
     }
   }
 
@@ -433,7 +456,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   addChatMessage() {
     if (this.comment !== '' && this.comment !== undefined) {
       const addMessage = {
-        submissionId: this.submissionId,
+        submissionId: parseInt(this.submissionId),
         enteredBy: this.rtsUserId,
         comment: this.comment
       };
@@ -443,6 +466,8 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
           data => {
             if (data.success) {
               this.selectedSubmission.comments = data.submission.comments;
+              // this.submissionComment = data.submission.comments;
+              // console.log(this.submissionComment)
               this.comment = '';
             }
           });
@@ -469,50 +494,52 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   updateCandidateWithSubmission(form: FormGroup, candidateId: any) {
 
     const submission: any = {
-      requirementId: form.value.requirements,
+      requirementId: parseInt(form.value.requirements),
       accountName: form.value.accountName,
       buyingRate: form.value.buyingRate,
       sellingRate: form.value.sellingRate,
       clientContactname: form.value.clientContactname,
       clientContactEmail: form.value.clientContactEmail,
       workLocation: form.value.workLocation,
-      status: form.value.status,
+      statusId: parseInt(form.value.status),
       reasonForRejection: form.value.reasonForRejection,
       interviewStatus: form.value.interviewComments,
       interviewDetailStatus: form.value.interviewStatus,
       currentStatus: form.value.currentStatus,
       enteredBy: this.rtsUserId,
-      submissionId: this.submissionId,
+      submissionId: parseInt(this.submissionId),
       candidateId: candidateId,
       interviewDetails: form.value.units,
-      joiningDateStr: this.selectedSubmission.joiningDateStr
+      joiningDateStr: this.selectedSubmission.joiningDateStr,
+      comments: this.selectedSubmission.comments
     };
 
-    if (this.comment === '' || this.comment === undefined) {
-      submission.comments = [];
-    } else {
-      submission.comments = [
-        {
-          comment: this.comment,
-          enteredBy: this.rtsUserId
-        }
-      ];
-    }
+    // if (this.submissionComment === '' || this.submissionComment === undefined) {
+    //   submission.comments = [];
+    // } else {
+    //   submission.comments = [
+    //     {
+    //       comment: this.submissionComment,
+    //       enteredBy: this.rtsUserId
+    //     }
+    //   ];
+    // }
 
-    const editSubmission = {
-      submission: submission,
-      deletedMediaFiles: this.deletedMediaFiles
-    };
+    // const editSubmission = {
+    //   submission: submission,
+    //   deletedMediaFiles: this.deletedMediaFiles
+    // };
 
-    this.submissionService.editSubmission(editSubmission)
+    this.submissionService.editSubmission(submission)
       .subscribe(
         data => {
+          this.ngProgress.done();
           if (data.success) {
             this.toastr.success('Update Submission Successfully', '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
-            this.ngProgress.done();
+            // this.ngProgress.done();
             this.router.navigate(['submissions']);
 
           } else {
@@ -520,7 +547,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
-            this.ngProgress.done();
+            // this.ngProgress.done();
           }
         });
   }
@@ -554,6 +581,9 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       dateOfBirth: form.value.dateOfBirth,
       currentProject: form.value.currentProject,
       totalUsExperience: form.value.totalUsExperience,
+      enteredBy: {
+        userId: this.rtsUserId
+      }
     };
 
     if (this.isWorkedWithClient) {

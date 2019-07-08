@@ -8,65 +8,86 @@ export class ApiUrl {
     // base url production
     // static BaseUrl = 'https://trackmeall.com:8443/';
 
-    static AddCompanyUser = 'rtsUser/user/addCompanyUser';
-    static UserLogin = 'rtsUser/user/userLogin';
-    static GetAllRequirementsByCompany = 'rtsRequirement/requirement/getAllRequirementByCompany';
-    static GetAllRequirementsByTeam = 'rtsRequirement/requirement/getAllRequirementByTeam';
-    static AddNewRequirement = 'rtsRequirement/requirement/insertRequirement';
-    static SaveRequirement = 'rtsRequirement/requirement/saveRequirement';
-    static GetAllUsersForAdmin = 'rtsUser/user/getAllUserForCompany';
-    static ManageUsers = 'rtsUser/user/manageUser';
-    static AddUser = 'rtsUser/user/addUser';
-    static GetAllRequiementsForUser = 'rtsRequirement/requirement/getAllAllocationRequirementForUser';
-    static AddNewSubmission = 'rtsSubmission/submission/newSubmission';
-    static SaveSubmission = 'rtsSubmission/submission/saveSubmission';
-    static UpdateSubmission = 'rtsSubmission/submission/updateSubmission';
-    static SubmissionFileUpload = 'rtsSubmission/submission/fileUpload';
-    static GetAllClientsForCompany = 'rtsClient/client/getAllClientForCompany';
-    static AddClient = 'rtsClient/client/addClient';
-    static GetCommonDetails = 'rtsCommon/common/getAllCommonDetails';
-    static GetCandidateDetails = 'rtsCandidate/candidate/findCandidateByEmail';
-    static GettAllCandidates = 'rtsCandidate/candidate/getAllCompanyCandidate';
-    static AddNewCandidate = 'rtsCandidate/candidate/addNewCandidate';
-    static CandidateFileUpload = 'rtsCandidate/candidate/fileUpload';
-    static SubmissionToClient = 'rtsSubmission/submission/submissionToClient';
-    static GenerateReport = 'rtsSubmission/submission/excelReport';
-    static UpdateRequirement = 'rtsRequirement/requirement/updateRequirement';
-    static ReportDownload = 'rtsSubmission/submission/excelDownload';
-    static UpdateCandidate = 'rtsCandidate/candidate/updateCandidate';
-    static UpdateClient = 'rtsClient/client/updateClient';
-    static UpdateUser = 'rtsUser/user/updateUser';
-    static DeleteUser = 'rtsUser/user/deleteUser';
-    static AddTeam = 'rtsTeam/team/createTeam';
-    static EditTeam = 'rtsTeam/team/updateTeam';
-    static DeleteTeam = 'rtsTeam/team/deleteTeam';
-    static GetRequirementForStatus = 'rtsRequirement/requirement/getRequirementByStatus';
-    static GetRequirementForTeam = 'rtsRequirement/requirement/getRequirementByAllocationTeam';
-    static GetRequirementForClient = 'rtsRequirement/requirement/getAllRequirementByClient';
-    static GetRequirementForRecruiter = 'rtsRequirement/requirement/getRequirementsForAllocationUser';
-    static GetRequirementForSubmission = 'rtsRequirement/requirement/getRequirementBySubmission';
-    static GetUserGraphDetails = 'rtsCommon/common/getGraphDetails';
-    static GetTeamGraphDetails = 'rtsCommon/common/getTeamGraphDetails';
-    static GetClientOpenRequirements = 'rtsCommon/common/clientWiseOpenRequirement';
-    static GetUserSubmission = 'rtsRequirement/requirement/userSubmission';
-    static GetTeamSubmission = 'rtsRequirement/requirement/teamSubmission';
-    static GetRequirementsSubmissionByDate = 'rtsRequirement/requirement/getRequirementSubmissionByDate';
-    static GetClientRequirements = 'rtsRequirement/requirement/clientWiseOpenRequirement';
-    static AddComment = 'rtsSubmission/submission/addComment';
-    static InterViewReport = 'rtsSubmission/submission/interviewReport';
-    static GetNoSubmissionsRequirement = 'rtsCommon/common/noSubmissionsRequirement';
-    static GetClientSubmissionStatus = 'rtsCommon/common/clientSubmissionStatus';
-    static GetRecruiterComparison = 'rtsCommon/common/recruiterComparison';
-    static GetTeamComparison = 'rtsCommon/common/teamComparison';
-    static GetRecruiterTeamStatus = 'rtsCommon/common/recruiterTeamStatus';
-    static GetRecruiterTeamSubmissions = 'rtsCommon/common/recruiterTeamSubmissions';
-    static ForgotPassword = 'rtsUser/user/forgotPassword';
-    static GetRequirementById = 'rtsRequirement/requirement/getRequirementById';
-    static GetRecruiterSubmissionStatus = 'rtsCommon/common/recruiterSubmissionStatus';
-    static GetAllInterviewDetails = 'rtsSubmission/submission/interviewHistory';
-    static GetAllProgressInterviews = 'rtsSubmission/submission/progressInterview';
-    static UpdateFcmToken = 'rtsUser/user/updateFcmToken';
-    static GetCandidateById = 'rtsCandidate/candidate/candidateById';
-    static GetAllOnBoardReminder = 'rtsSubmission/submission/onBoardingReminder';
-    static GetAllSelectedSubmission = 'rtsSubmission/submission/selectedSubmission';
+    // Requiremnt api
+    // static GetRequirementForStatus = 'rtsRequirementMySQL/requirement/getRequirementByStatus';
+    static GetRequirementForTeam = 'rtsRequirementMySQL/requirement/getRequirementByAllocationTeam';
+    // static GetRequirementForClient = 'rtsRequirementMySQL/requirement/getAllRequirementByClient';
+    static GetRequirementForRecruiter = 'rtsRequirementMySQL/requirement/getRequirementsForAllocationUser';
+    static GetRequirementForSubmission = 'rtsRequirementMySQL/requirement/getRequirementBySubmission';
+    static GetUserSubmission = 'rtsRequirementMySQL/requirement/userSubmission';
+    static GetTeamSubmission = 'rtsRequirementMySQL/requirement/teamSubmission';
+    static GetRequirementsSubmissionByDate = 'rtsRequirementMySQL/requirement/getRequirementSubmissionByDate';
+    static GetClientRequirements = 'rtsRequirementMySQL/requirement/clientWiseOpenRequirement';
+    static GetRequirementById = 'rtsRequirementMySQL/requirement/getRequirementById';
+    static UpdateRequirement = 'rtsRequirementMySQL/requirement/updateRequirement';
+    static GetAllRequiementsForUser = 'rtsRequirementMySQL/requirement/getAllAllocationRequirementForUser';
+    static GetAllRequirementsByCompany = 'rtsRequirementMySQL/requirement/getAllRequirementByCompany';
+    static GetAllRequirementsByTeam = 'rtsRequirementMySQL/requirement/getAllRequirementByTeam';
+    static AddNewRequirement = 'rtsRequirementMySQL/requirement/insertRequirement';
+    // static SaveRequirement = 'rtsRequirementMySQL/requirement/saveRequirement';
+
+    // user api
+    static AddCompanyUser = 'rtsUserMySQL/user/addCompanyUser';
+    static UserLogin = 'rtsUserMySQL/user/userLogin';  
+    static GetAllUsersForAdmin = 'rtsUserMySQL/user/getAllUserForCompany';
+    static ManageUsers = 'rtsUserMySQL/user/manageUser';
+    static AddUser = 'rtsUserMySQL/user/addUser';
+    static UpdateUser = 'rtsUserMySQL/user/updateUser';
+    static DeleteUser = 'rtsUserMySQL/user/deleteUser';
+    static ForgotPassword = 'rtsUserMySQL/user/forgotPassword';
+    static UpdateFcmToken = 'rtsUserMySQL/user/updateFcmToken';
+
+    //submission api
+    static AddNewSubmission = 'rtsSubmissionMySQL/submission/newSubmission';
+    static SaveSubmission = 'rtsSubmissionMySQL/submission/saveSubmission';
+    static UpdateSubmission = 'rtsSubmissionMySQL/submission/updateSubmission';
+    // static SubmissionFileUpload = 'rtsSubmissionMySQL/submission/fileUpload';
+    static SubmissionToClient = 'rtsSubmissionMySQL/submission/submissionToClient';
+    static GenerateReport = 'rtsSubmissionMySQL/submission/excelReport';
+    static ReportDownload = 'rtsSubmissionMySQL/submission/excelDownload';
+    static AddComment = 'rtsSubmissionMySQL/submission/addComment';
+    static InterViewReport = 'rtsSubmissionMySQL/submission/interviewReport';
+    static GetAllInterviewDetails = 'rtsSubmissionMySQL/submission/interviewHistory';
+    static GetAllProgressInterviews = 'rtsSubmissionMySQL/submission/progressInterview';
+    static GetAllOnBoardReminder = 'rtsSubmissionMySQL/submission/onBoardingReminder';
+    static GetAllSelectedSubmission = 'rtsSubmissionMySQL/submission/selectedSubmission';
+  
+    // client api
+    static GetAllClientsForCompany = 'rtsClientMySQL/client/getAllClientForCompany';
+    static AddClient = 'rtsClientMySQL/client/addClient';
+    static UpdateClient = 'rtsClientMySQL/client/updateClient';  
+    static GetClientById = 'rtsClientMySQL/client/getClientById';  
+    
+    // candidate api
+    static GetCandidateDetails = 'rtsCandidateMySQL/candidate/findCandidateByEmail';
+    static GettAllCandidates = 'rtsCandidateMySQL/candidate/getAllCompanyCandidate';
+    static AddNewCandidate = 'rtsCandidateMySQL/candidate/addNewCandidate';
+    static CandidateFileUpload = 'rtsCandidateMySQL/candidate/fileUpload';   
+    static UpdateCandidate = 'rtsCandidateMySQL/candidate/updateCandidate';
+    static GetCandidateById = 'rtsCandidateMySQL/candidate/candidateById';
+    static GetCandidateByTechnology = 'rtsCandidateMySQL/candidate/searchByTechnology';
+
+    // team api
+    static AddTeam = 'rtsTeamMySQL/team/createTeam';
+    static EditTeam = 'rtsTeamMySQL/team/updateTeam';
+    static DeleteTeam = 'rtsTeamMySQL/team/deleteTeam';   
+  
+    // common api
+    static GetUserGraphDetails = 'rtsCommonMySQL/common/getGraphDetails';
+    static GetTeamGraphDetails = 'rtsCommonMySQL/common/getTeamGraphDetails';
+    static GetClientOpenRequirements = 'rtsCommonMySQL/common/clientWiseOpenRequirement';    
+    static GetNoSubmissionsRequirement = 'rtsCommonMySQL/common/noSubmissionsRequirement';
+    static GetClientSubmissionStatus = 'rtsCommonMySQL/common/clientSubmissionStatus';
+    static GetRecruiterComparison = 'rtsCommonMySQL/common/recruiterComparison';
+    static GetTeamComparison = 'rtsCommonMySQL/common/teamComparison';
+    static GetRecruiterTeamStatus = 'rtsCommonMySQL/common/recruiterTeamStatus';
+    static GetRecruiterTeamSubmissions = 'rtsCommonMySQL/common/recruiterTeamSubmissions';
+    static GetRecruiterSubmissionStatus = 'rtsCommonMySQL/common/recruiterSubmissionStatus';
+    static GetCommonDetails = 'rtsCommonMySQL/common/getAllCommonDetails';
+
+    // vendor api
+    static GetAllVendors = 'rtsVendorMySQL/vendor/getAllVendors';
+
+    
+
 }

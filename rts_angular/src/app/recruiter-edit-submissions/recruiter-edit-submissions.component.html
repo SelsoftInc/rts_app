@@ -62,18 +62,18 @@
 
             <div class="col-sm-4" *ngIf="selectedSubmission">
               <label for="status" class="form-label">Status:</label>
-              <select *ngIf="selectedSubmission.clientSubmissionOn === 0 " name="status" class="form-input"
-                formControlName="status" (change)="changeStatus($event.target.value);"
-                ngModel="{{selectedSubmission.status}}" required>
-                <option value="IN-PROGRESS">In-Progress</option>
-                <option value="OTHER_REJECTION">Other Rejection</option>
-                <option *ngIf="selectedSubmission.status === 'TL_APPROVED'" value="TL_APPROVED">TL Approved</option>
+              <select name="status" class="form-input" formControlName="status"
+                (change)="changeStatus($event.target.value);" ngModel="{{status}}" required>
+                <!-- <option value="IN-PROGRESS">In-Progress</option>
+                <option value="OTHER_REJECTION">Other Rejection</option> -->
+                <option *ngFor="let status of submissionStatus" value="{{status.statusId}}">{{status.statusName}}
+                  <!-- <option *ngIf="selectedSubmission.status === 'TL_APPROVED'" value="TL_APPROVED">TL Approved</option>
                 <option *ngIf="selectedSubmission.status === 'TL_REJECTED'" value="TL_REJECTED">TL Rejected</option>
                 <option *ngIf="selectedSubmission.status === 'APPROVED'" value="APPROVED">Approved</option>
                 <option *ngIf="selectedSubmission.status === 'REJECTED'" value="REJECTED">Rejected</option>
-                <option *ngIf="selectedSubmission.status === 'HOLD'" value="HOLD">Hold</option>
+                <option *ngIf="selectedSubmission.status === 'HOLD'" value="HOLD">Hold</option> -->
               </select>
-              <select *ngIf="selectedSubmission.clientSubmissionOn > 0" name="status" class="form-input"
+              <!-- <select *ngIf="selectedSubmission.clientSubmissionOn > 0" name="status" class="form-input"
                 formControlName="status" (change)="changeStatus($event.target.value);"
                 ngModel="{{selectedSubmission.status}}" required>
                 <option *ngIf="selectedSubmission.status === 'SUBMITTED'" value="SUBMITTED">Submitted</option>
@@ -93,7 +93,7 @@
                 <option value="AWAITING_FOR_FEEDBACK">Awaiting For Feedback</option>
                 <option value="HOLD">Hold</option>
                 <option value="OTHER_REJECTION">Other Rejection</option>
-              </select>
+              </select> -->
             </div>
 
             <div class="col-sm-4" *ngIf="selectedSubmission && isRejected">
@@ -124,6 +124,10 @@
             <div class="col-sm-1 pt-5 mt-1">
               <button type="button" class="btn btn-forms" (click)="getCandidateDetails()">Search</button>
             </div>
+            <div class="col-sm-1 pt-5 mt-1" *ngIf="!addCandidate && selectedSubmission">
+              <button type="button" class="btn btn-forms"
+                [routerLink]="['/edit-candidate',selectedSubmission.candidate.candidateId]">Edit Candidate</button>
+            </div>
           </div>
 
           <div *ngIf="!addCandidate">
@@ -134,7 +138,8 @@
                   <label for="candidateImmigirationStatus" class="form-label">Candidate Immigiration Status:</label>
                 </div>
                 <mat-radio-group formControlName="candidateImmigirationStatus" disabled>
-                  <mat-radio-button *ngFor="let data of immigration" [value]="data.visaId" [checked]="data.isChecked">
+                  <mat-radio-button *ngFor="let data of immigration" [value]="data.visaStatusId"
+                    [checked]="data.isChecked">
                     {{data.visaName}}</mat-radio-button>
                 </mat-radio-group>
               </div>
@@ -143,7 +148,7 @@
                 <div class="mb-3">
                   <label for="editRelocate" class="form-label">Willing To Relocate:</label>
                 </div>
-                <mat-radio-group formControlName="editRelocate" disabled>
+                <mat-radio-group formControlName="editRelocate" disabled ngModel="{{isRelocate}}">
                   <mat-radio-button value="true">Yes</mat-radio-button>
                   <mat-radio-button value="false">No</mat-radio-button>
                 </mat-radio-group>
@@ -244,7 +249,7 @@
                   <label class="form-label">Have you ever worked with Client:
                   </label>
                 </div>
-                <mat-radio-group formControlName="editWorkedWithClient" disabled>
+                <mat-radio-group formControlName="editWorkedWithClient" disabled ngModel="{{isWorkedWithClient}}">
                   <mat-radio-button value="true">Yes</mat-radio-button>
                   <mat-radio-button value="false">No</mat-radio-button>
                 </mat-radio-group>
@@ -314,9 +319,9 @@
                 <div class="mb-3">
                   <label for="c2c" class="form-label">C2C:</label>
                 </div>
-                <mat-radio-group disabled formControlName="c2c">
-                  <mat-radio-button value="Yes">Yes</mat-radio-button>
-                  <mat-radio-button value="No">No</mat-radio-button>
+                <mat-radio-group disabled formControlName="c2c" ngModel="{{isC2c}}">
+                  <mat-radio-button value="true">Yes</mat-radio-button>
+                  <mat-radio-button value="false">No</mat-radio-button>
                 </mat-radio-group>
               </div>
 
@@ -391,7 +396,7 @@
                 </div>
                 <mat-radio-group (change)="getImmigiration($event.source.value)"
                   formControlName="editCandidateImmigirationStatus">
-                  <mat-radio-button *ngFor="let data of immigration" [value]="data.visaId">{{data.visaName}}
+                  <mat-radio-button *ngFor="let data of immigration" [value]="data.visaStatusId">{{data.visaName}}
                   </mat-radio-button>
                 </mat-radio-group>
               </div>
@@ -517,39 +522,43 @@
 
               <div class="col-sm-4">
                 <label for="locationPreferences" class="form-label">Location Preferences:</label>
-                <input type="text" class="form-input" name="locationPreferences" ngModel formControlName="locationPreferences">
+                <input type="text" class="form-input" name="locationPreferences" ngModel
+                  formControlName="locationPreferences">
               </div>
-      
+
               <div class="col-sm-4">
                 <label for="workedAsFullTime" class="form-label">Worked as FullTime:</label>
-                <input type="text" class="form-input" name="workedAsFullTime" ngModel formControlName="workedAsFullTime">
+                <input type="text" class="form-input" name="workedAsFullTime" ngModel
+                  formControlName="workedAsFullTime">
               </div>
-      
+
               <div class="col-sm-4">
                 <label for="graduationYear" class="form-label">Graduation Year:</label>
                 <input type="text" class="form-input" name="graduationYear" ngModel formControlName="graduationYear">
               </div>
-      
+
               <div class="col-sm-4">
                 <label for="educationCredentials" class="form-label">Education Credentials:</label>
-                <input type="text" class="form-input" name="educationCredentials" ngModel formControlName="educationCredentials">
+                <input type="text" class="form-input" name="educationCredentials" ngModel
+                  formControlName="educationCredentials">
               </div>
-      
+
               <div class="col-sm-4">
                 <label for="dateOfBirth" class="form-label">Date Of Birth:</label>
                 <input type="text" class="form-input" name="dateOfBirth" ngModel formControlName="dateOfBirth">
               </div>
-      
+
               <div class="col-sm-4">
                 <label for="currentProject" class="form-label">Current Project:</label>
                 <input type="text" class="form-input" name="currentProject" ngModel formControlName="currentProject">
               </div>
-      
+
               <div class="col-sm-4">
                 <label for="totalUsExperience" class="form-label">Total US Experience:</label>
-                <input type="text" class="form-input" name="totalUsExperience" ngModel formControlName="totalUsExperience">
+                <input type="text" class="form-input" name="totalUsExperience" ngModel
+                  formControlName="totalUsExperience">
               </div>
-    
+
 
               <div class="col-sm-4">
                 <div class="mb-3">

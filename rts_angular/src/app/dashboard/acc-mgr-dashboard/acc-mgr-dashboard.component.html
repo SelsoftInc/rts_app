@@ -53,14 +53,14 @@
             </thead>
             <tbody>
               <tr *ngFor="let submission of sortedData" [routerLink]="['/edit-submission', submission.submissionId]">
-                <td>{{submission.positionName}}</td>
-                <td>{{submission.candidateName}}</td>
-                <td>{{submission.clientName}}</td>
+                <td>{{submission.position.positionName}}</td>
+                <td>{{submission.candidate.name}}</td>
+                <td>{{submission.client.name}}</td>
                 <td>{{submission.interviewDateStr | date: 'MMM d, y, hh:mm a'}}</td>
                 <td>{{submission.interviewLevel}}</td>
-                <td>{{submission.recruiterName}}</td>
-                <td>{{submission.skypeId}}</td>
-                <td>{{submission.phoneNumber}}</td>
+                <td>{{submission.recruiter.firstName}} {{submission.recruiter.lastName}}</td>
+                <td>{{submission.candidate.skype}}</td>
+                <td>{{submission.candidate.phoneNumber}}</td>
               </tr>
             </tbody>
           </table>
@@ -112,7 +112,7 @@
         <div class="chart-title-wrapper">
           <h2 class="chart-title">Team wise submission status</h2>
         </div>
-        <div class="chart-align-100-400 multi">
+        <div class="chart-align-100-400">
           <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorSchemeMultiBar1" [results]="totalSubmissionByTeam"
             [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
             [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel" (select)="onTeamSubmissionStatus($event)">

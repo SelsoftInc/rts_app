@@ -4,6 +4,8 @@ import { LoggedUserService } from '../Services/logged-user.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import * as _ from 'underscore';
 import { NgProgress } from 'ngx-progressbar';
+import { DeleteSubmissionComponent } from '../delete-submission/delete-submission.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-submission-by-requirement',
@@ -26,7 +28,8 @@ export class SubmissionByRequirementComponent implements OnInit {
     private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
     private activatedRoute: ActivatedRoute,
-    private ngProgress: NgProgress
+    private ngProgress: NgProgress,
+    private dialog: MatDialog,
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsCompanyId = this.rtsUser.companyId;
@@ -46,19 +49,32 @@ export class SubmissionByRequirementComponent implements OnInit {
   getAllRequirements() {
 
     const userId = {
-      requirementId: this.requirementId
+      requirementId: parseInt(this.requirementId)
     };
 
     this.requirementService.getRequirementsById(userId)
       .subscribe(
         data => {
-          if (data.success) {
             this.ngProgress.done();
+            if (data.success) {
             // this.requirements = data.requirements;
             this.selectedRequirement = data.requirement;
             this.submissionsLength = this.selectedRequirement.submissions.length;
           }
         });
+  }
+
+  deleteSubmission(id) {
+    const dialogRef = this.dialog.open(DeleteSubmissionComponent, {
+      width: '500px',
+      data: { submissionId: id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('result',result);
+      // this.router.navigate(['requirements']);
+    });
+
   }
 
 

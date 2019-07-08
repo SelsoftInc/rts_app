@@ -138,7 +138,7 @@
           </select>
         </div>
         <div class="col-sm-4" *ngIf="isRecruiters">
-          <label for="clientName" class="form-label">Add New Client:</label>
+          <label for="clientName" class="form-label">Select Client Recruiters:</label>
           <div class="pt-4">
             <ng-multiselect-dropdown [placeholder]="'Select Recruiters'" [data]="recruitersArray" formControlName="recruitersName"
               [(ngModel)]="selectedrecruitersArray" [settings]="dropdownSettings">
@@ -167,7 +167,7 @@
       <div class="row" *ngIf="selectedRequirement">
         <div class="col-sm-4">
           <label for="team" class="form-label">Select Team:</label>
-          <select name="team" class="form-input" formControlName="team" ngModel="{{selectedRequirement.teamId}}"
+          <select name="team" class="form-input" formControlName="team" ngModel="{{teamName}}"
             (change)="selectTeam($event.target.value)" required>
             <option value="">Select</option>
             <option *ngFor="let team of teams" value="{{team.teamId}}">{{team.name}}</option>
@@ -219,10 +219,11 @@
     </div>
 
     <div class="btn-container mt-4 mb-2">
-      <button class="btn btn-forms btn-space" type="submit" [disabled]="!myForm.valid">Update Requirement</button>
+      <button class="btn btn-forms btn-space" type="submit" [disabled]="!myForm.valid">Update</button>
       <button [routerLink]="['/submission-by-requirement', requirementId]" class="btn btn-forms btn-space" type="submit">Submissions</button>
       <button class="btn btn-forms btn-space" [routerLink]="['/add-new-submission', requirementId]">Add New Submission</button>
       <button [routerLink]="[ '/requirements']" class="btn btn-forms">Cancel</button>
+      <!-- <button class="btn btn-forms ml-2" type="button" (click)="deleteRequirement(requirementId);">Delete</button> -->
     </div>
 
   </form>

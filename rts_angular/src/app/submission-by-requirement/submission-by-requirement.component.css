@@ -13,3 +13,9 @@
   text-transform: capitalize;
   color: rgb(70, 104, 117);
 }
+
+/* tr td:last-child {
+  color: blue;
+  text-decoration: none;
+} */
+

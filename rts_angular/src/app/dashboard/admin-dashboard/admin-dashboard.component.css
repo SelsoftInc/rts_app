@@ -1,3 +1,19 @@
 a.chart-button{
  color: #50b2eb;
 }
+
+/* table tbody {
+    display:block;
+    height:250px;
+    overflow:auto;
+}
+
+table thead,  tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+
+thead {
+    width: calc( 100% - 1em )
+} */

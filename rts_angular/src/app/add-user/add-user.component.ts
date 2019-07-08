@@ -82,12 +82,12 @@ export class AddUserComponent implements OnInit {
     this.userService.addUser(user)
       .subscribe(
         data => {
-          if (data.success) {
+            this.ngProgress.done();
+            if (data.success) {
             this.toastr.success('New User successfully added', '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
-            this.ngProgress.done();
             this.router.navigate(['manage-users']);
 
           } else {
@@ -95,7 +95,6 @@ export class AddUserComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
-            this.ngProgress.done();
           }
         });
 

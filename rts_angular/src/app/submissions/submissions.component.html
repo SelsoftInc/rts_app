@@ -62,7 +62,7 @@
             <select class="form-control" (change)="selectStatus($event.target.value)" [(ngModel)]="status">
               <option value="" selected>Select</option>
               <option value="selectAll">Select All</option>
-              <option *ngFor="let status of submissionStatus" value="{{status.value}}">{{status.name}}</option>
+              <option *ngFor="let status of submissionStatus" value="{{status.statusId}}">{{status.statusName}}</option>
             </select>
           </div>
 
@@ -92,7 +92,7 @@
         </div>
       </div>
       <div class="col-2 mt-3">
-        <div class="row">
+        <!-- <div class="row">
           <div *ngIf="!searchBox" class="col-6 width-200 height-50 submissions-tiny-chart">
             <ngx-charts-bar-vertical [view]="view" [animations]="false" [scheme]="colorScheme" [results]="chartData"
               [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
@@ -101,9 +101,9 @@
             </ngx-charts-bar-vertical>
           </div>
           <button *ngIf="!searchBox" class="btn btn-sm btn-primary mt-2" (click)="graphExpand();">Expand</button>
-        </div>
+        </div> -->
 
-        <div class="submissions search-container" *ngIf="searchBox">
+        <div class="submissions search-container">
           <input type="text" class="form-control mr-sm-2" placeholder="Search by Position Name" name="searchString "
             [(ngModel)]="searchString" (input)="filterItem($event.target.value)">
           <span class="search-icon">
@@ -158,7 +158,7 @@
               <td>{{submission.candidate.technology[0].technologyName}}</td>
               <td>{{submission.candidate.availability}}</td>
               <td>{{sub.location}}</td>
-              <td>{{submission.status}}</td>
+              <td>{{submission.submissionStatus.statusName}}</td>
               <td *ngIf="submission.submittedUser">{{submission.submittedUser.firstName}}
                 {{submission.submittedUser.lastName}}</td>
             </tr>
@@ -210,7 +210,7 @@
               <td>{{submission.candidate.technology[0].technologyName}}</td>
               <td>{{submission.candidate.availability}}</td>
               <td>{{sub.location}}</td>
-              <td>{{submission.status}}</td>
+              <td>{{submission.submissionStatus.statusName}}</td>
               <td *ngIf="submission.submittedUser">{{submission.submittedUser.firstName}}
                 {{submission.submittedUser.lastName}}</td>
             </tr>

@@ -50,8 +50,8 @@ export class JoiningDateComponent implements OnInit {
     this.submissonService.GetAllOnBoardReminder(userId)
       .subscribe(
         data => {
-          if (data.success) {
             this.ngProgress.done();
+            if (data.success) {
             this.onBoardCandidates = data.submissionReport;
             this.interviewsLength = this.onBoardCandidates.length;
             this.sortedData = this.onBoardCandidates.slice();

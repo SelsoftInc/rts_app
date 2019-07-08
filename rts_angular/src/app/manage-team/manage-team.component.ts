@@ -55,8 +55,8 @@ export class ManageTeamComponent implements OnInit {
     this.requirementService.commonDetails(companyId)
       .subscribe(
         data => {
+          this.ngProgress.done();
           if (data.success) {
-            this.ngProgress.done();
             this.teams = data.teams;
             this.teamLength = this.teams.length;
           }

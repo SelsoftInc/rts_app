@@ -22,11 +22,11 @@
       </thead>
       <tbody>
         <tr *ngFor="let submission of sortedData" [routerLink]="['/edit-submission', submission.submissionId]">
-          <td>{{submission.positionName}}</td>
-          <td>{{submission.candidateName}}</td>
-          <td>{{submission.clientName}}</td>
+          <td>{{submission.position.positionName}}</td>
+          <td>{{submission.candidate.name}}</td>
+          <td>{{submission.client.name}}</td>
           <td>{{submission.joiningDateStr | date: 'MMM d, y'}}</td>
-          <td>{{submission.recruiterName}}</td>
+          <td>{{submission.recruiter.firstName}} {{submission.recruiter.firstName}}</td>
           <td>{{submission.interviewDetailStatus}}</td>
         </tr>
       </tbody>
@@ -47,11 +47,11 @@
       </thead>
       <tbody>
         <tr *ngFor="let submission of sortedData" [routerLink]="['/recruiter-edit-submissions', submission.submissionId]">
-          <td>{{submission.positionName}}</td>
-          <td>{{submission.candidateName}}</td>
-          <td>{{submission.clientName}}</td>
+          <td>{{submission.position.positionName}}</td>
+          <td>{{submission.candidate.name}}</td>
+          <td>{{submission.client.name}}</td>
           <td>{{submission.joiningDateStr | date: 'MMM d, y'}}</td>
-          <td>{{submission.recruiterName}}</td>
+          <td>{{submission.recruiter.firstName}} {{submission.recruiter.firstName}}</td>
           <td>{{submission.interviewDetailStatus}}</td>
         </tr>
       </tbody>

@@ -31,6 +31,7 @@
               <th>Work Location</th>
               <th>Status</th>
               <th>Submitted By</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -40,8 +41,9 @@
               <td>{{submission.candidate.technology[0].technologyName}}</td>
               <td>{{submission.candidate.availability}}</td>
               <td>{{submission.candidate.location}}</td>
-              <td>{{submission.status}}</td>
+              <td>{{submission.submissionStatus.statusName}}</td>
               <td>{{submission.submittedUser.firstName}} {{submission.submittedUser.lastName}}</td>
+              <td (click)="$event.stopPropagation()"><button type="button" class="btn btn-secondary btn-sm" (click)="deleteSubmission(submission.submissionId);">Delete</button></td>
             </tr>
           </tbody>
         </table>
@@ -88,7 +90,7 @@
               <td>{{submission.candidate.technology[0].technologyName}}</td>
               <td>{{submission.candidate.availability}}</td>
               <td>{{submission.candidate.location}}</td>
-              <td>{{submission.status}}</td>
+              <td>{{submission.submissionStatus.statusName}}</td>
               <td>{{submission.submittedUser.firstName}} {{submission.submittedUser.lastName}}</td>
             </tr>
           </tbody>
@@ -138,7 +140,7 @@
               <td>{{submission.candidate.technology[0].technologyName}}</td>
               <td>{{submission.candidate.availability}}</td>
               <td>{{submission.candidate.location}}</td>
-              <td>{{submission.status}}</td>
+              <td>{{submission.submissionStatus.statusName}}</td>
               <td>{{submission.submittedUser.firstName}} {{submission.submittedUser.lastName}}</td>
             </tr>
           </tbody>
@@ -178,7 +180,7 @@
               <td>{{submission.candidate.technology[0].technologyName}}</td>
               <td>{{submission.candidate.availability}}</td>
               <td>{{submission.candidate.location}}</td>
-              <td>{{submission.status}}</td>
+              <td>{{submission.submissionStatus.statusName}}</td>
               <td>{{submission.submittedUser.firstName}} {{submission.submittedUser.lastName}}</td>
             </tr>
           </tbody>

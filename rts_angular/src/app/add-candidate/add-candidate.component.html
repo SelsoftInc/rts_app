@@ -1,5 +1,5 @@
 <h2 class="main-title">
-  <a [routerLink]="['/manage-candidate']">Manage Candidates</a> / Add New Candidate</h2>
+  <a [routerLink]="['/search-candidates']">Manage Candidates</a> / Add New Candidate</h2>
 <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
   [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
 </ng-progress>
@@ -54,7 +54,7 @@
             <label for="immigirationStatus" class="form-label">Immigiration Status:</label>
           </div>
           <mat-radio-group (change)="getImmigiration($event.source.value)" formControlName="immigirationStatus">
-            <mat-radio-button *ngFor="let data of immigration" [value]="data.visaId">{{data.visaName}}
+            <mat-radio-button *ngFor="let data of immigration" [value]="data.visaStatusId">{{data.visaName}}
             </mat-radio-button>
           </mat-radio-group>
         </div>
@@ -244,7 +244,7 @@
 
       <div class="form-btn-container">
         <button class="btn btn-forms btn-space" type="submit">Add Candidate</button>
-        <button [routerLink]="[ '/manage-candidate']" class="btn btn-forms">Cancel</button>
+        <button [routerLink]="[ '/search-candidates']" class="btn btn-forms">Cancel</button>
       </div>
 
     </div>

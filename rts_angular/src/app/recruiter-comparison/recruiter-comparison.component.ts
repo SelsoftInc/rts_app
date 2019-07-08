@@ -63,7 +63,7 @@ export class RecruiterComparisonComponent implements OnInit {
           if (data.success) {
             this.ngProgress.done();
             this.recruiterComparison = data.recruiterSubmissions;
-            this.selectedUser = _.findWhere(this.recruiterComparison, { userId: this.userId });
+            this.selectedUser = _.findWhere(this.recruiterComparison, { userId: parseInt(this.userId) });
             this.userName = this.selectedUser.name;
             for (const series of this.selectedUser.series) {
               if (series.name === this.status) {
