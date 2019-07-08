@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { NgProgress } from 'ngx-progressbar';
 import { Sort } from '@angular/material';
 import { GraphExpansationComponent } from '../../graph-expansation/graph-expansation.component';
+import { subtract } from 'ngx-bootstrap/chronos';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -85,6 +86,7 @@ export class AdminDashboardComponent implements OnInit {
   sortedRecruiterComparationData: any[];
   sortTeamData: any;
   sortTeamComparisonData: any;
+  minDate: Date;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -96,6 +98,7 @@ export class AdminDashboardComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.startDate = new Date(Date.now());
     this.currentDate = new Date(Date.now());
+    this.minDate = new Date(new Date().getTime() - 90 * 24 * 60 * 60 * 1000);
   }
 
   ngOnInit() {

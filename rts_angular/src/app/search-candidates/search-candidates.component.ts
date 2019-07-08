@@ -58,8 +58,8 @@ export class SearchCandidatesComponent implements OnInit {
     this.requirementService.commonDetails(companyId)
       .subscribe(
         data => {
-            this.ngProgress.done();
-            if (data.success) {
+          this.ngProgress.done();
+          if (data.success) {
             this.technologies = data.technologies;
           }
         });
@@ -69,28 +69,34 @@ export class SearchCandidatesComponent implements OnInit {
     this.ngProgress.start();
     const technology = []
     SearchCandidatesComponent.technology = this.selected;
-    for (const techId of this.selected) {
-      technology.push({ technologyId: techId })
-    }
-    const submit = {
-      technology: technology,
-      companyId: this.rtsCompanyId
-    }
+    if (this.selected.length > 0) {      
+      for (const techId of this.selected) {
+        technology.push({ technologyId: techId })
+      }
+      const submit = {
+        technology: technology,
+        companyId: this.rtsCompanyId
+      }
 
-    this.candidateService.getCandidateByTechnology(submit)
-      .subscribe(
-        data => {
-          this.ngProgress.done();
-          if (data.success) {
-            this.selectedCandidates = data.candidates;
-            this.candidateLength = this.selectedCandidates.length;
-          } else {
-            this.toastr.error(data.message, '', {
-              positionClass: 'toast-top-center',
-              timeOut: 3000,
-            });
-          }
-        });
+      this.candidateService.getCandidateByTechnology(submit)
+        .subscribe(
+          data => {
+            this.ngProgress.done();
+            if (data.success) {
+              this.selectedCandidates = data.candidates;
+              this.candidateLength = this.selectedCandidates.length;
+            } else {
+              this.toastr.error(data.message, '', {
+                positionClass: 'toast-top-center',
+                timeOut: 3000,
+              });
+            }
+          });
+    } else {
+      this.ngProgress.done();
+      this.selectedCandidates = [];
+      this.candidateLength = this.selectedCandidates.length;
+    }
   }
 
   sendMail() {

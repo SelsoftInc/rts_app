@@ -57,6 +57,7 @@ export class AccMgrDashboardComponent implements OnInit {
   interviewReport: any;
   interviewReportLength: any;
   sortedData: any;
+  minDate: Date;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -68,6 +69,7 @@ export class AccMgrDashboardComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.startDate = new Date(Date.now());
     this.currentDate = new Date(Date.now());
+    this.minDate = new Date(new Date().getTime() - 90 * 24 * 60 * 60 * 1000);
   }
 
   ngOnInit() {
