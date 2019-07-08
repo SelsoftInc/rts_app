@@ -105,7 +105,7 @@
         <label class="form-label">Immigration Requirement:</label>
         <div class="checkbox-wrapper">
           <span class="checkbox-container" *ngFor="let data of immigration" ng-checked="selctedVisaStatus.indexOf(data.visaId) != 1">
-            <mat-checkbox color="primary" (change)="getCheckedImmigrationValue(data.visaId)" [value]="data.visaId">{{data.visaName}}</mat-checkbox>
+            <mat-checkbox color="primary" (change)="getCheckedImmigrationValue(data.visaStatusId)" [value]="data.visaStatusId">{{data.visaName}}</mat-checkbox>
           </span>
           <mat-checkbox color="primary" value="other" (change)="getOtherImmigration($event)">OTHER</mat-checkbox>
         </div>
@@ -129,7 +129,7 @@
         </select>
       </div>
       <div class="col-sm-4" *ngIf="isRecruiters">
-        <label for="clientName" class="form-label">Select Recruiters:</label>
+        <label for="clientName" class="form-label">Select Client Recruiters:</label>
         <div class="pt-4">
           <ng-multiselect-dropdown [placeholder]="'Select Recruiters'" [data]="recruitersArray" formControlName="recruitersName"
             [(ngModel)]="selectedRecruites" [settings]="dropdownSettings">
@@ -204,7 +204,7 @@
     <div class="btn-container mt-4 mb-2">
       <button class="btn btn-forms btn-space" type="submit" [disabled]="!myForm.valid">Add Requirement</button>
       <button [routerLink]="[ '/requirements']" class="btn btn-forms btn-space">Cancel</button>
-      <button type="button" class="btn btn-forms" (click)="saveFormData(myForm)">Save</button>
+      <!-- <button type="button" class="btn btn-forms" (click)="saveFormData(myForm)">Save</button> -->
     </div>
 
   </form>

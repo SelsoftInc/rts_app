@@ -36,25 +36,25 @@ export class RequirementsService {
             });
     }
 
-    requirementsDetailsForStatus(userId) {
-        const token = localStorage.getItem('id_token');
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        headers.append('Authorization', token);
+    // requirementsDetailsForStatus(userId) {
+    //     const token = localStorage.getItem('id_token');
+    //     const headers = new Headers();
+    //     headers.append('Content-Type', 'application/json');
+    //     headers.append('Authorization', token);
 
-        return this.http.post(ApiUrl.BaseUrl + ApiUrl.GetRequirementForStatus, userId,
-            { headers: headers })
-            .map(res => {
-                const responseToken = res.headers.get('refresh-token');
-                localStorage.setItem('id_token', responseToken);
-                return res.json();
-            }).catch(err => {
-                if (err.status === 401) {
-                    this.loginService.logout();
-                }
-                return '{}';
-            });
-    }
+    //     return this.http.post(ApiUrl.BaseUrl + ApiUrl.GetRequirementForStatus, userId,
+    //         { headers: headers })
+    //         .map(res => {
+    //             const responseToken = res.headers.get('refresh-token');
+    //             localStorage.setItem('id_token', responseToken);
+    //             return res.json();
+    //         }).catch(err => {
+    //             if (err.status === 401) {
+    //                 this.loginService.logout();
+    //             }
+    //             return '{}';
+    //         });
+    // }
 
     requirementsDetailsForTeam(userId) {
         const token = localStorage.getItem('id_token');
@@ -96,25 +96,25 @@ export class RequirementsService {
             });
     }
 
-    requirementsDetailsForClient(userId) {
-        const token = localStorage.getItem('id_token');
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        headers.append('Authorization', token);
+    // requirementsDetailsForClient(userId) {
+    //     const token = localStorage.getItem('id_token');
+    //     const headers = new Headers();
+    //     headers.append('Content-Type', 'application/json');
+    //     headers.append('Authorization', token);
 
-        return this.http.post(ApiUrl.BaseUrl + ApiUrl.GetRequirementForClient, userId,
-            { headers: headers })
-            .map(res => {
-                const responseToken = res.headers.get('refresh-token');
-                localStorage.setItem('id_token', responseToken);
-                return res.json();
-            }).catch(err => {
-                if (err.status === 401) {
-                    this.loginService.logout();
-                }
-                return '{}';
-            });
-    }
+    //     return this.http.post(ApiUrl.BaseUrl + ApiUrl.GetRequirementForClient, userId,
+    //         { headers: headers })
+    //         .map(res => {
+    //             const responseToken = res.headers.get('refresh-token');
+    //             localStorage.setItem('id_token', responseToken);
+    //             return res.json();
+    //         }).catch(err => {
+    //             if (err.status === 401) {
+    //                 this.loginService.logout();
+    //             }
+    //             return '{}';
+    //         });
+    // }
 
     requirementsDetailsForRecruiter(userId) {
         const token = localStorage.getItem('id_token');
@@ -236,25 +236,25 @@ export class RequirementsService {
             });
     }
 
-    saveRequirement(saveRequirement) {
-        const token = localStorage.getItem('id_token');
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        headers.append('Authorization', token);
+    // saveRequirement(saveRequirement) {
+    //     const token = localStorage.getItem('id_token');
+    //     const headers = new Headers();
+    //     headers.append('Content-Type', 'application/json');
+    //     headers.append('Authorization', token);
 
-        return this.http.post(ApiUrl.BaseUrl + ApiUrl.SaveRequirement, saveRequirement,
-            { headers: headers })
-            .map(res => {
-                const responseToken = res.headers.get('refresh-token');
-                localStorage.setItem('id_token', responseToken);
-                return res.json();
-            }).catch(err => {
-                if (err.status === 401) {
-                    this.loginService.logout();
-                }
-                return '{}';
-            });
-    }
+    //     return this.http.post(ApiUrl.BaseUrl + ApiUrl.SaveRequirement, saveRequirement,
+    //         { headers: headers })
+    //         .map(res => {
+    //             const responseToken = res.headers.get('refresh-token');
+    //             localStorage.setItem('id_token', responseToken);
+    //             return res.json();
+    //         }).catch(err => {
+    //             if (err.status === 401) {
+    //                 this.loginService.logout();
+    //             }
+    //             return '{}';
+    //         });
+    // }
 
     updateRequirement(editRequirement) {
         const token = localStorage.getItem('id_token');

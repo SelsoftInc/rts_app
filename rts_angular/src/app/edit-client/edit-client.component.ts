@@ -22,7 +22,7 @@ export class EditClientComponent implements OnInit {
   private rtsCompanyId: any;
 
   public myForm: FormGroup;
-  private clients: any;
+  // private clients: any;
   private clientId: any;
   private selectedClient: any;
   private phoneNumber: any;
@@ -105,26 +105,27 @@ export class EditClientComponent implements OnInit {
   }
 
   getAllClients() {
-    const companyId = {
-      companyId: this.rtsCompanyId
+    const client = {
+      clientId: this.clientId
     };
 
-    this.clientService.allClients(companyId)
+    this.clientService.getClientById(client)
       .subscribe(
         data => {
           if (data.success) {
             this.ngProgress.done();
-            this.clients = data.clients;
-            this.selectedClient = _.findWhere(this.clients, { clientId: this.clientId });
+            this.selectedClient = data.client;
+            // this.selectedClient = _.findWhere(this.clients, { clientId: parseInt(this.clientId) });
+            // console.log(this.selectedClient)
             const control = <FormArray>this.myForm.controls['units'];
-            for (const recruiter of this.selectedClient.toClientRecuriters) {
+            for (const recruiter of this.selectedClient.clientRecruiters) {
               control.push(this.formBuilder.group(recruiter));
             }
             const CcControl = <FormArray>this.myForm.controls['ccUnits'];
-            for (const ccRecruiter of this.selectedClient.ccRecuriters) {
+            for (const ccRecruiter of this.selectedClient.ccRecruiters) {
               CcControl.push(this.formBuilder.group(ccRecruiter));
             }
-            if (this.selectedClient.ccRecuriters.length === 0) {
+            if (this.selectedClient.ccRecruiters.length === 0) {
               CcControl.push(this.initCcUnits());
             }
             this.name = this.selectedClient.name;
@@ -150,15 +151,15 @@ export class EditClientComponent implements OnInit {
       email: form.value.email,
       phoneNumber: form.value.phoneNumber,
       enteredBy: this.rtsUserId,
-      clientId: this.clientId,
-      toClientRecuriters: form.value.units,
+      clientId: parseInt(this.clientId),
+      clientRecruiters: form.value.units,
     };
 
     if (form.value.ccUnits[0].name === '' || form.value.ccUnits[0].email === '') {
-      editClient.ccRecuriters = [];
+      editClient.ccRecruitersJSON = [];
       this.isCcEmpty = false;
     } else {
-      editClient.ccRecuriters = form.value.ccUnits;
+      editClient.ccRecruitersJSON = form.value.ccUnits;
     }
 
     if (this.isCcEmpty) {
@@ -170,12 +171,12 @@ export class EditClientComponent implements OnInit {
       return false;
     }
 
-    const client = {
-      client: editClient,
-      deletedRecuriters: this.deletedRecruiter
-    };
+    // const client = {
+    //   client: editClient,
+    //   deletedRecuriters: this.deletedRecruiter
+    // };
 
-    this.clientService.editClient(client)
+    this.clientService.editClient(editClient)
       .subscribe(
         data => {
           if (data.success) {

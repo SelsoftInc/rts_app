@@ -15,26 +15,26 @@
           <th mat-sort-header="candidateName">Candidate Name</th>
           <th mat-sort-header="clientName">Client Name</th>
           <th mat-sort-header="InterviewDateTime">Interview Date & Time</th>
-          <th mat-sort-header="InterviewLevel">Interview level</th>
           <th mat-sort-header="recruiterName">Recruiter Name</th>
           <th mat-sort-header="skype">Skype</th>
           <th mat-sort-header="phoneNumber">Phone Number</th>
           <th mat-sort-header="currentStatus">Current Status</th>
+          <th mat-sort-header="interviewStatus">Interview Status</th>
           <th mat-sort-header="submissionStatus">Submission Status</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let submission of sortedData" [routerLink]="['/edit-submission', submission.submissionId]">
-          <td>{{submission.positionName}}</td>
-          <td>{{submission.candidateName}}</td>
-          <td>{{submission.clientName}}</td>
+          <td>{{submission.position.positionName}}</td>
+          <td>{{submission.candidate.name}}</td>
+          <td>{{submission.client.name}}</td>
           <td>{{submission.interviewDateStr | date: 'MMM d, y, hh:mm a'}}</td>
-          <td>{{submission.interviewLevel}}</td>
-          <td>{{submission.recruiterName}}</td>
-          <td>{{submission.skypeId}}</td>
-          <td>{{submission.phoneNumber}}</td>
+          <td>{{submission.recruiter.firstName}} {{submission.recruiter.lastName}}</td>
+          <td>{{submission.candidate.skype}}</td>
+          <td>{{submission.candidate.phoneNumber}}</td>
           <td>{{submission.currentStatus}}</td>
           <td>{{submission.interviewStatus}}</td>
+          <td>{{submission.status.statusName}}</td>
         </tr>
       </tbody>
     </table>
@@ -48,26 +48,26 @@
           <th mat-sort-header="candidateName">Candidate Name</th>
           <th mat-sort-header="clientName">Client Name</th>
           <th mat-sort-header="InterviewDateTime">Interview Date & Time</th>
-          <th mat-sort-header="InterviewLevel">Interview level</th>
           <th mat-sort-header="recruiterName">Recruiter Name</th>
           <th mat-sort-header="skype">Skype</th>
           <th mat-sort-header="phoneNumber">Phone Number</th>
           <th mat-sort-header="currentStatus">Current Status</th>
+          <th mat-sort-header="interviewStatus">Interview Status</th>
           <th mat-sort-header="submissionStatus">Submission Status</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let submission of sortedData" [routerLink]="['/recruiter-edit-submissions', submission.submissionId]">
-          <td>{{submission.positionName}}</td>
-          <td>{{submission.candidateName}}</td>
-          <td>{{submission.clientName}}</td>
+          <td>{{submission.position.positionName}}</td>
+          <td>{{submission.candidate.name}}</td>
+          <td>{{submission.client.name}}</td>
           <td>{{submission.interviewDateStr | date: 'MMM d, y, hh:mm a'}}</td>
-          <td>{{submission.interviewLevel}}</td>
-          <td>{{submission.recruiterName}}</td>
-          <td>{{submission.skypeId}}</td>
-          <td>{{submission.phoneNumber}}</td>
+          <td>{{submission.recruiter.firstName}} {{submission.recruiter.lastName}}</td>
+          <td>{{submission.candidate.skype}}</td>
+          <td>{{submission.candidate.phoneNumber}}</td>
           <td>{{submission.currentStatus}}</td>
           <td>{{submission.interviewStatus}}</td>
+          <td>{{submission.status.statusName}}</td>
         </tr>
       </tbody>
     </table>

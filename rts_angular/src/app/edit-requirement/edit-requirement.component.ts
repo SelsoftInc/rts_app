@@ -9,6 +9,8 @@ import { UserService } from '../Services/user.service';
 import { ClientService } from '../Services/client.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgProgress } from 'ngx-progressbar';
+import { DeleteRequirementComponent } from '../delete-requirement/delete-requirement.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-edit-requirement',
@@ -58,6 +60,7 @@ export class EditRequirementComponent implements OnInit {
   private dropdownSettingsForAllocationUsers: any;
   private multiSelectUsers: any[];
   private selectedAllocationUsers: any;
+  teamName: any;
 
   constructor(private loggedUser: LoggedUserService,
     private requirementService: RequirementsService,
@@ -67,6 +70,7 @@ export class EditRequirementComponent implements OnInit {
     private userService: UserService,
     private clientService: ClientService,
     private formBuilder: FormBuilder,
+    private dialog: MatDialog,
     private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
@@ -191,10 +195,10 @@ export class EditRequirementComponent implements OnInit {
             this.ngProgress.done();
             this.selectedRequirement = data.requirement;
             this.requirementCreatedDate = moment(this.selectedRequirement.createdOn).format('MMM D, Y');
-            this.requirementByUser = this.selectedRequirement.requirementType;
+            this.requirementByUser = this.selectedRequirement.requirementTypes;
             this.selctedVisaStatus = this.selectedRequirement.visaStatus;
             if (this.selectedRequirement.team !== undefined) {
-              this.selectedTeam = _.findWhere(this.teams, { teamId: this.selectedRequirement.teamId });
+              this.selectedTeam = _.findWhere(this.teams, { teamId: this.selectedRequirement.team.teamId });
               if (this.selectedTeam.leadUser !== undefined) {
                 this.selectedTeamUsers.push(this.selectedTeam.leadUser);
               }
@@ -203,13 +207,20 @@ export class EditRequirementComponent implements OnInit {
               }
             }
             this.isRecruiters = true;
-            this.accountName = this.selectedRequirement.accountId;
-            for (const recruiter of this.selectedRequirement.client.toClientRecuriters) {
-              this.recruitersArray.push({ user: recruiter.clientRecuriterId, firstName: recruiter.name });
+            this.accountName = this.selectedRequirement.account.accountId;
+            this.teamName = this.selectedRequirement.team.teamId
+            for (const client of this.clients) {
+              if (client.clientId == this.selectedRequirement.client.clientId) {
+                this.selectedClient = client;
+              }
             }
-            for (const value of this.selectedRequirement.toClientRecuriters) {
-              this.selectedrecruitersArray.push({ user: value.clientRecuriterId, firstName: value.name });
+            for (const recruiter of this.selectedClient.clientRecruiters) {
+              this.recruitersArray.push({ user: recruiter.clientRecruiterId, firstName: recruiter.name });
             }
+            for (const value of this.selectedRequirement.toClientRecruiters) {
+              this.selectedrecruitersArray.push({ user: value.clientRecruiterId, firstName: value.name });
+            }
+
             for (const value of this.requirementByUser) {
               if (value === 'C2C') {
                 this.myForm.controls.C2C.setValue('C2C');
@@ -223,13 +234,13 @@ export class EditRequirementComponent implements OnInit {
             }
             for (const visa of this.selctedVisaStatus) {
               for (const immigration of this.immigration) {
-                if (_.isEqual(visa.visaId, immigration.visaId)) {
+                if (_.isEqual(visa.visaStatusId, immigration.visaStatusId)) {
                   immigration.isChecked = true;
                 }
               }
             }
             for (const ids of this.selctedVisaStatus) {
-              this.immigrationByUser.push(ids.visaId);
+              this.immigrationByUser.push(ids.visaStatusId);
             }
 
             for (const user of this.selectedTeamUsers) {
@@ -300,7 +311,7 @@ export class EditRequirementComponent implements OnInit {
     if (event !== '') {
       this.selectedTeamUsers = [];
       this.multiSelectUsers = [];
-      this.selectedTeam = _.findWhere(this.teams, { teamId: event });
+      this.selectedTeam = _.findWhere(this.teams, { teamId: parseInt(event) });
       this.selectedTeamUsers.push(this.selectedTeam.leadUser);
       for (const user of this.selectedTeam.otherUsers) {
         this.selectedTeamUsers.push(user);
@@ -308,8 +319,12 @@ export class EditRequirementComponent implements OnInit {
       for (const user of this.selectedTeamUsers) {
         this.multiSelectUsers.push({ userId: user.userId, firstName: user.firstName + ' ' + user.lastName });
       }
-      console.log(this.multiSelectUsers);
     }
+    this.deSelectAllAllocationUsers();
+  }
+
+  deSelectAllAllocationUsers() {
+    this.myForm.controls.allocation.setValue([]);
   }
 
   getClientRecruiters(event) {
@@ -317,9 +332,9 @@ export class EditRequirementComponent implements OnInit {
     this.selectedRecruites = [];
     if (event !== undefined) {
       this.isRecruiters = true;
-      this.selectedClient = _.findWhere(this.clients, { clientId: event });
-      for (const recruiter of this.selectedClient.toClientRecuriters) {
-        this.recruitersArray.push({ user: recruiter.clientRecuriterId, firstName: recruiter.name });
+      this.selectedClient = _.findWhere(this.clients, { clientId: parseInt(event) });
+      for (const recruiter of this.selectedClient.clientRecruiters) {
+        this.recruitersArray.push({ user: recruiter.clientRecruiterId, firstName: recruiter.name });
       }
     }
     this.deSelectAll();
@@ -329,16 +344,30 @@ export class EditRequirementComponent implements OnInit {
     this.myForm.controls.recruitersName.setValue('');
   }
 
+  deleteRequirement(id) {
+    const dialogRef = this.dialog.open(DeleteRequirementComponent, {
+      width: '500px',
+      data: { requirementId: id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('result', result);
+      // this.router.navigate(['requirements']);
+    });
+
+  }
+
   updateRequirement(form: FormGroup) {
 
     this.ngProgress.start();
     const selectedRecruitersId = [];
     for (const clientRecruiters of this.selectedrecruitersArray) {
-      selectedRecruitersId.push({ clientRecuriterId: clientRecruiters.user });
+      selectedRecruitersId.push({ clientRecruiterId: clientRecruiters.user });
     }
+
     const selectedImmigration = [];
     for (const label of this.immigrationByUser) {
-      selectedImmigration.push({ visaId: label });
+      selectedImmigration.push({ visaStatusId: label });
     }
     if (this.isOtherImmigration) {
       selectedImmigration.push({ visaName: form.value.otherImmigration });
@@ -347,23 +376,20 @@ export class EditRequirementComponent implements OnInit {
     const requirement: any = {
       priority: form.value.priority,
       location: form.value.location,
-      requirementType: this.requirementByUser,
+      requirementTypes: this.requirementByUser,
       visaStatus: selectedImmigration,
       positionCount: parseInt(form.value.positionsCount, 0),
       status: form.value.status,
       enteredBy: this.rtsUserId,
-      clientId: form.value.clientName,
+      clientId: parseInt(form.value.clientName),
       allocationUsers: this.selectedAllocationUsers,
       clientRate: form.value.clientRate,
       sellingRate: form.value.sellingRate,
       jobDescription: form.value.jobDescription,
-      requirementId: this.requirementId,
-      teamId: form.value.team,
+      requirementId: parseInt(this.requirementId),
+      teamId: parseInt(form.value.team),
       note: form.value.notes,
-      client: {
-        clientId: form.value.clientName,
-        toClientRecuriters: selectedRecruitersId
-      }
+      toClientRecruiters: selectedRecruitersId
     };
 
     if (form.value.positionName === 'other') {
@@ -371,7 +397,7 @@ export class EditRequirementComponent implements OnInit {
         positionName: form.value.otherPositionName
       };
     } else {
-      requirement.positionId = form.value.positionName;
+      requirement.positionId = parseInt(form.value.positionName);
     }
 
     if (form.value.accountName === 'other') {
@@ -379,7 +405,7 @@ export class EditRequirementComponent implements OnInit {
         accountName: form.value.otherAccountName
       };
     } else {
-      requirement.accountId = form.value.accountName;
+      requirement.accountId = parseInt(form.value.accountName);
     }
 
     if (form.value.technologies === 'other') {
@@ -388,7 +414,7 @@ export class EditRequirementComponent implements OnInit {
       }];
     } else {
       requirement.technology = [{
-        technologyId: form.value.technologies
+        technologyId: parseInt(form.value.technologies)
       }];
     }
 
@@ -397,20 +423,18 @@ export class EditRequirementComponent implements OnInit {
     this.requirementService.updateRequirement(this.editRequirement)
       .subscribe(
         data => {
+          this.ngProgress.done();
           if (data.success) {
             this.toastr.success('Requirement Update successfully', '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
-            this.ngProgress.done();
             this.router.navigate(['requirements']);
-
           } else {
             this.toastr.error(data.message, '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
-            this.ngProgress.done();
           }
         });
   }

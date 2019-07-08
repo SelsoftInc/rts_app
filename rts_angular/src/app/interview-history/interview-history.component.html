@@ -34,7 +34,7 @@
               <option value="team">Team</option>
               <option value="client">Client</option>
               <option value="recruiter">Recruiter</option>
-              <option value="interviewStatus">Interview Status</option>
+              <!-- <option value="interviewStatus">Interview Status</option> -->
             </select>
           </div>
 
@@ -62,7 +62,7 @@
             </select>
           </div>
 
-          <div *ngIf="isInterviewStatus" class="col-6 width-200">
+          <!-- <div *ngIf="isInterviewStatus" class="col-6 width-200">
             <select class="form-control" (change)="selectInterviewStatus($event.target.value)" [(ngModel)]="interviewStatus">
               <option value="" selected>Select</option>
               <option value="selectAll">Select All</option>
@@ -70,7 +70,7 @@
               <option value="HOLD">Hold</option>
               <option value="CLOSED">Closed</option>
             </select>
-          </div>
+          </div> -->
         </div>
       </div>
 
@@ -89,26 +89,26 @@
           <th mat-sort-header="candidateName">Candidate Name</th>
           <th mat-sort-header="clientName">Client Name</th>
           <th mat-sort-header="InterviewDateTime">Interview Date & Time</th>
-          <th mat-sort-header="InterviewLevel">Interview level</th>
+          <!-- <th mat-sort-header="InterviewLevel">Interview level</th> -->
+          <th mat-sort-header="InterviewStatus">Interview Status</th>
           <th mat-sort-header="recruiterName">Recruiter Name</th>
           <th mat-sort-header="skype">Skype</th>
           <th mat-sort-header="phoneNumber">Phone Number</th>
-          <th mat-sort-header="currentStatus">Current Status</th>
-          <th mat-sort-header="submissionStatus">Submission Status</th>
+          <th mat-sort-header="currentStatus">Current Status</th>         
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let submission of sortedData" [routerLink]="['/edit-submission', submission.submissionId]">
-          <td>{{submission.positionName}}</td>
-          <td>{{submission.candidateName}}</td>
-          <td>{{submission.clientName}}</td>
+          <td>{{submission.position.positionName}}</td>
+          <td>{{submission.candidate.name}}</td>
+          <td>{{submission.client.name}}</td>
           <td>{{submission.interviewDateStr | date: 'MMM d, y, hh:mm a'}}</td>
-          <td>{{submission.interviewLevel}}</td>
-          <td>{{submission.recruiterName}}</td>
-          <td>{{submission.skypeId}}</td>
-          <td>{{submission.phoneNumber}}</td>
-          <td>{{submission.currentStatus}}</td>
+          <!-- <td>{{submission.interviewLevel}}</td> -->
           <td>{{submission.interviewStatus}}</td>
+          <td>{{submission.recruiter.firstName}} {{submission.recruiter.lastName}}</td>
+          <td>{{submission.candidate.skype}}</td>
+          <td>{{submission.candidate.phoneNumber}}</td>
+          <td>{{submission.currentStatus}}</td>       
         </tr>
       </tbody>
     </table>
@@ -122,26 +122,26 @@
           <th mat-sort-header="candidateName">Candidate Name</th>
           <th mat-sort-header="clientName">Client Name</th>
           <th mat-sort-header="InterviewDateTime">Interview Date & Time</th>
-          <th mat-sort-header="InterviewLevel">Interview level</th>
+          <!-- <th mat-sort-header="InterviewLevel">Interview level</th> -->
+          <th mat-sort-header="InterviewStatus">Interview Status</th>
           <th mat-sort-header="recruiterName">Recruiter Name</th>
           <th mat-sort-header="skype">Skype</th>
           <th mat-sort-header="phoneNumber">Phone Number</th>
           <th mat-sort-header="currentStatus">Current Status</th>
-          <th mat-sort-header="submissionStatus">Submission Status</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let submission of sortedData" [routerLink]="['/recruiter-edit-submissions', submission.submissionId]">
-          <td>{{submission.positionName}}</td>
-          <td>{{submission.candidateName}}</td>
-          <td>{{submission.clientName}}</td>
+          <td>{{submission.position.positionName}}</td>
+          <td>{{submission.candidate.name}}</td>
+          <td>{{submission.client.name}}</td>
           <td>{{submission.interviewDateStr | date: 'MMM d, y, hh:mm a'}}</td>
-          <td>{{submission.interviewLevel}}</td>
-          <td>{{submission.recruiterName}}</td>
-          <td>{{submission.skypeId}}</td>
-          <td>{{submission.phoneNumber}}</td>
-          <td>{{submission.currentStatus}}</td>
+          <!-- <td>{{submission.interviewLevel}}</td> -->
           <td>{{submission.interviewStatus}}</td>
+          <td>{{submission.recruiter.firstName}} {{submission.recruiter.lastName}}</td>
+          <td>{{submission.candidate.skype}}</td>
+          <td>{{submission.candidate.phoneNumber}}</td>
+          <td>{{submission.currentStatus}}</td>
         </tr>
       </tbody>
     </table>

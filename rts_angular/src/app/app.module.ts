@@ -16,7 +16,7 @@ import { SubmissionsComponent } from './submissions/submissions.component';
 import { HideComponentService } from './Services/hide-component.service';
 import { RequirementsService } from './Services/requirements.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDatepickerModule, MatSnackBarModule, MatNativeDateModule, matSnackBarAnimations, MatCheckboxModule } from '@angular/material';
+import { MatDatepickerModule, MatSnackBarModule, MatNativeDateModule, matSnackBarAnimations, MatCheckboxModule, MatAutocomplete, MatOption, MatAutocompleteModule, MatOptionModule } from '@angular/material';
 import { MatFormFieldModule, MatSlideToggleModule, MatIconModule } from '@angular/material';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material';
@@ -88,6 +88,15 @@ import { SnackbarComponentComponent } from './snackbar-component/snackbar-compon
 import { InProgressInterviewsComponent } from './in-progress-interviews/in-progress-interviews.component';
 import { JoiningDateComponent } from './joining-date/joining-date.component';
 import { SelectedSubmissionComponent } from './selected-submission/selected-submission.component';
+import { SearchCandidatesComponent } from './search-candidates/search-candidates.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { SendMailComponent } from './send-mail/send-mail.component';
+import { DeleteRequirementComponent } from './delete-requirement/delete-requirement.component';
+import { DeleteSubmissionComponent } from './delete-submission/delete-submission.component';
+import { SearchCandidateEmailComponent } from './search-candidate-email/search-candidate-email.component';
+import { ClipboardModule } from 'ngx-clipboard';
+import { VendorMailComponent } from './vendor-mail/vendor-mail.component';
+import { VendorService } from './Services/vendor.service';
 
 
 @NgModule({
@@ -138,6 +147,12 @@ import { SelectedSubmissionComponent } from './selected-submission/selected-subm
     InProgressInterviewsComponent,
     JoiningDateComponent,
     SelectedSubmissionComponent,
+    SearchCandidatesComponent,
+    SendMailComponent,
+    DeleteRequirementComponent,
+    DeleteSubmissionComponent,
+    SearchCandidateEmailComponent,
+    VendorMailComponent,
   ],
   imports: [
     BrowserModule,
@@ -150,17 +165,19 @@ import { SelectedSubmissionComponent } from './selected-submission/selected-subm
     MatSnackBarModule,
     MatDatepickerModule,
     MatInputModule,
+    MatAutocompleteModule,MatOptionModule,
     MatCheckboxModule,
     NativeDateModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    Ng2SearchPipeModule,
+    Ng2SearchPipeModule,NgSelectModule,
     ToastrModule.forRoot(),
     NgMultiSelectDropDownModule.forRoot(),
     MatIconModule,
     MatRadioModule,
     NgxChartsModule,
     MatSortModule,
+    ClipboardModule,
     NgxEditorModule,
     Ng4LoadingSpinnerModule,
     NgProgressModule,
@@ -186,6 +203,7 @@ import { SelectedSubmissionComponent } from './selected-submission/selected-subm
     TeamService,
     ToastrService,
     GraphService,
+    VendorService,
     MessagingService,
     AsyncPipe,
     DatePipe],

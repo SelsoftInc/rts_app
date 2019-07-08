@@ -470,12 +470,12 @@ export class AdminDashboardComponent implements OnInit {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'positionName': return this.compare(a.positionName, b.positionName, isAsc);
-        case 'candidateName': return this.compare(a.candidateName, b.candidateName, isAsc);
-        case 'clientName': return this.compare(a.clientName, b.clientName, isAsc);
+        case 'candidateName': return this.compare(a.name, b.name, isAsc);
+        case 'clientName': return this.compare(a.name, b.name, isAsc);
         case 'InterviewDateTime': return this.compare(a.interviewDateStr, b.interviewDateStr, isAsc);
         case 'InterviewLevel': return this.compare(a.interviewLevel, b.interviewLevel, isAsc);
-        case 'recruiterName': return this.compare(a.recruiterName, b.recruiterName, isAsc);
-        case 'skype': return this.compare(a.skypeId, b.skypeId, isAsc);
+        case 'recruiterName': return this.compare(a.firstName, b.firstName, isAsc);
+        case 'skype': return this.compare(a.skype, b.skype, isAsc);
         case 'phoneNumber': return this.compare(a.phoneNumber, b.phoneNumber, isAsc);
         default: return 0;
       }

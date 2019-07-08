@@ -1,0 +1,79 @@
+<!-- <div class="sub-nav-wrapper">
+  <a class="sub-nav-link">Add New Vendor</a>
+</div> -->
+
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
+</ng-progress>
+
+<h2 class="main-title">Search Vendors</h2>
+<div class="utility-container">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-10 mb-2">
+        <ng-select [items]="vendorsList" bindLabel="name" bindValue="vendorId" [multiple]="true" 
+          placeholder="Search Vendors" [(ngModel)]="selected">
+          <!-- <ng-template ng-header-tmp>
+
+            <div>
+              <button class="btn btn-link" (click)="onSelectAll()">Select All</button>
+              <button class="btn btn-link" (click)="onClearAll()">Clear All</button>
+            </div>
+
+          </ng-template> -->
+        </ng-select>
+      </div>
+      <div class="col-2">
+        <button class="btn btn-sm btn-primary" (click)="getVendor();">Search</button>
+        <!-- <button *ngIf="candidateLength > 0" class="btn btn-sm btn-primary ml-2" (click)="sendMail();">Send Email</button> -->
+      </div>
+    </div>
+
+    <form [formGroup]="myForm" (ngSubmit)="sendMail(myForm)">
+
+      <div class="row">
+        <label class="form-label">From:</label>
+        <input type="text" class="form-input" formControlName="mailFrom" ngModel="{{rtsUserEmail}}" readonly>
+      </div>
+
+      <div class="row">
+        <label class="form-label pb-3">To:</label>
+        <div class="col-12">
+          <ng-select [items]="items$ | async" bindLabel="email" bindValue="email" [multiple]="true"
+            formControlName="mailTo" placeholder="Select vendor" [(ngModel)]="vendorEmails">
+          </ng-select>
+          <button type="button" class="btn btn-info btn-sm mt-2" ngxClipboard [cbContent]="vendorEmails"
+            (cbOnSuccess)="copied($event)">Copy</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <label class="form-label pb-3">CC:</label>
+        <div class="col-12">
+          <ng-select [items]="adminUsers" bindLabel="name" bindValue="email" [multiple]="true" formControlName="mailCC"
+            placeholder="Search Users" [(ngModel)]="adminUsersArray">
+          </ng-select>
+        </div>
+      </div>
+
+      <div class="row">
+        <label class="form-label">Subject:</label>
+        <input type="text" class="form-input" formControlName="mailSubject">
+      </div>
+
+      <div class="row">
+        <label class="form-label mb-4">Body:</label>
+        <app-ngx-editor height="200px" minHeight="50px" [placeholder]="'Enter text here...'" [spellcheck]="true"
+          [(ngModel)]="mailBody" formControlName="mailBody"></app-ngx-editor>
+      </div>
+
+      <div class="row mt-3">
+        <!-- <button type="button" class="btn btn-forms btn-space" (click)="sendMail(myForm);">Send</button> -->
+        <!-- <button class="btn btn-forms btn-space" [routerLink]="[ '/search-candidates']">Cancel</button> -->
+      </div>
+
+
+    </form>
+  </div>
+</div>

@@ -76,13 +76,13 @@ export class AddCandidateComponent implements OnInit {
       anotherInterviewOffer: [''],
       vacationPlans: [''],
       currentCompany: [''],
-      locationPreferences:[''],
-      workedAsFullTime:[''],
-      graduationYear:[''],
-      educationCredentials:[''],
-      dateOfBirth:[''],
-      currentProject:[''],
-      totalUsExperience:[''],
+      locationPreferences: [''],
+      workedAsFullTime: [''],
+      graduationYear: [''],
+      educationCredentials: [''],
+      dateOfBirth: [''],
+      currentProject: [''],
+      totalUsExperience: [''],
 
     });
     this.getCommonDetails();
@@ -154,7 +154,7 @@ export class AddCandidateComponent implements OnInit {
 
   getImmigiration(event) {
     if (event !== undefined) {
-      this.immigirationStatus = { visaId: event };
+      this.immigirationStatus = { visaStatusId: event };
     }
   }
 
@@ -188,9 +188,7 @@ export class AddCandidateComponent implements OnInit {
       dateOfBirth: form.value.dateOfBirth,
       currentProject: form.value.currentProject,
       totalUsExperience: form.value.totalUsExperience,
-      enteredBy: {
-        userId: this.rtsUserId
-      }
+      enteredBy: this.rtsUserId
     };
 
     if (this.isWorkedWithClient) {
@@ -218,6 +216,7 @@ export class AddCandidateComponent implements OnInit {
         technologyId: form.value.technologies
       }];
     }
+    // console.log(newCandidate)
 
     this.candidateService.addCandidate(newCandidate)
       .subscribe(
@@ -250,7 +249,7 @@ export class AddCandidateComponent implements OnInit {
               timeOut: 3000,
             });
             this.ngProgress.done();
-            this.router.navigate(['manage-candidate']);
+            this.router.navigate(['search-candidates']);
 
           } else {
             this.toastr.error(data.message, '', {

@@ -13,6 +13,7 @@ import { GenerateReportComponent } from './generate-report/generate-report.compo
 import { GraphExpansationComponent } from './graph-expansation/graph-expansation.component';
 import { InterviewHistoryComponent } from './interview-history/interview-history.component';
 import { CandidateReportComponent } from './candidate-report/candidate-report.component';
+import { SearchCandidatesComponent } from './search-candidates/search-candidates.component';
 
 @Component({
   selector: 'app-root',
@@ -71,6 +72,7 @@ export class AppComponent implements DoCheck, OnDestroy {
     CandidateReportComponent.userDetails = undefined;
     CandidateReportComponent.client = undefined;
     InterviewHistoryComponent.interviewStatus = undefined;
+    SearchCandidatesComponent.technology = undefined;
     this.loginService.logout();
     this.toastr.success('You are logged out', '', {
       positionClass: 'toast-top-center',

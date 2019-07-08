@@ -61,8 +61,8 @@ export class TeamComparisonComponent implements OnInit {
     this.graphService.teamComparsion(graph)
       .subscribe(
         data => {
-          if (data.success) {
             this.ngProgress.done();
+            if (data.success) {
             this.teamComparison = data.teamSubmission;
             this.selectedTeam = _.findWhere(this.teamComparison, { teamId: this.teamId });
             this.teamName = this.selectedTeam.name;

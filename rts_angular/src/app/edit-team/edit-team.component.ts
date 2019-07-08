@@ -100,7 +100,7 @@ export class EditTeamComponent implements OnInit {
           if (data.success) {
             this.ngProgress.done();
             this.teams = data.teams;
-            this.selectedTeam = _.findWhere(this.teams, { teamId: this.teamId });
+            this.selectedTeam = _.findWhere(this.teams, { teamId: parseInt(this.teamId) });
             this.teamName = this.selectedTeam.name;
             if (this.selectedTeam.leadUser !== undefined) {
               this.teamLeadName = this.selectedTeam.leadUser.userId;
@@ -159,15 +159,15 @@ export class EditTeamComponent implements OnInit {
 
     this.teamMembers = [];
     for (const recruiter of this.recruitersArray) {
-      this.teamMembers.push(recruiter.user);
+      this.teamMembers.push({ userId: recruiter.user });
     }
 
     const team = {
-      teamName: form.value.teamName,
-      leadUserId: form.value.teamLeadUser,
+      name: form.value.teamName,
+      leadUserId: parseInt(form.value.teamLeadUser),
       otherUsers: this.teamMembers,
-      accountManagerId: form.value.accountManager,
-      teamId: this.teamId
+      accountManagerId: parseInt(form.value.accountManager),
+      teamId: parseInt(this.teamId)
     };
 
     this.teamService.editTeam(team)

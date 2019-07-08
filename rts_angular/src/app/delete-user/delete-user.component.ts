@@ -24,8 +24,8 @@ export class DeleteUserComponent implements OnInit {
   private userName: any;
   private selectedUser: any;
   private rtsCompanyId: any;
-  firstName: any;
-  lastName: any;
+  private firstName: any;
+  private lastName: any;
 
   constructor(
     public dialogRef: MatDialogRef<DeleteUserComponent>,
@@ -58,6 +58,7 @@ export class DeleteUserComponent implements OnInit {
           if (data.success) {
             this.userDetails = data.users;
             this.selectedUser = _.findWhere(this.userDetails, { userId: this.data.userId });
+            console.log(this.selectedUser)
             this.firstName = this.selectedUser.firstName;
             this.lastName = this.selectedUser.lastName;
           }

@@ -48,7 +48,7 @@ export class ClientRequirementsComponent implements OnInit {
   getClientRequirements() {
 
     const userId = {
-      clientId: this.clientId,
+      clientId: parseInt(this.clientId),
       fromDate: this.fromDate,
       toDate: this.toDate
     };
@@ -56,8 +56,8 @@ export class ClientRequirementsComponent implements OnInit {
     this.clientService.getClientRequirements(userId)
       .subscribe(
         data => {
-          if (data.success) {
             this.ngProgress.done();
+            if (data.success) {
             this.selectedRequirements = data.requirements;
             this.requirementsLength = this.selectedRequirements.length;
             for (const require of this.selectedRequirements) {

@@ -61,7 +61,7 @@ export class TeamSubmissionsComponent implements OnInit {
 
   getTeamSubmission() {
     const userId = {
-      teamId: this.teamId,
+      teamId: parseInt(this.teamId),
       fromDate: this.fromDate,
       toDate: this.toDate
     };
@@ -69,8 +69,8 @@ export class TeamSubmissionsComponent implements OnInit {
     this.submissionService.getTeamSubmissions(userId)
       .subscribe(
         data => {
-          if (data.success) {
             this.ngProgress.done();
+            if (data.success) {
             this.submissionDetails = data.requirements;
             this.filteredRequirements = this.submissionDetails;
             this.teamDetails = data.team;
@@ -91,10 +91,10 @@ export class TeamSubmissionsComponent implements OnInit {
     this.graphService.recruiterTeamSubmissions(graph)
       .subscribe(
         data => {
-          if (data.success) {
             this.ngProgress.done();
+            if (data.success) {
             this.totalSubmissionByTeam = data.userSubmissions;
-            this.selectedTeam = _.findWhere(this.totalSubmissionByTeam, { teamId: this.teamId });
+            this.selectedTeam = _.findWhere(this.totalSubmissionByTeam, { teamId: parseInt(this.teamId) });
             this.submissionDetails = this.selectedTeam.requirements;
             this.filteredRequirements = this.selectedTeam.requirements;
             this.teamName = this.selectedTeam.name;

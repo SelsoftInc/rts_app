@@ -52,8 +52,8 @@ export class ManageUsersComponent implements OnInit {
     this.userService.allUsers(userId)
       .subscribe(
         data => {
+          this.ngProgress.done();
           if (data.success) {
-            this.ngProgress.done();
             this.userDetails = data.users;
             this.userLength = this.userDetails.length;
             this.sortedData = this.userDetails;
@@ -70,8 +70,8 @@ export class ManageUsersComponent implements OnInit {
     this.userService.manageUsers(userId)
       .subscribe(
         data => {
+          this.ngProgress.done();
           if (data.success) {
-            this.ngProgress.done();
             this.userDetails = data.users;
             this.userLength = this.userDetails.length;
             this.sortedData = this.userDetails;

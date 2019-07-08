@@ -88,8 +88,8 @@ export class RecruiterSubmissionsStatusComponent implements OnInit {
     this.submissionService.GetRecruiterSubmissionStatus(graph)
       .subscribe(
         data => {
-          if (data.success) {
             this.ngProgress.done();
+            if (data.success) {
             this.requirements = data.requirements;
             this.submissionDetails = this.requirements;
             this.filteredRequirements = this.requirements;

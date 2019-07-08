@@ -315,28 +315,28 @@ export class SubmissionService {
             });
     }
 
-    uploadFile(upload) {
-        const formData = new FormData();
-        const headers = new Headers();
-        const token = localStorage.getItem('id_token');
-        headers.append('Authorization', token);
-        for (const file of upload.file) {
-            formData.append('file', file);
-        }
+    // uploadFile(upload) {
+    //     const formData = new FormData();
+    //     const headers = new Headers();
+    //     const token = localStorage.getItem('id_token');
+    //     headers.append('Authorization', token);
+    //     for (const file of upload.file) {
+    //         formData.append('file', file);
+    //     }
 
-        formData.append('submissionId', upload.submissionId);
-        formData.append('enteredBy', upload.enteredBy);
+    //     formData.append('submissionId', upload.submissionId);
+    //     formData.append('enteredBy', upload.enteredBy);
 
-        return this.http.post(ApiUrl.BaseUrl + ApiUrl.SubmissionFileUpload, formData, { headers: headers })
-            .map(res => {
-                const responseToken = res.headers.get('refresh-token');
-                localStorage.setItem('id_token', responseToken);
-                return res.json();
-            }).catch(err => {
-                if (err.status === 401) {
-                    this.loginService.logout();
-                }
-                return '{}';
-            });
-    }
+    //     return this.http.post(ApiUrl.BaseUrl + ApiUrl.SubmissionFileUpload, formData, { headers: headers })
+    //         .map(res => {
+    //             const responseToken = res.headers.get('refresh-token');
+    //             localStorage.setItem('id_token', responseToken);
+    //             return res.json();
+    //         }).catch(err => {
+    //             if (err.status === 401) {
+    //                 this.loginService.logout();
+    //             }
+    //             return '{}';
+    //         });
+    // }
 }

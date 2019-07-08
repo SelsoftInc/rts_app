@@ -46,8 +46,8 @@ export class ManageClientComponent implements OnInit {
     this.clientService.allClients(companyId)
       .subscribe(
         data => {
+          this.ngProgress.done();
           if (data.success) {
-            this.ngProgress.done();
             this.clients = data.clients;
             this.clientsLength = this.clients.length;
           }

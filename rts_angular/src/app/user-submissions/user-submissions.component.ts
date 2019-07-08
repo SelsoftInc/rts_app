@@ -60,7 +60,7 @@ export class UserSubmissionsComponent implements OnInit {
 
   getUserSubmission() {
     const userId = {
-      userId: this.recruiterId,
+      userId: parseInt(this.recruiterId),
       fromDate: this.fromDate,
       toDate: this.toDate
     };
@@ -68,8 +68,8 @@ export class UserSubmissionsComponent implements OnInit {
     this.submissionService.getUserSubmissions(userId)
       .subscribe(
         data => {
-          if (data.success) {
             this.ngProgress.done();
+            if (data.success) {
             this.submissionDetails = data.requirements;
             this.filteredRequirements = this.submissionDetails;
             this.recruiterDetails = data.user;
@@ -90,10 +90,10 @@ export class UserSubmissionsComponent implements OnInit {
     this.graphService.userGraphDetails(graph)
       .subscribe(
         data => {
-          if (data.success) {
             this.ngProgress.done();
+            if (data.success) {
             this.recruitersSubmissions = data.userSubmissions;
-            this.selectedRecruiter = _.findWhere(this.recruitersSubmissions, { userId: this.recruiterId });
+            this.selectedRecruiter = _.findWhere(this.recruitersSubmissions, { userId: parseInt(this.recruiterId) });
             this.submissionDetails = this.selectedRecruiter.requirements;
             this.filteredRequirements = this.selectedRecruiter.requirements;
             this.recruiterName = this.selectedRecruiter.name;

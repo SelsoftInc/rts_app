@@ -51,8 +51,8 @@ export class SelectedSubmissionComponent implements OnInit {
     this.submissonService.GetAllSelectedSubmission(userId)
       .subscribe(
         data => {
-          if (data.success) {
             this.ngProgress.done();
+            if (data.success) {
             this.selectedSubmissions = data.submissionReport;
             this.interviewsLength = this.selectedSubmissions.length;
             this.sortedData = this.selectedSubmissions.slice();
@@ -71,10 +71,10 @@ export class SelectedSubmissionComponent implements OnInit {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'positionName': return this.compare(a.positionName, b.positionName, isAsc);
-        case 'candidateName': return this.compare(a.candidateName, b.candidateName, isAsc);
-        case 'clientName': return this.compare(a.clientName, b.clientName, isAsc);
+        case 'candidateName': return this.compare(a.name, b.name, isAsc);
+        case 'clientName': return this.compare(a.name, b.name, isAsc);
         case 'joiningDate': return this.compare(a.joiningDateStr, b.joiningDateStr, isAsc);
-        case 'recruiterName': return this.compare(a.recruiterName, b.recruiterName, isAsc);
+        case 'recruiterName': return this.compare(a.firstName, b.firstName, isAsc);
         case 'status': return this.compare(a.interviewDetailStatus, b.interviewDetailStatus, isAsc);
         default: return 0;
       }

@@ -98,14 +98,14 @@ export class AddClientComponent implements OnInit {
       email: form.value.email,
       phoneNumber: form.value.phoneNumber,
       enteredBy: this.rtsUserId,
-      toClientRecuriters: form.value.units,
+      clientRecruiters: form.value.units,
     };
 
     if (form.value.ccUnits[0].name === '' || form.value.ccUnits[0].email === '') {
-      client.ccRecuriters = [];
+      client.ccRecruitersJSON = [];
       this.isCcEmpty = false;
     } else {
-      client.ccRecuriters = form.value.ccUnits;
+      client.ccRecruitersJSON = form.value.ccUnits;
     }
 
     if (this.isCcEmpty) {

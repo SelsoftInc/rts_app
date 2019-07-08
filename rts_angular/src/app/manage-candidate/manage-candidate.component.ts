@@ -43,8 +43,8 @@ export class ManageCandidateComponent implements OnInit {
     this.candidateService.allCandidate(companyId)
       .subscribe(
         data => {
+          this.ngProgress.done();
           if (data.success) {
-            this.ngProgress.done();
             this.candidates = data.candidates;
             this.candidateLength = this.candidates.length;
           }

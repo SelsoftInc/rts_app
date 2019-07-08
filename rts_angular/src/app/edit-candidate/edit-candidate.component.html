@@ -1,5 +1,5 @@
 <h2 class="main-title">
-  <a [routerLink]="['/manage-candidate']">Manage Candidates</a> / Edit Candidate</h2>
+  <a [routerLink]="['/search-candidates']">Search Candidates</a> / Edit Candidate</h2>
 <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
   [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
 </ng-progress>
@@ -50,7 +50,7 @@
             <label for="immigirationStatus" class="form-label">Immigiration Status:</label>
           </div>
           <mat-radio-group (change)="getImmigiration($event.source.value)" formControlName="immigirationStatus">
-            <mat-radio-button *ngFor="let data of immigration" [value]="data.visaId" [checked]="data.isChecked">
+            <mat-radio-button *ngFor="let data of immigration" [value]="data.visaStatusId" [checked]="data.isChecked">
               {{data.visaName}}</mat-radio-button>
           </mat-radio-group>
         </div>
@@ -59,7 +59,7 @@
           <div class="mb-3">
             <label for="relocate" class="form-label">Willing To Relocate:</label>
           </div>
-          <mat-radio-group formControlName="relocate" (change)="relocate($event);">
+          <mat-radio-group formControlName="relocate" (change)="relocate($event);" ngModel="{{isRelocate}}">
             <mat-radio-button value="true">Yes</mat-radio-button>
             <mat-radio-button value="false">No</mat-radio-button>
           </mat-radio-group>
@@ -134,7 +134,8 @@
           <div class="mb-3">
             <label class="form-label">Have you ever worked with Client?</label>
           </div>
-          <mat-radio-group formControlName="workedWithClient" (change)="getWorkedWithClient($event)">
+          <mat-radio-group formControlName="workedWithClient" (change)="getWorkedWithClient($event)"
+            ngModel="{{isWorkedWithClient}}">
             <mat-radio-button value="true">Yes</mat-radio-button>
             <mat-radio-button value="false">No</mat-radio-button>
           </mat-radio-group>
@@ -205,9 +206,9 @@
           <div class="mb-3">
             <label for="c2c" class="form-label">C2C:</label>
           </div>
-          <mat-radio-group (change)="getC2c($event)" formControlName="c2c">
-            <mat-radio-button value="Yes">Yes</mat-radio-button>
-            <mat-radio-button value="No" checked>No</mat-radio-button>
+          <mat-radio-group (change)="getC2c($event)" formControlName="c2c" ngModel="{{isEmployerDetails}}">
+            <mat-radio-button value="true">Yes</mat-radio-button>
+            <mat-radio-button value="false">No</mat-radio-button>
           </mat-radio-group>
         </div>
 
@@ -298,7 +299,7 @@
 
       <div class="form-btn-container">
         <button class="btn btn-forms btn-space" type="submit">Update Candidate</button>
-        <button [routerLink]="[ '/manage-candidate']" class="btn btn-forms">Cancel</button>
+        <button [routerLink]="[ '/search-candidates']" class="btn btn-forms">Cancel</button>
       </div>
 
     </div>
