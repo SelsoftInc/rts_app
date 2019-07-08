@@ -8,7 +8,7 @@
       <div class="row mt-2">
         <div class="col-3">
           <mat-form-field>
-            <input matInput [matDatepicker]="fromDatePicker" [(ngModel)]="startDate" placeholder="From Date">
+            <input matInput [min]="minDate" [matDatepicker]="fromDatePicker" [(ngModel)]="startDate" placeholder="From Date">
             <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #fromDatePicker></mat-datepicker>
           </mat-form-field>
