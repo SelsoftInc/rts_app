@@ -401,21 +401,24 @@ export class AdminDashboardComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
-            this.totalSubmissionByTeam = data.teamSubmission;
-            for (const count of this.totalSubmissionByTeam) {
+            // this.totalSubmissionByTeam = data.teamSubmission;
+            var allTeamSubmissions = data.teamSubmission;
+            var selectedTeams = data.teamSubmission.filter(team => team.value !== 0);
+            this.totalSubmissionByTeam = selectedTeams;
+            for (const count of allTeamSubmissions) {
               this.totalSubmission = this.totalSubmission + count.value;
               count.extra = {
                 teamId: count.teamId
               };
             }
-            for (const team of this.totalSubmissionByTeam) {
+            for (const team of allTeamSubmissions) {
               for (const series of team.series) {
                 series.extra = {
                   teamId: team.teamId
                 };
               }
             }
-            this.sortTeamData = this.totalSubmissionByTeam.slice();
+            this.sortTeamData = allTeamSubmissions.slice();
           }
         });
   }

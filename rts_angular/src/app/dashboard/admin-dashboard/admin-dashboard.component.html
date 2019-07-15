@@ -8,7 +8,8 @@
       <div class="row mt-2">
         <div class="col-3">
           <mat-form-field>
-            <input matInput [min]="minDate" [matDatepicker]="fromDatePicker" [(ngModel)]="startDate" placeholder="From Date">
+            <input matInput [min]="minDate" [matDatepicker]="fromDatePicker" [(ngModel)]="startDate"
+              placeholder="From Date">
             <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #fromDatePicker></mat-datepicker>
           </mat-form-field>
@@ -124,26 +125,26 @@
           <h2 class="chart-title">Team wise submission status</h2>
         </div>
         <div class="chart-scroll-wrapper">
-        <table class="table table-hover table-bordered table-sm" matSort (matSortChange)="sortTeam($event)">
-          <thead class="table-header">
-            <tr>
-              <th>Team Name</th>
-              <th>Submitted</th>
-              <th>Approved</th>
-              <th>IN-Progress</th>
-              <th>Rejected</th>
-              <th>Closed</th>
-              <th mat-sort-header="total">Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let team of sortTeamData">
-              <td>{{team.name}}</td>
-              <td *ngFor="let series of team.series">{{series.value}}</td>
-              <td>{{team.value}}</td>
-            </tr>
-          </tbody>
-        </table>
+          <table class="table table-hover table-bordered table-sm" matSort (matSortChange)="sortTeam($event)">
+            <thead class="table-header">
+              <tr>
+                <th>Team Name</th>
+                <th>Submitted</th>
+                <th>Approved</th>
+                <th>IN-Progress</th>
+                <th>Rejected</th>
+                <th>Closed</th>
+                <th mat-sort-header="total">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let team of sortTeamData">
+                <td>{{team.name}}</td>
+                <td *ngFor="let series of team.series">{{series.value}}</td>
+                <td>{{team.value}}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -153,26 +154,25 @@
           <h2 class="chart-title">Team Comparison</h2>
         </div>
         <div class="chart-scroll-wrapper">
-        <table class="table table-hover table-bordered table-sm" matSort
-          (matSortChange)="sortTeamComparison($event)">
-          <thead class="table-header">
-            <tr>
-              <th>Team Name</th>
-              <th>Submitted</th>
-              <th>Interviewed</th>
-              <th>Rejections</th>
-              <th>Closed</th>
-              <th mat-sort-header="total">Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let team of sortTeamComparisonData">
-              <td>{{team.name}}</td>
-              <td *ngFor="let series of team.series">{{series.value}}</td>
-              <td>{{team.value}}</td>
-            </tr>
-          </tbody>
-        </table>
+          <table class="table table-hover table-bordered table-sm" matSort (matSortChange)="sortTeamComparison($event)">
+            <thead class="table-header">
+              <tr>
+                <th>Team Name</th>
+                <th>Submitted</th>
+                <th>Interviewed</th>
+                <th>Rejections</th>
+                <th>Closed</th>
+                <th mat-sort-header="total">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let team of sortTeamComparisonData">
+                <td>{{team.name}}</td>
+                <td *ngFor="let series of team.series">{{series.value}}</td>
+                <td>{{team.value}}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -185,7 +185,7 @@
         <div class="chart-title-wrapper">
           <h2 class="chart-title">Team wise submission count</h2>
         </div>
-        <div class="chart-align-100-400">
+        <!-- <div class="chart-align-100-400">
           <ngx-charts-pie-chart [view]="view" [scheme]="colorSchemePie" [results]="totalSubmissionByTeam"
             [gradient]="gradient" [labels]="show" [doughnut]="show" (select)="onTeamSelect($event)">
           </ngx-charts-pie-chart>
@@ -195,11 +195,16 @@
             <span *ngIf="meta.value === 0; else metaTemplate"></span>
             <ng-template #metaTemplate>{{meta.name}} : {{meta.value}}</ng-template>
           </div>
+        </div> -->
+        <div class="chart-align-100-400">
+          <ngx-charts-advanced-pie-chart [view]="view" [scheme]="colorSchemePie" [results]="totalSubmissionByTeam"
+            [gradient]="gradient" (select)="onTeamSelect($event)">
+          </ngx-charts-advanced-pie-chart>
         </div>
-        <div>
+        <!-- <div>
           <div class="chart-additional-item"><span class="chart-label">Total Submissions: </span><span
               class="chart-result">{{totalSubmission}}</span></div>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="col-sm-8">
@@ -240,25 +245,25 @@
           <h2 class="chart-title">Recruiter Comparison Table</h2>
         </div>
         <div class="chart-scroll-wrapper">
-        <table class="table table-hover table-bordered table-sm" matSort
-          (matSortChange)="sortRecruiterComparation($event)">
-          <thead class="table-header">
-            <tr>
-              <th mat-sort-header="recruiterName">Recruiter Name</th>
-              <th mat-sort-header="submitted">Submitted</th>
-              <th>Interview Rejections</th>
-              <th>Rejections</th>
-              <th mat-sort-header="submittedPercentage">Submitted Percentage</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let recruiter of sortedRecruiterComparationData">
-              <td>{{recruiter.name}}</td>
-              <td *ngFor="let series of recruiter.series">{{series.value}}</td>
-              <td>{{recruiter.submittedPercentage | number:'1.0-0'}} %</td>
-            </tr>
-          </tbody>
-        </table>
+          <table class="table table-hover table-bordered table-sm" matSort
+            (matSortChange)="sortRecruiterComparation($event)">
+            <thead class="table-header">
+              <tr>
+                <th mat-sort-header="recruiterName">Recruiter Name</th>
+                <th mat-sort-header="submitted">Submitted</th>
+                <th>Interview Rejections</th>
+                <th>Rejections</th>
+                <th mat-sort-header="submittedPercentage">Submitted Percentage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let recruiter of sortedRecruiterComparationData">
+                <td>{{recruiter.name}}</td>
+                <td *ngFor="let series of recruiter.series">{{series.value}}</td>
+                <td>{{recruiter.submittedPercentage | number:'1.0-0'}} %</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -275,32 +280,32 @@
         </div>
         <h2 class="chart-title"> Total {{interviewReportLength}} Results</h2>
         <div class="chart-scroll-wrapper">
-        <table class="table table-hover table-bordered table-sm" matSort (matSortChange)="sortData($event)">
-          <thead class="table-header">
-            <tr>
-              <th mat-sort-header="positionName">Position Name</th>
-              <th mat-sort-header="candidateName">Candidate Name</th>
-              <th mat-sort-header="clientName">Client Name</th>
-              <th mat-sort-header="InterviewDateTime">Interview Date & Time</th>
-              <th mat-sort-header="InterviewLevel">Interview level</th>
-              <th mat-sort-header="recruiterName">Recruiter Name</th>
-              <th mat-sort-header="skype">Skype</th>
-              <th mat-sort-header="phoneNumber">Phone Number</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let submission of sortedData" [routerLink]="['/edit-submission', submission.submissionId]">
-              <td>{{submission.position.positionName}}</td>
-              <td>{{submission.candidate.name}}</td>
-              <td>{{submission.client.name}}</td>
-              <td>{{submission.interviewDateStr | date: 'MMM d, y, hh:mm a'}}</td>
-              <td>{{submission.interviewLevel}}</td>
-              <td>{{submission.recruiter.firstName}} {{submission.recruiter.lastName}}</td>
-              <td>{{submission.candidate.skype}}</td>
-              <td>{{submission.candidate.phoneNumber}}</td>
-            </tr>
-          </tbody>
-        </table>
+          <table class="table table-hover table-bordered table-sm" matSort (matSortChange)="sortData($event)">
+            <thead class="table-header">
+              <tr>
+                <th mat-sort-header="positionName">Position Name</th>
+                <th mat-sort-header="candidateName">Candidate Name</th>
+                <th mat-sort-header="clientName">Client Name</th>
+                <th mat-sort-header="InterviewDateTime">Interview Date & Time</th>
+                <th mat-sort-header="InterviewLevel">Interview level</th>
+                <th mat-sort-header="recruiterName">Recruiter Name</th>
+                <th mat-sort-header="skype">Skype</th>
+                <th mat-sort-header="phoneNumber">Phone Number</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let submission of sortedData" [routerLink]="['/edit-submission', submission.submissionId]">
+                <td>{{submission.position.positionName}}</td>
+                <td>{{submission.candidate.name}}</td>
+                <td>{{submission.client.name}}</td>
+                <td>{{submission.interviewDateStr | date: 'MMM d, y, hh:mm a'}}</td>
+                <td>{{submission.interviewLevel}}</td>
+                <td>{{submission.recruiter.firstName}} {{submission.recruiter.lastName}}</td>
+                <td>{{submission.candidate.skype}}</td>
+                <td>{{submission.candidate.phoneNumber}}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

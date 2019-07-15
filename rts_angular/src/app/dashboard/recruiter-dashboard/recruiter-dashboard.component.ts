@@ -148,7 +148,8 @@ export class RecruiterDashboardComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success) {
-            this.totalSubmissionByTeam = data.userSubmissions;
+            // this.totalSubmissionByTeam = data.userSubmissions;
+            this.totalSubmissionByTeam = data.userSubmissions.filter(team => team.value !== 0);
             for (const count of this.totalSubmissionByTeam) {
               this.totalSubmission = this.totalSubmission + count.value;
               count.extra = {

@@ -213,7 +213,7 @@ export class AddCandidateComponent implements OnInit {
       }];
     } else {
       newCandidate.technology = [{
-        technologyId: form.value.technologies
+        technologyId: parseInt(form.value.technologies)
       }];
     }
     // console.log(newCandidate)
