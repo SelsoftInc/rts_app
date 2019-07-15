@@ -212,10 +212,10 @@
           </mat-radio-group>
         </div>
 
-        <div class="col-sm-4" *ngIf="selectedCandidate && selectedCandidate.enteredBy">
+        <div class="col-sm-4" *ngIf="selectedCandidate && selectedCandidate.enteredUser">
           <label for="enteredUser" class="form-label">Uploaded By:</label>
           <input type="text" class="form-input" name="enteredUser" formControlName="enteredUser"
-            ngModel="{{selectedCandidate.enteredBy.firstName}} {{selectedCandidate.enteredBy.lastName}}" disabled>
+            ngModel="{{selectedCandidate.enteredUser.firstName}} {{selectedCandidate.enteredUser.lastName}}" disabled>
         </div>
 
         <div class="col-sm-4" *ngIf="selectedCandidate && selectedCandidate.enteredOn">
@@ -223,6 +223,7 @@
           <input type="text" class="form-input" name="createdDate" formControlName="createdDate"
             ngModel="{{selectedCandidate.enteredOn | date: 'MMM d, y'}}" disabled>
         </div>
+        
 
       </div>
 

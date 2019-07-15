@@ -1,13 +1,15 @@
 <h2 class="main-title-dashboard">Dashboard</h2>
 <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
-  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
+</ng-progress>
 <div class="dash-filter-container">
   <div class="row">
     <div class="col-8">
       <div class="row mt-2">
         <div class="col-3">
           <mat-form-field>
-            <input matInput [min]="minDate" [matDatepicker]="fromDatePicker" [(ngModel)]="startDate" placeholder="From Date">
+            <input matInput [min]="minDate" [matDatepicker]="fromDatePicker" [(ngModel)]="startDate"
+              placeholder="From Date">
             <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #fromDatePicker></mat-datepicker>
           </mat-form-field>
@@ -33,7 +35,8 @@
       <div class="col-block pt-5 mb-4">
         <div class="chart-title-wrapper">
           <h2 class="chart-title">Scheduled Interviews</h2>
-          <p class="pull-right mr-2"> <a class="chart-button" [routerLink]="['/in-progress-interviews']"><b>View all</b></a>
+          <p class="pull-right mr-2"> <a class="chart-button" [routerLink]="['/in-progress-interviews']"><b>View
+                all</b></a>
             IN-Progress Interviews</p>
         </div>
         <h2 class="chart-title"> Total {{interviewReportLength}} Results</h2>
@@ -76,9 +79,10 @@
           <h2 class="chart-title">Recruiters Submission Status</h2>
         </div>
         <div class="chart-align-100-400">
-          <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="recruitersSubmissions" [gradient]="gradient"
-            [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel" (select)="onUserSelect($event)">
+          <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="recruitersSubmissions"
+            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+            [showDataLabel]="showDataLabel" (select)="onUserSelect($event)">
           </ngx-charts-bar-vertical>
         </div>
       </div>
@@ -90,7 +94,7 @@
         <div class="chart-title-wrapper">
           <h2 class="chart-title">Team wise submission count</h2>
         </div>
-        <div class="chart-align-100-400">
+        <!-- <div class="chart-align-100-400">
           <ngx-charts-pie-chart [view]="view" [scheme]="colorSchemePie" [results]="totalSubmissionByTeam" [gradient]="gradient"
             [labels]="show" [doughnut]="show" (select)="onTeamSelect($event)">
           </ngx-charts-pie-chart>
@@ -103,6 +107,11 @@
         </div>
         <div>
           <div class="chart-additional-item"><span class="chart-label">Total Submissions: </span><span class="chart-result">{{totalSubmission}}</span></div>
+        </div> -->
+        <div class="chart-align-100-400">
+          <ngx-charts-advanced-pie-chart [view]="view" [scheme]="colorSchemePie" [results]="totalSubmissionByTeam"
+            [gradient]="gradient" (select)="onTeamSelect($event)">
+          </ngx-charts-advanced-pie-chart>
         </div>
       </div>
     </div>
@@ -115,7 +124,8 @@
         <div class="chart-align-100-400">
           <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorSchemeMultiBar1" [results]="totalSubmissionByTeam"
             [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
-            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel" (select)="onTeamSubmissionStatus($event)">
+            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="showDataLabel"
+            (select)="onTeamSubmissionStatus($event)">
           </ngx-charts-bar-vertical-2d>
         </div>
       </div>
