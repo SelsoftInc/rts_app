@@ -430,9 +430,11 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   onTeamSelect(event) {
-    const fromDate = moment(this.startDate).format('YYYY-MM-DD');
-    const toDate = moment(this.currentDate).format('YYYY-MM-DD');
-    this.router.navigate(['team-submisson', event.extra.teamId, fromDate, toDate]);
+    if (event.extra) {
+      const fromDate = moment(this.startDate).format('YYYY-MM-DD');
+      const toDate = moment(this.currentDate).format('YYYY-MM-DD');
+      this.router.navigate(['team-submisson', event.extra.teamId, fromDate, toDate]);
+    }
   }
 
   onClientSelect(event) {

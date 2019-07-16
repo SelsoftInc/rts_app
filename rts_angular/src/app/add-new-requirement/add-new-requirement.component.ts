@@ -317,8 +317,12 @@ export class AddNewRequirementComponent implements OnInit {
     this.multiselectUsers = [];
     if (event !== '') {
       this.selectedTeam = _.findWhere(this.teams, { teamId: parseInt(event) });
-      if (this.selectedTeam.leadUser !== undefined) {
-        this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+      // console.log(this.selectedTeam)
+      // if (this.selectedTeam.leadUsers !== undefined) {
+      // this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+      // }
+      for (const user of this.selectedTeam.leadUsers) {
+        this.selectedTeamUsers.push(user);
       }
       for (const user of this.selectedTeam.otherUsers) {
         this.selectedTeamUsers.push(user);

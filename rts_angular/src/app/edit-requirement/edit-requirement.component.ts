@@ -199,8 +199,11 @@ export class EditRequirementComponent implements OnInit {
             this.selctedVisaStatus = this.selectedRequirement.visaStatus;
             if (this.selectedRequirement.team !== undefined) {
               this.selectedTeam = _.findWhere(this.teams, { teamId: this.selectedRequirement.team.teamId });
-              if (this.selectedTeam.leadUser !== undefined) {
-                this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+              // if (this.selectedTeam.leadUser !== undefined) {
+              //   this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+              // }
+              for (const user of this.selectedTeam.leadUsers) {
+                this.selectedTeamUsers.push(user);
               }
               for (const user of this.selectedTeam.otherUsers) {
                 this.selectedTeamUsers.push(user);
@@ -312,7 +315,11 @@ export class EditRequirementComponent implements OnInit {
       this.selectedTeamUsers = [];
       this.multiSelectUsers = [];
       this.selectedTeam = _.findWhere(this.teams, { teamId: parseInt(event) });
-      this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+      // console.log(this.selectedTeam)
+      // this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+      for (const user of this.selectedTeam.leadUsers) {
+        this.selectedTeamUsers.push(user);
+      }
       for (const user of this.selectedTeam.otherUsers) {
         this.selectedTeamUsers.push(user);
       }

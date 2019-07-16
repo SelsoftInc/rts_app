@@ -113,7 +113,7 @@
           <label for="immigrationRequirement" class="form-label">Immigration Requirement:</label>
           <div class="checkbox-wrapper">
             <span class="checkbox-container" *ngFor="let data of immigration" ng-checked="immigrationByUser.indexOf(data) != 1">
-              <mat-checkbox color="primary" (change)="getCheckedImmigrationValue(data.visaId)" [value]="data.visaId"
+              <mat-checkbox color="primary" (change)="getCheckedImmigrationValue(data.visaStatusId)" [value]="data.visaStatusId"
                 [checked]="data.isChecked">{{data.visaName}}</mat-checkbox>
             </span>
             <mat-checkbox color="primary" value="other" (change)="getOtherImmigration($event)">OTHER</mat-checkbox>

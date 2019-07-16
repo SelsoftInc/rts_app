@@ -2,7 +2,8 @@
   <a class="sub-nav-link" [routerLink]="['/add-team']">Add New Team</a>
 </div>
 <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
-  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
+</ng-progress>
 
 <h2 class="main-title">Manage Teams</h2>
 <div class="utility-container">
@@ -23,9 +24,12 @@
                 <span class="meta-info-content">{{team.accountManager.firstName}} {{team.accountManager.lastName}},
                 </span>
               </span>
-              <span *ngIf="team.leadUser">
+              <span *ngIf="team.leadUsers">
                 <span class="block-header-label">TL:</span>
-                <span class="meta-info-content">{{team.leadUser.firstName}} {{team.leadUser.lastName}} </span>
+                <span class="meta-info-content" *ngFor="let lead of team.leadUsers">{{lead.firstName}}
+                  {{lead.lastName}}
+                  <span *ngIf="team.leadUsers.length > 1">,</span>
+                </span>
               </span>
             </div>
             <div class="col-sm-2 text-right">
@@ -87,9 +91,12 @@
                 <span class="meta-info-content">{{team.accountManager.firstName}} {{team.accountManager.lastName}},
                 </span>
               </span>
-              <span *ngIf="team.leadUser">
+              <span *ngIf="team.leadUsers">
                 <span class="block-header-label">TL:</span>
-                <span class="meta-info-content">{{team.leadUser.firstName}} {{team.leadUser.lastName}} </span>
+                <span class="meta-info-content" *ngFor="let lead of team.leadUsers">{{lead.firstName}}
+                  {{lead.lastName}}
+                  <span *ngIf="team.leadUsers.length > 1">,</span>
+                </span>
               </span>
             </div>
             <div class="col-sm-2 text-right">
@@ -151,9 +158,12 @@
                 <span class="meta-info-content">{{team.accountManager.firstName}} {{team.accountManager.lastName}},
                 </span>
               </span>
-              <span *ngIf="team.leadUser">
+              <span *ngIf="team.leadUsers">
                 <span class="block-header-label">TL:</span>
-                <span class="meta-info-content">{{team.leadUser.firstName}} {{team.leadUser.lastName}} </span>
+                <span class="meta-info-content" *ngFor="let lead of team.leadUsers">{{lead.firstName}}
+                  {{lead.lastName}}
+                  <span *ngIf="team.leadUsers.length > 1">,</span>
+                </span>
               </span>
             </div>
           </div>
