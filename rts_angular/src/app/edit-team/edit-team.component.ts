@@ -38,6 +38,8 @@ export class EditTeamComponent implements OnInit {
   private teamLeadName: any;
   private selectedTeam: any;
   private recruitersArray: any;
+  leadUsersArray: any[];
+  teamLeads: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -57,9 +59,11 @@ export class EditTeamComponent implements OnInit {
     this.leadUsers = [];
     this.recruiters = [];
     this.recruitersArray = [];
+    this.leadUsersArray = [];
     this.accountManager = [];
     this.dropdownSettings = {};
     this.users = [];
+    this.teamLeads = [];
   }
 
   ngOnInit() {
@@ -102,16 +106,21 @@ export class EditTeamComponent implements OnInit {
             this.teams = data.teams;
             this.selectedTeam = _.findWhere(this.teams, { teamId: parseInt(this.teamId) });
             this.teamName = this.selectedTeam.name;
-            if (this.selectedTeam.leadUser !== undefined) {
-              this.teamLeadName = this.selectedTeam.leadUser.userId;
-            }
+            // console.log(this.selectedTeam)
+            // if (this.selectedTeam.leadUsers !== undefined) {
+            //   this.teamLeadName = this.selectedTeam.leadUsers.userId;
+            // }
             if (this.selectedTeam.accountManager !== undefined) {
               this.accountManagerName = this.selectedTeam.accountManager.userId;
             }
-            this.selectTeamLead();
+            // this.selectTeamLead();
             this.recruitersArray = [];
+            this.leadUsersArray = [];
             for (const recruiter of this.selectedTeam.otherUsers) {
               this.recruitersArray.push({ user: recruiter.userId, firstName: recruiter.firstName + ' ' + recruiter.lastName });
+            }
+            for (const lead of this.selectedTeam.leadUsers) {
+              this.leadUsersArray.push({ user: lead.userId, firstName: lead.firstName + ' ' + lead.lastName });
             }
           }
         });
@@ -127,32 +136,39 @@ export class EditTeamComponent implements OnInit {
         data => {
           if (data.success) {
             this.users = data.users;
+            this.leadUsers = [];
+            this.recruiters = [];
+            this.teamMembers = [];
             for (const user of this.users) {
               if (user.role === 'TL') {
-                this.leadUsers.push(user);
+                this.leadUsers.push({ user: user.userId, firstName: user.firstName + ' ' + user.lastName });
               }
               if (user.role === 'ACC_MGR') {
                 this.accountManager.push(user);
+              }
+              if (user.role === 'RECRUITER' || user.role === 'TRAINEE') {
+                this.recruiters.push({ user: user.userId, firstName: user.firstName + ' ' + user.lastName });
               }
             }
           }
         });
   }
 
-  selectTeamLead() {
-    this.recruiters = [];
-    this.teamMembers = [];
-    for (const user of this.users) {
-      if (user.role === 'RECRUITER' || user.role === 'TRAINEE') {
-        this.recruiters.push({ user: user.userId, firstName: user.firstName + ' ' + user.lastName });
-      }
-    }
-    // this.deSelectAll();
-  }
+  // selectTeamLead() {
+  //   this.recruiters = [];
+  //   this.teamMembers = [];
 
-  deSelectAll() {
-    this.myForm.controls.teamMembers.setValue('');
-  }
+  //   for (const user of this.users) {
+  //     if (user.role === 'RECRUITER' || user.role === 'TRAINEE') {
+  //       this.recruiters.push({ user: user.userId, firstName: user.firstName + ' ' + user.lastName });
+  //     }
+  //   }
+  //   // this.deSelectAll();
+  // }
+
+  // deSelectAll() {
+  //   this.myForm.controls.teamMembers.setValue('');
+  // }
 
   updateTeam(form: FormGroup) {
     this.ngProgress.start();
@@ -161,15 +177,18 @@ export class EditTeamComponent implements OnInit {
     for (const recruiter of this.recruitersArray) {
       this.teamMembers.push({ userId: recruiter.user });
     }
+    this.teamLeads = [];
+    for (const lead of this.leadUsersArray) {
+      this.teamLeads.push({ userId: lead.user });
+    }
 
     const team = {
       name: form.value.teamName,
-      leadUserId: parseInt(form.value.teamLeadUser),
+      leadUsers: this.teamLeads,
       otherUsers: this.teamMembers,
       accountManagerId: parseInt(form.value.accountManager),
       teamId: parseInt(this.teamId)
     };
-
     this.teamService.editTeam(team)
       .subscribe(
         data => {

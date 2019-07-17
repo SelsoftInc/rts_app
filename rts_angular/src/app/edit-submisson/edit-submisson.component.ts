@@ -78,6 +78,9 @@ export class EditSubmissonComponent implements OnInit {
     selectedClient: any;
     submissionStatus: any;
     statusObj: any;
+    skills: any;
+    selectedSkills: any;
+    selectedSkillsText: any;
     // submissionComment: any;
 
     constructor(
@@ -192,92 +195,16 @@ export class EditSubmissonComponent implements OnInit {
             dateOfBirth: [''],
             currentProject: [''],
             totalUsExperience: [''],
+            skills: [''],
             units: this.formBuilder.array([
                 this.initUnits()
             ]),
         });
 
         this.isNewCandidate = false;
-
         this.getAllCommonData();
+        this.getAllSkills();
         this.getAllUser();
-
-        // if (this.userRole === 'ADMIN') {
-        //     this.status = [
-        //         { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
-        //         { 'name': 'TL Approved', 'value': 'TL_APPROVED' },
-        //         { 'name': 'Approved', 'value': 'APPROVED' },
-        //         { 'name': 'TL Rejeced', 'value': 'TL_REJECTED' },
-        //         { 'name': 'Rejected', 'value': 'REJECTED' },
-        //         { 'name': 'Closed', 'value': 'CLOSED' },
-        //         { 'name': 'Client Rejeced', 'value': 'CLIENT_REJECTED' },
-        //         { 'name': 'Selected', 'value': 'SELECTED' },
-        //         { 'name': 'Interview Selected', 'value': 'INTERVIEW_SELECTED' },
-        //         { 'name': 'Interview', 'value': 'INTERVIEWED' },
-        //         { 'name': 'Interview Scheduled', 'value': 'INTERVIEW_SCHEDULED' },
-        //         { 'name': 'Rescheduled', 'value': 'RESCHEDULED' },
-        //         { 'name': 'Interview Rejected', 'value': 'INTERVIEWED_REJECTED' },
-        //         { 'name': 'Awaiting For Feedback', 'value': 'AWAITING_FOR_FEEDBACK' },
-        //         { 'name': 'Hold', 'value': 'HOLD' },
-        //         { 'name': 'Other Rejection', 'value': 'OTHER_REJECTION' },
-        //     ];
-        // }
-        // if (this.userRole === 'HR_MANAGER') {
-        //     this.status = [
-        //         { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
-        //         { 'name': 'TL Approved', 'value': 'TL_APPROVED' },
-        //         { 'name': 'Approved', 'value': 'APPROVED' },
-        //         { 'name': 'TL Rejeced', 'value': 'TL_REJECTED' },
-        //         { 'name': 'Rejected', 'value': 'REJECTED' },
-        //         { 'name': 'Closed', 'value': 'CLOSED' },
-        //         { 'name': 'Client Rejeced', 'value': 'CLIENT_REJECTED' },
-        //         { 'name': 'Selected', 'value': 'SELECTED' },
-        //         { 'name': 'Interview Selected', 'value': 'INTERVIEW_SELECTED' },
-        //         { 'name': 'Interview', 'value': 'INTERVIEWED' },
-        //         { 'name': 'Interview Scheduled', 'value': 'INTERVIEW_SCHEDULED' },
-        //         { 'name': 'Rescheduled', 'value': 'RESCHEDULED' },
-        //         { 'name': 'Interview Rejected', 'value': 'INTERVIEWED_REJECTED' },
-        //         { 'name': 'Awaiting For Feedback', 'value': 'AWAITING_FOR_FEEDBACK' },
-        //         { 'name': 'Hold', 'value': 'HOLD' },
-        //         { 'name': 'Other Rejection', 'value': 'OTHER_REJECTION' },
-        //     ];
-        // }
-
-        // if (this.userRole === 'TL') {
-        //     this.status = [
-        //         { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
-        //         { 'name': 'TL Approved', 'value': 'TL_APPROVED' },
-        //         { 'name': 'TL Rejeced', 'value': 'TL_REJECTED' },
-        //         { 'name': 'Closed', 'value': 'CLOSED' },
-        //         { 'name': 'Client Rejeced', 'value': 'CLIENT_REJECTED' },
-        //         { 'name': 'Selected', 'value': 'SELECTED' },
-        //         { 'name': 'Interview Selected', 'value': 'INTERVIEW_SELECTED' },
-        //         { 'name': 'Interview', 'value': 'INTERVIEWED' },
-        //         { 'name': 'Interview Scheduled', 'value': 'INTERVIEW_SCHEDULED' },
-        //         { 'name': 'Rescheduled', 'value': 'RESCHEDULED' },
-        //         { 'name': 'Interview Rejected', 'value': 'INTERVIEWED_REJECTED' },
-        //         { 'name': 'Awaiting For Feedback', 'value': 'AWAITING_FOR_FEEDBACK' },
-        //         { 'name': 'Hold', 'value': 'HOLD' },
-        //         { 'name': 'Other Rejection', 'value': 'OTHER_REJECTION' },
-        //     ];
-        // } else if (this.userRole === 'ACC_MGR') {
-        //     this.status = [
-        //         { 'name': 'In-Progress', 'value': 'IN-PROGRESS' },
-        //         { 'name': 'Approved', 'value': 'APPROVED' },
-        //         { 'name': 'Rejected', 'value': 'REJECTED' },
-        //         { 'name': 'Closed', 'value': 'CLOSED' },
-        //         { 'name': 'Client Rejeced', 'value': 'CLIENT_REJECTED' },
-        //         { 'name': 'Selected', 'value': 'SELECTED' },
-        //         { 'name': 'Interview Selected', 'value': 'INTERVIEW_SELECTED' },
-        //         { 'name': 'Interview', 'value': 'INTERVIEWED' },
-        //         { 'name': 'Interview Scheduled', 'value': 'INTERVIEW_SCHEDULED' },
-        //         { 'name': 'Rescheduled', 'value': 'RESCHEDULED' },
-        //         { 'name': 'Interview Rejected', 'value': 'INTERVIEWED_REJECTED' },
-        //         { 'name': 'Awaiting For Feedback', 'value': 'AWAITING_FOR_FEEDBACK' },
-        //         { 'name': 'Hold', 'value': 'HOLD' },
-        //         { 'name': 'Other Rejection', 'value': 'OTHER_REJECTION' },
-        //     ];
-        // }
     }
 
     initUnits() {
@@ -334,15 +261,23 @@ export class EditSubmissonComponent implements OnInit {
                     for (const immigration of this.immigration) {
                         immigration.isChecked = false;
                     }
-                    // if (this.userRole === 'ADMIN') {
-                    //     this.getAllRequirements();
-                    // } else if (this.userRole === 'TL' || this.userRole === 'ACC_MGR') {
-                    //     this.getAllRequirementsForLeadUserAndAccountManager();
-                    // }
                     this.editSubmission();
                 }
             });
+    }
 
+    getAllSkills() {
+        const companyId = {
+            companyId: this.rtsCompanyId
+        };
+
+        this.requirementService.getAllSkills(companyId)
+            .subscribe(
+                data => {
+                    if (data.success) {
+                        this.skills = data.skills;
+                    }
+                });
     }
 
     getAllRequirements() {
@@ -413,24 +348,12 @@ export class EditSubmissonComponent implements OnInit {
                         this.isC2c = this.selectedSubmission.candidate.c2C
                         this.isRelocate = this.selectedSubmission.candidate.relocate;
                         this.isWorkedWithClient = this.selectedSubmission.candidate.workedWithClient;
-                        // if (this.selectedSubmission.candidate.c2C) {
-                        //     this.myForm.controls.c2c.setValue('Yes');
-                        //     this.isC2c = true;
-                        // } else {
-                        //     this.myForm.controls.c2c.setValue('No');
-                        // }
-                        // if (this.selectedSubmission.candidate.relocate) {
-                        //     this.myForm.controls.editRelocate.setValue('true');
-                        // } else {
-                        //     this.myForm.controls.editRelocate.setValue('false');
-                        // }
-                        // if (this.selectedSubmission.candidate.workedWithClient) {
-                        //     this.myForm.controls.editWorkedWithClient.setValue('true');
-                        //     this.isWorkedWithClient = true;
-                        // } else {
-                        //     this.myForm.controls.editWorkedWithClient.setValue('false');
-                        //     this.isWorkedWithClient = false;
-                        // }
+                        this.selectedSkills = this.selectedSubmission.candidate.skills;
+                        var skillText = [];
+                        for (const skill of this.selectedSkills) {
+                            skillText.push(skill.name + ' ');
+                        }
+                        this.selectedSkillsText = skillText.join();
                         for (const immigration of this.immigration) {
                             immigration.isChecked = false;
                         }
@@ -444,6 +367,7 @@ export class EditSubmissonComponent implements OnInit {
                         this.isNewCandidate = false;
                     } else {
                         this.isWorkedWithClient = false;
+                        this.selectedSkills = [];
                         this.myForm.controls.candidateImmigirationStatus.setValue('GC');
                         this.immigirationStatus = 'GC';
                         this.addCandidate = true;
@@ -484,9 +408,15 @@ export class EditSubmissonComponent implements OnInit {
                         this.isC2c = this.selectedSubmission.candidate.c2C;
                         this.isRelocate = this.selectedSubmission.candidate.relocate;
                         this.isWorkedWithClient = this.selectedSubmission.candidate.workedWithClient;
+                        this.selectedSkills = this.selectedSubmission.candidate.skills;
+                        var skillText = [];
+                        for (const skill of this.selectedSkills) {
+                            skillText.push(skill.name + ' ');
+                        }
+                        this.selectedSkillsText = skillText.join();
                         const isStatusExiting = _.findIndex(this.submissionStatus, this.statusObj)
                         if (isStatusExiting === -1) {
-                          this.submissionStatus.push(this.statusObj);
+                            this.submissionStatus.push(this.statusObj);
                         }
                         for (const ccUser of ccRecruiters) {
                             this.clientCC.push({ email: ccUser.email, firstName: ccUser.name });
@@ -513,26 +443,6 @@ export class EditSubmissonComponent implements OnInit {
                         } else {
                             this.isSelected = false;
                         }
-                        // if (this.selectedSubmission.candidate.c2C) {
-                        //     this.myForm.controls.c2c.setValue('Yes');
-                        //     this.isC2c = true;
-                        // } else {
-                        //     this.myForm.controls.c2c.setValue('No');
-                        // }
-                        // if (this.selectedSubmission.candidate.relocate) {
-                        //     this.myForm.controls.editRelocate.setValue('true');
-                        //     this.isRelocate = true;
-                        // } else {
-                        //     this.myForm.controls.editRelocate.setValue('false');
-                        //     this.isRelocate = false;
-                        // }
-                        // if (this.selectedSubmission.candidate.workedWithClient) {
-                        //     this.myForm.controls.editWorkedWithClient.setValue('true');
-                        //     this.isWorkedWithClient = true;
-                        // } else {
-                        //     this.myForm.controls.editWorkedWithClient.setValue('false');
-                        //     this.isWorkedWithClient = false;
-                        // }
                         for (const recruiter of this.selectedRequirement.toClientRecruiters) {
                             this.recruiterName.push(recruiter.name + ' ');
                             this.recruiterEmail.push(recruiter.email + ' ');
@@ -766,12 +676,6 @@ export class EditSubmissonComponent implements OnInit {
             submission.statusId = parseInt(form.value.status);
         }
 
-
-
-        // const editSubmission = {
-        //     submission: submission,
-        //     deletedMediaFiles: this.deletedMediaFiles
-        // };
 
         if (this.sendToClient) {
             if (this.mailFormat === undefined) {

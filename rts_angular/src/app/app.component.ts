@@ -72,7 +72,7 @@ export class AppComponent implements DoCheck, OnDestroy {
     CandidateReportComponent.userDetails = undefined;
     CandidateReportComponent.client = undefined;
     InterviewHistoryComponent.interviewStatus = undefined;
-    SearchCandidatesComponent.technology = undefined;
+    SearchCandidatesComponent.skills = undefined;
     this.loginService.logout();
     this.toastr.success('You are logged out', '', {
       positionClass: 'toast-top-center',

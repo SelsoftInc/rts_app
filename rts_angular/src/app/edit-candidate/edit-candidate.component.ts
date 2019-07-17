@@ -37,6 +37,9 @@ export class EditCandidateComponent implements OnInit {
   private isRelocate: boolean;
   private isWorkedWithClient: boolean;
   private immigration: any;
+  private selectedSkills: any;
+  addCustomSkills = (skill) => ({ skillId: skill, name: skill });
+  skills: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -103,8 +106,10 @@ export class EditCandidateComponent implements OnInit {
       dateOfBirth: [''],
       currentProject: [''],
       totalUsExperience: [''],
+      skills: ['']
     });
     this.getCommonDetails();
+    this.getAllSkills();
     // this.getCandidateById();
   }
 
@@ -127,6 +132,20 @@ export class EditCandidateComponent implements OnInit {
         });
   }
 
+  getAllSkills() {
+    const companyId = {
+      companyId: this.rtsCompanyId
+    };
+
+    this.requirementService.getAllSkills(companyId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.skills = data.skills;
+          }
+        });
+  }
+
   getCandidateById() {
     const candidateId = {
       candidateId: this.candidateId
@@ -141,24 +160,7 @@ export class EditCandidateComponent implements OnInit {
             this.isRelocate = this.selectedCandidate.relocate;
             this.isWorkedWithClient = this.selectedCandidate.workedWithClient;
             this.isEmployerDetails = this.selectedCandidate.c2C;
-            // if (this.selectedCandidate.c2C) {
-            //   this.myForm.controls.c2c.setValue('Yes');
-            //   this.isEmployerDetails = true;
-            // }
-            // if (this.selectedCandidate.relocate) {
-            //   this.myForm.controls.relocate.setValue('true');
-            //   this.isRelocate = true;
-            // } else {
-            //   this.myForm.controls.relocate.setValue('false');
-            //   this.isRelocate = false;
-            // }
-            // if (this.selectedCandidate.workedWithClient) {
-            //   this.myForm.controls.workedWithClient.setValue('true');
-            //   this.isWorkedWithClient = true;
-            // } else {
-            //   this.myForm.controls.workedWithClient.setValue('false');
-            //   this.isWorkedWithClient = false;
-            // }
+            this.selectedSkills = this.selectedCandidate.skills;
             const immigirationStatus = this.selectedCandidate.visaStatus;
             for (const immigration of this.immigration) {
               if (_.isEqual(immigirationStatus.visaStatusId, immigration.visaStatusId)) {
@@ -229,6 +231,7 @@ export class EditCandidateComponent implements OnInit {
     }
   }
 
+
   openFiles(media) {
     window.open(this.baseUrl + media.mediaThumbnailPath, '_blank');
   }
@@ -265,6 +268,7 @@ export class EditCandidateComponent implements OnInit {
       dateOfBirth: form.value.dateOfBirth,
       currentProject: form.value.currentProject,
       totalUsExperience: form.value.totalUsExperience,
+      skills: this.selectedSkills
     };
 
     if (this.isWorkedWithClient) {

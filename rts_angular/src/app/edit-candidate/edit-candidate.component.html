@@ -83,6 +83,13 @@
         </div>
 
         <div class="col-sm-4" *ngIf="selectedCandidate">
+          <label for="skills" class="form-label mb-4">Skills:</label>
+          <ng-select [items]="skills" bindLabel="name" [multiple]="true" [addTag]="addCustomSkills"
+            formControlName="skills" [(ngModel)]="selectedSkills" >
+          </ng-select>
+        </div>
+
+        <div class="col-sm-4" *ngIf="selectedCandidate">
           <label for="linkedIn" class="form-label">LinkedIn:</label>
           <input type="text" class="form-input" name="linkedIn" formControlName="linkedIn"
             ngModel="{{selectedCandidate.linkedIn}}">
@@ -223,7 +230,7 @@
           <input type="text" class="form-input" name="createdDate" formControlName="createdDate"
             ngModel="{{selectedCandidate.enteredOn | date: 'MMM d, y'}}" disabled>
         </div>
-        
+
 
       </div>
 

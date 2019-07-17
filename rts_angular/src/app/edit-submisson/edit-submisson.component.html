@@ -194,6 +194,19 @@
                 </select>
               </div>
 
+              <!-- <div class="col-sm-4" *ngIf="selectedSubmission">
+                <label for="skills" class="form-label mb-4">Skills:</label>
+                <ng-select [items]="skills" bindLabel="name" [disabled]="true" [multiple]="true"
+                  formControlName="skills" [(ngModel)]="selectedSkills">
+                </ng-select>
+              </div> -->
+
+              <div class="col-sm-4" *ngIf="selectedSubmission">
+                <label for="skills" class="form-label">Skills:</label>
+                <input type="text" class="form-input" name="skills" formControlName="skills"
+                  value="{{selectedSkillsText}}" readonly>
+              </div>
+
               <div class="col-sm-4" *ngIf="selectedSubmission">
                 <label for="skype" class="form-label">Skype:</label>
                 <input type="text" class="form-input" name="skype" formControlName="skype"
@@ -452,6 +465,13 @@
               </div>
 
               <div class="col-sm-4">
+                <label for="skills" class="form-label mb-4">Skills:</label>
+                <ng-select [items]="skills" bindLabel="name" [multiple]="true" [addTag]="addCustomSkills"
+                  formControlName="skills" [(ngModel)]="selectedSkills">
+                </ng-select>
+              </div>
+
+              <div class="col-sm-4">
                 <label for="skype" class="form-label">Skype:</label>
                 <input type="text" class="form-input" name="skype" formControlName="skype">
               </div>
@@ -567,7 +587,7 @@
                 <div class="mb-3">
                   <label for="c2c" class="form-label">C2C:</label>
                 </div>
-                <mat-radio-group (change)="getC2c($event)" formControlName="c2c" ngModel="{{isC2c}}" >
+                <mat-radio-group (change)="getC2c($event)" formControlName="c2c" ngModel="{{isC2c}}">
                   <mat-radio-button value="true">Yes</mat-radio-button>
                   <mat-radio-button value="false">No</mat-radio-button>
                 </mat-radio-group>

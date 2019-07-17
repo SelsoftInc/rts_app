@@ -59,6 +59,9 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   submissionStatus: any;
   status: any;
   statusObj: any;
+  selectedSkills: any;
+  skills: any;
+  selectedSkillsText: string;
   // submissionComment: any;
 
   constructor(private loggedUser: LoggedUserService,
@@ -157,11 +160,13 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       dateOfBirth: [''],
       currentProject: [''],
       totalUsExperience: [''],
+      skills: [''],
       units: this.formBuilder.array([
         this.initUnits()
       ]),
     });
     this.getAllCommonData();
+    this.getAllSkills();
     this.isNewCandidate = false;
   }
 
@@ -202,8 +207,21 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
           this.editSubmission();
         }
       });
-
   }
+  getAllSkills() {
+    const companyId = {
+      companyId: this.rtsCompanyId
+    };
+
+    this.requirementService.getAllSkills(companyId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.skills = data.skills;
+          }
+        });
+  }
+
 
   getAllRequirementsForUser() {
 
@@ -249,6 +267,12 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             this.isC2c = this.selectedSubmission.candidate.c2C;
             this.isRelocate = this.selectedSubmission.candidate.relocate;
             this.isWorkedWithClient = this.selectedSubmission.candidate.workedWithClient;
+            this.selectedSkills = this.selectedSubmission.candidate.skills;
+            var skillText = [];
+            for (const skill of this.selectedSkills) {
+                skillText.push(skill.name + ' ');
+            }
+            this.selectedSkillsText = skillText.join();
             const isStatusExiting = _.findIndex(this.submissionStatus, this.statusObj)
             if (isStatusExiting === -1) {
               this.submissionStatus.push(this.statusObj);
@@ -274,26 +298,6 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             } else {
               this.isSelected = false;
             }
-            // if (this.selectedSubmission.candidate.c2C) {
-            //   this.myForm.controls.c2c.setValue('Yes');
-            //   this.isC2c = true;
-            // } else {
-            //   this.myForm.controls.c2c.setValue('No');
-            // }
-            // if (this.selectedSubmission.candidate.relocate) {
-            //   this.myForm.controls.editRelocate.setValue('true');
-            //   this.isRelocate = true;
-            // } else {
-            //   this.myForm.controls.editRelocate.setValue('false');
-            //   this.isRelocate = false;
-            // }
-            // if (this.selectedSubmission.candidate.workedWithClient) {
-            //   this.myForm.controls.editWorkedWithClient.setValue('true');
-            //   this.isWorkedWithClient = true;
-            // } else {
-            //   this.myForm.controls.editWorkedWithClient.setValue('false');
-            //   this.isWorkedWithClient = false;
-            // }
             for (const recruiter of this.selectedRequirement.toClientRecruiters) {
               this.recruiterName.push(recruiter.name + ' ');
             }
@@ -309,9 +313,6 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
         });
   }
 
-  // statusExiting(status){
-  //   this.submissionStatus.splice(this.submissionStatus.indexOf(status), 1)
-  // }
 
   getRequirement(event) {
     this.recruiterName = [];
@@ -337,24 +338,12 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             this.isC2c = this.selectedSubmission.candidate.c2C;
             this.isRelocate = this.selectedSubmission.candidate.relocate;
             this.isWorkedWithClient = this.selectedSubmission.candidate.workedWithClient;
-            // if (this.selectedSubmission.candidate.c2C) {
-            //   this.myForm.controls.c2c.setValue('Yes');
-            //   this.isC2c = true;
-            // } else {
-            //   this.myForm.controls.c2c.setValue('No');
-            // }
-            // if (this.selectedSubmission.candidate.relocate) {
-            //   this.myForm.controls.editRelocate.setValue('true');
-            // } else {
-            //   this.myForm.controls.editRelocate.setValue('false');
-            // }
-            // if (this.selectedSubmission.candidate.workedWithClient) {
-            //   this.myForm.controls.editWorkedWithClient.setValue('true');
-            //   this.isWorkedWithClient = true;
-            // } else {
-            //   this.myForm.controls.editWorkedWithClient.setValue('false');
-            //   this.isWorkedWithClient = false;
-            // }
+            this.selectedSkills = this.selectedSubmission.candidate.skills;
+            var skillText = [];
+            for (const skill of this.selectedSkills) {
+                skillText.push(skill.name + ' ');
+            }
+            this.selectedSkillsText = skillText.join();
             for (const immigration of this.immigration) {
               immigration.isChecked = false;
             }
@@ -367,6 +356,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
             this.addCandidate = false;
             this.isNewCandidate = false;
           } else {
+            this.selectedSkills = [];
             this.isWorkedWithClient = false;
             this.myForm.controls.editCandidateImmigirationStatus.setValue('GC');
             this.immigirationStatus = 'GC';
@@ -514,22 +504,6 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       comments: this.selectedSubmission.comments
     };
 
-    // if (this.submissionComment === '' || this.submissionComment === undefined) {
-    //   submission.comments = [];
-    // } else {
-    //   submission.comments = [
-    //     {
-    //       comment: this.submissionComment,
-    //       enteredBy: this.rtsUserId
-    //     }
-    //   ];
-    // }
-
-    // const editSubmission = {
-    //   submission: submission,
-    //   deletedMediaFiles: this.deletedMediaFiles
-    // };
-
     this.submissionService.editSubmission(submission)
       .subscribe(
         data => {
@@ -539,7 +513,6 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
-            // this.ngProgress.done();
             this.router.navigate(['submissions']);
 
           } else {
@@ -547,7 +520,6 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
-            // this.ngProgress.done();
           }
         });
   }

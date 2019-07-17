@@ -78,7 +78,7 @@ export class CandidateService {
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', token);
 
-        return this.http.post(ApiUrl.BaseUrl + ApiUrl.GetCandidateByTechnology, tech,
+        return this.http.post(ApiUrl.BaseUrl + ApiUrl.GetCandidateBySkills, tech,
             { headers: headers })
             .map(res => {
                 const responseToken = res.headers.get('refresh-token');

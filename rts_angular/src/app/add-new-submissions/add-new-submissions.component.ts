@@ -51,6 +51,10 @@ export class AddNewSubmissionsComponent implements OnInit {
   isWorkedWithClient: boolean;
   immigration: any;
   isFileAttchements: boolean;
+  skills: any;
+  addCustomSkills = (skill) => ({ skillId: 0, name: skill });
+  selectedSkills: any;
+  // selectedSkillsText: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -151,7 +155,10 @@ export class AddNewSubmissionsComponent implements OnInit {
       dateOfBirth: [''],
       currentProject: [''],
       totalUsExperience: [''],
+      skills: ['']
     });
+    this.getAllCommonData();
+    this.getAllSkills();
     this.getRequirementById();
     // if (this.userRole === 'ADMIN') {
     //   this.getAllRequirements();
@@ -160,7 +167,6 @@ export class AddNewSubmissionsComponent implements OnInit {
     // } else if (this.userRole === 'RECRUITER' || this.userRole === 'TRAINEE') {
     //   this.getAllRequirementsForUser();
     // }
-    this.getAllCommonData();
     // this.myForm.controls.editCandidateImmigirationStatus.setValue('GC');
     // this.immigirationStatus = 'GC';
   }
@@ -180,7 +186,20 @@ export class AddNewSubmissionsComponent implements OnInit {
           }
         }
       });
+  }
 
+  getAllSkills() {
+    const companyId = {
+      companyId: this.rtsCompanyId
+    };
+
+    this.requirementService.getAllSkills(companyId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.skills = data.skills;
+          }
+        });
   }
 
   getRequirementById() {
@@ -347,30 +366,12 @@ export class AddNewSubmissionsComponent implements OnInit {
             this.isC2c = this.selectedCandidate.c2C;
             this.isRelocate = this.selectedCandidate.relocate;
             this.isWorkedWithClient = this.selectedCandidate.workedWithClient;
-            // if (this.selectedCandidate.c2C) {
-            //   this.myForm.controls.c2c.setValue('Yes');
-            //   this.isC2c = true;
-            // } else {
-            //   this.myForm.controls.c2c.setValue('No');
-            //   this.isC2c = false;
-            // }
-            // if (this.selectedCandidate.relocate) {
-            //   this.myForm.controls.editRelocate.setValue('true');
-            //   this.isRelocate = true;
-            // } else {
-            //   this.myForm.controls.editRelocate.setValue('false');
-            //   this.isRelocate = false;
-            // }
-            // if (this.selectedCandidate.workedWithClient) {
-            //   this.myForm.controls.editWorkedWithClient.setValue('true');
-            //   this.isWorkedWithClient = true;
-            // } else {
-            //   this.myForm.controls.editWorkedWithClient.setValue('false');
-            //   this.isWorkedWithClient = false;
-            // }
             this.isEmployerDetails = false;
             this.isCandidate = true;
             this.isNewCandidate = false;
+            this.selectedSkills = this.selectedCandidate.skills;
+            // this.selectedSkillsText = this.selectedCandidate.skills.name.join()
+            // console.log(this.selectedSkillsText)
             const immigirationStatus = this.selectedCandidate.visaStatus;
             for (const immigration of this.immigration) {
               immigration.isChecked = false;
@@ -383,6 +384,7 @@ export class AddNewSubmissionsComponent implements OnInit {
           } else {
             this.isCandidate = false;
             this.isNewCandidate = true;
+            this.selectedSkills = [];
             this.toastr.error(data.message, '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,
@@ -520,6 +522,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       dateOfBirth: form.value.dateOfBirth,
       currentProject: form.value.currentProject,
       totalUsExperience: form.value.totalUsExperience,
+      skills: this.selectedSkills,
       enteredBy: parseInt(this.rtsUserId)
     };
 

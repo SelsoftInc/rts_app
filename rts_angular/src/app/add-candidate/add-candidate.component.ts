@@ -29,7 +29,11 @@ export class AddCandidateComponent implements OnInit {
   private immigirationStatus: any;
   private isRelocate: boolean;
   private isWorkedWithClient: boolean;
-  immigration: any;
+  private immigration: any;
+  private selectedSkills: any;
+  skills: any;
+  addCustomSkills = (skill) => ({ skillId: 0, name: skill });
+
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -83,9 +87,10 @@ export class AddCandidateComponent implements OnInit {
       dateOfBirth: [''],
       currentProject: [''],
       totalUsExperience: [''],
-
+      skills: ['']
     });
     this.getCommonDetails();
+    this.getAllSkills();
     // this.myForm.controls.immigirationStatus.setValue('GC');
     // this.immigirationStatus = 'GC';
   }
@@ -101,6 +106,20 @@ export class AddCandidateComponent implements OnInit {
           if (data.success) {
             this.technologies = data.technologies;
             this.immigration = data.visaStatus;
+          }
+        });
+  }
+
+  getAllSkills() {
+    const companyId = {
+      companyId: this.rtsCompanyId
+    };
+
+    this.requirementService.getAllSkills(companyId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.skills = data.skills;
           }
         });
   }
@@ -158,6 +177,12 @@ export class AddCandidateComponent implements OnInit {
     }
   }
 
+  // addSkills(event) {
+  //   if (event !== undefined) {
+  //     this.skillSet = event;
+  //   }
+  // }
+
   addNewCandidate(form: FormGroup) {
     this.ngProgress.start();
 
@@ -188,6 +213,7 @@ export class AddCandidateComponent implements OnInit {
       dateOfBirth: form.value.dateOfBirth,
       currentProject: form.value.currentProject,
       totalUsExperience: form.value.totalUsExperience,
+      skills: this.selectedSkills,
       enteredBy: this.rtsUserId
     };
 

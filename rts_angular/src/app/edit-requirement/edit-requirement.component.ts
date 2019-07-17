@@ -198,9 +198,9 @@ export class EditRequirementComponent implements OnInit {
             this.requirementByUser = this.selectedRequirement.requirementTypes;
             this.selctedVisaStatus = this.selectedRequirement.visaStatus;
             if (this.selectedRequirement.team !== undefined) {
-              this.selectedTeam = _.findWhere(this.teams, { teamId: this.selectedRequirement.team.teamId });
-              if (this.selectedTeam.leadUser !== undefined) {
-                this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+              this.selectedTeam = _.findWhere(this.teams, { teamId: this.selectedRequirement.team.teamId });             
+              for (const user of this.selectedTeam.leadUsers) {
+                this.selectedTeamUsers.push(user);
               }
               for (const user of this.selectedTeam.otherUsers) {
                 this.selectedTeamUsers.push(user);
@@ -311,8 +311,10 @@ export class EditRequirementComponent implements OnInit {
     if (event !== '') {
       this.selectedTeamUsers = [];
       this.multiSelectUsers = [];
-      this.selectedTeam = _.findWhere(this.teams, { teamId: parseInt(event) });
-      this.selectedTeamUsers.push(this.selectedTeam.leadUser);
+      this.selectedTeam = _.findWhere(this.teams, { teamId: parseInt(event) });     
+      for (const user of this.selectedTeam.leadUsers) {
+        this.selectedTeamUsers.push(user);
+      }
       for (const user of this.selectedTeam.otherUsers) {
         this.selectedTeamUsers.push(user);
       }

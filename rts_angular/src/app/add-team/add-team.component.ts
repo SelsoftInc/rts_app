@@ -29,6 +29,8 @@ export class AddTeamComponent implements OnInit {
   private accountManager: any;
   private rtsCompanyId: any;
   private recruitersArray: any;
+  teamLeads: any;
+  leadUsersArray: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -48,6 +50,8 @@ export class AddTeamComponent implements OnInit {
     this.recruiters = [];
     this.accountManager = [];
     this.dropdownSettings = {};
+    this.leadUsersArray = [];
+    this.teamLeads = [];
   }
 
   ngOnInit() {
@@ -80,32 +84,38 @@ export class AddTeamComponent implements OnInit {
         data => {
           if (data.success) {
             this.users = data.users;
+            this.leadUsers = [];
+            this.recruiters = [];
+            this.teamMembers = [];
             for (const user of this.users) {
               if (user.role === 'TL') {
-                this.leadUsers.push(user);
+                this.leadUsers.push({ user: user.userId, firstName: user.firstName + ' ' + user.lastName });
               }
               if (user.role === 'ACC_MGR') {
                 this.accountManager.push(user);
+              }
+              if (user.role === 'RECRUITER' || user.role === 'TRAINEE') {
+                this.recruiters.push({ user: user.userId, firstName: user.firstName + ' ' + user.lastName });
               }
             }
           }
         });
   }
 
-  selectTeamLead(event) {
-    this.recruiters = [];
-    this.teamMembers = [];
-    for (const user of this.users) {
-      if (user.role === 'RECRUITER' || user.role === 'TRAINEE') {
-        this.recruiters.push({ user: user.userId, firstName: user.firstName + ' ' + user.lastName });
-      }
-    }
-    // this.deSelectAll();
-  }
+  // selectTeamLead(event) {
+  //   this.recruiters = [];
+  //   this.teamMembers = [];
+  //   for (const user of this.users) {
+  //     if (user.role === 'RECRUITER' || user.role === 'TRAINEE') {
+  //       this.recruiters.push({ user: user.userId, firstName: user.firstName + ' ' + user.lastName });
+  //     }
+  //   }
+  //   // this.deSelectAll();
+  // }
 
-  deSelectAll() {
-    this.myForm.controls.teamMembers.setValue('');
-  }
+  // deSelectAll() {
+  //   this.myForm.controls.teamMembers.setValue('');
+  // }
 
   addNewTeam(form: FormGroup) {
     this.ngProgress.start();
@@ -113,10 +123,14 @@ export class AddTeamComponent implements OnInit {
     for (const recruiter of this.recruitersArray) {
       this.teamMembers.push({ userId: recruiter.user });
     }
+    this.teamLeads = [];
+    for (const lead of this.leadUsersArray) {
+      this.teamLeads.push({ userId: lead.user });
+    }
 
     const team = {
       name: form.value.teamName,
-      leadUserId: parseInt(form.value.teamLeadUser),
+      leadUsers: this.teamLeads,
       otherUsers: this.teamMembers,
       accountManagerId: parseInt(form.value.accountManager)
     };
@@ -124,8 +138,8 @@ export class AddTeamComponent implements OnInit {
     this.teamService.addTeam(team)
       .subscribe(
         data => {
-            this.ngProgress.done();
-            if (data.success) {
+          this.ngProgress.done();
+          if (data.success) {
             this.toastr.success('New Team successfully added', '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,

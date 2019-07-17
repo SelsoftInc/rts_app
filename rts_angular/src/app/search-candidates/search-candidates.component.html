@@ -1,7 +1,7 @@
 <div class="sub-nav-wrapper">
   <a class="sub-nav-link" [routerLink]="['/add-candidate']">Add New Candidate</a>
   <span class="divider">
-    <a class="sub-nav-link" [routerLink]="['/search-candidates-email']" > Search By Email</a>
+    <a class="sub-nav-link" [routerLink]="['/search-candidates-email']"> Search By Email</a>
   </span>
   <!-- <span class="divider">
     <a class="sub-nav-link" [routerLink]="['/search-candidates']"> Search By Technology</a>
@@ -16,8 +16,8 @@
 
   <div class="row mb-4">
     <div class="col-8">
-      <ng-select [items]="technologies" bindLabel="technologyName" bindValue="technologyId" [multiple]="true"
-        placeholder="Search Technology" [(ngModel)]="selected">
+      <ng-select [items]="skills" bindLabel="name" [multiple]="true" placeholder="Search Skills"
+        [(ngModel)]="selectedSkills">
       </ng-select>
     </div>
     <div class="col-4">
@@ -31,14 +31,24 @@
     <thead class="table-header">
       <tr>
         <th>Candidate Name</th>
-        <th>Technology</th>
+        <th>Skills</th>
         <th>Location</th>
       </tr>
     </thead>
     <tbody *ngIf="candidateLength > 0 ; else noCandidates">
       <tr *ngFor="let candidate of selectedCandidates" [routerLink]="['/edit-candidate',candidate.candidateId]">
         <td>{{candidate.name}}</td>
-        <td>{{candidate.technology[0].technologyName}}</td>
+        <td><span *ngFor="let skill of candidate.skills">
+            <span>{{skill.name}}</span>
+            <!-- <span *ngFor="let select of boldedText">
+              <span *ngIf="select.skillId === skill.skillId ; else noBoldtext"><b>{{skill.name}}</b>
+              </span>
+              <ng-template #noBoldtext>
+                {{skill.name}}
+              </ng-template>
+            </span> -->
+            <span *ngIf="candidate.skills.length > 1">,</span>
+          </span></td>
         <td>{{candidate.location}}</td>
       </tr>
     </tbody>

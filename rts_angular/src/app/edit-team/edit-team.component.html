@@ -1,37 +1,44 @@
 <h2 class="main-title">
   <a [routerLink]="['/manage-team']">Manage Team</a> / Edit Team</h2>
-  <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
-  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
+</ng-progress>
 <div class="utility-container">
   <form [formGroup]="myForm" (ngSubmit)="updateTeam(myForm)">
     <div class="container">
       <div class="row">
         <div class="col-sm-4">
           <label for="teamName" class="form-label">Team Name:</label>
-          <input type="text" class="form-input" name="teamName" formControlName="teamName" required ngModel="{{teamName}}">
+          <input type="text" class="form-input" name="teamName" formControlName="teamName" required
+            ngModel="{{teamName}}">
         </div>
 
         <div class="col-sm-4">
           <label for="accountManager" class="form-label">Account Manager:</label>
-          <select name="role" class="form-input" formControlName="accountManager" ngModel="{{accountManagerName}}" required>
+          <select name="role" class="form-input" formControlName="accountManager" ngModel="{{accountManagerName}}"
+            required>
             <option value="">Select</option>
-            <option *ngFor="let mgr of accountManager" value="{{mgr.userId}}">{{mgr.firstName}} {{mgr.lastName}}</option>
+            <option *ngFor="let mgr of accountManager" value="{{mgr.userId}}">{{mgr.firstName}} {{mgr.lastName}}
+            </option>
           </select>
         </div>
 
-        <div class="col-sm-4">
-          <label for="teamLeadUser" class="form-label">Team Lead:</label>
-          <select name="role" class="form-input" formControlName="teamLeadUser" ngModel="{{teamLeadName}}" (change)="selectTeamLead($event.target.value)" required>
+        <div class="col-sm-4 ">
+          <label for="teamLeadUser" class="form-label mb-4">Team Lead:</label>
+          <!-- <select name="role" class="form-input" formControlName="teamLeadUser" ngModel="{{teamLeadName}}" (change)="selectTeamLead($event.target.value)" required>
               <option value="">Select</option>
               <option *ngFor="let lead of leadUsers" value="{{lead.userId}}">{{lead.firstName}} {{lead.lastName}}</option>
-            </select>
+            </select> -->
+            <ng-multiselect-dropdown [placeholder]="'Select lead'" [data]="leadUsers" formControlName="teamLeadUser"
+            [(ngModel)]="leadUsersArray" [settings]="dropdownSettings" >
+          </ng-multiselect-dropdown>
         </div>
 
         <div class="col-sm-4">
           <label for="teamMembers" class="form-label mb-4">Select Users:</label>
-            <ng-multiselect-dropdown [placeholder]="'Select Users'" [data]="recruiters" formControlName="teamMembers" [(ngModel)]="recruitersArray"
-                                     [settings]="dropdownSettings">
-            </ng-multiselect-dropdown>
+          <ng-multiselect-dropdown [placeholder]="'Select Users'" [data]="recruiters" formControlName="teamMembers"
+            [(ngModel)]="recruitersArray" [settings]="dropdownSettings">
+          </ng-multiselect-dropdown>
         </div>
       </div>
       <div class="form-btn-container">
