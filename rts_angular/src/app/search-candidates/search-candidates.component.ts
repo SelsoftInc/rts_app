@@ -17,14 +17,16 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SearchCandidatesComponent implements OnInit {
 
-  selected: any[];
+  selectedSkills: any[];
   selectedCandidates: any[];
   rtsUserId: any;
   technologies: any;
   rtsUser: any;
   candidateLength: number;
   rtsCompanyId: any;
-  static technology: any;
+  static skills: any;
+  skills: any;
+  boldedText: any;
 
   constructor(
     private requirementService: RequirementsService,
@@ -37,44 +39,62 @@ export class SearchCandidatesComponent implements OnInit {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
     this.rtsCompanyId = this.rtsUser.companyId;
-    this.selected = [];
+    this.selectedSkills = [];
+    this.boldedText = [];
   }
 
   ngOnInit() {
     this.ngProgress.start();
-    this.getCommonDetails();
-    if (SearchCandidatesComponent.technology !== undefined) {
-      this.selected = SearchCandidatesComponent.technology;
+    this.getAllSkills();
+    if (SearchCandidatesComponent.skills !== undefined) {
+      this.selectedSkills = SearchCandidatesComponent.skills;
       this.getTech();
     }
 
   }
 
-  getCommonDetails() {
+  // getCommonDetails() {
+  //   const companyId = {
+  //     userId: this.rtsUserId
+  //   };
+
+  //   this.requirementService.commonDetails(companyId)
+  //     .subscribe(
+  //       data => {
+  //         this.ngProgress.done();
+  //         if (data.success) {
+  //           this.technologies = data.technologies;
+  //         }
+  //       });
+  // }
+
+  getAllSkills() {
     const companyId = {
-      userId: this.rtsUserId
+      companyId: this.rtsCompanyId
     };
 
-    this.requirementService.commonDetails(companyId)
+    this.requirementService.getAllSkills(companyId)
       .subscribe(
         data => {
           this.ngProgress.done();
           if (data.success) {
-            this.technologies = data.technologies;
+            this.skills = data.skills;
           }
         });
   }
 
   getTech() {
     this.ngProgress.start();
-    const technology = []
-    SearchCandidatesComponent.technology = this.selected;
-    if (this.selected.length > 0) {      
-      for (const techId of this.selected) {
-        technology.push({ technologyId: techId })
-      }
+    SearchCandidatesComponent.skills = this.selectedSkills;
+   
+    // this.boldedText = [];
+    if (this.selectedSkills.length > 0) {
+      // for (const skill of this.selectedSkills) {
+      //   this.boldedText.push({ skillId: skill })
+      // }
+      // console.log(this.boldedText)
       const submit = {
-        technology: technology,
+        skills: this.selectedSkills,
         companyId: this.rtsCompanyId
       }
 

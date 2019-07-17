@@ -65,7 +65,7 @@ export class ApiUrl {
     static CandidateFileUpload = 'rtsCandidate/candidate/fileUpload';   
     static UpdateCandidate = 'rtsCandidate/candidate/updateCandidate';
     static GetCandidateById = 'rtsCandidate/candidate/candidateById';
-    static GetCandidateByTechnology = 'rtsCandidate/candidate/searchByTechnology';
+    static GetCandidateBySkills = 'rtsCandidate/candidate/searchBySkills';
 
     // team api
     static AddTeam = 'rtsTeam/team/createTeam';
@@ -84,6 +84,7 @@ export class ApiUrl {
     static GetRecruiterTeamSubmissions = 'rtsCommon/common/recruiterTeamSubmissions';
     static GetRecruiterSubmissionStatus = 'rtsCommon/common/recruiterSubmissionStatus';
     static GetCommonDetails = 'rtsCommon/common/getAllCommonDetails';
+    static GetAllSkills = '/rtsCommon/common/getAllSkills';
 
     // vendor api
     static GetAllVendors = 'rtsVendor/vendor/getAllVendors';

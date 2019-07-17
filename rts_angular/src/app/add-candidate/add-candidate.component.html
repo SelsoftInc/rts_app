@@ -49,6 +49,13 @@
             placeholder=" Enter the Technology" required>
         </div>
 
+        <div class="col-sm-4">
+          <label for="skills" class="form-label mb-4">Skills:</label>
+          <ng-select [items]="skills" bindLabel="name" [multiple]="true" [addTag]="addCustomSkills"
+            formControlName="skills" [(ngModel)]="selectedSkills">
+          </ng-select>
+        </div>
+
         <div class="col-sm-8">
           <div class="mb-3">
             <label for="immigirationStatus" class="form-label">Immigiration Status:</label>
