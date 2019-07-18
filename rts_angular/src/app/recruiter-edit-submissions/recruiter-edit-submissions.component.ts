@@ -62,6 +62,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
   selectedSkills: any;
   skills: any;
   selectedSkillsText: string;
+  addCustomSkills = (skill) => ({ skillId: 0, name: skill });
   // submissionComment: any;
 
   constructor(private loggedUser: LoggedUserService,
