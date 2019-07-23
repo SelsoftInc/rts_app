@@ -81,6 +81,8 @@ export class EditSubmissonComponent implements OnInit {
     skills: any;
     selectedSkills: any;
     selectedSkillsText: any;
+    addCustomSkills = (skill) => ({ skillId: 0, name: skill });
+
     // submissionComment: any;
 
     constructor(

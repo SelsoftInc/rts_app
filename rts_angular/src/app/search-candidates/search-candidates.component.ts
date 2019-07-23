@@ -86,13 +86,19 @@ export class SearchCandidatesComponent implements OnInit {
   getTech() {
     this.ngProgress.start();
     SearchCandidatesComponent.skills = this.selectedSkills;
-   
+
     // this.boldedText = [];
+    // console.log(this.selectedSkills)
     if (this.selectedSkills.length > 0) {
       // for (const skill of this.selectedSkills) {
-      //   this.boldedText.push({ skillId: skill })
+      //   const isSkillsExiting = _.findIndex(this.boldedText, skill)
+      //   if (isSkillsExiting === -1) {
+      //     this.boldedText.push(skill);
+      //   }
       // }
+
       // console.log(this.boldedText)
+
       const submit = {
         skills: this.selectedSkills,
         companyId: this.rtsCompanyId

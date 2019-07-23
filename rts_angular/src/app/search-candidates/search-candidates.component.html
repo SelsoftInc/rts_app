@@ -11,7 +11,7 @@
   [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
 </ng-progress>
 
-<h2 class="main-title">Search Candidates By Technology</h2>
+<h2 class="main-title">Search Candidates By Skills</h2>
 <div class="utility-container">
 
   <div class="row mb-4">
@@ -40,7 +40,7 @@
         <td>{{candidate.name}}</td>
         <td><span *ngFor="let skill of candidate.skills">
             <span>{{skill.name}}</span>
-            <!-- <span *ngFor="let select of boldedText">
+            <!-- <span *ngFor="let select of selectedSkills">
               <span *ngIf="select.skillId === skill.skillId ; else noBoldtext"><b>{{skill.name}}</b>
               </span>
               <ng-template #noBoldtext>
