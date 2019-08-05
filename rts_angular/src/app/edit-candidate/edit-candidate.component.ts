@@ -148,7 +148,7 @@ export class EditCandidateComponent implements OnInit {
 
   getCandidateById() {
     const candidateId = {
-      candidateId: this.candidateId
+      candidateId: parseInt(this.candidateId)
     };
 
     this.candidateService.getCandidateById(candidateId)

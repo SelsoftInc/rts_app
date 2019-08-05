@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { LoginService } from '../login/login-service';
+import { AutoRefreshComponent } from '../auto-refresh/auto-refresh.component';
 
 
 
@@ -16,6 +17,7 @@ export class SubmissionService {
         private loginService: LoginService) { }
 
     addSubmission(submission) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -36,6 +38,7 @@ export class SubmissionService {
     }
 
     saveSubmission(saveSubmission) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -56,6 +59,7 @@ export class SubmissionService {
     }
 
     addComment(addMessage) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -76,6 +80,7 @@ export class SubmissionService {
     }
 
     editSubmission(editSubmission) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -96,6 +101,7 @@ export class SubmissionService {
     }
 
     getUserSubmissions(userId) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -116,6 +122,7 @@ export class SubmissionService {
     }
 
     getTeamSubmissions(userId) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -136,6 +143,7 @@ export class SubmissionService {
     }
 
     GetRecruiterSubmissionStatus(userId) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -156,6 +164,7 @@ export class SubmissionService {
     }
 
     submitToClient(submit) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -176,6 +185,7 @@ export class SubmissionService {
     }
 
     getRequirementBySubmission(submit) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -196,6 +206,7 @@ export class SubmissionService {
     }
 
     approvedSubmissionDetails(userId) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -216,6 +227,7 @@ export class SubmissionService {
     }
 
     getAllInterviewDetails(userId) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -236,6 +248,7 @@ export class SubmissionService {
     }
 
     GetAllProgressInterviews(userId) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -256,6 +269,7 @@ export class SubmissionService {
     }
 
     GetAllOnBoardReminder(userId) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -276,6 +290,7 @@ export class SubmissionService {
     }
 
     GetAllSelectedSubmission(userId) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -296,6 +311,7 @@ export class SubmissionService {
     }
 
     getReport(userId) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');

@@ -1,0 +1,17 @@
+<!-- <h2 class="time-title">{{date}}</h2> -->
+<table class="table table-bordered table-sm table-hover">
+  <thead class="table-header">
+    <tr>
+      <th>Session In</th>
+      <th>Session Out</th>
+      <th>Working Hours</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let sheet of selectedTimeSheet">
+      <td>{{sheet.sessionIn | date:'MMM d, h:mm a'}}</td>
+      <td>{{sheet.sessionOut | date:'MMM d, h:mm a'}}</td>
+      <td>{{sheet.workingHours}}</td>
+    </tr>
+  </tbody>
+</table>

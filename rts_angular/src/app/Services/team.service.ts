@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { LoginService } from '../login/login-service';
+import { AutoRefreshComponent } from '../auto-refresh/auto-refresh.component';
 
 
 @Injectable()
@@ -14,6 +15,7 @@ export class TeamService {
         private loginService: LoginService) { }
 
     addTeam(team) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -34,6 +36,7 @@ export class TeamService {
     }
 
     editTeam(team) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -54,6 +57,7 @@ export class TeamService {
     }
 
     deleteTeam(team) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');

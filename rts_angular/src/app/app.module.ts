@@ -16,7 +16,7 @@ import { SubmissionsComponent } from './submissions/submissions.component';
 import { HideComponentService } from './Services/hide-component.service';
 import { RequirementsService } from './Services/requirements.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDatepickerModule, MatSnackBarModule, MatNativeDateModule, matSnackBarAnimations, MatCheckboxModule, MatAutocomplete, MatOption, MatAutocompleteModule, MatOptionModule } from '@angular/material';
+import { MatDatepickerModule, MatSnackBarModule, MatNativeDateModule, matSnackBarAnimations, MatCheckboxModule, MatAutocomplete, MatOption, MatAutocompleteModule, MatOptionModule, MatSelect, MatSelectModule } from '@angular/material';
 import { MatFormFieldModule, MatSlideToggleModule, MatIconModule } from '@angular/material';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material';
@@ -97,6 +97,10 @@ import { SearchCandidateEmailComponent } from './search-candidate-email/search-c
 import { ClipboardModule } from 'ngx-clipboard';
 import { VendorMailComponent } from './vendor-mail/vendor-mail.component';
 import { VendorService } from './Services/vendor.service';
+import { AutoRefreshComponent } from './auto-refresh/auto-refresh.component';
+import { TimeSheetService } from './Services/timeSheet.service';
+import { TimeSheetComponent } from './time-sheet/time-sheet.component';
+import { TimeSheetDetailsComponent } from './time-sheet-details/time-sheet-details.component';
 
 
 @NgModule({
@@ -153,6 +157,9 @@ import { VendorService } from './Services/vendor.service';
     DeleteSubmissionComponent,
     SearchCandidateEmailComponent,
     VendorMailComponent,
+    AutoRefreshComponent,
+    TimeSheetComponent,
+    TimeSheetDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -165,12 +172,12 @@ import { VendorService } from './Services/vendor.service';
     MatSnackBarModule,
     MatDatepickerModule,
     MatInputModule,
-    MatAutocompleteModule,MatOptionModule,
+    MatAutocompleteModule, MatOptionModule,
     MatCheckboxModule,
     NativeDateModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    Ng2SearchPipeModule,NgSelectModule,
+    Ng2SearchPipeModule, NgSelectModule,
     ToastrModule.forRoot(),
     NgMultiSelectDropDownModule.forRoot(),
     MatIconModule,
@@ -184,6 +191,8 @@ import { VendorService } from './Services/vendor.service';
     NgxPaginationModule,
     PaginationModule,
     OwlDateTimeModule,
+    MatSelectModule,
+    MatOptionModule,
     OwlNativeDateTimeModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
@@ -205,6 +214,7 @@ import { VendorService } from './Services/vendor.service';
     GraphService,
     VendorService,
     MessagingService,
+    TimeSheetService,
     AsyncPipe,
     DatePipe],
 
