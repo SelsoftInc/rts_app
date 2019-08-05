@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { LoginService } from '../login/login-service';
+import { AutoRefreshComponent } from '../auto-refresh/auto-refresh.component';
 
 
 
@@ -17,6 +18,7 @@ export class RequirementsService {
         private loginService: LoginService) { }
 
     requirementsDetails(userId) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -57,6 +59,7 @@ export class RequirementsService {
     // }
 
     requirementsDetailsForTeam(userId) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -77,6 +80,7 @@ export class RequirementsService {
     }
 
     getRequirementsById(userId) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -117,6 +121,7 @@ export class RequirementsService {
     // }
 
     requirementsDetailsForRecruiter(userId) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -137,6 +142,7 @@ export class RequirementsService {
     }
 
     getAllSubmissionsByDate(userId) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -157,6 +163,7 @@ export class RequirementsService {
     }
 
     commonDetails(companyId) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -177,6 +184,7 @@ export class RequirementsService {
     }
 
     getAllSkills(companyId) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -197,6 +205,7 @@ export class RequirementsService {
     }
 
     requirementsDetailsForUser(userId) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -217,6 +226,7 @@ export class RequirementsService {
     }
 
     requirementsDetailsByTeam(teamId) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -237,6 +247,7 @@ export class RequirementsService {
     }
 
     addRequirements(newRequirement) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -277,6 +288,7 @@ export class RequirementsService {
     // }
 
     updateRequirement(editRequirement) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');

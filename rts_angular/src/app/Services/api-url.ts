@@ -28,7 +28,7 @@ export class ApiUrl {
 
     // user api
     static AddCompanyUser = 'rtsUser/user/addCompanyUser';
-    static UserLogin = 'rtsUser/user/userLogin';  
+    static UserLogin = 'rtsUser/user/userLogin';
     static GetAllUsersForAdmin = 'rtsUser/user/getAllUserForCompany';
     static ManageUsers = 'rtsUser/user/manageUser';
     static AddUser = 'rtsUser/user/addUser';
@@ -36,6 +36,9 @@ export class ApiUrl {
     static DeleteUser = 'rtsUser/user/deleteUser';
     static ForgotPassword = 'rtsUser/user/forgotPassword';
     static UpdateFcmToken = 'rtsUser/user/updateFcmToken';
+    static UserLogout = 'rtsUser/user/userLogout';
+    static GetActiveUsers = 'rtsUser/user/getActiveUser';
+
 
     //submission api
     static AddNewSubmission = 'rtsSubmission/submission/newSubmission';
@@ -51,18 +54,18 @@ export class ApiUrl {
     static GetAllProgressInterviews = 'rtsSubmission/submission/progressInterview';
     static GetAllOnBoardReminder = 'rtsSubmission/submission/onBoardingReminder';
     static GetAllSelectedSubmission = 'rtsSubmission/submission/selectedSubmission';
-  
+
     // client api
     static GetAllClientsForCompany = 'rtsClient/client/getAllClientForCompany';
     static AddClient = 'rtsClient/client/addClient';
-    static UpdateClient = 'rtsClient/client/updateClient';  
-    static GetClientById = 'rtsClient/client/getClientById';  
-    
+    static UpdateClient = 'rtsClient/client/updateClient';
+    static GetClientById = 'rtsClient/client/getClientById';
+
     // candidate api
     static GetCandidateDetails = 'rtsCandidate/candidate/findCandidateByEmail';
     static GettAllCandidates = 'rtsCandidate/candidate/getAllCompanyCandidate';
     static AddNewCandidate = 'rtsCandidate/candidate/addNewCandidate';
-    static CandidateFileUpload = 'rtsCandidate/candidate/fileUpload';   
+    static CandidateFileUpload = 'rtsCandidate/candidate/fileUpload';
     static UpdateCandidate = 'rtsCandidate/candidate/updateCandidate';
     static GetCandidateById = 'rtsCandidate/candidate/candidateById';
     static GetCandidateBySkills = 'rtsCandidate/candidate/searchBySkills';
@@ -70,12 +73,12 @@ export class ApiUrl {
     // team api
     static AddTeam = 'rtsTeam/team/createTeam';
     static EditTeam = 'rtsTeam/team/updateTeam';
-    static DeleteTeam = 'rtsTeam/team/deleteTeam';   
-  
+    static DeleteTeam = 'rtsTeam/team/deleteTeam';
+
     // common api
     static GetUserGraphDetails = 'rtsCommon/common/getGraphDetails';
     static GetTeamGraphDetails = 'rtsCommon/common/getTeamGraphDetails';
-    static GetClientOpenRequirements = 'rtsCommon/common/clientWiseOpenRequirement';    
+    static GetClientOpenRequirements = 'rtsCommon/common/clientWiseOpenRequirement';
     static GetNoSubmissionsRequirement = 'rtsCommon/common/noSubmissionsRequirement';
     static GetClientSubmissionStatus = 'rtsCommon/common/clientSubmissionStatus';
     static GetRecruiterComparison = 'rtsCommon/common/recruiterComparison';
@@ -89,6 +92,14 @@ export class ApiUrl {
     // vendor api
     static GetAllVendors = 'rtsVendor/vendor/getAllVendors';
 
-    
+    // timesheet api 
+    // static TimeSheetInOrOut = 'rtsTimeSheet/timeSheet/sessionInOrOut';
+    static GetWeekSheet = 'rtsTimeSheet/timeSheet/getWeekSheet';
+
+
+
+
+
+
 
 }

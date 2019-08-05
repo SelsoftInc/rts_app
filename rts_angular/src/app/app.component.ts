@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnDestroy } from '@angular/core';
+import { Component, DoCheck, OnDestroy, HostListener } from '@angular/core';
 import { LoggedUserService } from './Services/logged-user.service';
 import { HideComponentService } from './Services/hide-component.service';
 import { Router } from '@angular/router';
@@ -14,6 +14,9 @@ import { GraphExpansationComponent } from './graph-expansation/graph-expansation
 import { InterviewHistoryComponent } from './interview-history/interview-history.component';
 import { CandidateReportComponent } from './candidate-report/candidate-report.component';
 import { SearchCandidatesComponent } from './search-candidates/search-candidates.component';
+import { TimeSheetService } from './Services/timeSheet.service';
+import { ApiUrl } from 'src/app/Services/api-url';
+import { browser } from 'protractor';
 
 @Component({
   selector: 'app-root',
@@ -25,16 +28,20 @@ export class AppComponent implements DoCheck, OnDestroy {
   displayComponent: boolean;
   rtsUser: any;
   userRole: any;
+  rtsUserId: any;
+
 
   constructor(private loggedUser: LoggedUserService,
     private hideComponent: HideComponentService,
     private router: Router,
     private loginService: LoginService,
+    private timeSheetService: TimeSheetService,
     private toastr: ToastrService,
   ) {
     this.displayComponent = this.hideComponent.displayComponent;
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
   }
+
 
   ngDoCheck() {
     this.displayComponent = this.hideComponent.displayComponent;
@@ -42,10 +49,51 @@ export class AppComponent implements DoCheck, OnDestroy {
     if (this.rtsUser) {
       this.userRole = this.rtsUser.role;
     }
+    const loginService = this.loginService;
+
+    // window.addEventListener("beforeunload", function (e) {
+    //   const token = localStorage.getItem('id_token');
+    //   const userId = localStorage.getItem('user_id');
+    //   var confirmationMessage = "\o/";
+    //   (e || window.event).returnValue = confirmationMessage;
+    //   // loginService.logout();
+    //   // const user = {
+    //   //   userId: userId,
+    //   //   autoLogout: true
+    //   // };
+    //   // let headers = {
+    //   //   type: 'application/json',
+    //   //   Authorization:token
+    //   // };
+    //   // let blob = new Blob([JSON.stringify(user)], headers);
+    //   // navigator.sendBeacon(ApiUrl.BaseUrl + ApiUrl.UserLogout, blob);
+
+    //   return confirmationMessage;
+    // });
+    
+
   }
+
 
   ngOnDestroy() {
     this.hideComponent.displayComponent = false;
+  }
+
+  refresh() {
+    const userId = {
+      userId: this.rtsUser.userId,
+      autoLogout: true
+    };
+    this.loginService.isLogout(userId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.toastr.success('You are logged out', '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
+          }
+        });
   }
 
   onLogout() {
@@ -73,11 +121,22 @@ export class AppComponent implements DoCheck, OnDestroy {
     CandidateReportComponent.client = undefined;
     InterviewHistoryComponent.interviewStatus = undefined;
     SearchCandidatesComponent.skills = undefined;
-    this.loginService.logout();
-    this.toastr.success('You are logged out', '', {
-      positionClass: 'toast-top-center',
-      timeOut: 3000,
-    });
+    const userId = {
+      userId: this.rtsUser.userId,
+      autoLogout: false
+    };
+
+    this.loginService.isLogout(userId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.toastr.success('You are logged out', '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
+          }
+        });
+    this.router.navigate(['login']);
     return false;
   }
 }

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { LoginService } from '../login/login-service';
+import { AutoRefreshComponent } from '../auto-refresh/auto-refresh.component';
 
 
 @Injectable()
@@ -14,6 +15,7 @@ export class ClientService {
         private loginService: LoginService) { }
 
     addClient(client) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -34,6 +36,7 @@ export class ClientService {
     }
 
     editClient(editClient) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -54,6 +57,7 @@ export class ClientService {
     }
 
     getClientRequirements(userId) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -74,6 +78,7 @@ export class ClientService {
     }
 
     allClients(companyId) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -94,6 +99,7 @@ export class ClientService {
     }
 
     getClientById(clientId) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');

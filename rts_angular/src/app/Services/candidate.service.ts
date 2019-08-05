@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { LoginService } from '../login/login-service';
+import { AutoRefreshComponent } from '../auto-refresh/auto-refresh.component';
 
 @Injectable()
 export class CandidateService {
@@ -13,6 +14,7 @@ export class CandidateService {
         private loginService: LoginService) { }
 
     getCandidate(candidate) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -33,6 +35,7 @@ export class CandidateService {
     }
 
     allCandidate(company) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -53,6 +56,7 @@ export class CandidateService {
     }
 
     getCandidateById(company) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -73,6 +77,7 @@ export class CandidateService {
     }
 
     getCandidateByTechnology(tech) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -93,6 +98,7 @@ export class CandidateService {
     }
 
     addCandidate(newCandidate) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -113,6 +119,7 @@ export class CandidateService {
     }
 
     editCandidate(updateCandidate) {
+        AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');

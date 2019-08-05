@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { LoginService } from '../login/login-service';
+import { AutoRefreshComponent } from '../auto-refresh/auto-refresh.component';
 
 
 @Injectable()
@@ -15,6 +16,7 @@ export class GraphService {
     private loginService: LoginService) { }
 
   userGraphDetails(graph) {
+    AutoRefreshComponent.reset.next(void 0);
     const token = localStorage.getItem('id_token');
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -35,6 +37,7 @@ export class GraphService {
   }
 
   teamGraphDetails(graph) {
+    AutoRefreshComponent.reset.next(void 0);
     const token = localStorage.getItem('id_token');
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -55,6 +58,7 @@ export class GraphService {
   }
 
   getClientOpenRequirements(graph) {
+    AutoRefreshComponent.reset.next(void 0);
     const token = localStorage.getItem('id_token');
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -75,6 +79,7 @@ export class GraphService {
   }
 
   getInterviewDetails(graph) {
+    AutoRefreshComponent.reset.next(void 0);
     const token = localStorage.getItem('id_token');
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -95,6 +100,7 @@ export class GraphService {
   }
 
   clientSubmissionStatus(graph) {
+    AutoRefreshComponent.reset.next(void 0);
     const token = localStorage.getItem('id_token');
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -115,6 +121,7 @@ export class GraphService {
   }
 
   recruiterComparsion(graph) {
+    AutoRefreshComponent.reset.next(void 0);
     const token = localStorage.getItem('id_token');
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -135,6 +142,7 @@ export class GraphService {
   }
 
   teamComparsion(graph) {
+    AutoRefreshComponent.reset.next(void 0);
     const token = localStorage.getItem('id_token');
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -155,6 +163,7 @@ export class GraphService {
   }
 
   noSubmissionsRequirement(graph) {
+    AutoRefreshComponent.reset.next(void 0);
     const token = localStorage.getItem('id_token');
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -175,6 +184,7 @@ export class GraphService {
   }
 
   recruiterTeamStatus(graph) {
+    AutoRefreshComponent.reset.next(void 0);
     const token = localStorage.getItem('id_token');
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -195,6 +205,7 @@ export class GraphService {
   }
 
   recruiterTeamSubmissions(graph) {
+    AutoRefreshComponent.reset.next(void 0);
     const token = localStorage.getItem('id_token');
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
