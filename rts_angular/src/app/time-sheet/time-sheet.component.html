@@ -18,7 +18,7 @@
             <mat-label>Select User</mat-label>
             <mat-select [(ngModel)]="selectedUser">
               <mat-option *ngFor="let user of userDetails" [value]="user.userId">
-                {{user.firstName}}
+                {{user.firstName}} {{user.lastName}}
               </mat-option>
             </mat-select>
           </mat-form-field>

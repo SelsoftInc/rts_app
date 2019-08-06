@@ -65,15 +65,15 @@ export class TimeSheetComponent implements OnInit {
     this.days[4] = "Thursday";
     this.days[5] = "Friday";
     this.days[6] = "Saturday";
-    this.getActiveUsers();
+    this.getActiveUser();
   }
 
-  getActiveUsers() {
+  getActiveUser() {
     const userId = {
       userId: this.rtsUserId
     };
 
-    this.userService.getActiceUsers(userId)
+    this.userService.getActiveUsers(userId)
       .subscribe(
         data => {
           this.ngProgress.done();
