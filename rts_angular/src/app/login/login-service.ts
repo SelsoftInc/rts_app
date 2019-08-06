@@ -81,8 +81,13 @@ export class LoginService {
                 localStorage.removeItem('user_id');
                 this.router.navigate(['login']);
                 return res.json();
-            });
+            }).catch(err => {
+                if (err.status === 401) {
+                    this.router.navigate(['login']);
+                }
+                return '{}';
 
+            });
     }
 
 }

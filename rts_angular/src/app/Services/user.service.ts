@@ -119,7 +119,7 @@ export class UserService {
             });
     }
 
-    getActiceUsers(user) {
+    getActiveUsers(user) {
         AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();

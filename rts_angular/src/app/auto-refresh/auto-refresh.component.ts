@@ -37,7 +37,7 @@ export class AutoRefreshComponent implements OnInit {
       var currentTime: moment.Moment = moment();
       this.remainingTime = this.searchEndDate.diff(currentTime)
       this.remainingTime = this.remainingTime / 1000;
-      if (seconds >= 1100) { // 1200
+      if (seconds >= 1200) { // 1200
         this.SearchDate = moment();
         this.searchEndDate = this.SearchDate.add(this.ElapsTime, "minutes");
         this.TimerExpired.emit();
