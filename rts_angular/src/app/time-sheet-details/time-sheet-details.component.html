@@ -10,7 +10,10 @@
   <tbody>
     <tr *ngFor="let sheet of selectedTimeSheet">
       <td>{{sheet.sessionIn | date:'MMM d, h:mm a'}}</td>
-      <td>{{sheet.sessionOut | date:'MMM d, h:mm a'}}</td>
+      <td *ngIf="!sheet.autoLogout else autoLogout">{{sheet.sessionOut | date:'MMM d, h:mm a'}}</td>
+      <ng-template #autoLogout>
+        <td class="text-color">{{sheet.sessionOut | date:'MMM d, h:mm a'}}</td>
+      </ng-template>
       <td>{{sheet.workingHours}}</td>
     </tr>
   </tbody>

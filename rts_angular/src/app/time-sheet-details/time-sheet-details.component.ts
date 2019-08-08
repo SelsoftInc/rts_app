@@ -32,7 +32,11 @@ export class TimeSheetDetailsComponent implements OnInit {
     this.weekSheets = this.data.weekSheet;
     this.date = this.data.date
     const selected = _.findWhere(this.weekSheets, { dateId: this.data.date });
-    this.selectedTimeSheet = selected.timeSessions;
+    if (this.data.isProductivity) {
+      this.selectedTimeSheet = selected.proTimeSessions;
+    } else {
+      this.selectedTimeSheet = selected.timeSessions;
+    }
     // console.log(this.selectedTimeSheet)
   }
 

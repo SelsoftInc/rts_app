@@ -7,6 +7,11 @@ import { SendMailComponent } from '../send-mail/send-mail.component';
 import { Router } from '@angular/router';
 import { CandidateService } from '../Services/candidate.service';
 import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material';
+
+export interface DialogData {
+  mailTo: any;
+}
 
 
 @Component({
@@ -35,6 +40,7 @@ export class SearchCandidatesComponent implements OnInit {
     private router: Router,
     private ngProgress: NgProgress,
     private toastr: ToastrService,
+    private dialog: MatDialog
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -87,17 +93,7 @@ export class SearchCandidatesComponent implements OnInit {
     this.ngProgress.start();
     SearchCandidatesComponent.skills = this.selectedSkills;
 
-    // this.boldedText = [];
-    // console.log(this.selectedSkills)
     if (this.selectedSkills.length > 0) {
-      // for (const skill of this.selectedSkills) {
-      //   const isSkillsExiting = _.findIndex(this.boldedText, skill)
-      //   if (isSkillsExiting === -1) {
-      //     this.boldedText.push(skill);
-      //   }
-      // }
-
-      // console.log(this.boldedText)
 
       const submit = {
         skills: this.selectedSkills,
@@ -125,10 +121,21 @@ export class SearchCandidatesComponent implements OnInit {
     }
   }
 
+  // sendMail() {
+  //   SendMailComponent.mailToAddress = this.selectedCandidates;
+  //   this.router.navigate(['/send-mail']);
+  // }
+
   sendMail() {
-    SendMailComponent.candidatesList = this.selectedCandidates;
-    this.router.navigate(['/send-mail']);
+    const dialogRef = this.dialog.open(SendMailComponent, {
+      height: '800px',
+      width: '1200px',
+      data: { mailTo: this.selectedCandidates }
+    });
+
   }
+
+
 
 
 

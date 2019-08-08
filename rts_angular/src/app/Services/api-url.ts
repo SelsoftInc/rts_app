@@ -95,6 +95,7 @@ export class ApiUrl {
     // timesheet api 
     // static TimeSheetInOrOut = 'rtsTimeSheet/timeSheet/sessionInOrOut';
     static GetWeekSheet = 'rtsTimeSheet/timeSheet/getWeekSheet';
+    static SendTimeSheetToMail = 'rtsTimeSheet/timeSheet/sendTimeSheetToMail';
 
 
 
