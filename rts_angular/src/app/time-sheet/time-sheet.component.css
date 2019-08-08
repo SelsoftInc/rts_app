@@ -1,4 +1,9 @@
 .btn-space {
     margin-left: 1.5em;
   }
+
+  .total-hours{
+    text-align: end;
+    padding-right: 0.5em;
+  }
   

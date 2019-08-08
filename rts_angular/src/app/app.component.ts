@@ -31,7 +31,8 @@ export class AppComponent implements DoCheck, OnDestroy {
   rtsUserId: any;
 
 
-  constructor(private loggedUser: LoggedUserService,
+  constructor(
+    private loggedUser: LoggedUserService,
     private hideComponent: HideComponentService,
     private router: Router,
     private loginService: LoginService,
