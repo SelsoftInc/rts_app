@@ -95,7 +95,7 @@ export class SendMailComponent implements OnInit {
             this.adminUsers = [];
             this.users = data.users;
             for (const user of this.users) {
-              if (user.role === 'ADMIN' || user.role === 'ACC_MGR') {
+              if (user.role === 'ADMIN' || user.role === 'ACC_MGR' || user.role === 'HR_MANAGER') {
                 this.adminUsers.push({ email: user.email, name: user.firstName + ' ' + user.lastName });
               }
             }
@@ -133,7 +133,8 @@ export class SendMailComponent implements OnInit {
       daySheets: this.mailData.daySheets,
       to: form.value.mailTo,
       cc: form.value.mailCC,
-      subject: form.value.mailSubject
+      subject: form.value.mailSubject,
+      body:form.value.mailBody
     };
 
     this.timeSheetService.sendTimeSheet(submit)

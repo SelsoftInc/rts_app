@@ -44,6 +44,8 @@ export class TimeSheetComponent implements OnInit {
   currentDate: Date;
   selectedDaysLength: number;
   selectedSheet: any;
+  totalWorkingHours: any;
+  totalProductivityHours: any;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -116,6 +118,8 @@ export class TimeSheetComponent implements OnInit {
           this.ngProgress.done();
           if (data.success) {
             this.weekSheet = data.weekSheet.daySheets;
+            this.totalWorkingHours = data.weekSheet.totalWorkingHours;
+            this.totalProductivityHours = data.weekSheet.totalProductivityHours;
             for (const sheet of this.weekSheet) {
               if (!sheet.workingHoursStr) {
                 sheet.workingHoursStr = '0:0';

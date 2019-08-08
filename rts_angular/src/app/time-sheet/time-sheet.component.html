@@ -25,8 +25,8 @@
         </div>
         <div class="col-4 mt-3">
           <button class="btn btn-sm btn-primary btn-space" (click)="dateFilter();">Show Results</button>
-          <button *ngIf="selectedDaysLength > 0 && rtsUserId=== selectedUser" class="btn btn-sm btn-primary ml-2"
-            (click)="sendMail();">Send Email</button>
+          <button *ngIf="selectedDaysLength > 0 && rtsUserId === selectedUser && userRole !== 'ADMIN'"
+            class="btn btn-sm btn-primary ml-2" (click)="sendMail();">Send Email</button>
         </div>
       </div>
     </div>
@@ -46,7 +46,7 @@
           <th>Saturday</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody *ngIf="selectedDaysLength > 0">
         <tr>
           <td><b>Date</b></td>
           <td *ngFor="let sheet of weekSheet">{{sheet.dateId}}</td>
@@ -60,6 +60,14 @@
           <td><b>Productivity Hours</b></td>
           <td *ngFor="let sheet of weekSheet" (click)="getTimeDetails(sheet.dateId,true);">
             {{sheet.productivityHoursStr}}</td>
+        </tr>
+        <tr>
+          <td colspan="7" class="total-hours"><b>Total Working Hours</b></td>
+          <td>{{totalWorkingHours}}</td>
+        </tr>
+        <tr>
+          <td colspan="7" class="total-hours"><b>Total Productivity Hours</b></td>
+          <td>{{totalProductivityHours}}</td>
         </tr>
       </tbody>
     </table>
@@ -79,7 +87,7 @@
           <th>Saturday</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody *ngIf="selectedDaysLength > 0">
         <tr>
           <td><b>Date</b></td>
           <td *ngFor="let sheet of weekSheet">{{sheet.dateId}}</td>
@@ -87,6 +95,10 @@
         <tr>
           <td><b>Working Hours</b></td>
           <td *ngFor="let sheet of weekSheet" (click)="getTimeDetails(sheet.dateId);">{{sheet.workingHoursStr}}</td>
+        </tr>
+        <tr>
+          <td colspan="7" class="total-hours"><b>Total Working Hours</b></td>
+          <td>{{totalWorkingHours}}</td>
         </tr>
       </tbody>
     </table>
