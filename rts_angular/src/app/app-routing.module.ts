@@ -53,6 +53,7 @@ import { SearchCandidateEmailComponent } from './search-candidate-email/search-c
 import { VendorMailComponent } from './vendor-mail/vendor-mail.component';
 import { TimeSheetComponent } from './time-sheet/time-sheet.component';
 import { TimeSheetDetailsComponent } from './time-sheet-details/time-sheet-details.component';
+import { TimesheetReportComponent } from './timesheet-report/timesheet-report.component';
 
 
 export const appRoutes: Routes = [
@@ -111,6 +112,7 @@ export const appRoutes: Routes = [
   { path: 'search-vendors', component: VendorMailComponent },
   { path: 'time-sheet', component: TimeSheetComponent },
   { path: 'time-sheet-expand', component: TimeSheetDetailsComponent },
+  { path: 'time-sheet-report', component: TimesheetReportComponent },
 ];
 
 

@@ -101,6 +101,7 @@ import { AutoRefreshComponent } from './auto-refresh/auto-refresh.component';
 import { TimeSheetService } from './Services/timeSheet.service';
 import { TimeSheetComponent } from './time-sheet/time-sheet.component';
 import { TimeSheetDetailsComponent } from './time-sheet-details/time-sheet-details.component';
+import { TimesheetReportComponent } from './timesheet-report/timesheet-report.component';
 
 
 @NgModule({
@@ -160,6 +161,7 @@ import { TimeSheetDetailsComponent } from './time-sheet-details/time-sheet-detai
     AutoRefreshComponent,
     TimeSheetComponent,
     TimeSheetDetailsComponent,
+    TimesheetReportComponent,
   ],
   imports: [
     BrowserModule,
