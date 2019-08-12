@@ -79,6 +79,7 @@ export class SendMailComponent implements OnInit {
     if (this.mailData.daySheets === undefined) {
       this.isMail = true;
     } else {
+      this.selectedMailId.push({ email: 'ts@selsoftinc.com' }, { email: 'vardhini@selsoftinc.com' });
       this.isMail = false;
     }
   }
@@ -134,7 +135,7 @@ export class SendMailComponent implements OnInit {
       to: form.value.mailTo,
       cc: form.value.mailCC,
       subject: form.value.mailSubject,
-      body:form.value.mailBody
+      body: form.value.mailBody
     };
 
     this.timeSheetService.sendTimeSheet(submit)
