@@ -27,6 +27,7 @@ export class LeaveRequestComponent implements OnInit {
   selectedMailId: any;
   rtsCompanyId: any;
   currentDate: Date;
+  isLeave: boolean;
 
 
   constructor(
@@ -36,7 +37,7 @@ export class LeaveRequestComponent implements OnInit {
     private timeSheetService: TimeSheetService,
     private formBuilder: FormBuilder,
     private userService: UserService,
-     private router: Router,
+    private router: Router,
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -45,6 +46,7 @@ export class LeaveRequestComponent implements OnInit {
     this.leaveDays = [];
     this.mailToAddress = [];
     this.currentDate = new Date(Date.now())
+    this.isLeave = true;
   }
 
   ngOnInit() {
@@ -112,7 +114,7 @@ export class LeaveRequestComponent implements OnInit {
     }
     const submit = {
       userId: this.rtsUserId,
-      isLeave: form.value.isLeave,
+      isLeave: this.isLeave,
       leaveType: form.value.leaveType,
       daySheets: this.leaveDays,
       mailTo: form.value.mailTo,
