@@ -5,23 +5,23 @@
 <h2 class="main-title"> <a [routerLink]="['/time-sheet']">Time Sheet</a> / Time Sheet Report</h2>
 <div class="utility-container">
   <div class="row">
-    <div class="col-10">
+    <div class="col-8">
       <div class="row mt-2">
-        <div class="col-3">
+        <div class="col-4">
           <mat-form-field>
             <input matInput [matDatepicker]="fromDatePicker" [(ngModel)]="startDate" placeholder="From Date">
             <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #fromDatePicker></mat-datepicker>
           </mat-form-field>
         </div>
-        <div class="col-3">
+        <!-- <div class="col-3">
           <mat-form-field>
             <input matInput [matDatepicker]="toDate" [(ngModel)]="currentDate" placeholder="To Date">
             <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
             <mat-datepicker #toDate></mat-datepicker>
           </mat-form-field>
-        </div>
-        <div class="col-2">
+        </div> -->
+        <!-- <div class="col-2">
           <mat-form-field>
             <mat-label>Select User</mat-label>
             <mat-select [(ngModel)]="selectedUser" (selectionChange)="selectUser($event.value);">
@@ -30,7 +30,7 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-        </div>
+        </div> -->
         <div class="col-4 mt-3">
           <button class="btn btn-sm btn-primary btn-space" (click)="dateFilter();">Show Results</button>
           <button *ngIf="selectedTimeSheetLength > 0" class=" btn btn-sm btn-primary ml-2"
@@ -44,16 +44,33 @@
   <table class="table table-bordered table-sm table-hover">
     <thead class="table-header">
       <tr>
-        <th>Date</th>
+        <th>Employee Name</th>
+        <th>Sunday</th>
+        <th>Monday</th>
+        <th>Thuesday</th>
+        <th>Wednesday</th>
+        <th>Thrusday</th>
+        <th>Friday</th>
+        <th>Saturday</th>
         <th>Working Hours</th>
         <th>Productivity Hours</th>
+        <th>Leave Count</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let sheet of selectedTimeSheet">
-        <td>{{sheet.dateId}}</td>
-        <td>{{sheet.workingHoursStr}}</td>
-        <td>{{sheet.productivityHoursStr}}</td>
+        <td>{{sheet.firstName}} {{sheet.lastName}}</td>
+        <td>{{sheet.day0.workingHours}}</td>
+        <td>{{sheet.day1.workingHours}}</td>
+        <td>{{sheet.day2.workingHours}}</td>
+        <td>{{sheet.day3.workingHours}}</td>
+        <td>{{sheet.day4.workingHours}}</td>
+        <td>{{sheet.day5.workingHours}}</td>
+        <td>{{sheet.day6.workingHours}}</td>
+        <td>{{sheet.totalWorkingHours}}</td>
+        <td>{{sheet.totalProductivityHours}}</td>
+        <td>{{sheet.leaveCount}}</td>
+
       </tr>
     </tbody>
   </table>

@@ -2,6 +2,15 @@
   <span *ngIf="userRole === 'ADMIN' || userRole === 'HR_MANAGER'">
     <a class="sub-nav-link" [routerLink]="['/time-sheet-report']">Time sheet Report</a>
   </span>
+  <span class="divider" *ngIf="userRole !== 'ADMIN' && userRole !== 'HR_MANAGER'">
+    <a class="sub-nav-link" [routerLink]="['/leave-request']">Leave Request</a>
+  </span>
+  <span class="divider" *ngIf="userRole === 'ADMIN' || userRole === 'HR_MANAGER'">
+    <a class="sub-nav-link" [routerLink]="['/create-holiday']">Create Holiday</a>
+  </span>
+  <span class="divider">
+    <a class="sub-nav-link" [routerLink]="['/holiday-list']">Holiday List</a>
+  </span>
 </div>
 <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
   [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
