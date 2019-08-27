@@ -1,0 +1,29 @@
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
+</ng-progress>
+<h2 class="main-title"> <a [routerLink]="['/time-sheet']">Time Sheet</a>
+  <a *ngIf="userRole === 'ADMIN' || userRole==='HR_MANAGER'" [routerLink]="['/create-holiday']"> / Create Holiday</a> /
+  Holidays</h2>
+<div class="utility-container">
+  <table class="table table-hover">
+    <thead class="table-header">
+      <tr>
+        <th>Date</th>
+        <th>Comment</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="holidayLength > 0 ; else noHoliday">
+      <tr *ngFor="let holiday of holidayList">
+        <td>{{holiday.dateId}}</td>
+        <td>{{holiday.comment}}</td>
+      </tr>
+    </tbody>
+    <ng-template #noHoliday>
+      <tbody>
+        <tr>
+          <td>No Holidays yet.</td>
+        </tr>
+      </tbody>
+    </ng-template>
+  </table>
+</div>

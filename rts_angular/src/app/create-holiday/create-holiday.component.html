@@ -1,0 +1,36 @@
+<h2 class="main-title">
+  <a [routerLink]="['/time-sheet']">Time Sheet</a> / Create Holiday</h2>
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
+</ng-progress>
+<div class="utility-container">
+  <div class="container">
+    <form [formGroup]="myForm" (ngSubmit)="createHoliday(myForm)">
+
+      <div class="row">
+        <mat-form-field class="dateField">
+          <input matInput [matDatepicker]="fromDatePicker" [(ngModel)]="holidayDate" placeholder="Select Date"
+            formControlName="holiday">
+          <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #fromDatePicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <label for="lastName" class="form-label">Comment:</label>
+          <input type="text" class="form-input" name="comment" formControlName="comment" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="isHoliday col-sm-2">
+          <mat-checkbox color="primary" formControlName="isHoliday" [ngModel]=true>Is Holiday</mat-checkbox>
+        </div>
+      </div>
+      <div class="mt-5">
+        <button class="btn btn-forms btn-space" type="submit" [disabled]="!myForm.valid">Create Holiday</button>
+        <button [routerLink]="[ '/time-sheet']" class="btn btn-forms">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+</div>

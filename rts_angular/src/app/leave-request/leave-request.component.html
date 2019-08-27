@@ -1,0 +1,48 @@
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
+</ng-progress>
+<h2 class="main-title"><a [routerLink]="['/time-sheet']">Time Sheet</a> / Leave Request</h2>
+<div class="utility-container">
+  <form [formGroup]="myForm" (ngSubmit)="sendMail(myForm)">
+    <div class="container">
+      <div class="row">
+        <div class="col-3">
+          <mat-form-field>
+            <input matInput [min]="currentDate" [satDatepicker]="picker" placeholder="Leave date" [value]="date"
+              [(ngModel)]="startDate" formControlName="mailFrom">
+            <sat-datepicker #picker [rangeMode]="true"></sat-datepicker>
+            <sat-datepicker-toggle matSuffix [for]="picker"></sat-datepicker-toggle>
+          </mat-form-field>
+        </div>
+        <div class="leaveType col-4">
+          <select name="clientName" class="form-input" formControlName="leaveType" required>
+            <option value="">Select</option>
+            <option value="Combo-Off">Combo-Off</option>
+            <option value="Casual-Leave">Casual-Leave</option>
+            <option value="Privilege-Leave">Privilege-Leave</option>
+            <option value="Sick-Leave">Sick-Leave</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <label class="form-label pb-3">To:</label>
+        <div class="col-12">
+          <ng-select [items]="selectedMailId" placeholder="Add Emails" bindLabel="email" bindValue="email"
+            [multiple]="true" [addTag]="addCustom" [(ngModel)]="mailToAddress" formControlName="mailTo">
+          </ng-select>
+        </div>
+      </div>
+      <div class="row">
+        <label class="form-label mb-4">Body:</label>
+        <app-ngx-editor height="200px" minHeight="50px" [placeholder]="'Enter text here...'" [spellcheck]="true"
+          [(ngModel)]="customMailBody" formControlName="mailBody"></app-ngx-editor>
+      </div>
+      <div class="isLeave row">
+        <mat-checkbox color="primary" formControlName="isLeave" [ngModel]=true>Is Leave</mat-checkbox>
+      </div>
+      <div class="row">
+        <button type="button" class="btn btn-forms btn-space" (click)="sendMail(myForm);">Send Request</button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public myForm: FormGroup;
   hide = true;
   message;
+  isLoginButton: boolean;
 
   constructor(
     private router: Router,
@@ -39,7 +40,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
+    this.isLoginButton = false;
     this.myForm = this.formBuilder.group({
       userEmail: ['', Validators.required],
       userPassword: ['', Validators.required]
@@ -73,6 +74,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       });
       return false;
     }
+    this.isLoginButton = true;
 
     this.loginService.authenticateUser(user)
       .subscribe(
@@ -98,6 +100,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.messagingService.receiveMessage();
             this.message = this.messagingService.currentMessage;
           } else {
+            this.isLoginButton = false;
             this.toastr.error(data.message, '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,
