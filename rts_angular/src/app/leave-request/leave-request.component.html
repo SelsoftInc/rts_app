@@ -8,7 +8,7 @@
       <div class="row">
         <div class="col-3">
           <mat-form-field>
-            <input matInput [min]="currentDate" [satDatepicker]="picker" placeholder="Leave date" [value]="date"
+            <input matInput [satDatepicker]="picker" placeholder="Leave date" [value]="date"
               [(ngModel)]="startDate" formControlName="mailFrom">
             <sat-datepicker #picker [rangeMode]="true"></sat-datepicker>
             <sat-datepicker-toggle matSuffix [for]="picker"></sat-datepicker-toggle>
@@ -37,8 +37,8 @@
         <app-ngx-editor height="200px" minHeight="50px" [placeholder]="'Enter text here...'" [spellcheck]="true"
           [(ngModel)]="customMailBody" formControlName="mailBody"></app-ngx-editor>
       </div>
-      <div class="isLeave row">
-        <mat-checkbox color="primary" formControlName="isLeave" [ngModel]=true>Is Leave</mat-checkbox>
+      <div *ngIf="userRole === 'ADMIN' || userRole === 'HR_MANAGER'" class="isLeave row">
+        <mat-checkbox color="primary" formControlName="isLeave" [(ngModel)]=isLeave>Is Leave</mat-checkbox>
       </div>
       <div class="row">
         <button type="button" class="btn btn-forms btn-space" (click)="sendMail(myForm);">Send Request</button>

@@ -2,7 +2,7 @@
   <span *ngIf="userRole === 'ADMIN' || userRole === 'HR_MANAGER'">
     <a class="sub-nav-link" [routerLink]="['/time-sheet-report']">Time sheet Report</a>
   </span>
-  <span class="divider" *ngIf="userRole !== 'ADMIN' && userRole !== 'HR_MANAGER'">
+  <span class="divider">
     <a class="sub-nav-link" [routerLink]="['/leave-request']">Leave Request</a>
   </span>
   <span class="divider" *ngIf="userRole === 'ADMIN' || userRole === 'HR_MANAGER'">
