@@ -46,6 +46,7 @@ export class TimeSheetComponent implements OnInit {
   selectedSheet: any;
   totalWorkingHours: any;
   totalProductivityHours: any;
+  date: Date;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -64,6 +65,7 @@ export class TimeSheetComponent implements OnInit {
     this.selectedSheet = [];
     this.selectedUser = this.rtsUserId;
     this.startDate = new Date(Date.now())
+    this.date = new Date(Date.now())
   }
 
   ngOnInit() {
