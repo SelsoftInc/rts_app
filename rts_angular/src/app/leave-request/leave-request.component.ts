@@ -27,7 +27,9 @@ export class LeaveRequestComponent implements OnInit {
   selectedMailId: any;
   rtsCompanyId: any;
   currentDate: Date;
-  isLeave: boolean;
+  // isLeave: boolean;
+  userDetails: any;
+  // selectedUser: any;
 
 
   constructor(
@@ -43,10 +45,11 @@ export class LeaveRequestComponent implements OnInit {
     this.rtsUserId = this.rtsUser.userId;
     this.rtsCompanyId = this.rtsUser.companyId;
     this.userRole = this.rtsUser.role;
+    // this.selectedUser = this.rtsUserId;
     this.leaveDays = [];
     this.mailToAddress = [];
     this.currentDate = new Date(Date.now())
-    this.isLeave = true;
+    // this.isLeave = true;
   }
 
   ngOnInit() {
@@ -55,9 +58,25 @@ export class LeaveRequestComponent implements OnInit {
       mailTo: [''],
       mailBody: [''],
       isLeave: [''],
-      leaveType: ['']
+      leaveType: [''],
+      selectUser: ['']
     })
     this.getAllUser();
+    this.getActiveUser();
+  }
+  getActiveUser() {
+    const userId = {
+      userId: this.rtsUserId
+    };
+
+    this.userService.getActiveUsers(userId)
+      .subscribe(
+        data => {
+          this.ngProgress.done();
+          if (data.success) {
+            this.userDetails = data.users;
+          }
+        });
   }
 
   getAllUser() {
@@ -114,7 +133,7 @@ export class LeaveRequestComponent implements OnInit {
     }
     const submit = {
       userId: this.rtsUserId,
-      isLeave: this.isLeave,
+      // isLeave: this.isLeave,
       leaveType: form.value.leaveType,
       daySheets: this.leaveDays,
       mailTo: form.value.mailTo,
@@ -122,6 +141,53 @@ export class LeaveRequestComponent implements OnInit {
     };
 
     this.timeSheetService.leaveRequest(submit)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.toastr.success(data.message, '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
+            this.router.navigate(['time-sheet']);
+          }
+          else {
+            this.toastr.error(data.message, '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+            });
+          }
+        });
+  }
+
+  cancelRequest(form: FormGroup) {
+
+    if (this.startDate === undefined || this.startDate === null) {
+      this.toastr.error('Select Date', '', {
+        positionClass: 'toast-top-center',
+        timeOut: 3000,
+      });
+      return false;
+    }
+
+    const fromDate = this.startDate.begin;
+    const toDate = this.startDate.end;
+    var timeDiff = Math.abs(fromDate.getTime() - toDate.getTime());
+    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1;
+    this.leaveDays = [];
+    var date = fromDate;
+    for (var i = 0; i < diffDays; i++) {
+      var day = moment(date).format('YYYY-MM-DD');
+      this.leaveDays.push(day);
+      date = moment(day).add(1, 'days');
+    }
+
+    const submit = {
+      enteredBy: this.rtsUserId,
+      daySheets: this.leaveDays,
+      userId: parseInt(form.value.selectUser)
+    };
+
+    this.timeSheetService.cancelLeaveRequest(submit)
       .subscribe(
         data => {
           if (data.success) {

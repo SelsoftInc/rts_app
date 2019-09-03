@@ -2,3 +2,8 @@
     padding-top: 1.2em;
     color: red;
 }
+
+td[data-content="Absent"] { 
+    color: red;
+ }
+ 
