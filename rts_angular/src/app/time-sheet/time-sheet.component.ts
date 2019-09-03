@@ -133,9 +133,10 @@ export class TimeSheetComponent implements OnInit {
             }
           }
         });
-      for (const day of this.selectedDays) {
-        this.selectedSheet.push(day.dateId)
-      }
+      // for (const day of this.selectedDays) {
+      //   this.selectedSheet.push(day.dateId)
+      // }
+      this.selectedSheet = this.selectedDays;
 
     } else {
       this.ngProgress.done();
