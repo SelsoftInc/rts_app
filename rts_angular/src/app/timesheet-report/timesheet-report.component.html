@@ -60,13 +60,13 @@
     <tbody>
       <tr *ngFor="let sheet of selectedTimeSheet">
         <td>{{sheet.firstName}} {{sheet.lastName}}</td>
-        <td>{{sheet.day0.workingHours}}</td>
-        <td>{{sheet.day1.workingHours}}</td>
-        <td>{{sheet.day2.workingHours}}</td>
-        <td>{{sheet.day3.workingHours}}</td>
-        <td>{{sheet.day4.workingHours}}</td>
-        <td>{{sheet.day5.workingHours}}</td>
-        <td>{{sheet.day6.workingHours}}</td>
+        <td [attr.data-content]="sheet.day0.workingHours">{{sheet.day0.workingHours}}</td>
+        <td [attr.data-content]="sheet.day1.workingHours">{{sheet.day1.workingHours}}</td>
+        <td [attr.data-content]="sheet.day2.workingHours">{{sheet.day2.workingHours}}</td>
+        <td [attr.data-content]="sheet.day3.workingHours">{{sheet.day3.workingHours}}</td>
+        <td [attr.data-content]="sheet.day4.workingHours">{{sheet.day4.workingHours}}</td>
+        <td [attr.data-content]="sheet.day5.workingHours">{{sheet.day5.workingHours}}</td>
+        <td [attr.data-content]="sheet.day6.workingHours">{{sheet.day6.workingHours}}</td>
         <td>{{sheet.totalWorkingHours}}</td>
         <td>{{sheet.totalProductivityHours}}</td>
         <td>{{sheet.leaveCount}}</td>
@@ -74,5 +74,5 @@
       </tr>
     </tbody>
   </table>
-  <h6 class="text" >* WH - Work From Home</h6>
+  <h6 class="text">* WH - Work From Home</h6>
 </div>

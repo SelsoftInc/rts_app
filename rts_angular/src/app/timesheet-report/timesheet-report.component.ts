@@ -82,12 +82,13 @@ export class TimesheetReportComponent implements OnInit {
     this.selectedDate = moment(currentDay).format('MMMM DD, YYYY');
     if (currentDay.getDay() === 0) {
       this.ngProgress.start();
-      this.selectedDays.push({ 'dateId': moment(this.startDate).format('YYYY-MM-DD') });
+      this.selectedDays.push({ 'dateId': moment(this.startDate).format('YYYY-MM-DD'), 'leave': true });
       for (var day = 0; day < 7; day++) {
         const days = this.startDate.setDate(this.startDate.getDate() + 1);
-        this.selectedDays.push({ 'dateId': moment(days).format('YYYY-MM-DD') });
+        this.selectedDays.push({ 'dateId': moment(days).format('YYYY-MM-DD'), 'leave': false });
       }
       this.selectedDays.pop();
+      this.selectedDays[6].leave = true;
 
       const days = {
         userId: this.rtsUserId,

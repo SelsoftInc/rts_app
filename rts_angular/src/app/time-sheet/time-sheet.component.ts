@@ -100,12 +100,13 @@ export class TimeSheetComponent implements OnInit {
     this.currentDate = new Date(this.startDate);
 
     if (this.days[this.startDate.getDay()] == 'Sunday') {
-      this.selectedDays.push({ 'dateId': moment(this.startDate).format('YYYY-MM-DD') });
+      this.selectedDays.push({ 'dateId': moment(this.startDate).format('YYYY-MM-DD'), 'leave': true });
       for (const day of this.days) {
         const days = this.startDate.setDate(this.startDate.getDate() + 1);
-        this.selectedDays.push({ 'dateId': moment(days).format('YYYY-MM-DD') });
+        this.selectedDays.push({ 'dateId': moment(days).format('YYYY-MM-DD'), 'leave': false });
       }
       this.selectedDays.pop();
+      this.selectedDays[6].leave = true;
       this.selectedDaysLength = this.selectedDays.length;
 
       const days = {

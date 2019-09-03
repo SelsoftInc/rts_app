@@ -67,12 +67,12 @@
         </tr>
         <tr>
           <td><b>Working Hours</b></td>
-          <td *ngFor="let sheet of weekSheet" (click)="getTimeDetails(sheet.dateId,false);">{{sheet.workingHoursStr}}
+          <td *ngFor="let sheet of weekSheet" (click)="getTimeDetails(sheet.dateId,false);" [attr.data-content]="sheet.workingHoursStr">{{sheet.workingHoursStr}}
           </td>
         </tr>
         <tr>
           <td><b>Productivity Hours</b></td>
-          <td *ngFor="let sheet of weekSheet" (click)="getTimeDetails(sheet.dateId,true);">
+          <td *ngFor="let sheet of weekSheet" (click)="getTimeDetails(sheet.dateId,true);" [attr.data-content]="sheet.productivityHoursStr">
             {{sheet.productivityHoursStr}}</td>
         </tr>
         <tr>
@@ -108,7 +108,7 @@
         </tr>
         <tr>
           <td><b>Working Hours</b></td>
-          <td *ngFor="let sheet of weekSheet" (click)="getTimeDetails(sheet.dateId);">{{sheet.workingHoursStr}}</td>
+          <td *ngFor="let sheet of weekSheet" (click)="getTimeDetails(sheet.dateId);" [attr.data-content]="sheet.workingHoursStr">{{sheet.workingHoursStr}}</td>
         </tr>
         <tr>
           <td colspan="7" class="total-hours"><b>Total Working Hours</b></td>
@@ -117,6 +117,6 @@
       </tbody>
     </table>
   </div>
-
-
+  <h6 class="text" >* WH - Work From Home</h6>
+  <!-- <h6 style="color: red;" >* Absent - Work From Home</h6> -->
 </div>
