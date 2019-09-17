@@ -155,7 +155,8 @@ export class AddNewSubmissionsComponent implements OnInit {
       dateOfBirth: [''],
       currentProject: [''],
       totalUsExperience: [''],
-      skills: ['']
+      skills: [''],
+      note: ['']
     });
     this.getAllCommonData();
     this.getAllSkills();
@@ -465,12 +466,12 @@ export class AddNewSubmissionsComponent implements OnInit {
       clientRate: form.value.clientRate,
       buyingRate: form.value.buyingRate,
       sellingRate: form.value.sellingRate,
-      // status: form.value.status,
       clientContactname: form.value.clientContactname,
       clientContactEmail: form.value.clientContactEmail,
       workLocation: form.value.workLocation,
       enteredBy: this.rtsUserId,
-      candidateId: parseInt(candidateId)
+      candidateId: parseInt(candidateId),
+      note: form.value.note,
     };
 
     this.submissionService.addSubmission(submission)

@@ -162,6 +162,7 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       currentProject: [''],
       totalUsExperience: [''],
       skills: [''],
+      note:[''],
       units: this.formBuilder.array([
         this.initUnits()
       ]),
@@ -502,7 +503,8 @@ export class RecruiterEditSubmissionsComponent implements OnInit {
       candidateId: candidateId,
       interviewDetails: form.value.units,
       joiningDateStr: this.selectedSubmission.joiningDateStr,
-      comments: this.selectedSubmission.comments
+      comments: this.selectedSubmission.comments,
+      note: form.value.note,
     };
 
     this.submissionService.editSubmission(submission)

@@ -198,6 +198,7 @@ export class EditSubmissonComponent implements OnInit {
             currentProject: [''],
             totalUsExperience: [''],
             skills: [''],
+            note:[''],
             units: this.formBuilder.array([
                 this.initUnits()
             ]),
@@ -668,7 +669,8 @@ export class EditSubmissonComponent implements OnInit {
             approvalUserId: this.rtsUserId,
             interviewDetails: form.value.units,
             joiningDateStr: form.value.joiningDate,
-            comments: this.selectedSubmission.comments
+            comments: this.selectedSubmission.comments,
+            note: form.value.note,
         };
 
         if (this.sendToClient) {

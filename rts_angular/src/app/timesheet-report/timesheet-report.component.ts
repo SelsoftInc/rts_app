@@ -31,6 +31,7 @@ export class TimesheetReportComponent implements OnInit {
   selectedReport: any[];
   selectedDate: any;
   selectedDays: any;
+  date: Date;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -48,6 +49,7 @@ export class TimesheetReportComponent implements OnInit {
     this.currentDate = new Date(Date.now())
     this.selectedUser = this.rtsUserId;
     this.selectedDays = [];
+    this.date = new Date(Date.now())
   }
 
   ngOnInit() {
@@ -85,7 +87,8 @@ export class TimesheetReportComponent implements OnInit {
       this.selectedDays.push({ 'dateId': moment(this.startDate).format('YYYY-MM-DD'), 'leave': true });
       for (var day = 0; day < 7; day++) {
         const days = this.startDate.setDate(this.startDate.getDate() + 1);
-        this.selectedDays.push({ 'dateId': moment(days).format('YYYY-MM-DD'), 'leave': false });
+        var isFutureDate = moment(days).isAfter(this.date);
+        this.selectedDays.push({ 'dateId': moment(days).format('YYYY-MM-DD'), 'leave': isFutureDate });
       }
       this.selectedDays.pop();
       this.selectedDays[6].leave = true;

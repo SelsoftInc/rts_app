@@ -105,9 +105,11 @@ export class TimeSheetComponent implements OnInit {
       this.selectedDays.push({ 'dateId': moment(this.startDate).format('YYYY-MM-DD'), 'leave': true });
       for (const day of this.days) {
         const days = this.startDate.setDate(this.startDate.getDate() + 1);
-        this.selectedDays.push({ 'dateId': moment(days).format('YYYY-MM-DD'), 'leave': false });
+        var isFutureDate = moment(days).isAfter(this.date);
+        this.selectedDays.push({ 'dateId': moment(days).format('YYYY-MM-DD'), 'leave': isFutureDate });
       }
       this.selectedDays.pop();
+     
       this.selectedDays[6].leave = true;
       this.selectedDaysLength = this.selectedDays.length;
 

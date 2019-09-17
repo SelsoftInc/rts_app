@@ -79,31 +79,19 @@
                 <option value="">Select</option>
                 <option *ngFor="let status of submissionStatus" value="{{status.statusId}}">{{status.statusName}}
                 </option>
-                <!-- <option *ngIf="selectedSubmission.status === 'SUBMITTED'" value="SUBMITTED">Submitted</option>
-                <option *ngIf="selectedSubmission.status === 'TL_APPROVED' && userRole === 'ACC_MGR'"
-                  value="TL_APPROVED">TL
-                  Approved</option>
-                <option *ngIf="selectedSubmission.status === 'TL_REJECTED' && userRole === 'ACC_MGR'"
-                  value="TL_REJECTED">TL
-                  Rejected</option>
-                <option *ngIf="selectedSubmission.status === 'APPROVED' && userRole === 'TL'" value="APPROVED">Approved
-                </option>
-                <option *ngIf="selectedSubmission.status === 'REJECTED' && userRole === 'TL'" value="REJECTED">Rejected
-                </option> -->
               </select>
             </div>
 
             <div class="col-sm-4" *ngIf="isRejected">
               <label for="reasonForRejection" class="form-label">Reson For Rejection:</label>
-              <!-- <input
-                *ngIf="selectedSubmission.status === 'REJECTED' || selectedSubmission.status === 'TL_REJECTED' || selectedSubmission.status === 'CLIENT_REJECTED' || selectedSubmission.status === 'INTERVIEWED_REJECTED' || selectedSubmission.status === 'OTHER_REJECTION'"
-                type="text" class="form-input" name="reasonForRejection" formControlName="reasonForRejection"
-                ngModel="{{selectedSubmission.reasonForRejection}}">
-              <input
-                *ngIf="selectedSubmission.status !== 'REJECTED' && selectedSubmission.status !== 'TL_REJECTED' && selectedSubmission.status !== 'CLIENT_REJECTED' && selectedSubmission.status !== 'INTERVIEWED_REJECTED' && selectedSubmission.status !== 'OTHER_REJECTION'"
-                type="text" class="form-input" name="reasonForRejection" formControlName="reasonForRejection"> -->
               <input *ngIf="selectedSubmission" type="text" class="form-input" name="reasonForRejection"
                 formControlName="reasonForRejection" ngModel="{{selectedSubmission.reasonForRejection}}">
+            </div>
+
+            <div class="col-sm-4" *ngIf="selectedSubmission">
+              <label for="note" class="form-label">Note:</label>
+              <textarea rows="3" name="note" class="form-textarea" formControlName="note"
+                ngModel="{{selectedSubmission.note}}"></textarea>
             </div>
 
             <div class="col-sm-4" *ngIf="selectedSubmission && selectedSubmission.submittedUser">

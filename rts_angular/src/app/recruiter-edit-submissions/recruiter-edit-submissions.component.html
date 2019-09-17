@@ -64,42 +64,20 @@
               <label for="status" class="form-label">Status:</label>
               <select name="status" class="form-input" formControlName="status"
                 (change)="changeStatus($event.target.value);" ngModel="{{status}}" required>
-                <!-- <option value="IN-PROGRESS">In-Progress</option>
-                <option value="OTHER_REJECTION">Other Rejection</option> -->
                 <option *ngFor="let status of submissionStatus" value="{{status.statusId}}">{{status.statusName}}
-                  <!-- <option *ngIf="selectedSubmission.status === 'TL_APPROVED'" value="TL_APPROVED">TL Approved</option>
-                <option *ngIf="selectedSubmission.status === 'TL_REJECTED'" value="TL_REJECTED">TL Rejected</option>
-                <option *ngIf="selectedSubmission.status === 'APPROVED'" value="APPROVED">Approved</option>
-                <option *ngIf="selectedSubmission.status === 'REJECTED'" value="REJECTED">Rejected</option>
-                <option *ngIf="selectedSubmission.status === 'HOLD'" value="HOLD">Hold</option> -->
               </select>
-              <!-- <select *ngIf="selectedSubmission.clientSubmissionOn > 0" name="status" class="form-input"
-                formControlName="status" (change)="changeStatus($event.target.value);"
-                ngModel="{{selectedSubmission.status}}" required>
-                <option *ngIf="selectedSubmission.status === 'SUBMITTED'" value="SUBMITTED">Submitted</option>
-                <option *ngIf="selectedSubmission.status === 'TL_APPROVED'" value="TL_APPROVED">TL Approved</option>
-                <option *ngIf="selectedSubmission.status === 'TL_REJECTED'" value="TL_REJECTED">TL Rejected</option>
-                <option *ngIf="selectedSubmission.status === 'APPROVED'" value="APPROVED">Approved</option>
-                <option *ngIf="selectedSubmission.status === 'REJECTED'" value="REJECTED">Rejected</option>
-                <option *ngIf="selectedSubmission.status === 'CLOSED'" value="CLOSED">Closed</option>
-                <option *ngIf="selectedSubmission.status === 'CLIENT_REJECTED'" value="CLIENT_REJECTED">Client Rejected
-                </option>
-                <option *ngIf="selectedSubmission.status === 'SELECTED'" value="SELECTED">Selected</option>
-                <option *ngIf="selectedSubmission.status === 'INTERVIEWED'" value="INTERVIEWED">Interviewed</option>
-                <option value="INTERVIEW_SCHEDULED">Interview Scheduled</option>
-                <option value="INTERVIEWED_REJECTED">Interview Rejected</option>
-                <option value="INTERVIEW_SELECTED">Interview Selected</option>
-                <option value="RESCHEDULED">Rescheduled</option>
-                <option value="AWAITING_FOR_FEEDBACK">Awaiting For Feedback</option>
-                <option value="HOLD">Hold</option>
-                <option value="OTHER_REJECTION">Other Rejection</option>
-              </select> -->
             </div>
 
             <div class="col-sm-4" *ngIf="selectedSubmission && isRejected">
               <label for="reasonForRejection" class="form-label">Reson For Rejection:</label>
               <input type="text" class="form-input" name="reasonForRejection" formControlName="reasonForRejection"
                 ngModel="{{selectedSubmission.reasonForRejection}}">
+            </div>
+
+            <div class="col-sm-4" *ngIf="selectedSubmission">
+              <label for="note" class="form-label">Note:</label>
+              <textarea rows="2" name="note" class="form-textarea" formControlName="note"
+                ngModel="{{selectedSubmission.note}}"></textarea>
             </div>
 
             <div class="col-sm-4" *ngIf="selectedSubmission && selectedSubmission.submittedUser">
