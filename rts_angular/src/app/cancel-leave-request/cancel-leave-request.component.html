@@ -1,0 +1,31 @@
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
+</ng-progress>
+<h2 class="main-title"><a [routerLink]="['/time-sheet']">Time Sheet</a> / Cancel Request</h2>
+<div class="utility-container">
+  <form [formGroup]="myForm" (ngSubmit)="sendMail(myForm)">
+    <div class="container">
+      <div class="row">
+        <div class="col-3">
+          <mat-form-field>
+            <input matInput [satDatepicker]="picker" placeholder="Leave date" [value]="date" [(ngModel)]="startDate"
+              formControlName="mailFrom">
+            <sat-datepicker #picker [rangeMode]="true"></sat-datepicker>
+            <sat-datepicker-toggle matSuffix [for]="picker"></sat-datepicker-toggle>
+          </mat-form-field>
+        </div>
+        <div *ngIf="userRole === 'ADMIN' || userRole === 'HR_MANAGER'" class="leaveType col-4">
+          <select name="clientName" class="form-input" formControlName="selectUser" required>
+            <option value="">Select User</option>
+            <option *ngFor="let user of userDetails" [value]="user.userId">
+              {{user.firstName}} {{user.lastName}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div *ngIf="userRole === 'ADMIN' || userRole === 'HR_MANAGER'" class="row">
+        <button type="button" class="btn btn-forms btn-space" (click)="cancelRequest(myForm);">Cancel Request</button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -8,13 +8,14 @@ import * as moment from 'moment';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
+
 @Component({
-  selector: 'app-leave-request',
-  templateUrl: './leave-request.component.html',
-  styleUrls: ['./leave-request.component.css'],
+  selector: 'app-cancel-leave-request',
+  templateUrl: './cancel-leave-request.component.html',
+  styleUrls: ['./cancel-leave-request.component.css'],
   providers: [LoggedUserService]
 })
-export class LeaveRequestComponent implements OnInit {
+export class CancelLeaveRequestComponent implements OnInit {
 
   public myForm: FormGroup;
   private rtsUser: any;
@@ -23,7 +24,7 @@ export class LeaveRequestComponent implements OnInit {
   private startDate: any;
   private leaveDays: any[];
   private mailToAddress: any;
-  addCustom = (item) => ({ email: item });
+  // addCustom = (item) => ({ email: item });
   selectedMailId: any;
   rtsCompanyId: any;
   currentDate: Date;
@@ -46,22 +47,31 @@ export class LeaveRequestComponent implements OnInit {
     this.rtsCompanyId = this.rtsUser.companyId;
     this.userRole = this.rtsUser.role;
     this.leaveDays = [];
-    this.mailToAddress = [];
     this.currentDate = new Date(Date.now())
   }
 
   ngOnInit() {
     this.myForm = this.formBuilder.group({
       mailFrom: [''],
-      mailTo: [''],
-      mailBody: [''],
-      isLeave: [''],
-      leaveType: [''],
       selectUser: ['']
     })
     this.getAllUser();
+    this.getActiveUser();
   }
+  getActiveUser() {
+    const userId = {
+      userId: this.rtsUserId
+    };
 
+    this.userService.getActiveUsers(userId)
+      .subscribe(
+        data => {
+          this.ngProgress.done();
+          if (data.success) {
+            this.userDetails = data.users;
+          }
+        });
+  }
 
   getAllUser() {
     const userId = {
@@ -82,7 +92,16 @@ export class LeaveRequestComponent implements OnInit {
         });
   }
 
-  sendMail(form: FormGroup) {
+
+  cancelRequest(form: FormGroup) {
+    
+    if (form.value.selectUser === '') {
+      this.toastr.error('Select User', '', {
+        positionClass: 'toast-top-center',
+        timeOut: 3000,
+      });
+      return false;
+    }
 
     if (this.startDate === undefined || this.startDate === null) {
       this.toastr.error('Select Date', '', {
@@ -92,13 +111,6 @@ export class LeaveRequestComponent implements OnInit {
       return false;
     }
 
-    if (form.value.mailTo.length === 0) {
-      this.toastr.error('Please Add To Mail Address', '', {
-        positionClass: 'toast-top-center',
-        timeOut: 3000,
-      });
-      return false;
-    }
     const fromDate = this.startDate.begin;
     const toDate = this.startDate.end;
     var timeDiff = Math.abs(fromDate.getTime() - toDate.getTime());
@@ -111,19 +123,13 @@ export class LeaveRequestComponent implements OnInit {
       date = moment(day).add(1, 'days');
     }
 
-    var mailBody = form.value.mailBody;
-    if (mailBody === undefined) {
-      mailBody = '';
-    }
     const submit = {
-      userId: this.rtsUserId,
-      leaveType: form.value.leaveType,
+      enteredBy: this.rtsUserId,
       daySheets: this.leaveDays,
-      mailTo: form.value.mailTo,
-      comment: mailBody
+      userId: parseInt(form.value.selectUser)
     };
 
-    this.timeSheetService.leaveRequest(submit)
+    this.timeSheetService.cancelLeaveRequest(submit)
       .subscribe(
         data => {
           if (data.success) {
@@ -143,3 +149,6 @@ export class LeaveRequestComponent implements OnInit {
   }
 
 }
+
+
+

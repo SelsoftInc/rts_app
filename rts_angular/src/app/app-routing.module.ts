@@ -57,6 +57,7 @@ import { TimesheetReportComponent } from './timesheet-report/timesheet-report.co
 import { LeaveRequestComponent } from './leave-request/leave-request.component';
 import { CreateHolidayComponent } from './create-holiday/create-holiday.component';
 import { HolidayListComponent } from './holiday-list/holiday-list.component';
+import { CancelLeaveRequestComponent } from './cancel-leave-request/cancel-leave-request.component';
 
 
 export const appRoutes: Routes = [
@@ -119,6 +120,7 @@ export const appRoutes: Routes = [
   { path: 'leave-request', component: LeaveRequestComponent },
   { path: 'create-holiday', component: CreateHolidayComponent },
   { path: 'holiday-list', component: HolidayListComponent },
+  { path: 'cancel-leave-request', component: CancelLeaveRequestComponent },
 ];
 
 

@@ -6,6 +6,9 @@
     <a class="sub-nav-link" [routerLink]="['/leave-request']">Leave Request</a>
   </span>
   <span class="divider" *ngIf="userRole === 'ADMIN' || userRole === 'HR_MANAGER'">
+    <a class="sub-nav-link" [routerLink]="['/cancel-leave-request']">Cancel Leave Request</a>
+  </span>
+  <span class="divider" *ngIf="userRole === 'ADMIN' || userRole === 'HR_MANAGER'">
     <a class="sub-nav-link" [routerLink]="['/create-holiday']">Create Holiday</a>
   </span>
   <span class="divider">
@@ -22,7 +25,8 @@
       <div class="row mt-2">
         <div class="col-3">
           <mat-form-field>
-            <input matInput [max]="date" [matDatepicker]="fromDatePicker" [(ngModel)]="startDate" placeholder="From Date">
+            <input matInput [max]="date" [matDatepicker]="fromDatePicker" [(ngModel)]="startDate"
+              placeholder="From Date">
             <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #fromDatePicker></mat-datepicker>
           </mat-form-field>
@@ -67,12 +71,14 @@
         </tr>
         <tr>
           <td><b>Working Hours</b></td>
-          <td *ngFor="let sheet of weekSheet" (click)="getTimeDetails(sheet.dateId,false);" [attr.data-content]="sheet.workingHoursStr">{{sheet.workingHoursStr}}
+          <td *ngFor="let sheet of weekSheet" (click)="getTimeDetails(sheet.dateId,false);"
+            [attr.data-content]="sheet.workingHoursStr">{{sheet.workingHoursStr}}
           </td>
         </tr>
         <tr>
           <td><b>Productivity Hours</b></td>
-          <td *ngFor="let sheet of weekSheet" (click)="getTimeDetails(sheet.dateId,true);" [attr.data-content]="sheet.productivityHoursStr">
+          <td *ngFor="let sheet of weekSheet" (click)="getTimeDetails(sheet.dateId,true);"
+            [attr.data-content]="sheet.productivityHoursStr">
             {{sheet.productivityHoursStr}}</td>
         </tr>
         <tr>
@@ -108,7 +114,8 @@
         </tr>
         <tr>
           <td><b>Working Hours</b></td>
-          <td *ngFor="let sheet of weekSheet" (click)="getTimeDetails(sheet.dateId);" [attr.data-content]="sheet.workingHoursStr">{{sheet.workingHoursStr}}</td>
+          <td *ngFor="let sheet of weekSheet" (click)="getTimeDetails(sheet.dateId);"
+            [attr.data-content]="sheet.workingHoursStr">{{sheet.workingHoursStr}}</td>
         </tr>
         <tr>
           <td colspan="7" class="total-hours"><b>Total Working Hours</b></td>
@@ -117,6 +124,6 @@
       </tbody>
     </table>
   </div>
-  <h6 class="text" >* WH - Work From Home</h6>
+  <h6 class="text">* WH - Work From Home</h6>
   <!-- <h6 style="color: red;" >* Absent - Work From Home</h6> -->
 </div>
