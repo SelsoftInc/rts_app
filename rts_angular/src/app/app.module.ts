@@ -106,6 +106,7 @@ import { LeaveRequestComponent } from './leave-request/leave-request.component';
 import { SatDatepickerModule, SatNativeDateModule } from 'node_modules/saturn-datepicker';
 import { CreateHolidayComponent } from './create-holiday/create-holiday.component';
 import { HolidayListComponent } from './holiday-list/holiday-list.component';
+import { CancelLeaveRequestComponent } from './cancel-leave-request/cancel-leave-request.component';
 
 @NgModule({
   declarations: [
@@ -168,6 +169,7 @@ import { HolidayListComponent } from './holiday-list/holiday-list.component';
     LeaveRequestComponent,
     CreateHolidayComponent,
     HolidayListComponent,
+    CancelLeaveRequestComponent,
   ],
   imports: [
     BrowserModule,

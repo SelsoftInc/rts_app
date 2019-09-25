@@ -4,6 +4,9 @@ import { HideComponentService } from '../Services/hide-component.service';
 import { SubmissionService } from '../Services/submission.service';
 import { Sort } from '@angular/material';
 import { NgProgress } from 'ngx-progressbar';
+import { RequirementsService } from '../Services/requirements.service';
+import * as _ from 'underscore';
+
 
 @Component({
   selector: 'app-in-progress-interviews',
@@ -20,11 +23,20 @@ export class InProgressInterviewsComponent implements OnInit {
   sortedData: any[];
   interviewsLength: any;
   userRole: any;
+  isClient: boolean;
+  isSubmissionStatus: boolean;
+  filter: string;
+  client: string;
+  submissionStatus: string;
+  clients: any;
+  allSubmissionStatus: any;
+  selectedSubmissions: any[];
 
   constructor(
     private loggedUser: LoggedUserService,
     private submissonService: SubmissionService,
     private hideComponent: HideComponentService,
+    private requirementService: RequirementsService,
     private ngProgress: NgProgress
   ) {
     this.hideComponent.displayComponent = true;
@@ -33,11 +45,28 @@ export class InProgressInterviewsComponent implements OnInit {
     this.userRole = this.rtsUser.role;
     this.interviewReport = [];
     this.selectedInterviews = [];
+    this.filter = '';
   }
 
   ngOnInit() {
     this.ngProgress.start();
+    this.getCommonDetails();
     this.getAllInprogressInterviews();
+  }
+
+  getCommonDetails() {
+    const companyId = {
+      userId: this.rtsUserId
+    };
+
+    this.requirementService.commonDetails(companyId)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.clients = data.clients;
+            this.allSubmissionStatus = data.submissionStatus;
+          }
+        });
   }
 
   getAllInprogressInterviews() {
@@ -48,13 +77,64 @@ export class InProgressInterviewsComponent implements OnInit {
     this.submissonService.GetAllProgressInterviews(companyId)
       .subscribe(
         data => {
-            this.ngProgress.done();
-            if (data.success) {
+          this.ngProgress.done();
+          if (data.success) {
             this.selectedInterviews = data.submissionReport;
+            for (const status of this.selectedInterviews){
+              status.statusId = status.status.statusId;
+            }
             this.interviewsLength = this.selectedInterviews.length;
             this.sortedData = this.selectedInterviews.slice();
           }
         });
+  }
+
+  filterBy(value) {
+    if (value === 'client') {
+      this.isClient = true;
+      this.isSubmissionStatus = false;
+    } else if (value === 'submissionStatus') {
+      this.isClient = false;
+      this.isSubmissionStatus = true;
+    }
+    else if (value === '') {
+      this.filter = '';
+      this.isClient = false;
+      this.isSubmissionStatus = false;
+      this.selectedSubmissionDetails(this.selectedInterviews);
+    }
+    this.client = '';
+    this.submissionStatus = '';
+  }
+
+  selectClient(event) {
+    this.client = event;
+    if (event === 'selectAll') {
+      this.selectedSubmissions = this.selectedInterviews;
+      this.selectedSubmissionDetails(this.selectedSubmissions);
+    } else {
+      this.selectedSubmissions = [];
+      this.selectedSubmissions = _.where(this.selectedInterviews, { clientId: parseInt(event) });
+      this.selectedSubmissionDetails(this.selectedSubmissions);
+    }
+  }
+
+  selectSubmissionStatus(event) {
+    this.submissionStatus = event;
+    if (event === 'selectAll') {
+      this.selectedSubmissions = this.selectedInterviews;
+      this.selectedSubmissionDetails(this.selectedInterviews);
+    } else {
+      this.selectedSubmissions = [];
+      this.selectedSubmissions = _.where(this.selectedInterviews, { statusId: parseInt(event) });
+      this.selectedSubmissionDetails(this.selectedSubmissions);
+    }
+  }
+
+  selectedSubmissionDetails(data) {
+    this.selectedSubmissions = data;
+    this.interviewsLength = this.selectedSubmissions.length;
+    this.sortedData = this.selectedSubmissions.slice();
   }
 
   sortData(sort: Sort) {

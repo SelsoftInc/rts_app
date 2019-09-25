@@ -1,9 +1,43 @@
 <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
-  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
+</ng-progress>
 <h2 class="main-title"><a [routerLink]="['/submissions']">Submissions</a> / In-Progress Interviews</h2>
 <div class="utility-container">
+  <div class="filter-container">
+    <div class="row">
 
-  <div>
+      <div class="col-md-auto">
+        <div class="row mt-3">
+          <div class="col-6">
+            <select class="form-control width-200" (change)="filterBy($event.target.value)" [(ngModel)]="filter">
+              <option value="" selected>Filter By</option>
+              <option value="client">Client</option>
+              <option value="submissionStatus">Submission Status</option>
+            </select>
+          </div>
+
+          <div *ngIf="isClient" class="col-6 width-200">
+            <select class="form-control" (change)="selectClient($event.target.value)" [(ngModel)]="client">
+              <option value="" selected>Select</option>
+              <option value="selectAll">Select All</option>
+              <option *ngFor="let client of clients" value="{{client.clientId}}">{{client.name}}</option>
+            </select>
+          </div>
+
+          <div *ngIf="isSubmissionStatus" class="col-6 width-200">
+            <select class="form-control" (change)="selectSubmissionStatus($event.target.value)"
+              [(ngModel)]="submissionStatus">
+              <option value="" selected>Select</option>
+              <option value="selectAll">Select All</option>
+              <option *ngFor="let status of allSubmissionStatus" value="{{status.statusId}}">{{status.statusName}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="mt-5 pt-5">
     <h6>Total {{interviewsLength}} Results</h6>
   </div>
 
@@ -57,7 +91,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let submission of sortedData" [routerLink]="['/recruiter-edit-submissions', submission.submissionId]">
+        <tr *ngFor="let submission of sortedData"
+          [routerLink]="['/recruiter-edit-submissions', submission.submissionId]">
           <td>{{submission.position.positionName}}</td>
           <td>{{submission.candidate.name}}</td>
           <td>{{submission.client.name}}</td>

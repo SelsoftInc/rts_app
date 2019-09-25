@@ -14,7 +14,7 @@
             <sat-datepicker-toggle matSuffix [for]="picker"></sat-datepicker-toggle>
           </mat-form-field>
         </div>
-        <div *ngIf="userRole === 'ACC_MGR' || userRole === 'RECRUITER' || userRole === 'TL'" class="leaveType col-4">
+        <div class="leaveType col-4">
           <select name="clientName" class="form-input" formControlName="leaveType" required>
             <option value="">Select</option>
             <option value="Casual-Leave">Casual-Leave</option>
@@ -23,37 +23,22 @@
             <option value="Combo-Off">Combo-Off</option>
           </select>
         </div>
-        <div *ngIf="userRole === 'ADMIN' || userRole === 'HR_MANAGER'" class="leaveType col-4">
-          <select name="clientName" class="form-input" formControlName="selectUser" required>
-            <option value="">Select User</option>
-            <option *ngFor="let user of userDetails" [value]="user.userId">
-              {{user.firstName}} {{user.lastName}}
-            </option>
-          </select>
+      </div>
+      <!-- <div *ngIf="userRole === 'ACC_MGR' || userRole === 'RECRUITER' || userRole === 'TL'"> -->
+      <div class="row">
+        <label class="form-label pb-3">To:</label>
+        <div class="col-12">
+          <ng-select [items]="selectedMailId" placeholder="Add Emails" bindLabel="email" bindValue="email"
+            [multiple]="true" [addTag]="addCustom" [(ngModel)]="mailToAddress" formControlName="mailTo">
+          </ng-select>
         </div>
       </div>
-      <div *ngIf="userRole === 'ACC_MGR' || userRole === 'RECRUITER' || userRole === 'TL'">
-        <div class="row">
-          <label class="form-label pb-3">To:</label>
-          <div class="col-12">
-            <ng-select [items]="selectedMailId" placeholder="Add Emails" bindLabel="email" bindValue="email"
-              [multiple]="true" [addTag]="addCustom" [(ngModel)]="mailToAddress" formControlName="mailTo">
-            </ng-select>
-          </div>
-        </div>
-        <div class="row">
-          <label class="form-label mb-4">Body:</label>
-          <app-ngx-editor height="200px" minHeight="50px" [placeholder]="'Enter text here...'" [spellcheck]="true"
-            [(ngModel)]="customMailBody" formControlName="mailBody"></app-ngx-editor>
-        </div>
+      <div class="row">
+        <label class="form-label mb-4">Body:</label>
+        <app-ngx-editor height="200px" minHeight="50px" [placeholder]="'Enter text here...'" [spellcheck]="true"
+          [(ngModel)]="customMailBody" formControlName="mailBody"></app-ngx-editor>
       </div>
-      <!-- <div *ngIf="userRole === 'ADMIN' || userRole === 'HR_MANAGER'" class="isLeave row">
-        <mat-checkbox color="primary" formControlName="isLeave" [(ngModel)]=isLeave>Is Leave</mat-checkbox>
-      </div> -->
-      <div *ngIf="userRole === 'ADMIN' || userRole === 'HR_MANAGER'" class="row">
-        <button type="button" class="btn btn-forms btn-space" (click)="cancelRequest(myForm);">Cancel Request</button>
-      </div>
-      <div *ngIf="userRole === 'ACC_MGR' || userRole === 'RECRUITER' || userRole === 'TL'" class="row">
+      <div class="row">
         <button type="button" class="btn btn-forms btn-space" (click)="sendMail(myForm);">Send Request</button>
       </div>
     </div>
