@@ -440,7 +440,7 @@ export class EditSubmissonComponent implements OnInit {
                         } else {
                             this.isSubmitted = false;
                         }
-                        if (this.selectedSubmission.interviewDetailStatus === 'SELECTED') {
+                        if (this.selectedSubmission.interviewDetailStatus === 'DELIVERED') {
                             this.isSelected = true;
                             this.joinDate = moment(this.selectedSubmission.joiningDateStr, 'YYYY-MM-DD').toDate();
                         } else {
