@@ -558,7 +558,7 @@ export class EditSubmissonComponent implements OnInit {
     }
 
     changeInterviewStatus(event) {
-        if (event === 'SELECTED') {
+        if (event === 'DELIVERED') {
             this.isSelected = true;
         } else {
             this.isSelected = false;
