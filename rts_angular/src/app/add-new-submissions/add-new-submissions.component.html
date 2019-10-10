@@ -83,15 +83,19 @@
       </div>
 
       <h2 class="form-title">Candidate Deatils:</h2>
+      
       <div class="row">
         <div class="col-sm-4">
           <label for="candidateEmail" class="form-label">Candidate Email:</label>
           <input type="text" class="form-input" name="candidateEmail" formControlName="candidateEmail"
             value="{{selectedCandidate.email}}" required>
-
         </div>
-        <div class="col-sm-1">
-          <button type="button" class="btn btn-forms mt-5 pt-2" (click)="getCandidateDetails()">Search</button>
+        <div class="col-sm-1 pt-5 mt-1">
+          <button type="button" class="btn btn-forms" (click)="getCandidateDetails()">Search</button>
+        </div>
+        <div class="col-sm-1 pt-5 mt-1" *ngIf="isCandidate && selectedCandidate">
+          <button type="button" class="btn btn-forms"
+            [routerLink]="['/edit-candidate',selectedCandidate.candidateId]">Edit Candidate</button>
         </div>
       </div>
 

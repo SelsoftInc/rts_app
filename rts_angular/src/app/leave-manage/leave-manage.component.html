@@ -1,0 +1,48 @@
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
+</ng-progress>
+
+<h2 class="main-title"> <a [routerLink]="['/time-sheet']">Time Sheet</a> / Leave Management</h2>
+<div class="utility-container">
+  <div class="row">
+    <div class="col-10">
+      <div class="row mt-2">
+        <div class="col-3">
+          <mat-form-field>
+            <input matInput [max]="date" [matDatepicker]="fromDatePicker" [(ngModel)]="startDate"
+              placeholder="From Date">
+            <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #fromDatePicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-4 mt-3">
+          <button class="btn btn-sm btn-primary btn-space" (click)="getLeaveRequests();">Show Results</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <table class="table table-bordered table-sm table-hover">
+      <thead class="table-header">
+        <tr>
+          <th>Date</th>
+          <th>Leave Type</th>
+          <th>User Name</th>
+          <th *ngIf="userRole === 'ADMIN' || userRole === 'HR_MANAGER'">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let leave of leaveRequests">
+          <td>{{leave.daySheet.dateId}}</td>
+          <td>{{leave.daySheet.leaveType}}</td>
+          <td>{{leave.user.firstName}} {{leave.user.lastName}}</td>
+          <td *ngIf="userRole === 'ADMIN' || userRole === 'HR_MANAGER'"><button class="btn btn-primary"
+              (click)="cancelLeaveRequest(leave.daySheet.daySheetId);">Cancel Leave</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
