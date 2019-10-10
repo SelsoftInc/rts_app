@@ -102,6 +102,7 @@ export class ApiUrl {
     static CancelLeaveRequest = 'rtsTimeSheet/timeSheet/cancelLeaveRequest';
     static CreateHoliday = 'rtsTimeSheet/timeSheet/createHoliday';
     static GetHolidays = 'rtsTimeSheet/timeSheet/holidayList';
+    static UpcomingLeaveRequest = 'rtsTimeSheet/timeSheet/upcomingLeaveRequest';
 
 
 

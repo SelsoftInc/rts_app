@@ -5,9 +5,12 @@
   <span class="divider">
     <a class="sub-nav-link" [routerLink]="['/leave-request']">Leave Request</a>
   </span>
-  <span class="divider" *ngIf="userRole === 'ADMIN' || userRole === 'HR_MANAGER'">
-    <a class="sub-nav-link" [routerLink]="['/cancel-leave-request']">Cancel Leave Request</a>
+  <span class="divider">
+    <a class="sub-nav-link" [routerLink]="['/leave-manage']">Leave Manage</a>
   </span>
+  <!-- <span class="divider" *ngIf="userRole === 'ADMIN' || userRole === 'HR_MANAGER'">
+    <a class="sub-nav-link" [routerLink]="['/cancel-leave-request']">Cancel Leave Request</a>
+  </span>  -->
   <span class="divider" *ngIf="userRole === 'ADMIN' || userRole === 'HR_MANAGER'">
     <a class="sub-nav-link" [routerLink]="['/create-holiday']">Create Holiday</a>
   </span>
