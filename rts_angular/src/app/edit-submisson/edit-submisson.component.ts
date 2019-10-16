@@ -198,7 +198,8 @@ export class EditSubmissonComponent implements OnInit {
             currentProject: [''],
             totalUsExperience: [''],
             skills: [''],
-            note:[''],
+            note: [''],
+            summary: [''],
             units: this.formBuilder.array([
                 this.initUnits()
             ]),
@@ -516,6 +517,8 @@ export class EditSubmissonComponent implements OnInit {
             this.mailFormat = 2;
         } else if (event.value === '3') {
             this.mailFormat = 3;
+        } else if (event.value === '4') {
+            this.mailFormat = 4;
         }
     }
 
@@ -671,6 +674,7 @@ export class EditSubmissonComponent implements OnInit {
             joiningDateStr: form.value.joiningDate,
             comments: this.selectedSubmission.comments,
             note: form.value.note,
+            summary: form.value.summary,
         };
 
         if (this.sendToClient) {

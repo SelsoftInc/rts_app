@@ -88,12 +88,6 @@
                 formControlName="reasonForRejection" ngModel="{{selectedSubmission.reasonForRejection}}">
             </div>
 
-            <div class="col-sm-4" *ngIf="selectedSubmission">
-              <label for="note" class="form-label">Note:</label>
-              <textarea rows="3" name="note" class="form-textarea" formControlName="note"
-                ngModel="{{selectedSubmission.note}}"></textarea>
-            </div>
-
             <div class="col-sm-4" *ngIf="selectedSubmission && selectedSubmission.submittedUser">
               <label for="submittedBy" class="form-label">SubmittedBy:</label>
               <span class="form-text mt-4">{{selectedSubmission.submittedUser.firstName}}
@@ -101,6 +95,18 @@
             </div>
 
           </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6" *ngIf="selectedSubmission">
+          <label for="note" class="form-label">Note:</label>
+          <textarea rows="3" name="note" class="form-textarea" formControlName="note"
+            ngModel="{{selectedSubmission.note}}"></textarea>
+        </div>
+        <div class="col-6" *ngIf="selectedSubmission">
+          <label for="summary" class="form-label">Summary:</label>
+          <textarea rows="3" name="summary" class="form-textarea" formControlName="summary"
+            ngModel="{{selectedSubmission.summary}}"></textarea>
         </div>
       </div>
 
@@ -770,6 +776,7 @@
           <mat-radio-button value="1">Plain (TEXT) </mat-radio-button>
           <mat-radio-button value="2">Classic (HTML)</mat-radio-button>
           <mat-radio-button value="3">TCS Mail</mat-radio-button>
+          <mat-radio-button value="4">Experis</mat-radio-button>
         </mat-radio-group>
         <h2 class="form-title">Mail Body</h2>
         <mat-radio-group class="mail-button" (change)="getMailBodyMessage($event)">

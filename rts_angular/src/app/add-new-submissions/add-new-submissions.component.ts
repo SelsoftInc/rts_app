@@ -156,7 +156,8 @@ export class AddNewSubmissionsComponent implements OnInit {
       currentProject: [''],
       totalUsExperience: [''],
       skills: [''],
-      note: ['']
+      note: [''],
+      summary: ['']
     });
     this.getAllCommonData();
     this.getAllSkills();
@@ -472,6 +473,7 @@ export class AddNewSubmissionsComponent implements OnInit {
       enteredBy: this.rtsUserId,
       candidateId: parseInt(candidateId),
       note: form.value.note,
+      summary: form.value.summary,
     };
 
     this.submissionService.addSubmission(submission)
