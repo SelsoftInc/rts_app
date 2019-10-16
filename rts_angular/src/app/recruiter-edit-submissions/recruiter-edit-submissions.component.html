@@ -74,18 +74,25 @@
                 ngModel="{{selectedSubmission.reasonForRejection}}">
             </div>
 
-            <div class="col-sm-4" *ngIf="selectedSubmission">
-              <label for="note" class="form-label">Note:</label>
-              <textarea rows="2" name="note" class="form-textarea" formControlName="note"
-                ngModel="{{selectedSubmission.note}}"></textarea>
-            </div>
-
             <div class="col-sm-4" *ngIf="selectedSubmission && selectedSubmission.submittedUser">
               <label for="submittedBy" class="form-label">SubmittedBy:</label>
               <span class="form-text mt-4">{{selectedSubmission.submittedUser.firstName}}
                 {{selectedSubmission.submittedUser.lastName}} ({{selectedSubmission.submittedUser.role}})</span>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6" *ngIf="selectedSubmission">
+          <label for="note" class="form-label">Note:</label>
+          <textarea rows="2" name="note" class="form-textarea" formControlName="note"
+            ngModel="{{selectedSubmission.note}}"></textarea>
+        </div>
+        <div class="col-6" *ngIf="selectedSubmission">
+          <label for="summary" class="form-label">Summary:</label>
+          <textarea rows="2" name="summary" class="form-textarea" formControlName="summary"
+            ngModel="{{selectedSubmission.summary}}"></textarea>
         </div>
       </div>
 
