@@ -16,7 +16,7 @@ import { SubmissionsComponent } from './submissions/submissions.component';
 import { HideComponentService } from './Services/hide-component.service';
 import { RequirementsService } from './Services/requirements.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDatepickerModule, MatSnackBarModule, MatNativeDateModule, matSnackBarAnimations, MatCheckboxModule, MatAutocomplete, MatOption, MatAutocompleteModule, MatOptionModule, MatSelect, MatSelectModule } from '@angular/material';
+import { MatDatepickerModule, MatSnackBarModule, MatNativeDateModule, matSnackBarAnimations, MatCheckboxModule, MatAutocomplete, MatOption, MatAutocompleteModule, MatOptionModule, MatSelect, MatSelectModule, MatPaginator, MatPaginatorModule, MatExpansionModule, MatCardModule, MatButtonModule, MatGridListModule, MatProgressBarModule, MatSliderModule, MatTabsModule, MatListModule } from '@angular/material';
 import { MatFormFieldModule, MatSlideToggleModule, MatIconModule } from '@angular/material';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material';
@@ -108,6 +108,15 @@ import { CreateHolidayComponent } from './create-holiday/create-holiday.componen
 import { HolidayListComponent } from './holiday-list/holiday-list.component';
 import { CancelLeaveRequestComponent } from './cancel-leave-request/cancel-leave-request.component';
 import { LeaveManageComponent } from './leave-manage/leave-manage.component';
+import { DiceIntergrationComponent } from './dice-intergration/dice-intergration.component';
+import { AddDiceComponent } from './add-dice/add-dice.component';
+import { DiceLoginComponent } from './dice-login/dice-login.component';
+import { DiceService } from './Services/dice.service';
+import { TimeAgoPipe } from 'time-ago-pipe';
+import { DiceDetailViewComponent } from './dice-detail-view/dice-detail-view.component';
+import { SafePipe } from './dice-detail-view/safe.pipe';
+import { FilterPipe } from './dice-detail-view/unique.pipe';
+import { EditDiceComponent } from './edit-dice/edit-dice.component';
 
 @NgModule({
   declarations: [
@@ -172,6 +181,14 @@ import { LeaveManageComponent } from './leave-manage/leave-manage.component';
     HolidayListComponent,
     CancelLeaveRequestComponent,
     LeaveManageComponent,
+    DiceIntergrationComponent,
+    AddDiceComponent,
+    DiceLoginComponent,
+    TimeAgoPipe,
+    DiceDetailViewComponent,
+    SafePipe,
+    FilterPipe,
+    EditDiceComponent
   ],
   imports: [
     BrowserModule,
@@ -186,23 +203,33 @@ import { LeaveManageComponent } from './leave-manage/leave-manage.component';
     MatInputModule,
     MatAutocompleteModule, MatOptionModule,
     MatCheckboxModule,
+    MatListModule,
     NativeDateModule,
     MatNativeDateModule,
     SatDatepickerModule,
+    MatTabsModule,
     SatNativeDateModule,
+    MatGridListModule,
     MatFormFieldModule,
+    MatSlideToggleModule,
+    MatPaginatorModule,
     Ng2SearchPipeModule, NgSelectModule,
     ToastrModule.forRoot(),
     NgMultiSelectDropDownModule.forRoot(),
     MatIconModule,
     MatRadioModule,
+    MatExpansionModule,
+    MatCardModule,
+    MatButtonModule,
     NgxChartsModule,
+    MatProgressBarModule,
     MatSortModule,
     ClipboardModule,
     NgxEditorModule,
     Ng4LoadingSpinnerModule,
     NgProgressModule,
     NgxPaginationModule,
+    MatSliderModule,
     PaginationModule,
     OwlDateTimeModule,
     MatSelectModule,
@@ -229,6 +256,7 @@ import { LeaveManageComponent } from './leave-manage/leave-manage.component';
     VendorService,
     MessagingService,
     TimeSheetService,
+    DiceService,
     AsyncPipe,
     DatePipe],
 

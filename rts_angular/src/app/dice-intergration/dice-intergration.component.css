@@ -1,0 +1,264 @@
+.form-btn-container{
+    text-align: right;
+    margin-right: 3em;
+    margin-top: 3em;
+}
+.divider{
+    display: unset;
+    padding-left: 1em;
+    margin-left: 1em;
+    border-left: 1px solid #d0d0d0;
+}
+.form-label{
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    font-size: large;
+}
+.form-input{
+    font-size: 1em;
+}
+
+.sub-nav-wrapper{
+    padding: 1em !important;
+}
+
+.sub-nav-link:last-child{
+    /* font-size: .850em; */
+    text-transform: unset;
+    font-weight: 400;
+}
+.dice-title{
+    margin-bottom: -75px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500 !important;
+    text-transform: capitalize !important;
+    height: 6em;
+    /* background-color: aqua; */
+    padding-top: 1.3em !important;
+    padding-left: 1.6em !important;
+    border-radius: 15px;
+    font-size: 1.3em !important;
+    margin-top: 0em !important;
+    font-size: 1.5em;
+}
+
+.filterLabel{
+    margin-top: 1em;
+    display: block;   
+    font-weight: 500;
+    font-size: large;
+    font-family: 'Raleway', sans-serif;
+}
+
+.main-title{
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.mat-form-field {
+     /* width: 250px !important; */
+     width: fit-content;
+}
+
+.mat-card {
+    margin-top: 3px;
+}
+
+.searchBtn{
+    margin-top: 3.5rem !important;
+}
+.divide{
+    border-left: 1px solid #3484c8;
+}
+
+.filterBtn{
+    margin-top: 1.2em;
+    text-align: right;
+}
+
+.dice-title{
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 400;
+    font-size: 1.2em; 
+    margin-top: 2em;
+    padding: 0.5em;  
+}
+
+.candidate-list{
+    font-family: 'Raleway', sans-serif;
+    letter-spacing: 1px;
+    font-weight: 400;
+    font-size: 22px;
+    padding: 0.5em;
+    border-bottom: 1px solid #3484c8;
+}
+
+.candidate-image { 
+    padding: 5px;
+    width: 150px;
+}
+
+.candidate-header {
+    height: 10em; 
+    padding-left: 0.5em;
+}
+
+.candidate-name{
+    padding-left: 5px;
+    letter-spacing: 1.2px;
+    font-weight: 600;
+    font-size: medium;
+}
+
+.card-container {     
+    max-width: 100%;
+    border-radius: 1em;
+        /* background-color: lightcyan; */
+}
+.scroll-wrapper{
+    overflow-y: scroll;
+    height: 92em;
+}
+
+
+.card-container div:last-child {
+    text-align: right;
+}
+  
+.mat-input-element {
+    font-weight: 600;
+}
+
+.mat-card-lg-image {
+    border-radius: 50%;
+}
+
+.mat-form-field {   
+    width: -webkit-fill-available;
+}
+.mat-input-element{
+    font-weight: 300;
+}
+
+.mat-card-sm-image {
+    width: 25px;
+    height: 25px;
+    float: right;
+}
+.mat-grid-list{
+    padding: 1em;
+}
+
+.mat-checkbox{
+    padding: 5px;
+}
+
+.mat-expansion-panel-header{
+    margin-top: 10px;
+}
+
+.ng-select{
+    margin-top: 1em;
+}
+
+.icon-exp {
+    position: relative;
+    top: 5px;
+    font-size: 19px;
+    padding-right: 5px;
+}
+.icon-padding{
+    padding-left: 3.2em;
+}
+
+.mat-grid-tile {
+    background: whitesmoke;
+    padding: 1em;
+    padding-top: 24px !important;
+}
+
+.mat-paginator-container{
+    justify-content: space-between;
+}
+
+.grid-tile >::ng-deep .mat-figure{
+    justify-content: left;
+    padding-left: 8px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+    border-left: 1px solid rgb(163, 150, 150);
+    color: darkslategray;
+    /* display: inline; */
+}
+
+.grid-sub-tile {
+    margin-left: auto;
+    padding: 8px;
+    color: cadetblue;
+}
+
+ ::ng-deep .mat-card-header-text {  
+    width: 150% !important;
+}
+
+.slider-section{
+    width: 16%;
+    margin-left: auto;
+}
+
+.slider {
+    margin-top: -8px;
+    display: flex;
+}
+
+::ng-deep .mat-progress-bar-fill::after {
+    background-color: seagreen;
+}
+
+::ng-deep .progress-bar .mat-progress-bar-fill::after {
+    background-color: rgb(111, 111, 243);
+}
+
+::ng-deep .mat-progress-bar.progress-bar {
+    border-radius: 10px !important;
+    height: 3px !important;
+}
+
+::ng-deep .mat-progress-bar {
+    border-radius: 5px;
+    height: 10px !important;
+}
+
+::ng-deep .mat-slide-toggle-content{
+    font-size: large;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    letter-spacing: 1.1px;
+}
+
+::ng-deep .mat-select-value{
+    font-size: 16px;
+}
+::ng-deep .mat-option-text{
+    font-size: 16px;
+}
+
+
+/* [title~="{{angular_variable}}"] {
+    border: 5px solid yellow;
+  } */
+/* .grid-tile[foo="Json"] >::ng-deep .mat-figure{
+color: green;
+}
+h4[foo~="Options"]{
+    color: red;
+} */
+
+
+
+
+  
+ 

@@ -1,0 +1,39 @@
+<h2 class="main-title">
+  <a [routerLink]="['/dice-view']">Dice</a> / Edit Dice Account</h2>
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
+</ng-progress>
+<div class="utility-container">
+  <form [formGroup]="myForm" (ngSubmit)="editDice(myForm)">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <mat-form-field class="mt-2">
+            <mat-label>Select Dice Account</mat-label>
+            <mat-select [(ngModel)]="selectedDiceId" formControlName="diceAccount" (ngModelChange)="selectDice()">
+              <mat-option *ngFor="let dice of diceAccount" value="{{dice.diceId}}">{{dice.userName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div *ngIf="selectedDiceObject" class="row">
+        <div class="col-6">
+          <label class="form-label">User Name:</label>
+          <input type="text" class="form-input" formControlName="userName" ngModel="{{selectedDiceObject.userName}}">
+        </div>
+
+        <div class="col-6">
+          <label class="form-label">Password:</label>
+          <input type="text" class="form-input" formControlName="password">
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-8">
+          <button type="button" class="btn btn-forms btn-space" (click)="editDice(myForm);">Update
+            Dice</button>
+          <button [routerLink]="[ '/dice-view']" class="btn btn-forms">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

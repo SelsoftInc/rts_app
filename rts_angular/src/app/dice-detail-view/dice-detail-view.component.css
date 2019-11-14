@@ -1,0 +1,224 @@
+.divide{
+    border-left: 1px solid lightblue;
+}
+
+.dice-title{
+    margin-bottom: -50px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    text-transform: capitalize;
+    height: 6em;
+    /* background-color: aqua; */
+    padding-top: 1.6em;
+    padding-left: 1.8em;
+    border-radius: 15px;
+    font-size: 1.3em;
+}
+
+
+.candidate-title{
+    letter-spacing: 1.1px;
+    border-bottom: 1px solid lightblue;
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-bottom: 1em;
+}
+
+.candidate-subtitle{
+    letter-spacing: 0.3px;
+    font-size: medium;
+    font-weight: 100;
+    color: black;
+    font-style: normal;  
+    color: darkslategrey;
+}
+
+.candidate-image { 
+    padding: 5px;
+    width: 150px;
+}
+
+.candidate-header {
+    height: 10em; 
+    padding-left: 0.5em;
+}
+
+.candidate-name{
+    padding-left: 4.2em;
+    letter-spacing: 1.2px;
+    font-weight: 600;
+    font-size: 1.1em; 
+    padding-right: 3px;   
+}
+
+.candidate-contact{
+    /* padding: 3px; */
+    letter-spacing: 1.1px;
+    font-style: oblique;
+    color: cornflowerblue;
+    font-size: 1.4em;
+}
+
+.contact-title{
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    border-bottom: 1px solid lightblue;
+    font-size: 1.3em;
+}
+
+::ng-deep .contact-title:first-child{
+    border-bottom: none !important;
+}
+
+.candidate-activity{
+    padding: 5px;
+    font-size: 1.2em;
+    color: darkslategray;
+}
+.candidate-id{
+    color: cornflowerblue;
+    float: right;
+}
+
+.card-container {     
+    max-width: 100%;
+    /* background-color: lightcyan; */
+    overflow-y: auto;
+    height: 35em;
+    padding-left: 2.5em;
+    padding-right: 2.5em;
+    border-radius: 1.2em;
+    /* background-color:aquamarine; */
+}
+.card-sub-container {     
+    max-width: 100%;
+    /* background-color: lightcyan; */
+    overflow-y: auto;
+    height: 35em;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-radius: 1.2em;
+    /* background-color:aquamarine; */
+}
+
+.mat-card-lg-image {
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+}
+
+.mat-card-sm-image {
+    width: 25px;
+    height: 25px;
+    float: right;
+    margin-top: 3px;
+}
+
+.icon-exp {
+    position: relative;
+    top: 5px;
+    font-size: 19px;
+    padding-right: 5px;
+}
+.icon-padding{
+    padding-left: 5em;
+}
+
+.icon-contact {
+    position: relative;
+    top: 5px;
+    /* font-size: 25px; */
+    padding-right: 5px;
+    /* display: block; */
+}
+
+::ng-deep .mat-card-header-text {  
+    width: 100% !important;
+    margin-left: 3.2em;
+}
+
+.slider-section{
+    width: 100%;
+    /* margin-left: 1.5em; */
+}
+
+::ng-deep .mat-progress-bar-fill::after {
+    background-color: seagreen;
+}
+
+::ng-deep .mat-progress-bar {
+    border-radius: 5px;
+    height: 10px !important;
+}
+
+.center{
+    /* height: 100vh; */
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-bottom: 2em;
+    /* padding: 2em; */
+    /* background-color: lightcyan; */
+}
+
+::ng-deep .mat-tab-label{
+    font-size: 1.3em;
+    letter-spacing: 1.1px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.grid-tile >::ng-deep .mat-figure{
+    justify-content: left;
+    padding-left: 8px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+    border-left: 1px solid cornflowerblue;
+    color: darkslategray;
+    /* display: inline; */
+}
+
+.grid-sub-tile {
+    margin-left: auto;
+    padding: 8px;
+    color: cadetblue;
+    text-transform: lowercase;
+}
+.grid-right-tile{
+    color: cadetblue;
+    padding-right: 5px;
+}
+
+.mat-list-item {
+    font-size: 1.3em;      
+}
+::ng-deep .mat-list-item-content{
+    display: block !important; 
+}
+.list-hint{
+   color: darkslategray;
+}
+::ng-deep .mat-tab-body{
+    height: 40em !important;
+}
+
+::ng-deep .mat-tab-body:last-child{
+    height: 60em !important;
+}
+.mat-tab-group{
+    border-radius: 1.2em;
+}
+
+.candidate-work{
+  letter-spacing: 1px;
+  font-weight: 400;
+  font-size: 1.1em;
+}
+
+
+
+
+
+

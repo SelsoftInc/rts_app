@@ -59,6 +59,12 @@ import { CreateHolidayComponent } from './create-holiday/create-holiday.componen
 import { HolidayListComponent } from './holiday-list/holiday-list.component';
 import { CancelLeaveRequestComponent } from './cancel-leave-request/cancel-leave-request.component';
 import { LeaveManageComponent } from './leave-manage/leave-manage.component';
+import { DiceIntergrationComponent } from './dice-intergration/dice-intergration.component';
+import { AddDiceComponent } from './add-dice/add-dice.component';
+import { DiceLoginComponent } from './dice-login/dice-login.component';
+import { DiceDetailViewComponent } from './dice-detail-view/dice-detail-view.component';
+import { EditDiceComponent } from './edit-dice/edit-dice.component';
+
 
 
 export const appRoutes: Routes = [
@@ -124,6 +130,11 @@ export const appRoutes: Routes = [
   { path: 'cancel-leave-request', component: CancelLeaveRequestComponent },
   { path: 'cancel-leave-request/:id', component: CancelLeaveRequestComponent },
   { path: 'leave-manage', component: LeaveManageComponent },
+  { path: 'dice-login', component: DiceLoginComponent },
+  { path: 'dice-view', component: DiceIntergrationComponent },
+  { path: 'add-dice', component: AddDiceComponent }, 
+  { path: 'edit-dice', component: EditDiceComponent }, 
+  { path: 'dice-detail-view/:id', component: DiceDetailViewComponent }, 
 ];
 
 
