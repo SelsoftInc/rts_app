@@ -1,0 +1,9 @@
+.mat-form-field {   
+    width: -webkit-fill-available;
+}
+
+.dice-userName{
+    letter-spacing: 1px;  
+    font-size: 1.3em;  
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}

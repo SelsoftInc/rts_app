@@ -17,6 +17,8 @@ import { SearchCandidatesComponent } from './search-candidates/search-candidates
 import { TimeSheetService } from './Services/timeSheet.service';
 import { ApiUrl } from 'src/app/Services/api-url';
 import { browser } from 'protractor';
+import { MatDialog } from '@angular/material';
+import { DiceLoginComponent } from './dice-login/dice-login.component';
 
 @Component({
   selector: 'app-root',
@@ -38,6 +40,7 @@ export class AppComponent implements DoCheck, OnDestroy {
     private loginService: LoginService,
     private timeSheetService: TimeSheetService,
     private toastr: ToastrService,
+    private dialog: MatDialog,
   ) {
     this.displayComponent = this.hideComponent.displayComponent;
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
@@ -52,27 +55,16 @@ export class AppComponent implements DoCheck, OnDestroy {
     }
     const loginService = this.loginService;
 
-    // window.addEventListener("beforeunload", function (e) {
-    //   const token = localStorage.getItem('id_token');
-    //   const userId = localStorage.getItem('user_id');
-    //   var confirmationMessage = "\o/";
-    //   (e || window.event).returnValue = confirmationMessage;
-    //   // loginService.logout();
-    //   // const user = {
-    //   //   userId: userId,
-    //   //   autoLogout: true
-    //   // };
-    //   // let headers = {
-    //   //   type: 'application/json',
-    //   //   Authorization:token
-    //   // };
-    //   // let blob = new Blob([JSON.stringify(user)], headers);
-    //   // navigator.sendBeacon(ApiUrl.BaseUrl + ApiUrl.UserLogout, blob);
+  }
 
-    //   return confirmationMessage;
-    // });
-    
+  diceLogin(){
+    const dialogRef = this.dialog.open(DiceLoginComponent, {
+      width: '500px',
+      data: {  }
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 
 
