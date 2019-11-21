@@ -86,12 +86,12 @@
       </div>
 
       <h2 class="form-title">Candidate Deatils:</h2>
-      
+
       <div class="row">
         <div class="col-sm-4">
           <label for="candidateEmail" class="form-label">Candidate Email:</label>
           <input type="text" class="form-input" name="candidateEmail" formControlName="candidateEmail"
-            value="{{selectedCandidate.email}}" required>
+            [(ngModel)]="candidateEmail" required>
         </div>
         <div class="col-sm-1 pt-5 mt-1">
           <button type="button" class="btn btn-forms" (click)="getCandidateDetails()">Search</button>
@@ -101,8 +101,23 @@
             [routerLink]="['/edit-candidate',selectedCandidate.candidateId]">Edit Candidate</button>
         </div>
       </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <label for="diceCandidateId" class="form-label">Dice Candidate Id:</label>
+          <input type="text" class="form-input" name="diceCandidateId" formControlName="diceCandidateId"
+            [(ngModel)]="diceCandidateId">
+        </div>
+        <div class="col-sm-1 pt-5 mt-1">
+          <button type="button" class="btn btn-forms" (click)="getDiceCandidateDetails()">Search</button>
+        </div>
+        <div class="col-sm-1 pt-5 mt-1" *ngIf="isDice && diceProfile">
+          <a style="text-decoration: none;" target="_blank" [routerLink]="['/dice-detail-view',diceCandidateId]"><button
+              type="button" class="btn btn-forms">View
+              Dice</button></a>
+        </div>
+      </div>
 
-      <div *ngIf="isCandidate">
+      <div *ngIf="isCandidate && !isDice">
 
         <div class="row">
           <div class="col-sm-8">
@@ -361,7 +376,7 @@
 
       </div>
 
-      <div *ngIf="!isCandidate">
+      <div *ngIf="!isCandidate && !isDice">
 
         <div class="row">
           <div class="col-sm-8">
@@ -467,6 +482,263 @@
           <div class="col-sm-4">
             <label for="currentCompany" class="form-label">Current Company:</label>
             <input type="text" class="form-input" name="currentCompany" ngModel formControlName="currentCompany">
+          </div>
+
+          <div class="col-sm-4">
+            <label for="epNumber" class="form-label">EP Number:</label>
+            <input type="text" class="form-input" name="epNumber" ngModel formControlName="epNumber">
+          </div>
+
+          <div class="col-sm-4">
+            <label for="authorizedWorkInUs" class="form-label">Authorized to work in US:</label>
+            <input type="text" class="form-input" name="authorizedWorkInUs" ngModel
+              formControlName="authorizedWorkInUs">
+          </div>
+
+          <div class="col-sm-4">
+            <div class="mb-3">
+              <label class="form-label">Have you ever worked with Client:</label>
+            </div>
+            <mat-radio-group (change)="getWorkedWithClient($event)">
+              <mat-radio-button value="true">Yes</mat-radio-button>
+              <mat-radio-button value="false" checked>No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <div class="col-sm-4" *ngIf="isWorkedWithClient">
+            <label for="workedClient" class="form-label">If yes please mention Full Time or contract</label>
+            <input type="text" class="form-input" name="workedClient" ngModel formControlName="workedClient">
+          </div>
+
+          <div class="col-sm-4">
+            <label for="anotherInterviewOffer" class="form-label">Any interview or Offers in hand?</label>
+            <input type="text" class="form-input" name="anotherInterviewOffer" ngModel
+              formControlName="anotherInterviewOffer">
+          </div>
+
+          <div class="col-sm-4">
+            <label for="vacationPlans" class="form-label">Vacation plans, if any:</label>
+            <input type="text" class="form-input" name="vacationPlans" ngModel formControlName="vacationPlans">
+          </div>
+
+          <div class="col-sm-4">
+            <label for="locationPreferences" class="form-label">Location Preferences:</label>
+            <input type="text" class="form-input" name="locationPreferences" ngModel
+              formControlName="locationPreferences">
+          </div>
+
+          <div class="col-sm-4">
+            <label for="workedAsFullTime" class="form-label">Worked as FullTime:</label>
+            <input type="text" class="form-input" name="workedAsFullTime" ngModel formControlName="workedAsFullTime">
+          </div>
+
+          <div class="col-sm-4">
+            <label for="graduationYear" class="form-label">Graduation Year:</label>
+            <input type="text" class="form-input" name="graduationYear" formControlName="graduationYear">
+          </div>
+
+          <div class="col-sm-4">
+            <label for="educationCredentials" class="form-label">Education Credentials:</label>
+            <input type="text" class="form-input" name="educationCredentials" ngModel
+              formControlName="educationCredentials">
+          </div>
+
+          <div class="col-sm-4">
+            <label for="dateOfBirth" class="form-label">Date Of Birth:</label>
+            <input type="text" class="form-input" name="dateOfBirth" ngModel formControlName="dateOfBirth">
+          </div>
+
+          <div class="col-sm-4">
+            <label for="currentProject" class="form-label">Current Project:</label>
+            <input type="text" class="form-input" name="currentProject" ngModel formControlName="currentProject">
+          </div>
+
+          <div class="col-sm-4">
+            <label for="totalUsExperience" class="form-label">Total US Experience:</label>
+            <input type="text" class="form-input" name="totalUsExperience" ngModel formControlName="totalUsExperience">
+          </div>
+
+          <div class="col-sm-4">
+            <div class="mb-3">
+              <label for="c2c" class="form-label">C2C:</label>
+            </div>
+            <mat-radio-group (change)="getC2c($event)">
+              <mat-radio-button value="Yes">Yes</mat-radio-button>
+              <mat-radio-button value="No" checked>No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+        </div>
+
+
+        <div class="row" *ngIf="isEmployerDetails">
+          <div class="col-sm-12">
+            <h2 class="form-title">Employer Details:</h2>
+
+            <div class="row">
+              <div class="col-sm-4">
+                <label for="employerName" class="form-label">Employer Name:</label>
+                <input type="text" class="form-input" name="employerName" ngModel formControlName="employerName">
+              </div>
+
+              <div class="col-sm-4">
+                <label for="employerContactName" class="form-label">Employer Contact Name:</label>
+                <input type="text" class="form-input" name="employerContactName" ngModel
+                  formControlName="employerContactName">
+              </div>
+
+              <div class="col-sm-4">
+                <label for="employerPhone" class="form-label">Employer Phone:</label>
+                <input type="text" class="form-input" name="employerPhone" ngModel formControlName="employerPhone">
+              </div>
+
+              <div class="col-sm-4">
+                <label for="employerEmail" class="form-label">Employer Email:</label>
+                <input type="text" class="form-input" name="employerEmail" ngModel formControlName="employerEmail">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row pt-4">
+          <div class="col-sm-12">
+            <h2 class="form-title">Attachments:</h2>
+          </div>
+          <div class="form-group pl-3">
+            <div>
+              <label class="fileContainer">
+                <button class="btn btn-secondary"><span class="icon-attachment"><i
+                      class="material-icons">attachment</i></span>Attach
+                  Files</button>
+                <input type="file" (change)="candidateFileEvent($event)" multiple />
+              </label>
+            </div>
+            <div class="pb-2" *ngFor="let file of candidateGetFiles">
+              <a class="panel">{{file.name}}
+              </a>
+              <a class="btn" (click)="candidateRemoveFile(file)">
+                <i class="material-icons">
+                  clear
+                </i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div *ngIf="isDice && diceProfile">
+
+        <div class="row">
+          <div class="col-sm-8">
+            <div><label for="editCandidateImmigirationStatus" class="form-label">Candidate Immigiration Status:</label>
+            </div>
+            <div class="pt-3">
+              <mat-radio-group (change)="getImmigiration($event.source.value)"
+                formControlName="editCandidateImmigirationStatus">
+                <mat-radio-button *ngFor="let data of immigration" [value]="data.visaStatusId">{{data.visaName}}
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="mb-3">
+              <label for="relocate" class="form-label">Willing To Relocate:</label>
+            </div>
+            <mat-radio-group formControlName="relocate" [(ngModel)]="diceCandidateReloate">
+              <mat-radio-button [value]=true>Yes</mat-radio-button>
+              <mat-radio-button [value]=false>No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <label for="editCandidateName" class="form-label">Candidate Name:</label>
+            <input type="text" class="form-input" name="editCandidateName" formControlName="editCandidateName"
+              [(ngModel)]="diceProfile.fullName">
+          </div>
+
+          <div class="col-sm-4">
+            <label for="editCandidatePhone" class="form-label">Candidate Phone:</label>
+            <input type="text" class="form-input" name="editCandidatePhone" formControlName="editCandidatePhone"
+              [(ngModel)]="diceCandidatePhone">
+          </div>
+
+          <div class="col-sm-4">
+            <label for="editCandidateLocation" class="form-label">Candidate Location:</label>
+            <input type="text" class="form-input" name="editCandidateLocation" formControlName="editCandidateLocation"
+              [(ngModel)]="diceCandidateLocation">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <label for="editAvailability" class="form-label">Availability:</label>
+            <input type="text" class="form-input" name="editAvailability" formControlName="editAvailability">
+          </div>
+
+          <div class="col-sm-4">
+            <label for="editTechnology" class="form-label">Technology:</label>
+            <select name="editTechnology" class="form-input" formControlName="editTechnology"
+              (change)="addTechnology($event.target.value);">
+              <option value="">Select</option>
+              <option value="other">Other</option>
+              <option *ngFor="let tech of technology" value="{{tech.technologyId}}">{{tech.technologyName}}</option>
+            </select>
+          </div>
+
+          <div class="col-sm-4" *ngIf="isOtherTechnology">
+            <label for="editTechnology" class="form-label">Add New Technology:</label>
+            <label for="otherTechnology" class="form-label"></label>
+            <input type="text" class="form-input" name="otherTechnology" formControlName="otherTechnology"
+              placeholder=" Enter the Technology">
+          </div>
+
+          <div class="col-sm-4">
+            <label for="skills" class="form-label mb-4">Skills:</label>
+            <ng-select [items]="skills" bindLabel="name" [multiple]="true" [addTag]="addCustomSkills"
+              formControlName="skills" [(ngModel)]="selectedSkills">
+            </ng-select>
+          </div>
+
+          <div class="col-sm-4">
+            <label for="editSkype" class="form-label">Skype:</label>
+            <input type="text" class="form-input" name="editSkype" formControlName="editSkype">
+          </div>
+
+          <div class="col-sm-4">
+            <label for="editLinkedIn" class="form-label">LinkedIn:</label>
+            <input type="text" class="form-input" name="editLinkedIn" formControlName="editLinkedIn"
+              [(ngModel)]="diceCandidateLinkedIn">
+          </div>
+
+          <div class="col-sm-4">
+            <label for="resonForChange" class="form-label">Reason For Change:</label>
+            <input type="text" class="form-input" name="resonForChange" ngModel formControlName="resonForChange">
+          </div>
+
+          <div class="col-sm-4">
+            <label for="interview" class="form-label">Availability For Inteview:</label>
+            <input type="text" class="form-input" name="interview" ngModel formControlName="interview">
+          </div>
+
+          <div class="col-sm-4">
+            <label for="experience" class="form-label">Relevant Experience:</label>
+            <input type="text" class="form-input" name="experience" ngModel formControlName="experience">
+          </div>
+
+          <div class="col-sm-4">
+            <label for="totalExperience" class="form-label">Total Experience:</label>
+            <input type="text" class="form-input" name="totalExperience" ngModel formControlName="totalExperience"
+              [(ngModel)]="diceCandidateExperience">
+          </div>
+
+          <div class="col-sm-4">
+            <label for="currentCompany" class="form-label">Current Company:</label>
+            <input type="text" class="form-input" name="currentCompany" ngModel formControlName="currentCompany"
+              [(ngModel)]="diceCandidateCurrentCompany">
           </div>
 
           <div class="col-sm-4">

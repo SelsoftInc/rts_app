@@ -1,11 +1,18 @@
 <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
-  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
-<h2 *ngIf="userRole !== 'HR_MANAGER'" class="main-title"><a [routerLink]="['/submissions']">Submissions</a> / Achievements</h2>
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
+</ng-progress>
+<h2 *ngIf="userRole !== 'HR_MANAGER'" class="main-title"><a [routerLink]="['/submissions']">Submissions</a> /
+  Achievements</h2>
 <h2 *ngIf="userRole === 'HR_MANAGER'" class="main-title">Achievements</h2>
 <div class="utility-container">
 
-  <div>
-    <h6>Total {{interviewsLength}} Results</h6>
+  <div class="row ml-2" style="float: left;">
+    <!-- <h6 class="ml-4">Total {{interviewsLength}} Results</h6> -->
+    <div class="width-150 height-200">    
+      <ngx-charts-advanced-pie-chart [view]="view" [scheme]="colorScheme" [results]="chartData"
+      [gradient]="gradient" >
+    </ngx-charts-advanced-pie-chart>
+    </div>
   </div>
 
   <div *ngIf="userRole === 'ADMIN' || userRole === 'TL' || userRole === 'ACC_MGR' || userRole === 'HR_MANAGER'">
@@ -46,7 +53,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let submission of sortedData" [routerLink]="['/recruiter-edit-submissions', submission.submissionId]">
+        <tr *ngFor="let submission of sortedData"
+          [routerLink]="['/recruiter-edit-submissions', submission.submissionId]">
           <td>{{submission.position.positionName}}</td>
           <td>{{submission.candidate.name}}</td>
           <td>{{submission.client.name}}</td>

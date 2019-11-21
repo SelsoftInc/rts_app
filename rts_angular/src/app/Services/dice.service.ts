@@ -14,7 +14,7 @@ export class DiceService {
         private loginService: LoginService) { }
 
 
-    diceSearch(submit) {
+    diceSearchWithTokenGeneration(submit) {
         AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const headers = new Headers();
@@ -37,7 +37,7 @@ export class DiceService {
             });
     }
 
-    diceFilterSearch(submit) {
+    diceSearchWithOutTokenGeneration(submit) {
         AutoRefreshComponent.reset.next(void 0);
         const token = localStorage.getItem('id_token');
         const diceToken = localStorage.getItem('dice_token');

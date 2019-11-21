@@ -6,8 +6,12 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NgProgress } from 'ngx-progressbar';
 import * as moment from 'moment';
 import { DiceService } from '../Services/dice.service';
-// import { DomSanitizer } from "@angular/platform-browser";
+import { MatDialog } from '@angular/material';
+import { DiceRequirementsViewComponent } from '../dice-requirements-view/dice-requirements-view.component';
 
+export interface DialogData {
+  diceCandidateId: any;
+}
 
 @Component({
   selector: 'app-dice-detail-view',
@@ -39,6 +43,7 @@ export class DiceDetailViewComponent implements OnInit {
     private ngProgress: NgProgress,
     private toastr: ToastrService,
     private diceService: DiceService,
+    private dialog: MatDialog,
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -85,6 +90,16 @@ export class DiceDetailViewComponent implements OnInit {
             });
           }
         });
+  }
+
+  openRequirements(){
+    const dialogRef = this.dialog.open(DiceRequirementsViewComponent, {
+      width: '1000px',
+      data: { diceCandidateId: this.candidateId }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 
 }

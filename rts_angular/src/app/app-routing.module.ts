@@ -64,7 +64,7 @@ import { AddDiceComponent } from './add-dice/add-dice.component';
 import { DiceLoginComponent } from './dice-login/dice-login.component';
 import { DiceDetailViewComponent } from './dice-detail-view/dice-detail-view.component';
 import { EditDiceComponent } from './edit-dice/edit-dice.component';
-
+import { DiceRequirementsViewComponent } from './dice-requirements-view/dice-requirements-view.component';
 
 
 export const appRoutes: Routes = [
@@ -78,6 +78,7 @@ export const appRoutes: Routes = [
   { path: 'edit-requirement/:id', component: EditRequirementComponent },
   { path: 'add-new-submission', component: AddNewSubmissionsComponent },
   { path: 'add-new-submission/:id', component: AddNewSubmissionsComponent },
+  { path: 'add-new-submission/:id/:diceId', component: AddNewSubmissionsComponent },
   { path: 'manage-users', component: ManageUsersComponent },
   { path: 'add-user', component: AddUserComponent },
   { path: 'submission-by-requirement/:id', component: SubmissionByRequirementComponent },
@@ -135,6 +136,7 @@ export const appRoutes: Routes = [
   { path: 'add-dice', component: AddDiceComponent }, 
   { path: 'edit-dice', component: EditDiceComponent }, 
   { path: 'dice-detail-view/:id', component: DiceDetailViewComponent }, 
+  { path: 'dice-requirements', component: DiceRequirementsViewComponent }, 
 ];
 
 

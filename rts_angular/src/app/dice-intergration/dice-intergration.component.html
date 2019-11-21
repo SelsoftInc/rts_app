@@ -16,9 +16,17 @@
   [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
 </ng-progress>
 
-<h2 class="dice-title">Dice Search</h2>
+<h2 class="dice-title">Dice Search
+  <span *ngIf="diceId" style="float: right; margin: 20px 30px 10px 10px;">
+      <a style="text-decoration: none;" target="_blank" [routerLink]="['/dice-detail-view',diceId]">
+        <button mat-button type="button" ><b style="letter-spacing: 1.1px;">VIEW</b></button></a>
+  </span>
+  <span class="col-4" style="float: right;">
+    <input type="text" class="form-input" placeholder="Enter Dice id" [(ngModel)]="diceId">
+  </span>
+</h2>
 <div class="utility-container" style="border-radius: 1em;">
-  <form [formGroup]="myForm" (ngSubmit)="getCandidates(myForm)">
+  <form [formGroup]="candidateForm" (ngSubmit)="findCandidates(candidateForm)">
     <div class="row ml-4 mr-4">
       <div class="col-6">
         <label class="form-label">Query:</label>
@@ -29,21 +37,21 @@
         <input type="text" class="form-input" formControlName="location" [(ngModel)]="selectedLocation">
       </div>
       <div class="col-2 searchBtn">
-        <button mat-raised-button color="primary" type="button" (click)="getCandidates(myForm);">Find
+        <button mat-raised-button color="primary" type="button" (click)="findCandidates(candidateForm);">Find
           Candidates</button>
       </div>
     </div>
-  </form>
+    <!-- </form> -->
 
-  <h2 class="form-title">Candidates List</h2>
-  <div class="row">
-    <div class="col-2">
-      <h4 class="candidate-list">Filter Options</h4>
-      <form style=" font-family: sans-serif;" [formGroup]="candidateForm" (ngSubmit)="candidateFilter(candidateForm)">
+    <h2 class="form-title">Candidates List</h2>
+    <div class="row">
+      <div class="col-2">
+        <h4 class="candidate-list">Filter Options</h4>
+        <!-- <form style=" font-family: sans-serif;" [formGroup]="candidateForm" (ngSubmit)="candidateFilter(candidateForm)"> -->
 
         <div class="filterBtn">
           <!-- <button mat-raised-button color="primary" class="mr-2" (click)="resetForm();">Clear</button> -->
-          <button mat-raised-button color="primary" (click)="candidateFilter(candidateForm);">Apply</button>
+          <button mat-raised-button color="primary" (click)="findCandidates(candidateForm);">Apply</button>
         </div>
 
         <label class="form-label">Distance:</label>
@@ -55,7 +63,7 @@
         </span>
 
         <label class="form-label">Last Active:</label>
-        <input type="text" class="form-input" formControlName="lastActive" placeholder="Last Active" [ngModel]="30">
+        <input type="text" class="form-input" formControlName="lastActive" placeholder="Last Active" [ngModel]="90">
         <mat-hint class="mb-2" style="display: block;">in days</mat-hint>
 
         <mat-slide-toggle formControlName="excludeThirdParty" [ngModel]="false">Exclude ThirdParty</mat-slide-toggle>
@@ -130,117 +138,123 @@
 
         <label class="form-label">Social Profile:</label>
         <input type="text" class="form-input" formControlName="socialProfile" placeholder="Social Profile">
-
-      </form>
-    </div>
-    <div class="col-10 divide">
-      <div *ngIf="candidatesLength > 0; else noCandidates">
-        <div class="mat-paginator-container">
-          <h4 class="candidate-list"><span
-              style="font-family: Verdana, Geneva, Tahoma, sans-serif;">{{diceMetaDataCount}}</span> Candidates Found
-          </h4>
-          <mat-paginator [length]="diceMetaDataCount" [pageSize]="25" [pageSizeOptions]="[10, 25, 50]"
-            (page)="getPaginatorData($event)">
-          </mat-paginator>
-          <mat-progress-bar *ngIf="loading" class="progress-bar" mode="indeterminate"></mat-progress-bar>
-        </div>
-        <div class="scroll-wrapper">
-          <div *ngFor="let candidate of candidates">
-            <mat-card class="card-container mb-2">
-              <div *ngFor="let socialMedia of candidate.socialProfiles">
-                <img mat-card-sm-image src="{{socialMedia.icon_64}}">
-              </div>
-              <mat-card-header class="candidate-header mt-4">
-
-                <div mat-card-avatar class="candidate-image">
-                  <span *ngIf="candidate.imageUrl; else noImage">
-                    <img mat-card-lg-image src="{{candidate.imageUrl}}">
-                  </span>
-                  <ng-template #noImage>
-                    <img mat-card-lg-image src="../../assets/placeholder.png">
-                  </ng-template>
+        <button class="scroll-btn mt-2" mat-button *ngIf="isShow" (click)="gotoTop($event)">Back to Top</button>
+        <button class="scroll-filter-btn mt-2" *ngIf="isShowFilterBtn" mat-raised-button color="primary"
+          (click)="findCandidates(candidateForm);">Apply</button>
+        <!-- </form> -->
+      </div>
+      <div class="col-10 divide">
+        <div *ngIf="candidatesLength > 0; else noCandidates">
+          <div class="mat-paginator-container">
+            <h4 class="candidate-list"><span
+                style="font-family: Verdana, Geneva, Tahoma, sans-serif;">{{diceMetaDataCount}}</span> Candidates Found
+            </h4>
+            <mat-paginator [length]="diceMetaDataCount" [pageSize]="20" [pageSizeOptions]="[10, 20, 30]"
+              (page)="getPaginatorData($event)">
+            </mat-paginator>
+            <mat-progress-bar *ngIf="loading" class="progress-bar" mode="indeterminate"></mat-progress-bar>
+          </div>
+          <div>
+            <div *ngFor="let candidate of candidates">
+              <mat-card class="card-container mb-2">
+                <div *ngFor="let socialMedia of candidate.socialProfiles">
+                  <img mat-card-sm-image src="{{socialMedia.icon_64}}">
                 </div>
-                <mat-card-title class="candidate-name">{{candidate.fullName}}
-                  <span *ngIf="candidate.currentJobTitle">/ {{candidate.currentJobTitle}}</span>
-                </mat-card-title>
+                <mat-card-header class="candidate-header mt-4">
 
-                <mat-card-subtitle class="candidate-name slider">
-                  <span *ngIf="candidate.desiredJobTitles">
-                    <span *ngIf="candidate.desiredJobTitles.length > 0">
-                      <i class="material-icons icon-exp pl-2"> work_outline
-                      </i>Preferred:{{candidate.desiredJobTitles[0]}}
+                  <div mat-card-avatar class="candidate-image">
+                    <span *ngIf="candidate.imageUrl; else noImage">
+                      <img mat-card-lg-image src="{{candidate.imageUrl}}">
                     </span>
-                  </span>
-                  <section class="slider-section">
-                    Likely to Switch<mat-progress-bar mode="determinate" value="{{candidate.likelyToMoveScore}}">
-                    </mat-progress-bar>
-                  </section>
-                </mat-card-subtitle>
+                    <ng-template #noImage>
+                      <img mat-card-lg-image src="../../assets/placeholder.png">
+                    </ng-template>
+                  </div>
+                  <mat-card-title class="candidate-name">{{candidate.fullName}}
+                    <span *ngIf="candidate.currentJobTitle">/ {{candidate.currentJobTitle}}</span>
+                  </mat-card-title>
 
-                <mat-card-subtitle class="candidate-name">
-                  <span *ngIf="candidate.city && candidate.country">
-                    <i class="fa fa-map-marker pl-2 pr-2" style="font-size:17px"> </i>{{candidate.city}},
-                    {{candidate.country}}
-                  </span>
-                  <span *ngIf="candidate.yearsOfExperience">
-                    <i class="material-icons icon-exp icon-padding"> event_note </i>{{candidate.yearsOfExperience}}
-                    years
-                    exp
-                  </span>
-                  <span *ngIf="candidate.workPermitDocuments.length > 0">
-                    <i class="fa fa-globe pr-2 icon-padding" style="font-size:17px">
-                    </i>{{candidate.workPermitDocuments[0]}}
-                  </span>
-                </mat-card-subtitle>
-
-                <mat-card-subtitle class="candidate-name">
-                  <span *ngIf="candidate.workPreferences.length > 0">
-                    <i class="fa fa-map-o pl-2 pr-1" style="font-size:17px"></i>
-                    <span *ngFor="let work of candidate.workPreferences | filterUnique">
-                      <span *ngIf="work.willingToRelocate; else notRelocate">Willing to
-                        relocate</span>
-                      <ng-template #notRelocate>
-                        Not willing to relocate
-                      </ng-template>
+                  <mat-card-subtitle class="candidate-name slider">
+                    <span *ngIf="candidate.desiredJobTitles">
+                      <span *ngIf="candidate.desiredJobTitles.length > 0">
+                        <i class="material-icons icon-exp pl-2"> work_outline
+                        </i>Preferred:{{candidate.desiredJobTitles[0]}}
+                      </span>
                     </span>
-                  </span>
-                  <span *ngIf="candidate.workPreferences.length > 0">
-                    <i class="fa fa-money icon-padding " style="font-size:18px"></i>
-                    <span *ngFor="let work of candidate.workPreferences | filterUnique">
-                      <span *ngIf="work.annualSalary; else noSalary">
-                        {{candidate.workPreferences[0].annualSalary.min}}+(USD) /yr </span>
-                      <ng-template #noSalary>
-                        No desired salary disclosed
-                      </ng-template>
-                    </span>
-                  </span>
-                  <span *ngIf="candidate.dateLastActive">
-                    <i class="material-icons icon-exp icon-padding"> watch_later
-                    </i>{{candidate.dateLastActive | timeAgo}}
-                  </span>
-                </mat-card-subtitle>
+                    <section class="slider-section">
+                      Likely to Switch<mat-progress-bar mode="determinate" value="{{candidate.likelyToMoveScore}}">
+                      </mat-progress-bar>
+                    </section>
+                  </mat-card-subtitle>
 
-              </mat-card-header>
-              <mat-card-content>
-                <mat-grid-list class="grid-list" cols="5" rowHeight="6:1">
-                  <mat-grid-tile class="grid-tile pl-2" *ngFor="let tech of candidate.skills">{{tech.skill}}
-                    <span class="grid-sub-tile">{{tech.lastUsed}}</span></mat-grid-tile>
-                </mat-grid-list>
-              </mat-card-content>
-              <mat-card-actions>
-                <a style="text-decoration: none;" target="blank" [routerLink]="['/dice-detail-view',candidate.id]">
-                  <button mat-button><b style="letter-spacing: 1.1px;">VIEW</b></button></a>
-              </mat-card-actions>
-            </mat-card>
+                  <mat-card-subtitle class="candidate-name">
+                    <span *ngIf="candidate.city && candidate.country">
+                      <i class="fa fa-map-marker pl-2 pr-2" style="font-size:17px"> </i>{{candidate.city}},
+                      {{candidate.country}}
+                    </span>
+                    <span *ngIf="candidate.yearsOfExperience">
+                      <i class="material-icons icon-exp icon-padding"> event_note </i>{{candidate.yearsOfExperience}}
+                      years
+                      exp
+                    </span>
+                    <span *ngIf="candidate.workPermitDocuments.length > 0">
+                      <i class="fa fa-globe pr-2 icon-padding" style="font-size:17px">
+                      </i>{{candidate.workPermitDocuments[0]}}
+                    </span>
+                  </mat-card-subtitle>
+
+                  <mat-card-subtitle class="candidate-name">
+                    <span *ngIf="candidate.workPreferences.length > 0">
+                      <i class="fa fa-map-o pl-2 pr-1" style="font-size:17px"></i>
+                      <span *ngFor="let work of candidate.workPreferences | filterUnique">
+                        <span *ngIf="work.willingToRelocate; else notRelocate">Willing to
+                          relocate</span>
+                        <ng-template #notRelocate>
+                          Not willing to relocate
+                        </ng-template>
+                      </span>
+                    </span>
+                    <span *ngIf="candidate.workPreferences.length > 0">
+                      <i class="fa fa-money icon-padding " style="font-size:18px"></i>
+                      <span *ngFor="let work of candidate.workPreferences | filterUnique">
+                        <span *ngIf="work.annualSalary; else noSalary">
+                          {{candidate.workPreferences[0].annualSalary.min}}+(USD) /yr </span>
+                        <ng-template #noSalary>
+                          No desired salary disclosed
+                        </ng-template>
+                      </span>
+                    </span>
+                    <span *ngIf="candidate.dateLastActive">
+                      <i class="material-icons icon-exp icon-padding"> watch_later
+                      </i>{{candidate.dateLastActive | timeAgo}}
+                    </span>
+                  </mat-card-subtitle>
+
+                </mat-card-header>
+                <mat-card-content>
+                  <mat-grid-list class="grid-list" cols="5" rowHeight="6:1">
+                    <mat-grid-tile class="grid-tile pl-2" *ngFor="let tech of candidate.skills">{{tech.skill}}
+                      <span class="grid-sub-tile">{{tech.lastUsed}}</span></mat-grid-tile>
+                  </mat-grid-list>
+                </mat-card-content>
+                <mat-card-actions>
+                  <a style="text-decoration: none;" target="_blank" [routerLink]="['/dice-detail-view',candidate.id]">
+                    <button mat-button type="button"><b style="letter-spacing: 1.1px;">VIEW</b></button></a>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+            <mat-paginator [length]="diceMetaDataCount" [pageSize]="20" [pageSizeOptions]="[10, 20, 30]"
+              (page)="getPaginatorData($event)">
+            </mat-paginator>
           </div>
         </div>
+        <ng-template #noCandidates>
+          <mat-progress-bar *ngIf="loading" class="progress-bar" mode="indeterminate"></mat-progress-bar>
+          <mat-card style="border-radius: 1em;">
+            <mat-card-title>No Candidates Found</mat-card-title>
+          </mat-card>
+        </ng-template>
       </div>
-      <ng-template #noCandidates>
-        <mat-progress-bar *ngIf="loading" class="progress-bar" mode="indeterminate"></mat-progress-bar>
-        <mat-card class="scroll-wrapper" style="border-radius: 1em;">
-          <mat-card-title>No Candidates Found</mat-card-title>
-        </mat-card>
-      </ng-template>
     </div>
-  </div>
+  </form>
 </div>
