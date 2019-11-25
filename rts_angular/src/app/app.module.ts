@@ -16,7 +16,7 @@ import { SubmissionsComponent } from './submissions/submissions.component';
 import { HideComponentService } from './Services/hide-component.service';
 import { RequirementsService } from './Services/requirements.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDatepickerModule, MatSnackBarModule, MatNativeDateModule, matSnackBarAnimations, MatCheckboxModule, MatAutocomplete, MatOption, MatAutocompleteModule, MatOptionModule, MatSelect, MatSelectModule, MatPaginator, MatPaginatorModule, MatExpansionModule, MatCardModule, MatButtonModule, MatGridListModule, MatProgressBarModule, MatSliderModule, MatTabsModule, MatListModule } from '@angular/material';
+import { MatDatepickerModule, MatSnackBarModule, MatNativeDateModule, matSnackBarAnimations, MatCheckboxModule, MatAutocomplete, MatOption, MatAutocompleteModule, MatOptionModule, MatSelect, MatSelectModule, MatPaginator, MatPaginatorModule, MatExpansionModule, MatCardModule, MatButtonModule, MatGridListModule, MatProgressBarModule, MatSliderModule, MatTabsModule, MatListModule, MAT_LABEL_GLOBAL_OPTIONS } from '@angular/material';
 import { MatFormFieldModule, MatSlideToggleModule, MatIconModule } from '@angular/material';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material';
@@ -260,7 +260,9 @@ import { DiceRequirementsViewComponent } from './dice-requirements-view/dice-req
     TimeSheetService,
     DiceService,
     AsyncPipe,
-    DatePipe],
+    DatePipe,
+    {provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: {float: 'always'}}
+  ],
 
   entryComponents: [
     SnackbarComponentComponent,

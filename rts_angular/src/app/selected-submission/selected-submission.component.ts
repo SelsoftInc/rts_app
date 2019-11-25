@@ -81,7 +81,6 @@ export class SelectedSubmissionComponent implements OnInit {
             };
             this.chartData.push(DeliveredObj);
             this.chartData.push(BackoutObj);
-            console.log(this.chartData)
           }
         });
   }

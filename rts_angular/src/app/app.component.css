@@ -37,6 +37,8 @@
 
 .nav-item-logout {
   text-align: right;
+  margin-inline-start: auto;
+  font-weight: 600;
 }
 
 .mat-icon {
