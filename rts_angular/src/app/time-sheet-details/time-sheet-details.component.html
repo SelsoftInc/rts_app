@@ -9,7 +9,8 @@
   </thead>
   <tbody>
     <tr *ngFor="let sheet of selectedTimeSheet">
-      <td>{{sheet.sessionIn | date:'MMM d, h:mm a'}}</td>
+      <td>{{sheet.sessionIn | date:'MMM d, h:mm a'}}<span *ngIf="sheet.workHome"
+          style="color: #397fa8;font-weight: 600;"> (WH)</span></td>
       <td *ngIf="!sheet.autoLogout else autoLogout">{{sheet.sessionOut | date:'MMM d, h:mm a'}}</td>
       <ng-template #autoLogout>
         <td class="text-color">{{sheet.sessionOut | date:'MMM d, h:mm a'}}</td>
