@@ -1,0 +1,83 @@
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
+  [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
+</ng-progress>
+<h2 class="dice-title">
+  <a [routerLink]="['/dice-view']">Dice</a> / Dice Candidates</h2>
+<div class="utility-container" style="border-radius: 10px;">
+  <div class="row">
+    <div class="col-10">
+      <div class="row mt-2">
+        <div class="col-3">
+          <mat-form-field>
+            <input matInput [max]=currentDate [matDatepicker]="fromDatePicker" [(ngModel)]="startDate"
+              placeholder="From Date">
+            <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #fromDatePicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field>
+            <input matInput [max]=currentDate [matDatepicker]="toDatePicker" [(ngModel)]="endDate"
+              placeholder="To Date">
+            <mat-datepicker-toggle matSuffix [for]="toDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #toDatePicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-4 mt-3">
+          <button class="btn btn-sm btn-primary btn-space" (click)="dateFilter();">Show Results</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mat-paginator-container">
+    <h4><span style="font-family: Verdana, Geneva, Tahoma, sans-serif;">{{candidatesLength}}</span> Candidates Found
+    </h4>
+    <mat-paginator [length]="candidatesLength" [pageSize]="10" [pageSizeOptions]="[10, 20, 30]"
+      (page)="getPaginatorData($event)">
+    </mat-paginator>
+  </div>
+
+  <div *ngFor="let candidate of candidates">
+    <mat-card class="card-container mb-2">
+
+      <mat-card-header class="candidate-header mt-4">
+
+        <div mat-card-avatar class="candidate-image">
+          <span *ngIf="candidate.imageUrl; else noImage">
+            <img mat-card-lg-image src="{{candidate.imageUrl}}">
+          </span>
+          <ng-template #noImage>
+            <img mat-card-lg-image src="../../assets/placeholder.png">
+          </ng-template>
+        </div>
+        <mat-card-title class="candidate-name">{{candidate.fullName}}
+          <span *ngIf="candidate.currentJobTitle">/ {{candidate.currentJobTitle}}</span>
+        </mat-card-title>
+
+        <mat-card-subtitle class="candidate-name">
+          <span *ngIf="candidate.city && candidate.country">
+            <i class="fa fa-map-marker pl-2 pr-2" style="font-size:17px"> </i>{{candidate.city}},
+            {{candidate.country}}
+          </span>
+        </mat-card-subtitle>
+
+        <mat-card-subtitle class="candidate-name">
+          <span *ngIf="candidate.yearsOfExperience">
+            <i class="material-icons icon-exp"> event_note </i>{{candidate.yearsOfExperience}}
+            years
+            exp
+          </span>
+        </mat-card-subtitle>
+        <div *ngIf="candidate.enteredUser" class="user-details">
+          <strong>{{candidate.enteredUser.firstName}}</strong> <br />
+          <span style="font-size: 15px;">{{candidate.enteredUser.role}}</span>
+          <a style="text-decoration: none;" target="_blank" [routerLink]="['/dice-detail-view',candidate.diceId]">
+            <button mat-button type="button" style="margin-left: 150px;"><b
+                style="letter-spacing: 1.1px;">VIEW</b></button></a>
+        </div>
+      </mat-card-header>
+
+    </mat-card>
+  </div>
+</div>

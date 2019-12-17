@@ -1,7 +1,8 @@
 <div *ngIf="userRole === 'ADMIN' || userRole === 'ACC_MGR' || userRole === 'TL'" class="sub-nav-wrapper">
   <span>
     <a class="sub-nav-link pr-2" [routerLink]="['/add-dice']">Add Dice</a>
-    <a class="sub-nav-link divide pl-2" [routerLink]="['/edit-dice']">Edit Dice</a>
+    <a class="sub-nav-link divide pl-2 pr-2" [routerLink]="['/edit-dice']">Edit Dice</a>
+    <a class="sub-nav-link divide pl-2" [routerLink]="['/view-dice-candidates']">View Dice Candidates</a>
 
     <mat-form-field class="sub-nav-link col-3" style="float: right;">
       <mat-label>Choose Dice</mat-label>
@@ -18,8 +19,8 @@
 
 <h2 class="dice-title">Dice Search
   <span *ngIf="diceId" style="float: right; margin: 20px 30px 10px 10px;">
-      <a style="text-decoration: none;" target="_blank" [routerLink]="['/dice-detail-view',diceId]">
-        <button mat-button type="button" ><b style="letter-spacing: 1.1px;">VIEW</b></button></a>
+    <a style="text-decoration: none;" target="_blank" [routerLink]="['/dice-detail-view',diceId]">
+      <button mat-button type="button"><b style="letter-spacing: 1.1px;">VIEW</b></button></a>
   </span>
   <span class="col-4" style="float: right;">
     <input type="text" class="form-input" placeholder="Enter Dice id" [(ngModel)]="diceId">
@@ -66,7 +67,7 @@
         <input type="text" class="form-input" formControlName="lastActive" placeholder="Last Active" [ngModel]="90">
         <mat-hint class="mb-2" style="display: block;">in days</mat-hint>
 
-        <mat-slide-toggle formControlName="excludeThirdParty" [ngModel]="false">Exclude ThirdParty</mat-slide-toggle>
+        <mat-slide-toggle formControlName="excludeThirdParty" [ngModel]="true">Exclude ThirdParty</mat-slide-toggle>
 
         <label class="filterLabel">Contact Method :</label>
         <mat-checkbox [ngModel]="false" ngInit="hasEmail=true" color="primary" formControlName="hasEmail">Email
@@ -121,7 +122,13 @@
         </ng-select>
 
         <label class="form-label">Experience:</label>
-        <input type="text" class="form-input" formControlName="experience" placeholder="Example 4 or [ 0 to 3]">
+        <div class="row">
+          <div class="col-12" style="display: inline-flex;">
+            <span><input type="number" class="form-input" formControlName="minExperience" placeholder="min"></span>
+            <span style="padding-top: 1.6em; padding-left: 8px;padding-right: 8px;">to</span>
+            <span> <input type="number" class="form-input" formControlName="maxExperience" placeholder="max"></span>
+          </div>
+        </div>
 
         <label class="form-label">Employment Type:</label>
         <ng-select [items]="employmentType" bindLabel="name" bindValue="value" [multiple]="true"
@@ -233,7 +240,9 @@
                 </mat-card-header>
                 <mat-card-content>
                   <mat-grid-list class="grid-list" cols="5" rowHeight="6:1">
-                    <mat-grid-tile class="grid-tile pl-2" *ngFor="let tech of candidate.skills">{{tech.skill}}
+                    <mat-grid-tile class="grid-tile pl-2" *ngFor="let tech of candidate.skills">
+                      <span [innerHTML]="tech.skill  | highlight:selectedQuery">{{tech.skill}}</span>
+                      <span *ngIf="tech.yearsUsed" class="pl-2" style="color: cadetblue;">{{tech.yearsUsed}}yrs</span>
                       <span class="grid-sub-tile">{{tech.lastUsed}}</span></mat-grid-tile>
                   </mat-grid-list>
                 </mat-card-content>

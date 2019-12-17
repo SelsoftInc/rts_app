@@ -1,0 +1,48 @@
+.candidate-image { 
+    padding: 5px;
+    width: 150px;
+}
+
+.candidate-header {
+    height: 6em; 
+    padding-left: 0.5em;
+}
+
+.candidate-name{
+    padding-left: 5px;
+    letter-spacing: 1.2px;
+    font-weight: 600;
+    font-size: medium;
+}
+
+.card-container {     
+    max-width: 100%;
+    border-radius: 1em;
+    padding: 10px;
+}
+
+.mat-card-lg-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.icon-exp {
+    position: relative;
+    top: 5px;
+    font-size: 19px;
+    padding-right: 5px;
+}
+
+.user-details{
+    position: absolute;
+    right: 0px;
+    width: 350px;
+    padding: 10px;
+    border-left: 1px solid #d0d0d0;
+}
+
+
+.mat-paginator-container{
+    justify-content: space-between;
+}

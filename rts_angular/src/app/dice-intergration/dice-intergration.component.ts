@@ -58,7 +58,7 @@ export class DiceIntergrationComponent implements OnInit {
     rtsDiceId: any;
     isFilterAction: boolean;
     isShowFilterBtn: boolean;
-    diceId:string;
+    diceId: string;
 
     constructor(
         private loggedUser: LoggedUserService,
@@ -101,7 +101,8 @@ export class DiceIntergrationComponent implements OnInit {
             hasPhone: [''],
             relocate: [''],
             skillsKeyword: [''],
-            experience: [''],
+            minExperience: [''],
+            maxExperience: [''],
             employmentType: [''],
             education: [''],
             workPermit: [''],
@@ -245,7 +246,10 @@ export class DiceIntergrationComponent implements OnInit {
         const educationDegree = this.selectedEducationDegree.map(x => x).join(",");
         const workPermit = this.selectedWorkPermit.map(x => x).join(",");
         const employmentType = this.selectedEmploymentType.map(x => x).join(",");
-
+        var minExp: number;
+        var maxExp: number;
+        minExp = form.value.minExperience;
+        maxExp = form.value.maxExperience;
         const submit = {
             userId: this.rtsUserId,
             q: this.selectedQuery,
@@ -263,7 +267,7 @@ export class DiceIntergrationComponent implements OnInit {
             willingToRelocate: form.value.relocate,
             hasEmail: form.value.hasEmail,
             hasPhone: form.value.hasPhone,
-            yearsOfExperience: form.value.experience,
+            yearsOfExperience: "[" + minExp.toString() + ' to ' + maxExp.toString() + "]",
             workPermit: workPermit,
             educationDegree: educationDegree,
             employmentType: employmentType,

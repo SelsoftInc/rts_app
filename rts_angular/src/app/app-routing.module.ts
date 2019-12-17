@@ -65,6 +65,7 @@ import { DiceLoginComponent } from './dice-login/dice-login.component';
 import { DiceDetailViewComponent } from './dice-detail-view/dice-detail-view.component';
 import { EditDiceComponent } from './edit-dice/edit-dice.component';
 import { DiceRequirementsViewComponent } from './dice-requirements-view/dice-requirements-view.component';
+import { ViewDiceCandidatesComponent } from './view-dice-candidates/view-dice-candidates.component';
 
 
 export const appRoutes: Routes = [
@@ -137,6 +138,7 @@ export const appRoutes: Routes = [
   { path: 'edit-dice', component: EditDiceComponent }, 
   { path: 'dice-detail-view/:id', component: DiceDetailViewComponent }, 
   { path: 'dice-requirements', component: DiceRequirementsViewComponent }, 
+  { path: 'view-dice-candidates', component: ViewDiceCandidatesComponent }, 
 ];
 
 

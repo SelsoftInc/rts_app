@@ -260,7 +260,9 @@
     top: 0;  
     float: right;
 }
-
+:host ::ng-deep .highlight{
+    background:yellow;
+  }
  
 
 /* [title~="{{angular_variable}}"] {
