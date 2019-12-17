@@ -11,7 +11,12 @@
       </mat-select>
     </mat-form-field>
   </span>
+</div>
 
+<div *ngIf="userRole === 'RECRUITER'" class="sub-nav-wrapper">
+  <span><a style="font-size: .800em;text-transform: uppercase;font-weight: 700;"
+      [routerLink]="['/view-dice-candidates']">View Dice Candidates</a>
+  </span>
 </div>
 <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
   [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">

@@ -38,7 +38,7 @@
     </mat-paginator>
   </div>
 
-  <div *ngFor="let candidate of candidates">
+  <div *ngFor="let candidate of (candidates | slice: lowValue : highValue)">
     <mat-card class="card-container mb-2">
 
       <mat-card-header class="candidate-header mt-4">

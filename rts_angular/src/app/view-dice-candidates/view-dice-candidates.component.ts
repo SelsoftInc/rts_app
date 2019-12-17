@@ -4,6 +4,7 @@ import { NgProgress } from 'ngx-progressbar';
 import { ToastrService } from 'ngx-toastr';
 import { DiceService } from '../Services/dice.service';
 import * as moment from 'moment';
+import { PageEvent } from '@angular/material';
 
 @Component({
   selector: 'app-view-dice-candidates',
@@ -20,6 +21,10 @@ export class ViewDiceCandidatesComponent implements OnInit {
   candidates: any;
   candidatesLength: any;
   currentDate: Date;
+  // pageNumber: number = 1;
+  // pageSize: number;
+  lowValue: number = 0;
+  highValue: number = 10;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -36,6 +41,12 @@ export class ViewDiceCandidatesComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  public getPaginatorData(event: PageEvent): PageEvent {
+    this.lowValue = event.pageIndex * event.pageSize;
+    this.highValue = this.lowValue + event.pageSize;
+    return event;
   }
 
   dateFilter() {
