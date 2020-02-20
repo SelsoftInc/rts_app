@@ -2,7 +2,8 @@
   <!-- <a class="sub-nav-link" [routerLink]="['/add-new-submission']">Add New Submission</a> -->
 
   <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
-    [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
+    [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
+  </ng-progress>
 
   <span *ngIf="userRole === 'ADMIN' || userRole === 'ACC_MGR' || userRole === 'TL'">
     <i class="material-icons icon-subnav">assessment</i>
@@ -21,7 +22,11 @@
     <a class="sub-nav-link" [routerLink]="['/selected-submissions']"> Achievements</a>
   </span>
 </div>
-<h2 class="main-title">Submissions</h2>
+<h2 class="main-title">Submissions
+  <button *ngIf="userRole === 'ADMIN' && submissionsLength > 0" mat-button type="button"
+    style="margin-right: 25px; float: right; color: #1685c5;" (click)="generateReport();"><b style="letter-spacing: 1.1px;">GENERATE
+      REPORT</b></button>
+</h2>
 <div class="utility-container">
   <div class="filter-container">
     <div class="row">
@@ -86,7 +91,8 @@
             <select class="form-control" (change)="selectRecruiter($event.target.value)" [(ngModel)]="recruiter">
               <option value="" selected>Select</option>
               <option value="selectAll">Select All</option>
-              <option *ngFor="let user of teamUsers" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</option>
+              <option *ngFor="let user of teamUsers" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}
+              </option>
             </select>
           </div>
         </div>
@@ -135,7 +141,8 @@
           </span>
           <span *ngIf="!sub.allocationUser && sub.team !== undefined">
             <span class="block-header-label">Allocated Team: </span>
-            <span class="meta-info-content" *ngIf="(sub.allocationUserId === '' || sub.allocationUserId === undefined) && (sub.team !== undefined)">{{sub.team.name}}</span>
+            <span class="meta-info-content"
+              *ngIf="(sub.allocationUserId === '' || sub.allocationUserId === undefined) && (sub.team !== undefined)">{{sub.team.name}}</span>
           </span>
         </div>
 
@@ -152,7 +159,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let submission of sub.filteredSubmissions" [routerLink]="['/edit-submission', submission.submissionId]">
+            <tr *ngFor="let submission of sub.filteredSubmissions"
+              [routerLink]="['/edit-submission', submission.submissionId]">
               <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
               <td>{{submission.candidate.name}}</td>
               <td>{{submission.candidate.technology[0].technologyName}}</td>
@@ -187,7 +195,8 @@
           </span>
           <span *ngIf="!sub.allocationUser && sub.team !== undefined">
             <span class="block-header-label">Allocated Team: </span>
-            <span class="meta-info-content" *ngIf="(sub.allocationUserId === '' || sub.allocationUserId === undefined) && (sub.team !== undefined)">{{sub.team.name}}</span>
+            <span class="meta-info-content"
+              *ngIf="(sub.allocationUserId === '' || sub.allocationUserId === undefined) && (sub.team !== undefined)">{{sub.team.name}}</span>
           </span>
         </div>
 
@@ -204,7 +213,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let submission of sub.filteredSubmissions" [routerLink]="['/recruiter-edit-submissions', submission.submissionId]">
+            <tr *ngFor="let submission of sub.filteredSubmissions"
+              [routerLink]="['/recruiter-edit-submissions', submission.submissionId]">
               <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
               <td>{{submission.candidate.name}}</td>
               <td>{{submission.candidate.technology[0].technologyName}}</td>

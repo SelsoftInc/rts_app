@@ -129,9 +129,9 @@
         <label class="form-label">Experience:</label>
         <div class="row">
           <div class="col-12" style="display: inline-flex;">
-            <span><input type="number" class="form-input" formControlName="minExperience" placeholder="min"></span>
+            <span><input type="number" class="form-input" formControlName="minExperience" placeholder="min" [ngModel]=0 ></span>
             <span style="padding-top: 1.6em; padding-left: 8px;padding-right: 8px;">to</span>
-            <span> <input type="number" class="form-input" formControlName="maxExperience" placeholder="max"></span>
+            <span> <input type="number" class="form-input" formControlName="maxExperience" placeholder="max"  [ngModel]=0></span>
           </div>
         </div>
 

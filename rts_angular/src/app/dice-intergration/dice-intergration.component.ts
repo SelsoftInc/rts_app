@@ -178,7 +178,6 @@ export class DiceIntergrationComponent implements OnInit {
     }
 
     gotoTop(event) {
-        console.log(event)
         event.preventDefault();
         window.scroll({
             top: 0,
@@ -249,7 +248,13 @@ export class DiceIntergrationComponent implements OnInit {
         var minExp: number;
         var maxExp: number;
         minExp = form.value.minExperience;
-        maxExp = form.value.maxExperience;
+        maxExp = form.value.maxExperience;       
+        if (form.value.minExperience === null) {
+            minExp = 0;
+        }
+        if (form.value.maxExperience === null) {
+            maxExp = 0;
+        }
         const submit = {
             userId: this.rtsUserId,
             q: this.selectedQuery,

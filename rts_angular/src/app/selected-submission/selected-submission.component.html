@@ -8,10 +8,9 @@
 
   <div class="row ml-2" style="float: left;">
     <!-- <h6 class="ml-4">Total {{interviewsLength}} Results</h6> -->
-    <div class="width-150 height-200">    
-      <ngx-charts-advanced-pie-chart [view]="view" [scheme]="colorScheme" [results]="chartData"
-      [gradient]="gradient" >
-    </ngx-charts-advanced-pie-chart>
+    <div class="width-150 height-200">
+      <ngx-charts-advanced-pie-chart [view]="view" [scheme]="colorScheme" [results]="chartData" [gradient]="gradient">
+      </ngx-charts-advanced-pie-chart>
     </div>
   </div>
 
@@ -34,7 +33,11 @@
           <td>{{submission.client.name}}</td>
           <td>{{submission.joiningDateStr | date: 'MMM d, y'}}</td>
           <td>{{submission.recruiter.firstName}} {{submission.recruiter.lastName}}</td>
-          <td>{{submission.interviewDetailStatus}}</td>
+          <td *ngIf="submission.interviewDetailStatus === 'DELIVERED'; else backout">
+            {{submission.interviewDetailStatus}}</td>
+          <ng-template #backout>
+            <td style="color: red;">{{submission.interviewDetailStatus}}</td>
+          </ng-template>
         </tr>
       </tbody>
     </table>
@@ -60,7 +63,11 @@
           <td>{{submission.client.name}}</td>
           <td>{{submission.joiningDateStr | date: 'MMM d, y'}}</td>
           <td>{{submission.recruiter.firstName}} {{submission.recruiter.firstName}}</td>
-          <td>{{submission.interviewDetailStatus}}</td>
+          <td *ngIf="submission.interviewDetailStatus === 'DELIVERED'; else backout">
+            {{submission.interviewDetailStatus}}</td>
+          <ng-template #backout>
+            <td style="color: red;">{{submission.interviewDetailStatus}}</td>
+          </ng-template>
         </tr>
       </tbody>
     </table>
