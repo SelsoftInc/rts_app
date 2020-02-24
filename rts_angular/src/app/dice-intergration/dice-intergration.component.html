@@ -200,9 +200,8 @@
                   </mat-card-subtitle>
 
                   <mat-card-subtitle class="candidate-name">
-                    <span *ngIf="candidate.city && candidate.country">
-                      <i class="fa fa-map-marker pl-2 pr-2" style="font-size:17px"> </i>{{candidate.city}},
-                      {{candidate.country}}
+                    <span *ngIf="candidate.locations">
+                      <i class="fa fa-map-marker pl-2 pr-2" style="font-size:17px"> </i>{{candidate.locations[0].text}}
                     </span>
                     <span *ngIf="candidate.yearsOfExperience">
                       <i class="material-icons icon-exp icon-padding"> event_note </i>{{candidate.yearsOfExperience}}
