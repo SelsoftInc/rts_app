@@ -1,0 +1,47 @@
+<div class="row mt-2">
+  <div class="col-4">
+    <mat-form-field>
+      <input matInput [matDatepicker]="fromDatePicker" [(ngModel)]="fromDate" placeholder="From Date">
+      <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #fromDatePicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="col-4">
+    <mat-form-field>
+      <input matInput [matDatepicker]="toDate" [(ngModel)]="currentDate" placeholder="To Date">
+      <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+      <mat-datepicker #toDate></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="col-4 mt-3">
+    <button class="btn btn-sm btn-primary" (click)="filterByDate();">Show Results</button>
+  </div>
+</div>
+
+<table class="table table-hover table-sm" matSort (matSortChange)="sortData($event)">
+  <thead class="table-header">
+    <tr>
+      <th>Position Name</th>
+      <th>Location</th>
+      <th>Client</th>
+      <th>Account Name</th>
+      <th>Age</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="requirementsLength > 0 ; else noRequirements">
+    <tr *ngFor="let require of requirements" (click)="addSubmission(require.requirementId);">
+      <td>{{require.position.positionName }}</td>
+      <td>{{require.location}}</td>
+      <td>{{require.client.name}}</td>
+      <td>{{require.account.accountName}}</td>
+      <td>{{require.age}}</td>
+    </tr>
+  </tbody>
+  <ng-template #noRequirements>
+    <tbody>
+      <tr>
+        <td>No requirements yet...</td>
+      </tr>
+    </tbody>
+  </ng-template>
+</table>

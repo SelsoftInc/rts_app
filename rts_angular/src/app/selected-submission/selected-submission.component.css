@@ -1,0 +1,7 @@
+::ng-deep .ngx-charts {
+display: none;
+}
+
+::ng-deep .advanced-pie.chart{
+    height: 0px !important;
+}

@@ -1,9 +1,9 @@
-<h2 class="main-title">
+<h2 class="dice-title">
   <a [routerLink]="['/dice-view']">Dice</a> / Add Dice Account</h2>
 <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false"
   [direction]="'leftToRightIncreased'" [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
 </ng-progress>
-<div class="utility-container">
+<div class="utility-container" style="border-radius: 10px;">
   <form [formGroup]="myForm" (ngSubmit)="addDice(myForm)">
     <div class="container">
       <div class="row">

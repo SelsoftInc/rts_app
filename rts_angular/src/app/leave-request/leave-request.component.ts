@@ -106,27 +106,25 @@ export class LeaveRequestComponent implements OnInit {
     this.leaveDays = [];
     var days = [];
     var date = fromDate;
+
     if (moment(fromDate).format('d') !== '0') {
       if (moment(fromDate).format('d') !== '6') {
         this.leaveDays.push(moment(fromDate).format('YYYY-MM-DD'));
       }
     }
-    for (var i = 0; i < diffDays; i++) {
+    for (var i = 1; i < diffDays; i++) {
       var day = moment(date).format('YYYY-MM-DD');
       date = moment(day).add(1, 'days');
-      days.push(date);
+      days.push(moment(date).format('YYYY-MM-DD'));    
     }
-
     for (const d of days) {
       var leaveDay = moment(d).format('d');
       if (leaveDay !== '0') {
         if (leaveDay !== '6') {
-          var day = moment(d).format('YYYY-MM-DD');
-          this.leaveDays.push(day);
+          this.leaveDays.push(d);
         }
       }
     }
-    this.leaveDays.pop();
 
     var mailBody = form.value.mailBody;
     if (mailBody === undefined) {
@@ -139,7 +137,7 @@ export class LeaveRequestComponent implements OnInit {
       mailTo: form.value.mailTo,
       comment: mailBody
     };
-    
+
     this.timeSheetService.leaveRequest(submit)
       .subscribe(
         data => {

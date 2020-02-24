@@ -28,7 +28,7 @@
     font-weight: 400;
 }
 .dice-title{
-    margin-bottom: -75px;
+    margin-bottom: -50px;
     font-family: 'Raleway', sans-serif;
     font-weight: 500 !important;
     text-transform: capitalize !important;
@@ -74,7 +74,7 @@
 
 .filterBtn{
     margin-top: 1.2em;
-    text-align: right;
+    text-align: right;    
 }
 
 .dice-title{
@@ -246,6 +246,24 @@
     font-size: 16px;
 }
 
+.scroll-btn {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;  
+    float: right;
+    font-size: 20px;
+    color: cornflowerblue;
+}
+.scroll-filter-btn {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;  
+    float: right;
+}
+:host ::ng-deep .highlight{
+    background:yellow;
+  }
+ 
 
 /* [title~="{{angular_variable}}"] {
     border: 5px solid yellow;

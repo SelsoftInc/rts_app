@@ -11,8 +11,9 @@
     <div class="profile-name" *ngIf="rtsUser">
       <p class="user-name">{{rtsUser.firstName}} {{rtsUser.lastName}}</p>
       <p class="user-role">Logged in as {{userRole}}</p>
-    </div>
+    </div>    
   </div>
+  
 </div>
 <div *ngIf="displayComponent">
   <div *ngIf="userRole ==='ADMIN'">
@@ -42,10 +43,10 @@
         <a class="nav-link" [routerLink]="['/search-candidates']" [routerLinkActive]="['active-link']">Search
           Candidate</a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" [routerLink]="['/search-vendors']" [routerLinkActive]="['active-link']">Search
           Vendors</a>
-      </li>
+      </li> -->
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/time-sheet']" [routerLinkActive]="['active-link']">Time
           Sheet</a>
@@ -89,10 +90,10 @@
         <a class="nav-link" [routerLink]="['/search-candidates']" [routerLinkActive]="['active-link']">Search
           Candidate</a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" [routerLink]="['/search-vendors']" [routerLinkActive]="['active-link']">Search
           Vendors</a>
-      </li>
+      </li> -->
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/time-sheet']" [routerLinkActive]="['active-link']">Time
           Sheet</a>

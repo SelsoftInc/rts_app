@@ -10,6 +10,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { Router } from '@angular/router';
 import { GraphExpansationComponent } from '../graph-expansation/graph-expansation.component';
 import { MatDialog } from '@angular/material';
+import * as XLSX from 'xlsx';
 
 export interface DialogData {
     chartData: any;
@@ -77,6 +78,7 @@ export class SubmissionsComponent implements OnInit {
     client: string;
     status: string;
     fromDate: Date;
+    selectedReport: any;
 
     constructor(
         private loggedUser: LoggedUserService,
@@ -94,6 +96,7 @@ export class SubmissionsComponent implements OnInit {
         this.rtsUserId = this.rtsUser.userId;
         this.selectedRequirements = [];
         this.submissionDetails = [];
+        this.selectedReport = [];
         this.fromDate = new Date(Date.now());
         this.currentDate = new Date(Date.now());
         // this.submissionStatus = [
@@ -210,7 +213,7 @@ export class SubmissionsComponent implements OnInit {
                 this.submissionDetails.push(require);
             }
         }
-       
+
         for (const count of this.submissionDetails) {
             this.submissionsLength = this.submissionsLength + count.filteredSubmissions.length;
         }
@@ -505,5 +508,45 @@ export class SubmissionsComponent implements OnInit {
         //     GraphExpansationComponent.graphExpandDeatils = undefined;
         // });
 
+    }
+
+    generateReport() {
+        var getReport = [];
+        this.selectedReport = [];
+        for (const reqirement of this.submissionDetails) {
+            var positionName = reqirement.position.positionName;
+            var clientName = reqirement.client.name;
+            for (const sub of reqirement.submissions) {
+                getReport.push({
+                    "positionName": positionName,
+                    "clientName": clientName,
+                    "submissionDate": sub.submissionOn,
+                    "candidateName": sub.candidate.name,
+                    "technology": sub.candidate.technology[0].technologyName,
+                    "status": sub.submissionStatus.statusName,
+                    "interviewDetailStatus": sub.interviewDetailStatus,
+                    "submittedBy": sub.submittedUser.firstName + ' ' + sub.submittedUser.lastName
+                })
+            }
+        }
+        for (const report of getReport) {
+            const submissionDate = moment(report.submissionDate).format('MMM DD, Y');
+            const submissionMonth = moment(report.submissionDate).format('MMMM, Y');
+            this.selectedReport.push({
+                "Position Name": report.positionName,
+                "Recruiter Name": report.submittedBy,
+                "Candidate Name": report.candidateName,
+                "Candidate Status": report.interviewDetailStatus,
+                "Client Name": report.clientName,
+                "Submitted On": submissionDate,
+                "Submitted Month": submissionMonth,
+                "Technology": report.technology,
+                "Submission Status": report.status,
+            });
+        }
+        const data = this.selectedReport;
+        const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+        const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        XLSX.writeFile(workbook, 'Submission_Report.xlsx', { bookType: 'xlsx', type: 'buffer' });
     }
 }

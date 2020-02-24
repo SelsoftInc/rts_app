@@ -10,6 +10,7 @@ import * as _ from 'underscore';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { ApiUrl } from '../Services/api-url';
 import { NgProgress } from 'ngx-progressbar';
+import { DiceService } from '../Services/dice.service';
 
 @Component({
   selector: 'app-add-new-submissions',
@@ -54,6 +55,17 @@ export class AddNewSubmissionsComponent implements OnInit {
   skills: any;
   addCustomSkills = (skill) => ({ skillId: 0, name: skill });
   selectedSkills: any;
+  diceCandidateId: any;
+  isDice: boolean;
+  diceCandidateName: any;
+  diceProfile: any;
+  candidateEmail: any;
+  diceCandidatePhone: any;
+  diceCandidateLocation: any;
+  diceCandidateCurrentCompany: any;
+  diceCandidateReloate: any;
+  diceCandidateExperience: any;
+  diceCandidateLinkedIn: any;
   // selectedSkillsText: any;
 
   constructor(
@@ -65,6 +77,7 @@ export class AddNewSubmissionsComponent implements OnInit {
     private submissionService: SubmissionService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private diceService: DiceService,
     private ngProgress: NgProgress
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
@@ -73,6 +86,7 @@ export class AddNewSubmissionsComponent implements OnInit {
     this.userRole = this.rtsUser.role;
     this.isRelocate = true;
     this.isWorkedWithClient = false;
+    this.isDice = false;
     this.recruiterName = [];
     this.recruiterEmail = [];
     this.allRequirements = [];
@@ -92,7 +106,19 @@ export class AddNewSubmissionsComponent implements OnInit {
     this.activatedRoute.params
       .subscribe((params: Params) => {
         this.requirementId = params['id'];
+        if (params['diceId']) {
+          this.isDice = true;
+          this.diceCandidateId = params['diceId'];
+          this.getDiceCandidateDetails();
+        }
       });
+
+    // this.activatedRoute.params
+    //   .subscribe((params: Params) => {
+    //     this.diceCandidateId = params['diceId'];
+    //     this.isDice = true;
+    //     this.getDiceCandidateDetails();
+    //   });
 
     this.baseUrl = ApiUrl.BaseUrl;
 
@@ -157,7 +183,8 @@ export class AddNewSubmissionsComponent implements OnInit {
       totalUsExperience: [''],
       skills: [''],
       note: [''],
-      summary: ['']
+      summary: [''],
+      diceCandidateId: ['']
     });
     this.getAllCommonData();
     this.getAllSkills();
@@ -200,6 +227,53 @@ export class AddNewSubmissionsComponent implements OnInit {
         data => {
           if (data.success) {
             this.skills = data.skills;
+          }
+        });
+  }
+
+  getDiceCandidateDetails() {
+    this.diceCandidateReloate = true;
+    const submit = {
+      userId: this.rtsUserId,
+      diceId: this.diceCandidateId
+    };
+
+    this.diceService.getDiceProfile(submit)
+      .subscribe(
+        data => {
+          if (data.success) {
+            this.isNewCandidate = true;
+            this.diceProfile = data.diceProfile;
+            if (this.diceProfile.email.length > 0) {
+              this.candidateEmail = this.diceProfile.email[0];
+            }
+            if (this.diceProfile.hasPhone) {
+              this.diceCandidatePhone = this.diceProfile.phone[0];
+            }
+            if (this.diceProfile.locations.length > 0) {
+              this.diceCandidateLocation = this.diceProfile.locations[0].text;
+            }
+            if (this.diceProfile.experience.current) {
+              this.diceCandidateCurrentCompany = this.diceProfile.experience.current.org;
+            }
+            if (this.diceProfile.socialProfiles.length > 0) {
+              for (const social of this.diceProfile.socialProfiles) {
+                if (social.source === 'Linkedin') {
+                  this.diceCandidateLinkedIn = social.url;
+                }
+              }
+            }
+            this.diceCandidateExperience = this.diceProfile.yearsOfExperience;
+            if (this.diceProfile.workPreferences.length > 0) {
+              // this.diceCandidateReloate = this.diceProfile.workPreferences[0].willingToRelocate;
+              for (const relocate of this.diceProfile.workPreferences) {
+                if (relocate.willingToRelocate) {                  
+                  this.diceCandidateReloate = relocate.willingToRelocate;
+                }else{
+                  this.diceCandidateReloate = relocate.willingToRelocate;
+                }
+              }
+            }
           }
         });
   }
@@ -355,7 +429,7 @@ export class AddNewSubmissionsComponent implements OnInit {
 
   getCandidateDetails() {
     const candidate = {
-      email: this.myForm.controls.candidateEmail.value,
+      email: this.candidateEmail,
       companyId: this.rtsCompanyId
     };
 
@@ -501,7 +575,7 @@ export class AddNewSubmissionsComponent implements OnInit {
     const candidate: any = {
       companyId: this.rtsCompanyId,
       name: form.value.editCandidateName,
-      email: form.value.candidateEmail,
+      email: this.candidateEmail,
       location: form.value.editCandidateLocation,
       availability: form.value.editAvailability,
       phoneNumber: form.value.editCandidatePhone,

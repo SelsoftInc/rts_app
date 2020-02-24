@@ -10,7 +10,8 @@ import * as _ from 'underscore';
 @Component({
   selector: 'app-edit-dice',
   templateUrl: './edit-dice.component.html',
-  styleUrls: ['./edit-dice.component.css']
+  styleUrls: ['./edit-dice.component.css'],
+  providers: [LoggedUserService]
 })
 export class EditDiceComponent implements OnInit {
 

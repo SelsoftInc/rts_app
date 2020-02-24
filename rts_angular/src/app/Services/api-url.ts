@@ -111,6 +111,7 @@ export class ApiUrl {
     static GetAllDice = 'rtsDice/dice/getAllDiceAccount';
     static DiceSearch = 'rtsDice/dice/diceSearch';
     static GetDiceProfile = 'rtsDice/dice/diceProfileView';
+    static GetAllDiceCandidates = 'rtsDice/dice/getDiceCandidate';
 
 
 

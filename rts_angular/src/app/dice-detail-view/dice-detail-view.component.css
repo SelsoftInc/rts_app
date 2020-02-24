@@ -44,11 +44,12 @@
 }
 
 .candidate-name{
-    padding-left: 4.2em;
-    letter-spacing: 1.2px;
+    padding-left: 2.1em;
+    /* letter-spacing: 1.1px; */
     font-weight: 600;
     font-size: 1.1em; 
     padding-right: 3px;   
+    color: #476b6b;
 }
 
 .candidate-contact{
@@ -84,7 +85,7 @@
     max-width: 100%;
     /* background-color: lightcyan; */
     overflow-y: auto;
-    height: 35em;
+    height: 31em;
     padding-left: 2.5em;
     padding-right: 2.5em;
     border-radius: 1.2em;
@@ -94,17 +95,22 @@
     max-width: 100%;
     /* background-color: lightcyan; */
     overflow-y: auto;
-    height: 35em;
+    height: 31em;
     padding-left: 1em;
     padding-right: 1em;
     border-radius: 1.2em;
     /* background-color:aquamarine; */
 }
 
+.card-content{
+    display: inline-flex;
+    width: -webkit-fill-available;
+}
+
 .mat-card-lg-image {
     border-radius: 50%;
-    height: 200px;
-    width: 200px;
+    height: 160px;
+    width: 160px;
 }
 
 .mat-card-sm-image {
@@ -216,6 +222,17 @@
   font-weight: 400;
   font-size: 1.1em;
 }
+.submission-btn{
+    /* letter-spacing: 1.1px; */
+    color: cornflowerblue;
+    font-size: 1.3em;
+}
+
+
+
+ 
+
+
 
 
 

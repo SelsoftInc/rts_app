@@ -22,6 +22,11 @@ export class SelectedSubmissionComponent implements OnInit {
   selectedSubmissions: any;
   startDate: Date;
   userRole: any;
+  chartData: any[];
+
+  colorScheme = {
+    domain: ['#7aa3e5', '#da6969']
+  };
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -51,11 +56,31 @@ export class SelectedSubmissionComponent implements OnInit {
     this.submissonService.GetAllSelectedSubmission(userId)
       .subscribe(
         data => {
-            this.ngProgress.done();
-            if (data.success) {
+          this.ngProgress.done();
+          if (data.success) {
             this.selectedSubmissions = data.submissionReport;
             this.interviewsLength = this.selectedSubmissions.length;
             this.sortedData = this.selectedSubmissions.slice();
+            let DELIVERED = 0, BACKOUT = 0;
+            this.chartData=[];
+            for (const sub of this.selectedSubmissions) {
+              if (sub.interviewDetailStatus === 'DELIVERED') {
+                DELIVERED++;
+              } else if (sub.interviewDetailStatus === 'BACKOUT') {
+                BACKOUT++;
+              }
+            }
+             let DeliveredObj = {
+                name: 'DELIVERED',
+                value: DELIVERED
+            };
+
+            let BackoutObj = {
+                name: 'BACKOUT',
+                value: BACKOUT
+            };
+            this.chartData.push(DeliveredObj);
+            this.chartData.push(BackoutObj);
           }
         });
   }

@@ -16,7 +16,7 @@ import { SubmissionsComponent } from './submissions/submissions.component';
 import { HideComponentService } from './Services/hide-component.service';
 import { RequirementsService } from './Services/requirements.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDatepickerModule, MatSnackBarModule, MatNativeDateModule, matSnackBarAnimations, MatCheckboxModule, MatAutocomplete, MatOption, MatAutocompleteModule, MatOptionModule, MatSelect, MatSelectModule, MatPaginator, MatPaginatorModule, MatExpansionModule, MatCardModule, MatButtonModule, MatGridListModule, MatProgressBarModule, MatSliderModule, MatTabsModule, MatListModule } from '@angular/material';
+import { MatDatepickerModule, MatSnackBarModule, MatNativeDateModule, matSnackBarAnimations, MatCheckboxModule, MatAutocomplete, MatOption, MatAutocompleteModule, MatOptionModule, MatSelect, MatSelectModule, MatPaginator, MatPaginatorModule, MatExpansionModule, MatCardModule, MatButtonModule, MatGridListModule, MatProgressBarModule, MatSliderModule, MatTabsModule, MatListModule, MAT_LABEL_GLOBAL_OPTIONS } from '@angular/material';
 import { MatFormFieldModule, MatSlideToggleModule, MatIconModule } from '@angular/material';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material';
@@ -117,6 +117,9 @@ import { DiceDetailViewComponent } from './dice-detail-view/dice-detail-view.com
 import { SafePipe } from './dice-detail-view/safe.pipe';
 import { FilterPipe } from './dice-detail-view/unique.pipe';
 import { EditDiceComponent } from './edit-dice/edit-dice.component';
+import { DiceRequirementsViewComponent } from './dice-requirements-view/dice-requirements-view.component';
+import { HighlightPipe } from './dice-intergration/ highlight.pipe';
+import { ViewDiceCandidatesComponent } from './view-dice-candidates/view-dice-candidates.component';
 
 @NgModule({
   declarations: [
@@ -188,7 +191,10 @@ import { EditDiceComponent } from './edit-dice/edit-dice.component';
     DiceDetailViewComponent,
     SafePipe,
     FilterPipe,
-    EditDiceComponent
+    HighlightPipe,
+    EditDiceComponent,
+    DiceRequirementsViewComponent,
+    ViewDiceCandidatesComponent,
   ],
   imports: [
     BrowserModule,
@@ -258,7 +264,9 @@ import { EditDiceComponent } from './edit-dice/edit-dice.component';
     TimeSheetService,
     DiceService,
     AsyncPipe,
-    DatePipe],
+    DatePipe,
+    {provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: {float: 'always'}}
+  ],
 
   entryComponents: [
     SnackbarComponentComponent,

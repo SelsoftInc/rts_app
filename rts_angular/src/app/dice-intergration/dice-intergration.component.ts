@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { LoggedUserService } from '../Services/logged-user.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -18,10 +18,13 @@ import { RequirementsService } from '../Services/requirements.service';
 })
 export class DiceIntergrationComponent implements OnInit {
 
-    // lowValue: number = 0;
-    // highValue: number = 10;
+    isShow: boolean;
+    topPosToStartShowing = 1650;
+
+    static isDiceTokenGenerator: boolean;
     public myForm: FormGroup;
     public candidateForm: FormGroup;
+
     rtsUser: any;
     rtsUserId: any;
     rtsCompanyId: any;
@@ -49,11 +52,13 @@ export class DiceIntergrationComponent implements OnInit {
     pageNumber: number = 1;
     pageSize: number;
     filterForm: FormGroup;
-    isFilterAction: boolean;
     diceMetaDataCount: number;
     loading: boolean;
     sortByDirection: string;
     rtsDiceId: any;
+    isFilterAction: boolean;
+    isShowFilterBtn: boolean;
+    diceId: string;
 
     constructor(
         private loggedUser: LoggedUserService,
@@ -76,17 +81,18 @@ export class DiceIntergrationComponent implements OnInit {
         this.diceCandidates = {};
         this.pageSize = 25;
         this.diceMetaDataCount = 0;
-        this.isFilterAction = false;
+        DiceIntergrationComponent.isDiceTokenGenerator = true;
         this.loading = false;
+        this.isFilterAction = false;
     }
 
     ngOnInit() {
         // this.ngProgress.start();
 
-        this.myForm = this.formBuilder.group({
-            query: [''],
-            location: ['']
-        })
+        // this.myForm = this.formBuilder.group({
+        //     query: [''],
+        //     location: ['']
+        // })
         this.candidateForm = this.formBuilder.group({
             distance: [''],
             distanceUnit: [''],
@@ -95,7 +101,8 @@ export class DiceIntergrationComponent implements OnInit {
             hasPhone: [''],
             relocate: [''],
             skillsKeyword: [''],
-            experience: [''],
+            minExperience: [''],
+            maxExperience: [''],
             employmentType: [''],
             education: [''],
             workPermit: [''],
@@ -106,11 +113,13 @@ export class DiceIntergrationComponent implements OnInit {
             language: [''],
             socialProfile: [''],
             sortByDirection: [''],
-            excludeThirdParty: ['']
+            excludeThirdParty: [''],
+            query: [''],
+            location: ['']
         })
         this.getAllDiceAccount();
         this.contactMethod = [{ "name": "Email", "value": true }, { "name": "Phone", "value": true }];
-        this.searchType = "Integrated";
+        this.searchType = "Resume";
         this.sortBy = "relevancy";
         this.distanceUnit = 'miles';
         this.sortByDirection = "desc";
@@ -156,6 +165,28 @@ export class DiceIntergrationComponent implements OnInit {
             { "name": "W2/1099", "value": "w-2 / 1099" }];
     }
 
+    @HostListener('window:scroll')
+    checkScroll() {
+        const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        if (scrollPosition >= this.topPosToStartShowing) {
+            this.isShow = true;
+            this.isShowFilterBtn = false;
+        } else {
+            this.isShow = false;
+            this.isShowFilterBtn = true;
+        }
+    }
+
+    gotoTop(event) {
+        event.preventDefault();
+        window.scroll({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }
+
+
     getAllDiceAccount() {
         const companyId = {
             companyId: this.rtsCompanyId
@@ -180,6 +211,7 @@ export class DiceIntergrationComponent implements OnInit {
             .subscribe(
                 data => {
                     if (data.success) {
+                        DiceIntergrationComponent.isDiceTokenGenerator = true;
                         this.toastr.success(data.message, '', {
                             positionClass: 'toast-top-center',
                             timeOut: 3000,
@@ -198,71 +230,11 @@ export class DiceIntergrationComponent implements OnInit {
         this.loading = true;
         this.pageNumber = 1 + event.pageIndex;
         this.pageSize = event.pageSize;
-        if (this.isFilterAction) {
-            this.filterFunction(this.filterForm)
-        } else {
-            const submit = {
-                userId: this.rtsUserId,
-                q: this.selectedQuery,
-                page: this.pageNumber + event.pageIndex,
-                pageSize: event.pageSize,
-                location: this.selectedLocation,
-                sortByDirection: this.sortByDirection,
-            };
-            this.diceService.diceFilterSearch(submit)
-                .subscribe(
-                    data => {
-                        this.ngProgress.done();
-                        this.loading = false;
-                        if (data.success) {
-                            this.candidates = data.diceCandidate.data;
-                            this.diceMetaDataCount = data.diceCandidate.meta.totalCount;
-                            this.candidatesLength = this.candidates.length;
-                        } else {
-                            this.toastr.error(data.message, '', {
-                                positionClass: 'toast-top-center',
-                                timeOut: 3000,
-                            });
-                        }
-                    });
-        }
+        this.filterFunction(this.filterForm);
         return event;
     }
 
-
-    getCandidates(form: FormGroup) {
-        this.loading = true;
-        if (this.isFilterAction) {
-            this.filterFunction(this.filterForm);
-        } else {
-
-            const submit = {
-                userId: this.rtsUserId,
-                q: form.value.query,
-                location: form.value.location,
-                page: this.pageNumber,
-                sortByDirection: this.sortByDirection,
-            };
-            this.diceService.diceSearch(submit)
-                .subscribe(
-                    data => {
-                        this.ngProgress.done();
-                        this.loading = false;
-                        if (data.success) {
-                            this.candidates = data.diceCandidate.data;
-                            this.diceMetaDataCount = data.diceCandidate.meta.totalCount;
-                            this.candidatesLength = this.candidates.length;
-                        } else {
-                            this.toastr.error(data.message, '', {
-                                positionClass: 'toast-top-center',
-                                timeOut: 3000,
-                            });
-                        }
-                    });
-        }
-    }
-
-    candidateFilter(form: FormGroup) {
+    findCandidates(form: FormGroup) {
         this.loading = true;
         this.isFilterAction = true;
         this.filterForm = form;
@@ -273,7 +245,16 @@ export class DiceIntergrationComponent implements OnInit {
         const educationDegree = this.selectedEducationDegree.map(x => x).join(",");
         const workPermit = this.selectedWorkPermit.map(x => x).join(",");
         const employmentType = this.selectedEmploymentType.map(x => x).join(",");
-
+        var minExp: number;
+        var maxExp: number;
+        minExp = form.value.minExperience;
+        maxExp = form.value.maxExperience;       
+        if (form.value.minExperience === null) {
+            minExp = 0;
+        }
+        if (form.value.maxExperience === null) {
+            maxExp = 0;
+        }
         const submit = {
             userId: this.rtsUserId,
             q: this.selectedQuery,
@@ -291,7 +272,7 @@ export class DiceIntergrationComponent implements OnInit {
             willingToRelocate: form.value.relocate,
             hasEmail: form.value.hasEmail,
             hasPhone: form.value.hasPhone,
-            yearsOfExperience: form.value.experience,
+            yearsOfExperience: "[" + minExp.toString() + ' to ' + maxExp.toString() + "]",
             workPermit: workPermit,
             educationDegree: educationDegree,
             employmentType: employmentType,
@@ -299,23 +280,55 @@ export class DiceIntergrationComponent implements OnInit {
             socialProfiles: form.value.socialProfile,
             excludeThirdParty: form.value.excludeThirdParty
         };
-        
-        this.diceService.diceFilterSearch(submit)
-            .subscribe(
-                data => {
-                    this.ngProgress.done();
-                    this.loading = false;
-                    if (data.success) {
-                        this.candidates = data.diceCandidate.data;
-                        this.diceMetaDataCount = data.diceCandidate.meta.totalCount;
-                        this.candidatesLength = this.candidates.length;
-                    } else {
-                        this.toastr.error(data.message, '', {
-                            positionClass: 'toast-top-center',
-                            timeOut: 3000,
-                        });
-                    }
-                });
+
+        if (DiceIntergrationComponent.isDiceTokenGenerator) {
+            this.diceService.diceSearchWithTokenGeneration(submit)
+                .subscribe(
+                    data => {
+                        this.ngProgress.done();
+                        this.loading = false;
+                        if (data.success) {
+                            DiceIntergrationComponent.isDiceTokenGenerator = false;
+                            this.candidates = data.diceCandidate.data;
+                            this.diceMetaDataCount = data.diceCandidate.meta.totalCount;
+                            this.candidatesLength = this.candidates.length;
+                            window.scrollTo({
+                                top: 0,
+                                left: 0,
+                                behavior: 'smooth'
+                            });
+                        } else {
+                            this.toastr.error(data.message, '', {
+                                positionClass: 'toast-top-center',
+                                timeOut: 3000,
+                            });
+                        }
+                    });
+        } else {
+            this.diceService.diceSearchWithOutTokenGeneration(submit)
+                .subscribe(
+                    data => {
+                        this.ngProgress.done();
+                        this.loading = false;
+                        if (data.success) {
+                            DiceIntergrationComponent.isDiceTokenGenerator = false;
+                            this.candidates = data.diceCandidate.data;
+                            this.diceMetaDataCount = data.diceCandidate.meta.totalCount;
+                            this.candidatesLength = this.candidates.length;
+                            window.scrollTo({
+                                top: 0,
+                                left: 0,
+                                behavior: 'smooth'
+                            });
+                        } else {
+                            this.toastr.error(data.message, '', {
+                                positionClass: 'toast-top-center',
+                                timeOut: 3000,
+                            });
+                        }
+                    });
+        }
+
     }
 
     resetForm() {
