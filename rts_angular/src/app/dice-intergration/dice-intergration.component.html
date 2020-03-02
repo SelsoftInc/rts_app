@@ -131,7 +131,7 @@
           <div class="col-12" style="display: inline-flex;">
             <span><input type="number" class="form-input" formControlName="minExperience" placeholder="min" [ngModel]=0 ></span>
             <span style="padding-top: 1.6em; padding-left: 8px;padding-right: 8px;">to</span>
-            <span> <input type="number" class="form-input" formControlName="maxExperience" placeholder="max"  [ngModel]=0></span>
+            <span> <input type="number" class="form-input" formControlName="maxExperience" placeholder="max"  [ngModel]=25></span>
           </div>
         </div>
 
@@ -184,6 +184,7 @@
                   </div>
                   <mat-card-title class="candidate-name">{{candidate.fullName}}
                     <span *ngIf="candidate.currentJobTitle">/ {{candidate.currentJobTitle}}</span>
+                    <span *ngIf="candidate.currentCompany"> @ {{candidate.currentCompany}}</span>
                   </mat-card-title>
 
                   <mat-card-subtitle class="candidate-name slider">
