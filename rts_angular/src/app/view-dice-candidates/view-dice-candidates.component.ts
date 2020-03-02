@@ -28,6 +28,8 @@ export class ViewDiceCandidatesComponent implements OnInit {
   selectedCandidates: any[];
   userDetails: any;
   selectedUser: any;
+  searchString: any;
+  isSearch: boolean;
 
   constructor(
     private loggedUser: LoggedUserService,
@@ -43,6 +45,7 @@ export class ViewDiceCandidatesComponent implements OnInit {
     this.endDate = new Date(Date.now())
     this.currentDate = new Date(Date.now())
     this.selectedUser = 0;
+    this.searchString = '';
   }
 
   ngOnInit() {
@@ -63,6 +66,8 @@ export class ViewDiceCandidatesComponent implements OnInit {
           }
         });
   }
+
+
 
   public getPaginatorData(event: PageEvent): PageEvent {
     this.lowValue = event.pageIndex * event.pageSize;
@@ -101,10 +106,40 @@ export class ViewDiceCandidatesComponent implements OnInit {
       this.selectedCandidates = _.where(this.candidates, { userId: this.selectedUser });
       this.candidatesLength = this.selectedCandidates.length;
     }
-    if (this.selectedUser === 0){
+    if (this.selectedUser === 0) {
       this.selectedCandidates = this.candidates;
       this.candidatesLength = this.selectedCandidates.length;
     }
+  }
+
+  search(value){
+    if (this.searchString === "") {
+      this.isSearch = false;
+    } else {
+      this.isSearch = true;
+    }
+  }
+
+  filterItem() {
+    this.ngProgress.start();
+    const submit = {
+      userId: this.rtsUserId,
+      query: this.searchString
+    };
+
+    this.diceService.searchByNameAndEmail(submit)
+      .subscribe(
+        data => {
+          this.ngProgress.done();
+          if (data.success) {
+            this.candidates = data.diceCandidates;
+            for (const candidate of this.candidates) {
+              candidate.userId = candidate.enteredUser.userId;
+            }
+            this.selectedCandidates = this.candidates;
+            this.candidatesLength = this.selectedCandidates.length;
+          }
+        });
   }
 
 }

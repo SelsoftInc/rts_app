@@ -26,6 +26,7 @@
         <div class="col-4 mt-3">
           <button class="btn btn-sm btn-primary btn-space" (click)="dateFilter();">Show Results</button>
         </div>
+
         <div *ngIf="userRole ==='ADMIN' || userRole === 'TL'  || userRole === 'ACC_MGR'" class="col-2 mt-2">
           <mat-form-field>
             <mat-label>Filter By User</mat-label>
@@ -37,11 +38,21 @@
             </mat-select>
           </mat-form-field>
         </div>
+
       </div>
     </div>
   </div>
+  <div class="row" >
+    <div class="col-6" style="margin-top: 10px;">
+      <input type="text" class="form-control mr-sm-2" placeholder="Search by Candidate" name="searchString"
+        [(ngModel)]="searchString" (input)="search($event.target.value)">
+    </div>
+    <div class="col-4 mt-3">
+      <button *ngIf="isSearch" class="btn btn-sm btn-primary btn-space" (click)="filterItem();">Show Results</button>
+    </div>
+  </div>
 
-  <div class="mat-paginator-container">
+  <div class="mat-paginator-container mt-2" style="border-top: 1px solid #50b2eb;">
     <h4><span style="font-family: Verdana, Geneva, Tahoma, sans-serif;">{{candidatesLength}}</span> Candidates Found
     </h4>
     <mat-paginator [length]="candidatesLength" [pageSize]="10" [pageSizeOptions]="[10, 20, 30]"
@@ -50,7 +61,7 @@
   </div>
 
   <div *ngFor="let candidate of (selectedCandidates | slice: lowValue : highValue)">
-    <mat-card class="card-container mb-2">
+    <mat-card class=" card-container mb-2">
 
       <mat-card-header class="candidate-header mt-4">
 
