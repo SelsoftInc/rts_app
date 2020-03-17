@@ -103,6 +103,7 @@ export class ApiUrl {
     static CreateHoliday = 'rtsTimeSheet/timeSheet/createHoliday';
     static GetHolidays = 'rtsTimeSheet/timeSheet/holidayList';
     static UpcomingLeaveRequest = 'rtsTimeSheet/timeSheet/upcomingLeaveRequest';
+    static GetReport = 'rtsTimeSheet/timeSheet/monthlySheet';
 
     //Dice api
     static AddDice = 'rtsDice/dice/addDiceAccount';

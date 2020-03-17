@@ -8,6 +8,8 @@ import * as moment from 'moment';
 import { UserService } from '../Services/user.service';
 import * as _ from 'underscore';
 import * as XLSX from 'xlsx';
+import { DownloadTimeSheetComponent } from '../download-time-sheet/download-time-sheet.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-timesheet-report',
@@ -39,7 +41,8 @@ export class TimesheetReportComponent implements OnInit {
     private ngProgress: NgProgress,
     private toastr: ToastrService,
     private timeSheetService: TimeSheetService,
-    private userService: UserService
+    private userService: UserService,
+    private dialog: MatDialog
   ) {
     this.rtsUser = JSON.parse(this.loggedUser.loggedUser);
     this.rtsUserId = this.rtsUser.userId;
@@ -123,6 +126,14 @@ export class TimesheetReportComponent implements OnInit {
   }
 
   getTimeSheetReport() {
+    const dialogRef = this.dialog.open(DownloadTimeSheetComponent, {
+      height: '500px',
+      width: '1000px',
+    });
+
+  }
+
+  downloadReport() {
     this.selectedReport = [];
     for (const sheet of this.selectedTimeSheet) {
       this.selectedReport.push({

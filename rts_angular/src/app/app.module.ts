@@ -120,6 +120,7 @@ import { EditDiceComponent } from './edit-dice/edit-dice.component';
 import { DiceRequirementsViewComponent } from './dice-requirements-view/dice-requirements-view.component';
 import { HighlightPipe } from './dice-intergration/ highlight.pipe';
 import { ViewDiceCandidatesComponent } from './view-dice-candidates/view-dice-candidates.component';
+import { DownloadTimeSheetComponent } from './download-time-sheet/download-time-sheet.component';
 
 @NgModule({
   declarations: [
@@ -195,6 +196,7 @@ import { ViewDiceCandidatesComponent } from './view-dice-candidates/view-dice-ca
     EditDiceComponent,
     DiceRequirementsViewComponent,
     ViewDiceCandidatesComponent,
+    DownloadTimeSheetComponent,
   ],
   imports: [
     BrowserModule,
