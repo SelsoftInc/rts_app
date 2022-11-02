@@ -938,7 +938,7 @@
       </div>
 
       <div class="form-btn-container">
-        <button class="btn btn-forms btn-space" type="submit" [disabled]="!myForm.valid">Add Submission</button>
+        <button class="btn btn-forms btn-space" type="submit" [disabled]="isAddSubmissionBtn || !myForm.valid">Add Submission</button>
         <button [routerLink]="[ '/submissions']" class="btn btn-forms btn-space">Cancel</button>
         <!-- <button type="button" class="btn btn-default" (click)="saveFormData(myForm)">Save</button> -->
       </div>

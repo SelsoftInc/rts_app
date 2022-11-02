@@ -66,6 +66,7 @@ export class AddNewSubmissionsComponent implements OnInit {
   diceCandidateReloate: any;
   diceCandidateExperience: any;
   diceCandidateLinkedIn: any;
+  isAddSubmissionBtn: boolean;
   // selectedSkillsText: any;
 
   constructor(
@@ -563,6 +564,8 @@ export class AddNewSubmissionsComponent implements OnInit {
       return false;
     }
     this.ngProgress.start();
+
+    this.isAddSubmissionBtn = true;
 
     if (this.isNewCandidate) {
       this.createNewCandidate(form);
