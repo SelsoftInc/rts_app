@@ -113,7 +113,11 @@ export class AppComponent implements DoCheck, OnDestroy {
     CandidateReportComponent.userDetails = undefined;
     CandidateReportComponent.client = undefined;
     InterviewHistoryComponent.interviewStatus = undefined;
-    SearchCandidatesComponent.skills = undefined;
+    SearchCandidatesComponent.ANDSkill = undefined;
+    SearchCandidatesComponent.ORSkill = undefined;
+    SearchCandidatesComponent.location = undefined;
+    SearchCandidatesComponent.workPermit = undefined;
+    SearchCandidatesComponent.visaStatus = undefined;
     const userId = {
       userId: this.rtsUser.userId,
       autoLogout: false

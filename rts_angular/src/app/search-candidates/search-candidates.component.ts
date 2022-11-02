@@ -32,8 +32,7 @@ export class SearchCandidatesComponent implements OnInit {
   technologies: any;
   rtsUser: any;
   candidateLength: number;
-  rtsCompanyId: any;
-  static skills: any;
+  rtsCompanyId: any;  
   skills: any;
   boldedText: any;
   userRole: any;
@@ -54,6 +53,12 @@ export class SearchCandidatesComponent implements OnInit {
   selectedVisaStatus: any[];
   workPermit: any[];
   selectedWorkPermit: any[];
+
+  public static ANDSkill: any;
+  public static ORSkill:any;
+  public static location:any;
+  public static workPermit:any;
+  public static visaStatus:any;
 
   constructor(
     private requirementService: RequirementsService,
@@ -91,10 +96,14 @@ export class SearchCandidatesComponent implements OnInit {
       { "name": "Canadian Citizen", "value": "canadian citizen" },
       { "name": "TN Permit Holder", "value": "tn permit holder" },
     ]
-    // if (SearchCandidatesComponent.skills !== undefined) {
-    //   this.selectedSkills = SearchCandidatesComponent.skills;
-    //   this.getTech();
-    // }
+    if (SearchCandidatesComponent.ANDSkill !== undefined) {
+     this.ANDSkills = SearchCandidatesComponent.ANDSkill;
+     this.ORSkills = SearchCandidatesComponent.ORSkill;
+     this.selectedLocation = SearchCandidatesComponent.location;
+     this.selectedWorkPermit = SearchCandidatesComponent.workPermit;
+     this.selectedVisaStatus = SearchCandidatesComponent.visaStatus;
+      this.getTech();
+    }
 
   }
 
@@ -141,15 +150,19 @@ export class SearchCandidatesComponent implements OnInit {
   }
 
   getTech() {
-    // SearchCandidatesComponent.skills = this.selectedSkills;
+    SearchCandidatesComponent.ANDSkill = this.ANDSkills;
+    SearchCandidatesComponent.ORSkill = this.ORSkills;
+    SearchCandidatesComponent.location = this.selectedLocation;
+    SearchCandidatesComponent.workPermit = this.selectedWorkPermit;
+    SearchCandidatesComponent.visaStatus = this.selectedVisaStatus;
 
     if (this.ANDSkills.length > 0 || this.ORSkills.length > 0) {
-    this.ngProgress.start();
+      this.ngProgress.start();
 
       var selectedAND = [];
       var selectedOR = [];
       var skills = [];
-      var location=[];
+      var location = [];
       for (const skill of this.ANDSkills) {
         selectedAND.push(skill.name);
         skills.push(skill.name);

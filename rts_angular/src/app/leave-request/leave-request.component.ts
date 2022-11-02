@@ -87,7 +87,7 @@ export class LeaveRequestComponent implements OnInit {
     })
     this.getAllUser();
     this.getLeaveRequests();
-    this.mailToAddress.push('pushban@selsoftinc.com', 'murali@selsoftinc.com', 'ramesh.iyengar@selsoftinc.com');
+    this.mailToAddress.push('pushban@selsoftinc.com', 'murali@selsoftinc.com', 'ramesh.iyengar@selsoftinc.com','vanaja@selsoftinc.com');
   }
 
   getLeaveRequests() {
