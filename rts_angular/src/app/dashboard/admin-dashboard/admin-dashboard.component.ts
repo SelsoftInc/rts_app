@@ -199,7 +199,16 @@ export class AdminDashboardComponent implements OnInit {
                 }
               }
             }
+            for(const recruiter of this.recruiterComparison){
+              if(recruiter.userId === 33){
+                recruiter.name = "Sridhar Rambabu"
+              }
+              if(recruiter.userId === 58){
+                recruiter.name = "Sridhar Dhandapani"
+              }
+            }
             this.sortedRecruiterComparationData = this.recruiterComparison.slice();
+            console.log("recruiter table",this.sortedRecruiterComparationData)
           }
         });
   }

@@ -474,7 +474,7 @@ export class AddNewSubmissionsComponent implements OnInit {
               if (!skill.expYear || skill.expYear === "") {
                 skill.expYear = null;
               }
-            } 
+            }
             if (this.selectedSkills.length === 0) {
               controlSkill.push(this.initSkills());
             }
@@ -601,12 +601,14 @@ export class AddNewSubmissionsComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.isAddSubmissionBtn = false;
             this.router.navigate(['submissions']);
           } else {
             this.toastr.error(data.message, '', {
               positionClass: 'toast-top-center',
               timeOut: 3000,
             });
+            this.isAddSubmissionBtn = false;
             this.ngProgress.done();
           }
         });
@@ -614,7 +616,7 @@ export class AddNewSubmissionsComponent implements OnInit {
 
   createNewCandidate(form: FormGroup) {
 
-   
+
     var skillsWithExp = [];
     for (const skill of form.value.skillsExperience) {
       if (skill.skillId.companyId) {
@@ -733,6 +735,7 @@ export class AddNewSubmissionsComponent implements OnInit {
             positionClass: 'toast-top-center',
             timeOut: 3000,
           });
+          this.isAddSubmissionBtn = false;
           this.ngProgress.done();
         }
       });
