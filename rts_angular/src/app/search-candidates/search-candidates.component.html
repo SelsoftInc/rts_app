@@ -47,8 +47,7 @@
       <button class="btn btn-sm btn-primary" (click)="getTech();">Search</button>
     </div>
     <div class="col-3">
-      <button  class="btn btn-sm btn-primary"
-        (click)="sendMail();">Send Group
+      <button class="btn btn-sm btn-primary" (click)="sendMail();">Send Group
         Email</button>
     </div>
   </div>
@@ -65,7 +64,7 @@
     <mat-expansion-panel *ngFor="let candidate of (diceCandidates | slice: lowValue : highValue)">
       <mat-expansion-panel-header>
         <mat-panel-title class="candidate-name">
-          {{candidate.fullName}}  @ {{candidate.workPermits[0]}}
+          {{candidate.fullName}} @ {{candidate.workPermits[0]}}
         </mat-panel-title>
         <mat-panel-description>
           <span *ngIf="candidate.city">
@@ -101,9 +100,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let candidate of (localCandidates | slice: lowValue : highValue)"
-        [routerLink]="['/edit-candidate',candidate.candidateId]">
-        <td>{{candidate.name}}</td>
+      <tr *ngFor="let candidate of (localCandidates | slice: lowValue : highValue)">
+        <td><a style="color: black;" [routerLink]="['/edit-candidate',candidate.candidateId]"
+            target="_blank">{{candidate.name}}</a></td>
         <td><span *ngFor="let skill of candidate.skills">
             <span>{{skill.name}}</span>
             <span *ngIf="candidate.skills.length > 1">,</span>

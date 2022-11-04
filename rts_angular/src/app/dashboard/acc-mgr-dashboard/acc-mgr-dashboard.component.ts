@@ -186,6 +186,12 @@ export class AccMgrDashboardComponent implements OnInit {
               count.extra = {
                 userId: count.userId
               };
+              if(count.userId === 33){
+                count.name = "Sridhar Rambabu"
+              }
+              if(count.userId === 58){
+                count.name = "Sridhar Dhandapani"
+              }
             }
           }
         });
