@@ -563,9 +563,22 @@ export class AddNewSubmissionsComponent implements OnInit {
       });
       return false;
     }
+   
+    this.isAddSubmissionBtn = true;
+
+    for (const submission of this.selectRequiement.submissions) {
+      if (_.isEqual(submission.candidate.candidateId, this.selectedCandidate.candidateId)) {
+        this.toastr.error('Candidate already exists in this requirement', '', {
+          positionClass: 'toast-top-center',
+          timeOut: 3000,
+        });
+        return false;
+
+      }
+    }
+
     this.ngProgress.start();
 
-    this.isAddSubmissionBtn = true;
 
     if (this.isNewCandidate) {
       this.createNewCandidate(form);
