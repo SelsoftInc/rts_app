@@ -566,16 +566,7 @@ export class AddNewSubmissionsComponent implements OnInit {
    
     this.isAddSubmissionBtn = true;
 
-    for (const submission of this.selectRequiement.submissions) {
-      if (_.isEqual(submission.candidate.candidateId, this.selectedCandidate.candidateId)) {
-        this.toastr.error('Candidate already exists in this requirement', '', {
-          positionClass: 'toast-top-center',
-          timeOut: 3000,
-        });
-        return false;
-
-      }
-    }
+   
 
     this.ngProgress.start();
 
@@ -583,12 +574,27 @@ export class AddNewSubmissionsComponent implements OnInit {
     if (this.isNewCandidate) {
       this.createNewCandidate(form);
     } else {
+      for (const submission of this.selectRequiement.submissions) {
+
+        if (_.isEqual(submission.candidate.candidateId, this.selectedCandidate.candidateId)) {
+  
+          this.toastr.error('Candidate already exists in this requirement', '', {
+            positionClass: 'toast-top-center',
+            timeOut: 3000,
+          });
+          this.isAddSubmissionBtn = false;
+          this.ngProgress.done();
+          return false;
+  
+        }
+      }
       this.SubmissionWithCandidate(form, this.selectedCandidate.candidateId);
     }
 
   }
 
   SubmissionWithCandidate(form: FormGroup, candidateId: any) {
+  
 
     const submission = {
       requirementId: parseInt(form.value.requirements),
