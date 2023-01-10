@@ -71,6 +71,8 @@ export class LeaveRequestComponent implements OnInit {
     this.date.setMonth(this.currentDate.getMonth());
     this.date.setDate(1);
     this.isLeaveRequest = false;
+    this.selectedMailId = [];
+    this.selectedMailId.push({ email: 'murali@selsoftinc.com', name: "Murali" }, { email: 'ramesh.iyengar@selsoftinc.com', name: "Ramesh Iyengar" }, { email: 'vanaja@selsoftinc.com', name: "Vanaja" });
     // this.casualLeaveCount= 12;
     // this.sickLeaveCount=6;
   }
@@ -85,9 +87,10 @@ export class LeaveRequestComponent implements OnInit {
       leaveType: [''],
       selectUser: ['']
     })
-    this.getAllUser();
+    // this.getAllUser();
     this.getLeaveRequests();
-    this.mailToAddress.push('pushban@selsoftinc.com', 'murali@selsoftinc.com', 'ramesh.iyengar@selsoftinc.com','vanaja@selsoftinc.com');
+    this.mailToAddress.push('murali@selsoftinc.com', 'ramesh.iyengar@selsoftinc.com', 'vanaja@selsoftinc.com');
+    
   }
 
   getLeaveRequests() {
@@ -126,6 +129,7 @@ export class LeaveRequestComponent implements OnInit {
             for (const user of data.users) {
               if (user.role === 'ADMIN' || user.role === 'ACC_MGR' || user.role === 'HR_MANAGER') {
                 this.selectedMailId.push({ email: user.email, name: user.firstName + ' ' + user.lastName });
+
               }
             }
 

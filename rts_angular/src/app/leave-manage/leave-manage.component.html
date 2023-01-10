@@ -33,7 +33,7 @@
         <button class="btn btn-sm btn-primary btn-bottom" (click)="getHolidays();">View More</button>
       </div>
       <div class="col-4" style="height: 16em;">
-        <h4 class="candidate-list">Recent Transcations</h4>
+        <h4 class="candidate-list">Recent Transactions</h4>
         <mat-list role="list" *ngFor="let request of leaveRequests; let i = index">
           <mat-list-item role="listitem" *ngIf="i < 3">
             {{request.daySheet.dateId}}
