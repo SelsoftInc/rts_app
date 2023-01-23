@@ -50,14 +50,16 @@
                 <th>Interviewed</th>
                 <th>Rejections</th>
                 <th>Selected</th>
-                <th mat-sort-header="submittedPercentage">Submitted Percentage</th>
+                <th>Total Submissions</th>
+                <!-- <th mat-sort-header="submittedPercentage">Submitted Percentage</th> -->
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let recruiter of sortedRecruiterComparationData">
                 <td>{{recruiter.name}}</td>
                 <td *ngFor="let series of recruiter.series">{{series.value}}</td>
-                <td>{{recruiter.submittedPercentage | number:'1.0-0'}} %</td>
+                <td>{{recruiter.value}}</td>
+                <!-- <td>{{recruiter.submittedPercentage | number:'1.0-0'}} %</td> -->
               </tr>
             </tbody>
           </table>
