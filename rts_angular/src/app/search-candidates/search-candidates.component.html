@@ -71,6 +71,9 @@
             <i class="fa fa-map-marker pl-2 pr-2" style="font-size:17px"> </i>{{candidate.locations[0]}}
           </span>
         </mat-panel-description>
+        <a style="text-decoration: none; float: right; margin-right: 10px;" target="_blank"
+          [routerLink]="['/dice-detail-view',candidate.diceId]">
+          <button mat-button type="button"><b style="letter-spacing: 1.1px;">VIEW</b></button></a>
       </mat-expansion-panel-header>
 
       <mat-grid-list class="grid-list" cols="5" rowHeight="7:1">
@@ -78,6 +81,8 @@
           <span [innerHTML]="tech  | highlight:selectedQuery">{{tech}}</span>
         </mat-grid-tile>
       </mat-grid-list>
+
+
     </mat-expansion-panel>
   </mat-accordion>
 
@@ -101,8 +106,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let candidate of (localCandidates | slice: lowValue : highValue)">
-        <td><a style="color: black;" [routerLink]="['/edit-candidate',candidate.candidateId]"
-            target="_blank">{{candidate.name}}</a></td>
+        <td><a [routerLink]="['/edit-candidate',candidate.candidateId]" target="_blank">{{candidate.name}}</a></td>
         <td><span *ngFor="let skill of candidate.skills">
             <span>{{skill.name}}</span>
             <span *ngIf="candidate.skills.length > 1">,</span>

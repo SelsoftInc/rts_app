@@ -38,8 +38,10 @@
     position: absolute;
     right: 0px;
     width: 350px;
-    padding: 10px;
+    /* padding: 10px; */
     border-left: 1px solid #50b2eb;
+    padding-left: 10px;
+    padding-top: 10px;
 }
 
 

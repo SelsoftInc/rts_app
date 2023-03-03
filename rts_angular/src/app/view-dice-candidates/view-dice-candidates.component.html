@@ -93,7 +93,8 @@
         </mat-card-subtitle>
         <div *ngIf="candidate.enteredUser" class="user-details">
           <strong>{{candidate.enteredUser.firstName}}</strong> <br />
-          <span style="font-size: 15px;">{{candidate.enteredUser.role}}</span>
+          <span style="font-size: 15px;">{{candidate.enteredUser.role}}</span> <br />
+          <span style="font-size: 15px;">{{candidate.enteredOn | date:'MMM d, y'}}</span>
           <a style="text-decoration: none; " target="_blank" [routerLink]="['/dice-detail-view',candidate.diceId]">
             <button mat-button type="button" style="margin-left: 150px; float: right;"><b
                 style="letter-spacing: 1.1px;">VIEW</b></button></a>
