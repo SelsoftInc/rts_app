@@ -32,12 +32,12 @@ export class SearchCandidatesComponent implements OnInit {
   technologies: any;
   rtsUser: any;
   candidateLength: number;
-  rtsCompanyId: any;  
+  rtsCompanyId: any;
   skills: any;
   boldedText: any;
   userRole: any;
-  ANDSkills: any[];
-  ORSkills: any[];
+  ANDSkills: any;
+  ORSkills: any;
   addCustom = (item) => ({ name: item });
   skill: any;
   localCandidates: any;
@@ -55,10 +55,10 @@ export class SearchCandidatesComponent implements OnInit {
   selectedWorkPermit: any[];
 
   public static ANDSkill: any;
-  public static ORSkill:any;
-  public static location:any;
-  public static workPermit:any;
-  public static visaStatus:any;
+  public static ORSkill: any;
+  public static location: any;
+  public static workPermit: any;
+  public static visaStatus: any;
 
   constructor(
     private requirementService: RequirementsService,
@@ -75,15 +75,15 @@ export class SearchCandidatesComponent implements OnInit {
     this.rtsCompanyId = this.rtsUser.companyId;
     this.userRole = this.rtsUser.role;
     this.selectedSkills = [];
-    this.ANDSkills = [];
-    this.ORSkills = [];
+    this.ANDSkills = "";
+    this.ORSkills = "";
     this.boldedText = [];
     this.selectedLocation = [];
     this.location = [];
   }
 
   ngOnInit() {
-    this.ngProgress.start();
+    // this.ngProgress.start();
     this.getAllSkills();
     this.getCommonDetails();
     this.workPermit = [
@@ -97,11 +97,11 @@ export class SearchCandidatesComponent implements OnInit {
       { "name": "TN Permit Holder", "value": "tn permit holder" },
     ]
     if (SearchCandidatesComponent.ANDSkill !== undefined) {
-     this.ANDSkills = SearchCandidatesComponent.ANDSkill;
-     this.ORSkills = SearchCandidatesComponent.ORSkill;
-     this.selectedLocation = SearchCandidatesComponent.location;
-     this.selectedWorkPermit = SearchCandidatesComponent.workPermit;
-     this.selectedVisaStatus = SearchCandidatesComponent.visaStatus;
+      this.ANDSkills = SearchCandidatesComponent.ANDSkill;
+      this.ORSkills = SearchCandidatesComponent.ORSkill;
+      this.selectedLocation = SearchCandidatesComponent.location;
+      this.selectedWorkPermit = SearchCandidatesComponent.workPermit;
+      this.selectedVisaStatus = SearchCandidatesComponent.visaStatus;
       this.getTech();
     }
 
@@ -115,6 +115,7 @@ export class SearchCandidatesComponent implements OnInit {
     this.requirementService.commonDetails(companyId)
       .subscribe(
         data => {
+          // this.ngProgress.done();
           if (data.success) {
             this.immigration = data.visaStatus;
           }
@@ -130,7 +131,7 @@ export class SearchCandidatesComponent implements OnInit {
     this.requirementService.getAllSkills(companyId)
       .subscribe(
         data => {
-          this.ngProgress.done();
+          // this.ngProgress.done();
           if (data.success) {
             this.skills = data.skills;
             this.skill = data.skills;
@@ -156,54 +157,57 @@ export class SearchCandidatesComponent implements OnInit {
     SearchCandidatesComponent.workPermit = this.selectedWorkPermit;
     SearchCandidatesComponent.visaStatus = this.selectedVisaStatus;
 
-    if (this.ANDSkills.length > 0 || this.ORSkills.length > 0) {
-      this.ngProgress.start();
+    // if (this.ANDSkills || this.ORSkills) {
+    this.ngProgress.start();
 
-      var selectedAND = [];
-      var selectedOR = [];
-      var skills = [];
-      var location = [];
-      for (const skill of this.ANDSkills) {
-        selectedAND.push(skill.name);
-        skills.push(skill.name);
-      }
-      for (const skill of this.ORSkills) {
-        selectedOR.push(skill.name);
-        skills.push(skill.name);
-      }
-      for (const local of this.selectedLocation) {
-        location.push(local.name.toLowerCase());
-      }
-      this.selectedQuery = skills.toString();
-      const submit = {
-        userId: this.rtsUserId,
-        skill: {
-          and: selectedAND,
-          or: selectedOR,
-          location: location,
-          workPermit: this.selectedWorkPermit
-        },
-        visaStatus: this.selectedVisaStatus
-      }
-
-      this.candidateService.getCandidateByTechnology(submit)
-        .subscribe(
-          data => {
-            this.ngProgress.done();
-            if (data.success) {
-              this.localCandidates = data.candidates;
-              this.diceCandidates = data.diceCandidates;
-              this.localCandidateLength = this.localCandidates.length;
-              this.diceCandidateLength = this.diceCandidates.length;
-            } else {
-              this.toastr.error(data.message, '', {
-                positionClass: 'toast-top-center',
-                timeOut: 3000,
-
-              });
-            }
-          });
+    var selectedAND = [];
+    var selectedOR = [];
+    var skills = [];
+    var location = [];
+    // for (const skill of this.ANDSkills) {
+    //   selectedAND.push(skill.name);
+    //   skills.push(skill.name);
+    // }
+    // for (const skill of this.ORSkills) {
+    //   selectedOR.push(skill.name);
+    //   skills.push(skill.name);
+    // }
+    // for (const local of this.selectedLocation) {
+    //   location.push(local.name.toLowerCase());
+    // }
+    skills.push(this.ANDSkills,this.ORSkills)
+    this.selectedQuery = skills.toString();
+    const submit = {
+      userId: this.rtsUserId,
+      skill: {
+        //and: selectedAND,
+        // or: selectedOR,
+        and: [this.ANDSkills.toLowerCase()],
+        or: [this.ORSkills.toLowerCase()],
+        location: location,
+        workPermit: this.selectedWorkPermit
+      },
+      visaStatus: this.selectedVisaStatus
     }
+
+    this.candidateService.getCandidateByTechnology(submit)
+      .subscribe(
+        data => {
+          this.ngProgress.done();
+          if (data.success) {
+            this.localCandidates = data.candidates;
+            this.diceCandidates = data.diceCandidates;
+            this.localCandidateLength = this.localCandidates.length;
+            this.diceCandidateLength = this.diceCandidates.length;
+          } else {
+            this.toastr.error(data.message, '', {
+              positionClass: 'toast-top-center',
+              timeOut: 3000,
+
+            });
+          }
+        });
+    // }
   }
 
   removeEmail() {

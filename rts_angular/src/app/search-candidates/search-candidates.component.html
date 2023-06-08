@@ -18,14 +18,16 @@
 <div class="utility-container">
   <div class="row mb-4">
     <div class="col-3">
-      <ng-select [items]="skills" bindLabel="name" [multiple]="true" placeholder="OR Search" [addTag]="addCustom"
+      <!-- <ng-select [items]="skills" bindLabel="name" [multiple]="true" placeholder="OR Search" [addTag]="addCustom"
         [(ngModel)]="ORSkills">
-      </ng-select>
+      </ng-select> -->
+      <input type="text" class="input" [(ngModel)]="ORSkills" placeholder="OR Search" >
     </div>
     <div class="col-3">
-      <ng-select [items]="skills" bindLabel="name" [multiple]="true" placeholder="AND Search" [addTag]="addCustom"
+      <!-- <ng-select [items]="skills" bindLabel="name" [multiple]="true" placeholder="AND Search" [addTag]="addCustom"
         [(ngModel)]="ANDSkills">
-      </ng-select>
+      </ng-select> -->
+      <input type="text" class="input" [(ngModel)]="ANDSkills"  placeholder="AND Search">
     </div>
     <div class="col-3">
       <ng-select [items]="location" bindLabel="name" [multiple]="true" placeholder="Location" [addTag]="addCustom"
