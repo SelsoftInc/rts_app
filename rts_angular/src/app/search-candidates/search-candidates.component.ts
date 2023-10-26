@@ -160,10 +160,12 @@ export class SearchCandidatesComponent implements OnInit {
     // if (this.ANDSkills || this.ORSkills) {
     this.ngProgress.start();
 
-    var selectedAND = [];
-    var selectedOR = [];
+    var selectedAND;
+    var selectedOR;
     var skills = [];
     var location = [];
+    var AND;
+    var OR;
     // for (const skill of this.ANDSkills) {
     //   selectedAND.push(skill.name);
     //   skills.push(skill.name);
@@ -175,21 +177,28 @@ export class SearchCandidatesComponent implements OnInit {
     // for (const local of this.selectedLocation) {
     //   location.push(local.name.toLowerCase());
     // }
-    skills.push(this.ANDSkills,this.ORSkills)
+    skills.push(this.ANDSkills, this.ORSkills)
     this.selectedQuery = skills.toString();
+    if (this.ANDSkills != "") {
+      selectedAND = this.ANDSkills.toLowerCase();
+      AND = selectedAND.split(",")
+    }
+    if (this.ORSkills != " ") {
+      selectedOR = this.ORSkills.toLowerCase();
+      OR = selectedOR.split(",");
+    }
     const submit = {
       userId: this.rtsUserId,
       skill: {
-        //and: selectedAND,
-        // or: selectedOR,
-        and: [this.ANDSkills.toLowerCase()],
-        or: [this.ORSkills.toLowerCase()],
+        // and: selectedAND.split(","),
+        // or: selectedOR.split(","),
+        and: AND,
+        or: OR,
         location: location,
         workPermit: this.selectedWorkPermit
       },
       visaStatus: this.selectedVisaStatus
     }
-
     this.candidateService.getCandidateByTechnology(submit)
       .subscribe(
         data => {

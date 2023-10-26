@@ -94,7 +94,11 @@ export class DiceDetailViewComponent implements OnInit {
           if (data.success) {
             this.selectedCandidate = data.diceProfile;
             this.selectedResume = data.resume;
-            this.candidateResume = 'data:' + this.selectedResume.contentType + ';base64,' + this.selectedResume.resumeData;
+            if (this.selectedResume.contentType === 'application/octet-stream') {
+              this.candidateResume = 'data:application/pdf;base64,' + this.selectedResume.resumeData;
+            } else {
+              this.candidateResume = 'data:' + this.selectedResume.contentType + ';base64,' + this.selectedResume.resumeData;
+            }
             this.selectedUsage = data.usage;
             this.inLocalData = data.inLocal;
           }

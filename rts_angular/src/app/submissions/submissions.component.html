@@ -24,7 +24,8 @@
 </div>
 <h2 class="main-title">Submissions
   <button *ngIf="userRole === 'ADMIN' && submissionsLength > 0" mat-button type="button"
-    style="margin-right: 25px; float: right; color: #1685c5;" (click)="generateReport();"><b style="letter-spacing: 1.1px;">GENERATE
+    style="margin-right: 25px; float: right; color: #1685c5;" (click)="generateReport();"><b
+      style="letter-spacing: 1.1px;">GENERATE
       REPORT</b></button>
 </h2>
 <div class="utility-container">
@@ -67,6 +68,7 @@
             <select class="form-control" (change)="selectStatus($event.target.value)" [(ngModel)]="status">
               <option value="" selected>Select</option>
               <option value="selectAll">Select All</option>
+              <option value="interviewed">Interviewed</option>
               <option *ngFor="let status of submissionStatus" value="{{status.statusId}}">{{status.statusName}}</option>
             </select>
           </div>

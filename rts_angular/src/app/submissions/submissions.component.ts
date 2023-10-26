@@ -333,6 +333,27 @@ export class SubmissionsComponent implements OnInit {
             }
             this.selectedRequirementsDetails(this.selectedRequirements);
         }
+        if(event === 'interviewed'){
+            this.selectedRequirements = [];
+            for (const require of this.requirements) {
+                const InterviewRejectedSubmissions = _.where(require.submissions, { statusId: 11 });
+                const InterviewRescheduledSubmissions = _.where(require.submissions, { statusId: 10 });
+                const InterviewScheduledSubmissions = _.where(require.submissions, { statusId: 9 });
+                if (InterviewRejectedSubmissions.length !== 0) {
+                    require.filteredSubmissions = InterviewRejectedSubmissions;
+                    this.selectedRequirements.push(require);
+                }
+                if (InterviewRescheduledSubmissions.length !== 0) {
+                    require.filteredSubmissions = InterviewRescheduledSubmissions;
+                    this.selectedRequirements.push(require);
+                }
+                if (InterviewScheduledSubmissions.length !== 0) {
+                    require.filteredSubmissions = InterviewScheduledSubmissions;
+                    this.selectedRequirements.push(require);
+                }
+            }
+            this.selectedRequirementsDetails(this.selectedRequirements);
+        }
     }
 
     selectTeam(event) {
