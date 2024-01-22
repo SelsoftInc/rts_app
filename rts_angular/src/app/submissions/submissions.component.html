@@ -165,7 +165,6 @@
           <tbody>
             <tr *ngFor="let submission of sub.filteredSubmissions"
               [routerLink]="['/edit-submission', submission.submissionId]">
-              
               <td>{{submission.candidate.name}}</td>
               <td>{{submission.candidate.technology[0].technologyName}}</td>
               <td>{{submission.candidate.availability}}</td>
@@ -173,7 +172,7 @@
               <td>{{submission.submissionStatus.statusName}}</td>
               <td *ngIf="submission.submittedUser">{{submission.submittedUser.firstName}}
                 {{submission.submittedUser.lastName}}</td>
-                <td>{{submission.submissionOn | date: 'MMM d, y, h:mm a'}}</td>
+              <td>{{submission.submissionOn | date: 'MMM d, y, h:mm a'}}</td>
             </tr>
           </tbody>
         </table>
