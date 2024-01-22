@@ -146,24 +146,26 @@
             <span class="meta-info-content"
               *ngIf="(sub.allocationUserId === '' || sub.allocationUserId === undefined) && (sub.team !== undefined)">{{sub.team.name}}</span>
           </span>
+          <span class="block-header-label">Created On: </span>
+          <span class="meta-info-content">{{sub.createdOn | date : 'MMM d, y, h:mm a'}}</span>
         </div>
 
         <table class="table table-bordered table-sm table-hover">
           <thead class="table-header">
             <tr>
-              <th>Created Date:</th>
               <th>Candidate Name</th>
               <th>Technology</th>
               <th>Availability</th>
               <th>Work Location</th>
               <th>Status</th>
               <th>Submitted By</th>
+              <th>Submitted On:</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let submission of sub.filteredSubmissions"
               [routerLink]="['/edit-submission', submission.submissionId]">
-              <td>{{submission.submissionOn | date: 'MMM d, y'}}</td>
+              
               <td>{{submission.candidate.name}}</td>
               <td>{{submission.candidate.technology[0].technologyName}}</td>
               <td>{{submission.candidate.availability}}</td>
@@ -171,6 +173,7 @@
               <td>{{submission.submissionStatus.statusName}}</td>
               <td *ngIf="submission.submittedUser">{{submission.submittedUser.firstName}}
                 {{submission.submittedUser.lastName}}</td>
+                <td>{{submission.submissionOn | date: 'MMM d, y, h:mm a'}}</td>
             </tr>
           </tbody>
         </table>
